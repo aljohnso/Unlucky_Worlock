@@ -1,0 +1,22 @@
+.banner{
+    padding: 0 !important;
+    margin: 0 !important;
+    background: url(../static/Images/AlasdairClimbing.jpg);
+    background-size: cover;
+    color: white;
+    text-indent: 50px; 
+}
+.navbar-default{
+   padding: 0 !important;
+   margin: 0 !important;
+}
+.sidebar{
+    position: absolute;
+    height: 100%;   
+}
+.banner{
+    float: right;
+}
+.content{
+    float: right;
+}
