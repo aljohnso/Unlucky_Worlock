@@ -5,6 +5,7 @@
     background-size: cover;
     color: white;
     text-indent: 50px; 
+    float: right;
 }
 .navbar-default{
    padding: 0 !important;
@@ -13,9 +14,6 @@
 .sidebar{
     position: absolute;
     height: 100%;   
-}
-.banner{
-    float: right;
 }
 .content{
     float: right;
