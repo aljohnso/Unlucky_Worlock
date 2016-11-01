@@ -20,8 +20,13 @@ def registration():
 application.add_url_rule('/form', 'forms', registration, methods=['GET','POST'])#server interactions
 
 #http://stackoverflow.com/questions/19794695/flask-python-buttons
+List_of_Trips = {}
 def POAMain():
     Trip = {}
+    Person = {}
+    return render_template('POACreateTrip.html')
+application.add_url_rule('/POA', 'POA', POAMain, methods=['GET','POST'])    
+
 
 
 
