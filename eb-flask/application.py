@@ -20,6 +20,7 @@ def registration():
 application.add_url_rule('/form', 'forms', registration, methods=['GET','POST'])#server interactions
 
 #http://stackoverflow.com/questions/19794695/flask-python-buttons
+#http://stackoverflow.com/questions/33743658/flask-how-to-update-html-table-with-data-from-sqlite-on-homepage-after-data-are
 List_of_Trips = {}
 def POAMain():
     Trip = {}
