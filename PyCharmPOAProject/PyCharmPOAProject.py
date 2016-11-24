@@ -32,7 +32,7 @@ def show_entries():
     return render_template("POACreateTrip.html", entries=entries)
 
 
-@app.route("trips/<TripKey>")
+@app.route("/trips/<TripKey>")
 def show_trip(TripKey):
     """
     :param TripKey: The name of the trip
