@@ -40,9 +40,9 @@ def show_trip(TripKey):
     """
     db = get_db()
     DBComand = 'select Trip_Name, Trip_Capacity, Trip_Info, Trip_Participants from Trips WHERE id=' + TripKey
-    cur = db.execute(DBComand)#fix this line
+    #DBComand constructs the SQLite3 request for the DB
+    cur = db.execute(DBComand)
     tripDetails = cur.fetchall()
-    print(tripDetails)
     return render_template("TripPage.html", info=tripDetails[0])
 
 
