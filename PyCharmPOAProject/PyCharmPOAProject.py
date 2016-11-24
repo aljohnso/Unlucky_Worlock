@@ -26,14 +26,24 @@ def connect_db():
 
 @app.route('/')
 def show_entries():
-    print("loading")
     db = get_db()
-    print("Got DB")
     cur = db.execute('select Trip_Name, Trip_Capacity, Trip_Info, Trip_Participants from  Trips order by id desc')
-    print("got cur")
     entries = cur.fetchall()
-    print("all feched")
     return render_template("POACreateTrip.html", entries=entries)
+
+
+@app.route("/trips/<TripKey>")
+def show_trip(TripKey):
+    """
+    :param TripKey: The name of the trip
+    :return: renders template of the selected trip with detailed information
+    """
+    db = get_db()
+    DBComand = 'select Trip_Name, Trip_Capacity, Trip_Info, Trip_Participants from Trips WHERE id=' + TripKey
+    #DBComand constructs the SQLite3 request for the DB
+    cur = db.execute(DBComand)
+    tripDetails = cur.fetchall()
+    return render_template("TripPage.html", info=tripDetails[0])
 
 
 @app.cli.command('initdb')
