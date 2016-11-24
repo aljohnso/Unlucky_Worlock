@@ -32,27 +32,27 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="PyCharmPOAProject.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PyCharmPOAProject.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PyCharmPOAProject.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+            <state relative-caret-position="17">
+              <caret line="84" column="13" selection-start-line="84" selection-start-column="13" selection-end-line="84" selection-end-column="13" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
-                <marker date="1479970635937" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
-                <marker date="1479970635937" expanded="true" signature="1345:1427" ph="select * fro... Trips" />
-                <marker date="1479970635937" expanded="true" signature="2165:2259" ph="insert into Trips... " />
-                <marker date="1479970635937" expanded="true" signature="3694:3742" ph="select title... entries" />
+                <marker date="1479986835647" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
+                <marker date="1479986835647" expanded="true" signature="1346:1428" ph="select * fro... Trips" />
+                <marker date="1479986835647" expanded="true" signature="2166:2260" ph="insert into Trips... " />
+                <marker date="1479986835647" expanded="true" signature="3695:3743" ph="select title... entries" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ApplicationTests.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ApplicationTests.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Tests/ApplicationTests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="9" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
+            <state relative-caret-position="136">
+              <caret line="8" column="81" selection-start-line="8" selection-start-column="81" selection-end-line="8" selection-end-column="81" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -127,11 +127,11 @@
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/8185241e-a15f-44ee-b898-1426433192b1/console.sql" />
         <option value="$PROJECT_DIR$/ApplicationDataManger.sql" />
         <option value="$PROJECT_DIR$/templates/TripPage.html" />
-        <option value="$PROJECT_DIR$/PyCharmPOAProject.py" />
         <option value="$PROJECT_DIR$/requirments.txt" />
         <option value="$PROJECT_DIR$/Tests/DatabaseTests.py" />
         <option value="$PROJECT_DIR$/Tests/UserTests.py" />
         <option value="$PROJECT_DIR$/Tests/ApplicationTests.py" />
+        <option value="$PROJECT_DIR$/PyCharmPOAProject.py" />
       </list>
     </option>
   </component>
@@ -490,7 +490,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3872549" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20770878" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32189542" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32189542" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3774584" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1603631" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -556,10 +556,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <marker date="1479970635937" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
-            <marker date="1479970635937" expanded="true" signature="1345:1427" ph="select * fro... Trips" />
-            <marker date="1479970635937" expanded="true" signature="2165:2259" ph="insert into Trips... " />
-            <marker date="1479970635937" expanded="true" signature="3694:3742" ph="select title... entries" />
+            <marker date="1479986835647" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
+            <marker date="1479986835647" expanded="true" signature="1346:1428" ph="select * fro... Trips" />
+            <marker date="1479986835647" expanded="true" signature="2166:2260" ph="insert into Trips... " />
+            <marker date="1479986835647" expanded="true" signature="3695:3743" ph="select title... entries" />
           </folding>
         </state>
       </provider>
@@ -570,10 +570,10 @@
           <caret line="74" column="29" selection-start-line="74" selection-start-column="29" selection-end-line="74" selection-end-column="29" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <marker date="1479970635937" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
-            <marker date="1479970635937" expanded="true" signature="1345:1427" ph="select * fro... Trips" />
-            <marker date="1479970635937" expanded="true" signature="2165:2259" ph="insert into Trips... " />
-            <marker date="1479970635937" expanded="true" signature="3694:3742" ph="select title... entries" />
+            <marker date="1479986835647" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
+            <marker date="1479986835647" expanded="true" signature="1346:1428" ph="select * fro... Trips" />
+            <marker date="1479986835647" expanded="true" signature="2166:2260" ph="insert into Trips... " />
+            <marker date="1479986835647" expanded="true" signature="3695:3743" ph="select title... entries" />
           </folding>
         </state>
       </provider>
@@ -594,10 +594,10 @@
           <caret line="68" column="48" selection-start-line="68" selection-start-column="48" selection-end-line="68" selection-end-column="48" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <marker date="1479970635937" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
-            <marker date="1479970635937" expanded="true" signature="1345:1427" ph="select * fro... Trips" />
-            <marker date="1479970635937" expanded="true" signature="2165:2259" ph="insert into Trips... " />
-            <marker date="1479970635937" expanded="true" signature="3694:3742" ph="select title... entries" />
+            <marker date="1479986835647" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
+            <marker date="1479986835647" expanded="true" signature="1346:1428" ph="select * fro... Trips" />
+            <marker date="1479986835647" expanded="true" signature="2166:2260" ph="insert into Trips... " />
+            <marker date="1479986835647" expanded="true" signature="3695:3743" ph="select title... entries" />
           </folding>
         </state>
       </provider>
@@ -613,10 +613,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <marker date="1479970635937" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
-            <marker date="1479970635937" expanded="true" signature="1345:1427" ph="select * fro... Trips" />
-            <marker date="1479970635937" expanded="true" signature="2165:2259" ph="insert into Trips... " />
-            <marker date="1479970635937" expanded="true" signature="3694:3742" ph="select title... entries" />
+            <marker date="1479986835647" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
+            <marker date="1479986835647" expanded="true" signature="1346:1428" ph="select * fro... Trips" />
+            <marker date="1479986835647" expanded="true" signature="2166:2260" ph="insert into Trips... " />
+            <marker date="1479986835647" expanded="true" signature="3695:3743" ph="select title... entries" />
           </folding>
         </state>
       </provider>
@@ -702,20 +702,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PyCharmPOAProject.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-            <marker date="1479970635937" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
-            <marker date="1479970635937" expanded="true" signature="1345:1427" ph="select * fro... Trips" />
-            <marker date="1479970635937" expanded="true" signature="2165:2259" ph="insert into Trips... " />
-            <marker date="1479970635937" expanded="true" signature="3694:3742" ph="select title... entries" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Tests/UserTests.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -734,10 +720,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Tests/ApplicationTests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="9" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
+        <state relative-caret-position="136">
+          <caret line="8" column="81" selection-start-line="8" selection-start-column="81" selection-end-line="8" selection-end-column="81" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PyCharmPOAProject.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="84" column="13" selection-start-line="84" selection-start-column="13" selection-end-line="84" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+            <marker date="1479986835647" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
+            <marker date="1479986835647" expanded="true" signature="1346:1428" ph="select * fro... Trips" />
+            <marker date="1479986835647" expanded="true" signature="2166:2260" ph="insert into Trips... " />
+            <marker date="1479986835647" expanded="true" signature="3695:3743" ph="select title... entries" />
           </folding>
         </state>
       </provider>
