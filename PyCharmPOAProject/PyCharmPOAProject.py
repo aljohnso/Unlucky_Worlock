@@ -60,7 +60,7 @@ def close_db(error):
         g.sqlite_db.close()
 
 
-@app.route('/add', methods=['POST'])
+@app.route('/addTrip', methods=['POST'])
 def add_entry():
     db = get_db()
     info = [request.form['TripName'], request.form['CarCap'], request.form['TripDescription'], request.form["LeaderName"]]

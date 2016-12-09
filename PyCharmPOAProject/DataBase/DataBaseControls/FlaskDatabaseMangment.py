@@ -1,8 +1,17 @@
 
 import sqlite3
-from flask import Flask, g
 
-app = Flask(__name__)
+def AddTrip():
+    """'
+    used to construct the db insert for the trip table
+    :param
+    :return: List of info for table
+    """
+    Master = []
+    Trip = []
+    return Trip
+
+# app = Flask(__name__)
 
 # wont work becuese DATABASE is configed in our app Im sure there is a work around but I am under time pressuere rn
 # def connect_db():
