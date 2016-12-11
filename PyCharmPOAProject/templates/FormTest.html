@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body>
+ {% for message in form.Trip_Name.errors %}
+     <div>{{ message }}</div>
+      {% endfor %}
+  {% for message in form.Departure_Date.errors %}
+     <div>{{ message }}</div>
+      {% endfor %}
+  {% for message in form.Return_Date.errors %}
+     <div>{{ message }}</div>
+      {% endfor %}
+  {% for message in form.Trip_Location.errors %}
+     <div>{{ message }}</div>
+      {% endfor %}
+  {% for message in form.Details.errors %}
+     <div>{{ message }}</div>
+      {% endfor %}
+  {% for message in form.Coordinator_Name.errors %}
+     <div>{{ message }}</div>
+      {% endfor %}
+  {% for message in form.Coordinator_Email.errors %}
+     <div>{{ message }}</div>
+      {% endfor %}
+  {% for message in form.Coordinator_Phone.errors %}
+     <div>{{ message }}</div>
+      {% endfor %}
+  {% for message in form.GearList.errors %}
+     <div>{{ message }}</div>
+      {% endfor %}
+ {% for message in form.Trip_Meeting_Place.errors %}
+     <div>{{ message }}</div>
+      {% endfor %}
+  {% for message in form.Additional_Cost.errors %}
+     <div>{{ message }}</div>
+      {% endfor %}
+  {% for message in form.Car_Cap.errors %}
+     <div>{{ message }}</div>
+      {% endfor %}
+  {% for message in form.Substance_Free.errors %}
+     <div>{{ message }}</div>
+      {% endfor %}
+<form action= "{{ url_for('contact') }}" method="post">
+    {{ form.hidden_tag() }}
+    {{ form.Trip_Name.label }}
+    {{form.Trip_Name}}
+    {{ form.Departure_Date.label }}
+    {{ form.Departure_Date }}
+    {{ form.Return_Date.lable }}
+    {{ form.Return_Date }}
+    {{ form.Trip_Location.label }}
+    {{ form.Trip_Location }}
+    {{form.Details.label  }}
+    {{ form.Coordinator_Name.label }}
+    {{ form.Coordinator_Name }}
+    {{ form.Coordinator_Email.label }}
+    {{ form.Coordinator_Email }}
+    {{ form.Coordinator_Phone.label }}
+    {{ form.Coordinator_Phone }}
+    {{ form.GearList.label }}
+    {{ form.GearList }}
+    {{ form.Trip_Meeting_Place.label }}
+    {{ form.Trip_Meeting_Place }}
+    {{ form.Additional_Cost.label }}
+    {{ form.Additional_Cost }}
+    {{ form.Cost_Breakdown.label }}
+    {{ form.Cost_Breakdown }}
+    {{ form.Car_Cap.label}}
+    {{ form.Car_Cap }}
+    {{ form.Substance_Free.label }}
+    {{ form.Substance_Free }}
+    {{ form.submit }}
+{#    {% import "bootstrap/wtf.html" as wtf %}#}
+{#    {{ wtf.quick_form(form) }}#}
+
+</form>
+
+
+
+{##}
+{#      <form action = "http://localhost:5000/contact" method = post>#}
+{#         <fieldset>#}
+{#            <legend>Contact Form</legend>#}
+{#            {{ form.hidden_tag() }}#}
+{##}
+{#               {{ form.name.label }}<br>#}
+{#               {{ form.name }}#}
+{#               <br>#}
+{##}
+{#               {{ form.Gender.label }} {{ form.Gender }}#}
+{#               {{ form.Address.label }}<br>#}
+{#               {{ form.Address }}#}
+{#               <br>#}
+{##}
+{#               {{ form.email.label }}<br>#}
+{#               {{ form.email }}#}
+{#               <br>#}
+{##}
+{#               {{ form.Age.label }}<br>#}
+{#               {{ form.Age }}#}
+{#               <br>#}
+{##}
+{#               {{ form.language.label }}<br>#}
+{#               {{ form.language }}#}
+{#               <br>#}
+{#               {{ form.submit }}#}
+{#            </div>#}
+{##}
+{#         </fieldset>#}
+{#      </form>#}
+</body>
+</html>

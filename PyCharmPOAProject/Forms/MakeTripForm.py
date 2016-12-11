@@ -1,7 +1,8 @@
-from flask_wtf import Form
-from wtforms import StringField, IntegerField, TextAreaField, SubmitField, RadioField,SelectField, DateField, BooleanField,validators
+from flask_wtf import FlaskForm
+from wtforms import StringField, IntegerField, SubmitField, DateField, BooleanField,validators
 
-class MakeTripForm(Form):
+
+class MakeTripForm(FlaskForm):
     # this info should cover all tables master, Trips, particpants
     Trip_Name = StringField("Trip Name", [validators.DataRequired("Please name your trip")])
     Departure_Date = DateField("Departure Data", [validators.DataRequired("Please Enter Departure Date")])
@@ -20,7 +21,8 @@ class MakeTripForm(Form):
     Additional_Cost = StringField("Additional Cost Estimate")#condsider adding validator
     # Total cost will be computed using additional cost and the cost estiment from the trip location feild hopefully
     Cost_Breakdown = StringField('cost break down')
-    Car_Cap = IntegerField("Max number of cars on trip", validators.DataRequired("Please enter Max num of Cars on trip"))
-    Substance_Free = BooleanField("Substance Free", validators.DataRequired("You gonna do drugs???"))
+    Car_Cap = IntegerField("Max number of cars on trip", [validators.DataRequired("Please enter Max num of Cars on trip")])
+    Substance_Free = BooleanField("Substance Free", [validators.DataRequired("You gonna do drugs???")])
     # Weather Forcast will use weather API to get this assuming google maps passes us a location
     submit = SubmitField("Create Trip")
+    #TODO: Obviously the participants feilds will not be filled in however make sure that the HTML Reflects this
