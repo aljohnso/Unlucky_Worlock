@@ -9,7 +9,8 @@ def AddTrip():
     """
     Master = []
     Trip = []
-    return Trip
+    Participants = []
+    return Master, Trip, Participants
 
 # app = Flask(__name__)
 
