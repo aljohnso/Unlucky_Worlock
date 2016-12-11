@@ -1,6 +1,7 @@
 
 import sqlite3
-
+#TODO create functions that create the SQLite calls that fill in database from the forms ie calculate additonal info geo location weather and costs
+#TODO get shota to write tests for all of this
 def AddTrip():
     """'
     used to construct the db insert for the trip table

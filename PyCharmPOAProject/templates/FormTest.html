@@ -47,35 +47,37 @@
      <div>{{ message }}</div>
       {% endfor %}
 <form action= "{{ url_for('contact') }}" method="post">
-    {{ form.hidden_tag() }}
-    {{ form.Trip_Name.label }}
+    {{ form.hidden_tag() }}<br>
+    {{ form.Trip_Name.label }}<br>
     {{form.Trip_Name}}
-    {{ form.Departure_Date.label }}
+    {{ form.Departure_Date.label }}<br>
+{#    TODO:add that date formating is year-mounth-day#}
     {{ form.Departure_Date }}
-    {{ form.Return_Date.lable }}
+    {{ form.Return_Date.lable }}<br>
     {{ form.Return_Date }}
-    {{ form.Trip_Location.label }}
+    {{ form.Trip_Location.label }}<br>
     {{ form.Trip_Location }}
-    {{form.Details.label  }}
-    {{ form.Coordinator_Name.label }}
+    {{form.Details.label  }}<br>
+    {{form.Details }}
+    {{ form.Coordinator_Name.label }}<br>
     {{ form.Coordinator_Name }}
-    {{ form.Coordinator_Email.label }}
+    {{ form.Coordinator_Email.label }}<br>
     {{ form.Coordinator_Email }}
-    {{ form.Coordinator_Phone.label }}
+    {{ form.Coordinator_Phone.label }}<br>
     {{ form.Coordinator_Phone }}
-    {{ form.GearList.label }}
+    {{ form.GearList.label }}<br>
     {{ form.GearList }}
-    {{ form.Trip_Meeting_Place.label }}
+    {{ form.Trip_Meeting_Place.label }}<br>
     {{ form.Trip_Meeting_Place }}
-    {{ form.Additional_Cost.label }}
+    {{ form.Additional_Cost.label }}<br>
     {{ form.Additional_Cost }}
-    {{ form.Cost_Breakdown.label }}
+    {{ form.Cost_Breakdown.label }}<br>
     {{ form.Cost_Breakdown }}
-    {{ form.Car_Cap.label}}
+    {{ form.Car_Cap.label}}<br>
     {{ form.Car_Cap }}
-    {{ form.Substance_Free.label }}
+    {{ form.Substance_Free.label }}<br>
     {{ form.Substance_Free }}
-    {{ form.submit }}
+    {{ form.submit }}<br>
 {#    {% import "bootstrap/wtf.html" as wtf %}#}
 {#    {{ wtf.quick_form(form) }}#}
 

@@ -2,11 +2,11 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, SubmitField, DateField, BooleanField,validators
 
 
-class MakeTripForm(FlaskForm):
-    # this info should cover all tables master, Trips, particpants
+class MakeTripFormPOA(FlaskForm):
+    # this info should cover all tables master, Trips
     Trip_Name = StringField("Trip Name", [validators.DataRequired("Please name your trip")])
-    Departure_Date = DateField("Departure Data", [validators.DataRequired("Please Enter Departure Date")])
-    Return_Date = DateField("Return Data", [validators.DataRequired("Please Enter Departure Date")])
+    Departure_Date = DateField("Departure Date", [validators.DataRequired("Please Enter Departure Date")])
+    Return_Date = DateField("Return Date", [validators.DataRequired("Please Enter Return Date")])
     # Deatails Short this will be an indexed version of trip details
     # Post time will be automaticly created with python DateTime Extention
     # Participant Num will be set to 1 when trip is created and then will be added to as the particpants table is updated
@@ -22,7 +22,15 @@ class MakeTripForm(FlaskForm):
     # Total cost will be computed using additional cost and the cost estiment from the trip location feild hopefully
     Cost_Breakdown = StringField('cost break down')
     Car_Cap = IntegerField("Max number of cars on trip", [validators.DataRequired("Please enter Max num of Cars on trip")])
-    Substance_Free = BooleanField("Substance Free", [validators.DataRequired("You gonna do drugs???")])
+    Substance_Free = BooleanField("Substance Free")
     # Weather Forcast will use weather API to get this assuming google maps passes us a location
     submit = SubmitField("Create Trip")
     #TODO: Obviously the participants feilds will not be filled in however make sure that the HTML Reflects this
+
+
+class AddToTripPOA(FlaskForm):
+    # this form will handle all additions to the particpants table
+    Participant = StringField("Name", [validators.DataRequired("We need to know who you are please fill in your name brah")])
+    Phone = IntegerField("Phone Number", [validators.DataRequired("So we can find you please fill in your phone number")])
+    Driver = BooleanField("Driver")
+    Car_Capacity = StringField("Car Capacity", [validators.DataRequired("Please put car capacity if you aren't driving for this trip put 0")])
