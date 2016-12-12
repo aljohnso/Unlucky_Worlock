@@ -22,6 +22,7 @@ class MakeTripFormPOA(FlaskForm):
     # Total cost will be computed using additional cost and the cost estiment from the trip location feild hopefully
     Cost_Breakdown = StringField('cost break down')
     Car_Cap = IntegerField("Max number of cars on trip", [validators.DataRequired("Please enter Max num of Cars on trip")])
+    Car_Capacity = IntegerField("Number of spaces in your car", [validators.DataRequired("Please enter your car capacity if you dont have a car put 0")])
     Substance_Free = BooleanField("Substance Free")
     # Weather Forcast will use weather API to get this assuming google maps passes us a location
     submit = SubmitField("Create Trip")
