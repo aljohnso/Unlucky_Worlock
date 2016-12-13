@@ -60,9 +60,9 @@ def MakeTrip(Form, db):
     :return: The List for creating row in trip table
     """
     Trip = []
-    location = str(form['Trip_Location'] + ',' + form['Trip_State'])
+    location = str(Form['Trip_Location'] + ',' + Form['Trip_State'])
     for index in TRIPS_DB_ORDER:
-        Trip += [str(form[index])]
+        Trip += [str(Form[index])]
     total_Cost = getDistance(location)*.35 + Form['Additional_Cost']
     Trip += [total_Cost]
     Trip += [getWeather(location)]
