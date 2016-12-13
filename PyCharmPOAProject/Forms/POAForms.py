@@ -12,13 +12,14 @@ class MakeTripFormPOA(FlaskForm):
     # Participant Num will be set to 1 when trip is created and then will be added to as the particpants table is updated
     # Particpant cap will be set by the car capacity feild and updated as people add to the trip
     Trip_Location = StringField("Trip Location", [validators.DataRequired("Please enter your trips location")])
+    Trip_State =StringField("Trip State", [validators.DataRequired("Please enter the state your trip will take place in")])
     Details = StringField("Trip Details", [validators.DataRequired("Please enter a trip discription")])
     Coordinator_Name = StringField("Coordinator Name", [validators.DataRequired("please enter your name")])
     Coordinator_Email = StringField("Coordinator Email", [validators.DataRequired("Please enter your email address."), validators.Email("Please enter your email address.")])
     Coordinator_Phone = IntegerField("Coordinator Phone", [validators.DataRequired("Please enter your phone number")])
     GearList = StringField("Gear List", [validators.DataRequired("Please enter gear list if none enter none")])
     Trip_Meeting_Place =StringField("Trip Meeting Place", [validators.DataRequired("Please enter meeting place")])
-    Additional_Cost = StringField("Additional Cost Estimate")#condsider adding validator
+    Additional_Cost = IntegerField("Additional Cost Estimate")#condsider adding validator
     # Total cost will be computed using additional cost and the cost estiment from the trip location feild hopefully
     Cost_Breakdown = StringField('cost break down')
     Car_Cap = IntegerField("Max number of cars on trip", [validators.DataRequired("Please enter Max num of Cars on trip")])
@@ -27,7 +28,7 @@ class MakeTripFormPOA(FlaskForm):
     # Weather Forcast will use weather API to get this assuming google maps passes us a location
     submit = SubmitField("Create Trip")
     #TODO: Obviously the participants feilds will not be filled in however make sure that the HTML Reflects this
-
+    # TODO: Add location validoator
 
 class AddToTripPOA(FlaskForm):
     # this form will handle all additions to the particpants table

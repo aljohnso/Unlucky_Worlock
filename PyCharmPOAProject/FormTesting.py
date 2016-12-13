@@ -4,7 +4,14 @@ from Forms.POAForms import MakeTripFormPOA
 app = Flask(__name__)
 app.secret_key = 'development key'
 
+from flask import Flask
+from flask_bootstrap import Bootstrap
 
+def create_app():
+  app = Flask(__name__)
+  Bootstrap(app)
+
+  return app
 @app.route('/', methods=['GET', 'POST'])
 def contact():
     form = MakeTripFormPOA()
@@ -21,4 +28,5 @@ def contact():
 
 
 if __name__ == '__main__':
+    create_app()
     app.run(debug=True)
