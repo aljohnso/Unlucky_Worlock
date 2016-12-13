@@ -18,16 +18,18 @@ WUNDERGROUND_KEY = 'dd0fa4bc432d5dbd'
 
 
 
-def AddTrip(form):
+def AddTrip(form, db):
     """'
     used to construct the db insert for the trip table
     :param form is the form from POAForms class  MakeTripFormPOA
     :return: List of info for table
     """
     Master = MakeMaster(form)
-    Trip = []
-    Participants = []
-    return Master, Trip, Participants
+    db.execute(MASTERDBCOMAND)
+    Trip = MakeTrip(form, db)
+    db.execute(TRIPSDBCOMAND)
+    db.commit()
+    # return Master, Trip
 def MakeMaster(form):
     """
     :param form: form is the form from POAForms class  MakeTripFormPOA will create the row for Master table
@@ -67,6 +69,19 @@ def MakeTrip(Form, db):
     Trip += [db.lastrowid]
     return Trip
 
+
+def Makeparticipant(Form, db):
+     """
+     :param Form: form from POAForms class that details
+     :param db: datebase connection
+     :return:
+     """
+     participant = []
+     for index in PARTICIPANT_DB_ORDER:
+         participant += [str(Form[index])]
+     participant += []
+
+# def getTripForParticipant()
 
 def getWeather(Location):
     """
@@ -109,17 +124,17 @@ def getDistance(Location):
 #
 # print(cell1['distance']['text'])
 # Never do this -- insecure!
-
-conn = sqlite3.connect('example.db')
-c = conn.cursor()
+#
+# conn = sqlite3.connect('example.db')
+# c = conn.cursor()
 
 # c.execute('CREATE TABLE Test (id integer PRIMARY KEY AUTOINCREMENT ,date text, trans text, symbol text, qty real, price real)')
 # Larger example that inserts many records at a time
-purchases = ['2006-03-28', 'BUY', 'IBM', 1000, 45.00]
-c.execute('INSERT INTO Test (date, trans, symbol, qty, price ) VALUES (?,?,?,?,?)', purchases)
-# conn.commit()
-form = {'GearList': 'All the things', 'Additional_Cost': 10,'Trip_State': 'CA', 'Departure_Date': datetime.date(2016, 12, 2), 'Car_Cap': 3, 'Car_Capacity': 5, 'Return_Date': datetime.date(2016, 12, 2), 'Coordinator_Email': 'aljohnso@students.pitzer.edu', 'Cost_Breakdown': '10 USD for strip club', 'Substance_Free': True, 'Coordinator_Phone': 9193975206, 'Coordinator_Name': 'Alasdair Johnson', 'Trip_Name': 'Red Rocks', 'Trip_Meeting_Place': 'Service Road', 'Trip_Location': 'Joshua Tree', 'submit': True, 'Details': 'Fuck bitches get monney'}
-print(MakeTrip(form, c))
+# purchases = ['2006-03-28', 'BUY', 'IBM', 1000, 45.00]
+# c.execute('INSERT INTO Test (date, trans, symbol, qty, price ) VALUES (?,?,?,?,?)', purchases)
+# # conn.commit()
+# form = {'GearList': 'All the things', 'Additional_Cost': 10,'Trip_State': 'CA', 'Departure_Date': datetime.date(2016, 12, 2), 'Car_Cap': 3, 'Car_Capacity': 5, 'Return_Date': datetime.date(2016, 12, 2), 'Coordinator_Email': 'aljohnso@students.pitzer.edu', 'Cost_Breakdown': '10 USD for strip club', 'Substance_Free': True, 'Coordinator_Phone': 9193975206, 'Coordinator_Name': 'Alasdair Johnson', 'Trip_Name': 'Red Rocks', 'Trip_Meeting_Place': 'Service Road', 'Trip_Location': 'Joshua Tree', 'submit': True, 'Details': 'Fuck bitches get monney'}
+# print(MakeTrip(form, c))
 # print(MakeMaster(form))
 # print(MakeLocation(form))
 # print(getWeather(('CA', 'Joshua_Tree')))
