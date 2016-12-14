@@ -10,44 +10,69 @@
 {#    <style src = "POACreateTripCSS.css"></style>#}
 </head>
 <body>
-<h3> Make Trip</h3>
-<form  action="{{ url_for('add_entry') }}" method="post" class="add-entry">
-    <div class="form-group">
-        <label >Trip Name</label>
-         <input type="text" class="form-control" name='TripName'>
-     </div>
-    <div class="form-group">
-        <label >Name</label>
-         <input type="text" class="form-control" name='LeaderName'  placeholder="Your Name">
-     </div>
-    <div class="form-group">
-        <label class="sr-only" for="exampleInputEmail3">Car Capacity</label>
-        <input type="text" class="form-control"  placeholder="Car Capacity If No Car Put 0" name = "CarCap">
-     </div>
-    <div class="form-group">
-        <label for="exampleTextarea">Trip Description</label>
-        <textarea class="form-control" id="exampleTextarea"rows="3" name="TripDescription"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary" value="Share">Submit</button>
-</form>
-<h3> Add to Trip</h3>'
-    <div class="form-group" >
-    <label class="sr-only" for="exampleInputEmail3"></label>
-    <input type="text" class="form-control" name='Person_Name' placeholder="Name">
-  </div>
-<form id = "Person">
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-   <div class="form-group" >
-       <label class="sr-only" for="exampleInputEmail3"></label>
-    <input type="text" class="form-control" name='Person_Name' placeholder="Phone Number">
-           <small id="emailHelp" class="form-text text-muted">We'll never share your Phone with anyone else.</small>
-  </div> 
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+{#<h3> Make Trip</h3>#}
+{#<form  action="{{ url_for('add_entry') }}" method="post" class="add-entry">#}
+{#    <div class="form-group">#}
+{#        <label >Trip Name</label>#}
+{#         <input type="text" class="form-control" name='TripName'>#}
+{#     </div>#}
+{#    <div class="form-group">#}
+{#        <label >Name</label>#}
+{#         <input type="text" class="form-control" name='LeaderName'  placeholder="Your Name">#}
+{#     </div>#}
+{#    <div class="form-group">#}
+{#        <label class="sr-only" for="exampleInputEmail3">Car Capacity</label>#}
+{#        <input type="text" class="form-control"  placeholder="Car Capacity If No Car Put 0" name = "CarCap">#}
+{#     </div>#}
+{#    <div class="form-group">#}
+{#        <label for="exampleTextarea">Trip Description</label>#}
+{#        <textarea class="form-control" id="exampleTextarea"rows="3" name="TripDescription"></textarea>#}
+{#    </div>#}
+{#    <button type="submit" class="btn btn-primary" value="Share">Submit</button>#}
+{#</form>#}
+{#<h3> Add to Trip</h3>'#}
+{#    <div class="form-group" >#}
+{#    <label class="sr-only" for="exampleInputEmail3"></label>#}
+{#    <input type="text" class="form-control" name='Person_Name' placeholder="Name">#}
+{#  </div>#}
+{#<form id = "Person">#}
+{#  <div class="form-group">#}
+{#    <label for="exampleInputEmail1">Email address</label>#}
+{#    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">#}
+{#    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>#}
+{#  </div>#}
+{#   <div class="form-group" >#}
+{#       <label class="sr-only" for="exampleInputEmail3"></label>#}
+{#    <input type="text" class="form-control" name='Person_Name' placeholder="Phone Number">#}
+{#           <small id="emailHelp" class="form-text text-muted">We'll never share your Phone with anyone else.</small>#}
+{#  </div> #}
+{#  <button type="submit" class="btn btn-primary">Submit</button>#}
+{#</form>#}
+{#<h3> Trip List</h3>#}
+{#    <div class="row">#}
+{#        <div class="panel panel-primary filterable">#}
+{#            <table class="table">#}
+{#                <thead>#}
+{#                    <tr>#}
+{#                        <th>Trip Name</th>#}
+{#                        <th>Trip Capacity</th>#}
+{#                        <th>Trip Info</th>#}
+{#                        <th>Particpants</th>#}
+{#                    </tr>#}
+{#                </thead>#}
+{#                <tbody class="entries">#}
+{#                {% for TableRow in entries %}#}
+{#                <tr>#}
+{#                    <td> {{ TableRow.Trip_Name }}</td>#}
+{#                    <td> {{ TableRow.Trip_Capacity }}</td>#}
+{#                    <td> {{ TableRow.Trip_Info }}</td>#}
+{#                    <td> {{ TableRow.Trip_Participants }}</td>#}
+{#                </tr>#}
+{#                {% endfor %}#}
+{#                </tbody>#}
+{#            </table>#}
+{#        </div>#}
+{#    </div>#}
 <h3> Trip List</h3>
     <div class="row">
         <div class="panel panel-primary filterable">
@@ -55,22 +80,31 @@
                 <thead>
                     <tr>
                         <th>Trip Name</th>
-                        <th>Trip Capacity</th>
-                        <th>Trip Info</th>
-                        <th>Particpants</th>
+                        <th>Details</th>
+                        <th>Departure Date</th>
+                        <th>Return Date</th>
+                        <th>Participants</th>
+                        <th>Particpant Cap</th>
+                        <th>Trip Location</th>
                     </tr>
                 </thead>
                 <tbody class="entries">
                 {% for TableRow in entries %}
                 <tr>
                     <td> {{ TableRow.Trip_Name }}</td>
-                    <td> {{ TableRow.Trip_Capacity }}</td>
-                    <td> {{ TableRow.Trip_Info }}</td>
-                    <td> {{ TableRow.Trip_Participants }}</td>
+                    <td> {{ TableRow.Details_Short }}</td>
+                    <td> {{ TableRow.Deparure_Date }}</td>
+                    <td> {{ TableRow.Return_Date }}</td>
+                    <td> {{ TableRow.Participant_num }}</td>
+                    <td> {{ TableRow.Partcipant_cap }}</td>
+                    <td> {{ TableRow.Trip_Location }}</td>
                 </tr>
+                {% else %}
+                    <li><em>Unbelievable.  No entries here so far</em>
                 {% endfor %}
                 </tbody>
             </table>
+          <button href="{{ url_for('add_Trip') }}" class="btn btn-primary">Add Trip</button>
         </div>
     </div>
 </body>

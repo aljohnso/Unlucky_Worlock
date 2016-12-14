@@ -1,8 +1,10 @@
 import os
 import sqlite3
+from Forms.POAForms import MakeTripFormPOA
+
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash
-# from DataBase.DataBaseControls.FlaskDatabaseMangment import init_db,show_entries  #this should import the FlaskDatabaseMangment.py file Note you will need to change this if there is ever a change in file stucture
+from DataBase.DataBaseControls.FlaskDatabaseMangment import AddTrip  #this should import the FlaskDatabaseMangment.py file Note you will need to change this if there is ever a change in file stucture
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -24,10 +26,10 @@ def connect_db():
     return rv
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def show_entries():
     db = get_db()
-    cur = db.execute('select Trip_Name, Trip_Capacity, Trip_Info, Trip_Participants from  Trips order by id desc')
+    cur = db.execute('select * from  Master order by id desc')
     entries = cur.fetchall()
     return render_template("POACreateTrip.html", entries=entries)
 
@@ -60,16 +62,43 @@ def close_db(error):
         g.sqlite_db.close()
 
 
-@app.route('/addTrip', methods=['POST'])
-def add_entry():
+@app.route('/addTrip', methods=['POST','GET'])
+def add_Trip():
     db = get_db()
-    info = [request.form['TripName'], request.form['CarCap'], request.form['TripDescription'], request.form["LeaderName"]]
-    print(info)
-    db.execute('insert into Trips (Trip_Name,Trip_Capacity, Trip_Info, Trip_Participants ) values (?, ?, ?, ?)',info)#Fairly obvious but make sure that the ? marks are the same as the number feilds
-    db.commit()
-    flash('New entry was successfully posted')
-    return redirect(url_for('show_entries'))
+    form = MakeTripFormPOA()
+    if request.method == 'POST':
+        # print(form.data)  # returns a dictonary with keys that are the feilds in the table
+        if form.validate() == False:
+            flash('All fields are required.')
+            return render_template('FormTest.html', form=form)
+        else:
+            AddTrip(form.data, db)
+            flash('New entry was successfully posted')
+            return redirect(url_for('show_entries'))
+    elif request.method == 'GET':
+        return render_template('FormTest.html', form=form)
 
+    # info = [request.form['TripName'], request.form['CarCap'], request.form['TripDescription'], request.form["LeaderName"]]
+    # print(info)
+    # db.execute('insert into Trips (Trip_Name,Trip_Capacity, Trip_Info, Trip_Participants ) values (?, ?, ?, ?)',info)#Fairly obvious but make sure that the ? marks are the same as the number feilds
+    # db.commit()
+    # flash('New entry was successfully posted')
+    # return redirect(url_for('show_entries'))
+
+#TODO: combine contact and add entry so that we can add trips
+#
+# def contact():
+#     form = MakeTripFormPOA()
+#     if request.method == 'POST':
+#         print(form.data)#returns a dictonary with keys that are the feilds in the table
+#         if form.validate() == False:
+#             flash('All fields are required.')
+#             return render_template('FormTest.html', form=form)
+#         else:
+#             return "Form Submited Yay!"
+#     elif request.method == 'GET':
+#
+#         return render_template('FormTest.html', form=form)
 #*****************************************************************
 #*****************************************************************
 #Database Functions that are here temp will be moved to FlaskDatabase Mangment in the future
@@ -120,4 +149,4 @@ def show_entries(SQL):
 
 if __name__ == '__main__':
     app.run()
-    app.debug = True
+    app.run(debug=True)
