@@ -124,20 +124,20 @@ def getGoogleMapsData(Location):
 #               TESTS
 #*************************************************
 #*************************************************
-conn = sqlite3.connect('example.db')
-c = conn.cursor()
-def makeTestTables():
+# conn = sqlite3.connect('example.db')
+# c = conn.cursor()
+def makeTestTables(conn):
     conn.execute('drop table if exists Trips;' )
     conn.execute('CREATE TABLE Trips(id INTEGER PRIMARY KEY AUTOINCREMENT,Master_Key integer not NULL,Details TEXT not NULL,Coordinator_Name TEXT not NULL,Coordinator_Email TEXT not NULL,Coordinator_Phone Integer not NULL,Gear_List TEXT not NULL,Trip_Meeting_Place TEXT not NULL,Additional_Costs Integer not NULL,Total_Cost Integer NOT NULL,Cost_BreakDown Text NOT NULL,Car_Cap Integer NOT NULL,Substance_Frre Integer NOT NULL,Weather_Forcast blob NOT NULL,FOREIGN KEY(Master_Key) REFERENCES Master(id));')
     conn.execute('drop table if exists Master;')
     conn.execute('create TABLE Master (id integer PRIMARY KEY AUTOINCREMENT ,Trip_Name TEXT not NULL,Deparure_Date TEXT not NULL,Return_Date TEXT not NULL,Details_Short TEXT not NULL,Post_Time TEXT not NULL,Participant_num Integer not Null,Partcipant_cap  Integer not NULL,Trip_Location Integer NOT NULL);')
     conn.commit()
 
-
-form = {'GearList': 'All the things', 'Additional_Cost': 10,'Trip_State': 'CA', 'Departure_Date': datetime.date(2016, 12, 2), 'Car_Cap': 3, 'Car_Capacity': 5, 'Return_Date': datetime.date(2016, 12, 2), 'Coordinator_Email': 'aljohnso@students.pitzer.edu', 'Cost_Breakdown': '10 USD for strip club', 'Substance_Free': True, 'Coordinator_Phone': 9193975206, 'Coordinator_Name': 'Alasdair Johnson', 'Trip_Name': 'Red Rocks', 'Trip_Meeting_Place': 'Service Road', 'Trip_Location': 'Joshua Tree', 'submit': True, 'Details': 'Fuck bitches get monney'}
-AddTrip(form, conn)
-# print(MakeTrip(form, c))
-# print(MakeMaster(form))
-# print(MakeLocation(form))
-# print(getWeather(('CA', 'Joshua_Tree')))
-# print(getGoogleMapsData('Red Rocks, NV'))
+def Tests(conn):
+    form = {'GearList': 'All the things', 'Additional_Cost': 10,'Trip_State': 'CA', 'Departure_Date': datetime.date(2016, 12, 2), 'Car_Cap': 3, 'Car_Capacity': 5, 'Return_Date': datetime.date(2016, 12, 2), 'Coordinator_Email': 'aljohnso@students.pitzer.edu', 'Cost_Breakdown': '10 USD for strip club', 'Substance_Free': True, 'Coordinator_Phone': 9193975206, 'Coordinator_Name': 'Alasdair Johnson', 'Trip_Name': 'Red Rocks', 'Trip_Meeting_Place': 'Service Road', 'Trip_Location': 'Joshua Tree', 'submit': True, 'Details': 'Fuck bitches get monney'}
+    AddTrip(form, conn)
+    # print(MakeTrip(form, c))
+    # print(MakeMaster(form))
+    # print(MakeLocation(form))
+    # print(getWeather(('CA', 'Joshua_Tree')))
+    # print(getGoogleMapsData('Red Rocks, NV'))

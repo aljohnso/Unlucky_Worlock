@@ -72,7 +72,7 @@ def add_Trip():
             flash('All fields are required.')
             return render_template('FormTest.html', form=form)
         else:
-            AddTrip(form.data, db.cursor())
+            AddTrip(form.data, db)
             flash('New entry was successfully posted')
             return redirect(url_for('show_entries'))
     elif request.method == 'GET':
