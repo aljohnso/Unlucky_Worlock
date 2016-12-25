@@ -70,7 +70,7 @@ def MakeTrip(Form, db):
     for index in TRIPS_DB_ORDER:
         Trip += [str(Form[index])]
     distance = float(locationData['rows'][0]['elements'][0]['distance']['text'][:-3])
-    total_Cost = distance*.35 + Form['Additional_Cost']
+    total_Cost = distance*.17 + Form['Additional_Cost']
     Trip += [int(Form["Substance_Free"])]
     Trip += [total_Cost]
     Trip += [str(getWeather(locationData))]

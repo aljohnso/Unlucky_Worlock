@@ -70,13 +70,13 @@ def add_Trip():
         # print(form.data)  # returns a dictonary with keys that are the feilds in the table
         if form.validate() == False:
             flash('All fields are required.')
-            return render_template('FormTest.html', form=form)
+            return render_template('POA_Add_Trip.html', form=form)
         else:
             AddTrip(form.data, db)
             flash('New entry was successfully posted')
             return redirect(url_for('show_entries'))
     elif request.method == 'GET':
-        return render_template('FormTest.html', form=form)
+        return render_template('POA_Add_Trip.html', form=form)
 
     # info = [request.form['TripName'], request.form['CarCap'], request.form['TripDescription'], request.form["LeaderName"]]
     # print(info)
@@ -93,12 +93,12 @@ def add_Trip():
 #         print(form.data)#returns a dictonary with keys that are the feilds in the table
 #         if form.validate() == False:
 #             flash('All fields are required.')
-#             return render_template('FormTest.html', form=form)
+#             return render_template('POA_Add_Trip.html', form=form)
 #         else:
 #             return "Form Submited Yay!"
 #     elif request.method == 'GET':
 #
-#         return render_template('FormTest.html', form=form)
+#         return render_template('POA_Add_Trip.html', form=form)
 #*****************************************************************
 #*****************************************************************
 #Database Functions that are here temp will be moved to FlaskDatabase Mangment in the future

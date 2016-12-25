@@ -51,8 +51,13 @@
       {% endfor %}
 <form action= "{{ url_for('add_Trip') }}" method="post">
     {{ form.hidden_tag() }}<br>
-    {{ form.Trip_Name.label }}<br>
+
+      <div class="form-group">
+    <label for="exampleInputEmail1">{{ form.Trip_Name.label }}</label>
     {{form.Trip_Name}}
+    </div>
+
+
     {{ form.Departure_Date.label }}<br>
 {#    TODO:add that date formating is year-mounth-day#}
     {{ form.Departure_Date }}
