@@ -1,15 +1,14 @@
 from DataBase.DataBaseControls.FlaskDatabaseMangment import AddTrip, MASTERDBCOMAND,PARTICIPANTDBCOMAND,TRIPSDBCOMAND
-import sqlite3, unittest, os
+import sqlite3, unittest, os, datetime
 
 testInput = {'Trip_Meeting_Place': 'Service Road', 'GearList': 'All the things', 'Coordinator_Phone': 9193975206, 'Car_Capacity': 3, 'Return_Date': datetime.date(2016, 12, 12), 'Additional_Cost': 10, 'Coordinator_Email': 'aljohnso@students.pitzer.edu', 'Cost_Breakdown': 'cash for strip club', 'submit': True, 'Details': 'Turn up and climb', 'Car_Cap': 5, 'Substance_Free': False, 'Trip_Location': 'Red Rocks', 'Departure_Date': datetime.date(2016, 10, 12), 'Coordinator_Name': 'Alasdair Johnson', 'Trip_Name': 'Red Rocks', 'Trip_State': 'California'}
-conn = sqlite3.connect(str(os.getcwd()) + '\\DataBase_Test_Scripts\\POA_Test.db')
+conn = sqlite3.connect(str(os.getcwd()) + '/DataBase_Test_Scripts/POA_Test.db')
 
 
 class TestDB(unittest.TestCase):
-
     def setUp(self):
         db = conn.cursor()
-        table_commands = open(str(os.getcwd())+'\\DataBase_Test_Scripts\\DataBaseTest_Scripts_CreateTables.sql').read()
+        table_commands = open(str(os.getcwd())+'/DataBase_Test_Scripts/DataBaseTest_Scripts_CreateTables.sql').read()
         print(table_commands)
         db.executescript(table_commands)
         print("Done")
@@ -17,9 +16,14 @@ class TestDB(unittest.TestCase):
     def tearDown(self):
         conn.close()
 
-    def addTrip(self):
+    def test_addTrip(self):
         db = conn.cursor()
         AddTrip(testInput,db)
+        masterInfo = db.execute('select * from  Master WHERE id = 1')
+        tripInfo = db.execute('select * from  Trips WHERE Master_Key = 1')
+        print(masterInfo)
+        print(tripInfo)
+        self.assertEqual(1, 1)
 
     def deleteTrip(self):
         pass
