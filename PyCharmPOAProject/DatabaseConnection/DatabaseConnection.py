@@ -130,5 +130,7 @@ class DatabaseConnection:
         :param TripID:
         :return: None
         """
-        # TODO: Implement
-        pass
+        self.cursor.execute('DELETE FROM Master WHERE id=' +  str(TripID))
+        self.connection.commit()
+
+
