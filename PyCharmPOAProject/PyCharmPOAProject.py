@@ -4,7 +4,7 @@ from Forms.POAForms import MakeTripFormPOA
 
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash
-from DataBase.DataBaseControls.FlaskDatabaseMangment import AddTrip  #this should import the FlaskDatabaseMangment.py file Note you will need to change this if there is ever a change in file stucture
+from DatabaseConnection.DataBaseControls.FlaskDatabaseMangment import AddTrip  #this should import the FlaskDatabaseMangment.py file Note you will need to change this if there is ever a change in file stucture
 
 app = Flask(__name__)
 app.config.from_object(__name__)

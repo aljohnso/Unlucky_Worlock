@@ -18,12 +18,18 @@ WUNDERGROUND_KEY = 'dd0fa4bc432d5dbd'
 
 
 
+
+
+
+
+
 def AddTrip(form, db):
     """'
     used to construct the db insert for the trip table
     :param form is the form from POAForms class  MakeTripFormPOA
     :return: List of info for table
     """
+    print("DEPRICATED USE DatabaseConnection.DatabaseConnection" )
     dbc =db.cursor()
     Master = MakeMaster(form)
     # print(Master)
@@ -40,6 +46,7 @@ def MakeMaster(form):
     :param form: form is the form from POAForms class  MakeTripFormPOA will create the row for Master table
     :return: List for creating Master row in table
     """
+    print("DEPRICATED USE DatabaseConnection.DatabaseConnection")
     Master = []
     for index in MASTER_DB_ORDER:
         Master += [str(form[index])]
@@ -54,6 +61,7 @@ def MakeShortDetails(Details):
     :param Details:
     :return: A short version of details
     """
+    print("DEPRICATED USE DatabaseConnection.DatabaseConnection")
     if len(Details) > 100:
         return Details[:100] + '...'
     else:
@@ -64,6 +72,7 @@ def MakeTrip(Form, db):
     :param Form: form is the form from POAForms class  MakeTripFormPOA will create the row for Trip table
     :return: The List for creating row in trip table
     """
+    print("DEPRICATED USE DatabaseConnection.DatabaseConnection")
     Trip = []
     location = str(Form['Trip_Location'] + ',' + Form['Trip_State'])
     locationData = getGoogleMapsData(location)
@@ -84,6 +93,7 @@ def Makeparticipant(Form, db):
      :param db: datebase connection
      :return:
      """
+     print("DEPRICATED USE DatabaseConnection.DatabaseConnection")
      participant = []
      for index in PARTICIPANT_DB_ORDER:
          participant += [str(Form[index])]
@@ -96,6 +106,7 @@ def getWeather(GoogleMapsData):
     :param GoogleMapsData: A tuple with the location with index 0 being the state and index 1 being the city or location
     :return:
     """
+    print("DEPRICATED USE DatabaseConnection.DatabaseConnection")
     try:
         URL = 'http://api.wunderground.com/api/dd0fa4bc432d5dbd/forecast10day/q/'
         Location = GoogleMapsData['destination_addresses'][0].split(",")  # this could produce an error if they give us a city as well as adress and state
@@ -110,6 +121,7 @@ def getWeather(GoogleMapsData):
         return None
 
 def getGoogleMapsData(Location):
+    print("DEPRICATED USE DatabaseConnection.DatabaseConnection")
     pitzerCollege= '1050 N Mills,Ave,Claremont,CA'
     url = "http://maps.googleapis.com/maps/api/distancematrix/json"
     params = {'origins':pitzerCollege, 'destinations': Location, 'mode': 'driving', 'units': 'imperial'}
@@ -118,26 +130,11 @@ def getGoogleMapsData(Location):
     print(data)
     return data
 
-
-#*************************************************
-#*************************************************
-#               TESTS
-#*************************************************
-#*************************************************
-# conn = sqlite3.connect('example.db')
-# c = conn.cursor()
-def makeTestTables(conn):
-    conn.execute('drop table if exists Trips;' )
-    conn.execute('CREATE TABLE Trips(id INTEGER PRIMARY KEY AUTOINCREMENT,Master_Key integer not NULL,Details TEXT not NULL,Coordinator_Name TEXT not NULL,Coordinator_Email TEXT not NULL,Coordinator_Phone Integer not NULL,Gear_List TEXT not NULL,Trip_Meeting_Place TEXT not NULL,Additional_Costs Integer not NULL,Total_Cost Integer NOT NULL,Cost_BreakDown Text NOT NULL,Car_Cap Integer NOT NULL,Substance_Frre Integer NOT NULL,Weather_Forcast blob NOT NULL,FOREIGN KEY(Master_Key) REFERENCES Master(id));')
-    conn.execute('drop table if exists Master;')
-    conn.execute('create TABLE Master (id integer PRIMARY KEY AUTOINCREMENT ,Trip_Name TEXT not NULL,Deparure_Date TEXT not NULL,Return_Date TEXT not NULL,Details_Short TEXT not NULL,Post_Time TEXT not NULL,Participant_num Integer not Null,Partcipant_cap  Integer not NULL,Trip_Location Integer NOT NULL);')
-    conn.commit()
-
-def Tests(conn):
-    form = {'GearList': 'All the things', 'Additional_Cost': 10,'Trip_State': 'CA', 'Departure_Date': datetime.date(2016, 12, 2), 'Car_Cap': 3, 'Car_Capacity': 5, 'Return_Date': datetime.date(2016, 12, 2), 'Coordinator_Email': 'aljohnso@students.pitzer.edu', 'Cost_Breakdown': '10 USD for strip club', 'Substance_Free': True, 'Coordinator_Phone': 9193975206, 'Coordinator_Name': 'Alasdair Johnson', 'Trip_Name': 'Red Rocks', 'Trip_Meeting_Place': 'Service Road', 'Trip_Location': 'Joshua Tree', 'submit': True, 'Details': 'Fuck bitches get monney'}
-    AddTrip(form, conn)
-    # print(MakeTrip(form, c))
-    # print(MakeMaster(form))
-    # print(MakeLocation(form))
-    # print(getWeather(('CA', 'Joshua_Tree')))
-    # print(getGoogleMapsData('Red Rocks, NV'))
+def deleteTrip(TripID):
+    """
+    Will Delete trip from database based on trip ID from Master Table and Trips Table
+    :param TripID:
+    :return: None
+    """
+    #TODO: Implement
+    pass
