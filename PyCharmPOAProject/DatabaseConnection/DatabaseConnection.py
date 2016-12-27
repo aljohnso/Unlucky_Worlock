@@ -52,7 +52,7 @@ class DatabaseConnection:
         for index in DatabaseConnection.MASTER_DB_ORDER:
             Master += [str(form[index])]
         Master += [self.MakeShortDetails(form['Details'])]
-        Master += [str(datetime.datetime.now())]
+        Master += [str(datetime.date.today())]
         Master += [1]
         Master += [form['Car_Capacity'] - 1]
         return Master
@@ -85,16 +85,6 @@ class DatabaseConnection:
         Trip += [self.cursor.lastrowid]
         return Trip
 
-    def Makeparticipant(self, Form):
-        """
-        :param Form: form from POAForms class that details
-        :return:
-        """
-        participant = []
-        for index in DatabaseConnection.PARTICIPANT_DB_ORDER:
-            participant += [str(Form[index])]
-        participant += []
-
     def getWeather(self, GoogleMapsData):
         """
         :param GoogleMapsData: A tuple with the location with index 0 being the state and index 1 being the city or location
@@ -120,9 +110,8 @@ class DatabaseConnection:
         params = {'origins': pitzerCollege, 'destinations': Location, 'mode': 'driving', 'units': 'imperial'}
         response = requests.get(url, params=params)
         data = response.json()
-        print(data)
+        # print(data)
         return data
-
 
     def deleteTrip(self, TripID):
         """
@@ -132,5 +121,33 @@ class DatabaseConnection:
         """
         self.cursor.execute('DELETE FROM Master WHERE id=' +  str(TripID))
         self.connection.commit()
+
+    def checkTrip(self, server_time = datetime.date.today()):
+        data = self.cursor.execute('select Deparure_Date, Post_Time from  Master order by id desc').fetchall()
+        row = 0
+        for entrie in data:
+            row += 1
+            departuredate = datetime.datetime.strptime(entrie[0], '%Y-%m-%d')
+            posttime = datetime.datetime.strptime(entrie[1], '%Y-%m-%d')
+            if posttime < departuredate:
+                self.deleteTrip(row)
+        return self.cursor.execute('select * from  Master order by id desc').fetchall()
+
+    def Makeparticipant(self, Form):
+        """
+        :param Form: form from POAForms class that details
+        :return:
+        """
+        participant = []
+        for index in DatabaseConnection.PARTICIPANT_DB_ORDER:
+            participant += [str(Form[index])]
+        return participant
+
+    def Addparticipant(self, Form, tripID):
+        participant = self.Makeparticipant(Form)
+
+
+
+
 
 
