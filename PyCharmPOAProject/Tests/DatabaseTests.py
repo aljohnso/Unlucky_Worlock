@@ -2,6 +2,10 @@ from DatabaseConnection.DataBaseControls.FlaskDatabaseMangment import AddTrip, M
 from  DatabaseConnection.DatabaseConnection import DatabaseConnection
 import sqlite3, unittest, os, datetime
 
+
+testParticipant_AJ = {'Participant':"alasdair Johnson",'Phone': 9193975206, 'Driver': 1, 'Car_Capacity' : 5}
+testParticipant_JL = {'Participant':"Jessie Levine",'Phone': 2523456439, 'Driver': 0, 'Car_Capacity' : 0}
+
 testInput = {'Trip_Meeting_Place': 'Service Road', 'GearList': 'All the things', 'Coordinator_Phone': 9193975206, 'Car_Capacity': 3, 'Return_Date': datetime.date(2016, 12, 12), 'Additional_Cost': 10, 'Coordinator_Email': 'aljohnso@students.pitzer.edu', 'Cost_Breakdown': 'cash for strip club', 'submit': True, 'Details': 'Turn up and climb', 'Car_Cap': 5, 'Substance_Free': False, 'Trip_Location': 'Red Rocks', 'Departure_Date': datetime.date(2016, 10, 12), 'Coordinator_Name': 'Alasdair Johnson', 'Trip_Name': 'Red Rocks', 'Trip_State': 'California'}
 # conn = sqlite3.connect(str(os.getcwd()) + '/DataBase_Test_Scripts/POA_Test.db')
 
@@ -61,13 +65,40 @@ class TestDB(unittest.TestCase):
         self.assertEqual(tripInfo, ExpectedTrip)
 
     def test_addParticipant(self):
-        pass
+        self.db.AddTrip(testInput)
+        self.db.Addparticipant(testParticipant_AJ, 1)
+        expected_particitant = [(1,1,"alasdair Johnson",9193975206,1,5)]
+        particpant_info = self.db.cursor.execute('select * from Participants ORDER BY id DESC ').fetchall()
+        self.assertEqual(expected_particitant,particpant_info)
+
 
     def test_deleteParticipant(self):
-        pass
+        self.db.AddTrip(testInput)
+        self.db.Addparticipant(testParticipant_AJ, 1)
+        self.db.deleteParticpant(1)
+        expected_particitant = []
+        particpant_info = self.db.cursor.execute('select * from Participants ORDER BY id DESC ').fetchall()
+        self.assertEqual(expected_particitant, particpant_info)
+
 
     def test_deleteParticipantWithTrip(self):
-        pass
+        self.db.AddTrip(testInput)
+        self.db.Addparticipant(testParticipant_AJ, 1)
+        self.db.Addparticipant(testParticipant_JL, 1)
+        self.db.deleteTrip(1)
+        ExpectedMaster = []
+        ExpectedTrip = []
+        expected_particitant= []
+        masterInfo = self.db.cursor.execute(
+            'select * from  Master order by id desc').fetchall()  # will get the info from the line the command calls as a list of tuples where each tuple has the row from the database
+        tripInfo = self.db.cursor.execute('select * from  Trips order by id desc').fetchall()
+        particpant_info = self.db.cursor.execute('select * from Participants ORDER BY id DESC ').fetchall()
+        self.assertEqual(expected_particitant, particpant_info)
+        self.assertEqual(ExpectedMaster, masterInfo)#comparisons
+        self.assertEqual(tripInfo, ExpectedTrip)
+
+
+
     # consider adding waitlist fetures new table?
     # also add email notifiactions confirming particpants
     # add blacklist feature

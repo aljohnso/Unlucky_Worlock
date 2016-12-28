@@ -120,6 +120,7 @@ class DatabaseConnection:
         :return: None
         """
         self.cursor.execute('DELETE FROM Master WHERE id=' +  str(TripID))
+        self.cursor.execute('DELETE FROM Participants WHERE Trips_Key=' + str(TripID))
         self.connection.commit()
 
     def checkTrip(self, server_time = datetime.date.today()):
@@ -145,6 +146,24 @@ class DatabaseConnection:
 
     def Addparticipant(self, Form, tripID):
         participant = self.Makeparticipant(Form)
+        print(participant)
+        participant.insert(0, tripID)
+        print(participant)
+        self.cursor.execute(self.PARTICIPANTDBCOMAND, participant)
+        self.connection.commit()
+
+    def getParticipants(self, tripID):
+        try:
+            particpants = self.cursor.execute('SELECT * FROM Particpants WHERE Master_Key = ' + tripID)
+            return particpants
+        except:
+            return None
+
+    def deleteParticpant(self, participant_id):
+        self.cursor.execute('DELETE FROM Participants WHERE id=' + str(participant_id))
+        self.connection.commit()
+
+
 
 
 

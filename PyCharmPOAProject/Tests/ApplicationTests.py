@@ -1,20 +1,20 @@
 import os
-import PyCharmPOAProject
+import Main
 import unittest
 import tempfile
 
 class FlaskrTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.db_fd, PyCharmPOAProject.app.config['DATABASE'] = tempfile.mkstemp()
-        PyCharmPOAProject.app.config['TESTING'] = True
-        self.app = PyCharmPOAProject.app.test_client()
-        with PyCharmPOAProject.app.app_context():
-            PyCharmPOAProject.init_db()
+        self.db_fd, Main.app.config['DATABASE'] = tempfile.mkstemp()
+        Main.app.config['TESTING'] = True
+        self.app = Main.app.test_client()
+        with Main.app.app_context():
+            Main.init_db()
 
     def tearDown(self):
         os.close(self.db_fd)
-        os.unlink(PyCharmPOAProject.app.config['DATABASE'])
+        os.unlink(Main.app.config['DATABASE'])
 
 if __name__ == '__main__':
     unittest.main()

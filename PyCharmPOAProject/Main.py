@@ -31,7 +31,7 @@ def show_entries():
     db = get_db()
     cur = db.execute('select * from  Master order by id desc')
     entries = cur.fetchall()
-    return render_template("POACreateTrip.html", entries=entries)
+    return render_template("HomePage.html", entries=entries)
 
 
 @app.route("/trips/<TripKey>")
