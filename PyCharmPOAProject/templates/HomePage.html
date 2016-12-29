@@ -84,23 +84,23 @@
                         <th>Departure Date</th>
                         <th>Return Date</th>
                         <th>Participants</th>
-                        <th>Particpant Cap</th>
+                        <th>Participant Cap</th>
                         <th>Trip Location</th>
                     </tr>
                 </thead>
                 <tbody class="entries">
                 {% for TableRow in entries %}
                 <tr>
-                    <td> {{ TableRow.Trip_Name }}</td>
-                    <td> {{ TableRow.Details_Short }}</td>
-                    <td> {{ TableRow.Deparure_Date }}</td>
-                    <td> {{ TableRow.Return_Date }}</td>
-                    <td> {{ TableRow.Participant_num }}</td>
-                    <td> {{ TableRow.Partcipant_cap }}</td>
-                    <td> {{ TableRow.Trip_Location }}</td>
+                    <td> {{ TableRow[1]}}</td>
+                    <td> {{ TableRow[4] }}</td>
+                    <td> {{ TableRow[2] }}</td>
+                    <td> {{ TableRow[3] }}</td>
+                    <td> {{ TableRow[6] }}</td>
+                    <td> {{ TableRow[7]}}</td>
+                    <td> {{ TableRow[8]}}</td>
                 </tr>
                 {% else %}
-                    <li><em>Unbelievable.  No entries here so far</em>
+                    <li><em>Unbelievable.  No entries here so far</em></li>
                 {% endfor %}
                 </tbody>
             </table>

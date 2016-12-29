@@ -51,7 +51,7 @@ class DatabaseConnection:
         Master = []
         for index in DatabaseConnection.MASTER_DB_ORDER:
             Master += [str(form[index])]
-        Master += [self.MakeShortDetails(form['Details'])]
+        Master += [self.MakeShortDetails(str(form['Details']))]
         Master += [str(datetime.date.today())]
         Master += [1]
         Master += [form['Car_Capacity'] - 1]
@@ -123,15 +123,14 @@ class DatabaseConnection:
         self.cursor.execute('DELETE FROM Participants WHERE Trips_Key=' + str(TripID))
         self.connection.commit()
 
-    def checkTrip(self, server_time = datetime.date.today()):
-        data = self.cursor.execute('select Deparure_Date, Post_Time from  Master order by id desc').fetchall()
-        row = 0
+    def checkTrip(self, server_time = datetime.datetime.now()):
+        data = self.cursor.execute('select Deparure_Date from  Master order by id desc').fetchall()
+        row = 1
         for entrie in data:
-            row += 1
             departuredate = datetime.datetime.strptime(entrie[0], '%Y-%m-%d')
-            posttime = datetime.datetime.strptime(entrie[1], '%Y-%m-%d')
-            if posttime < departuredate:
+            if server_time >= departuredate:
                 self.deleteTrip(row)
+            row += 1
         return self.cursor.execute('select * from  Master order by id desc').fetchall()
 
     def Makeparticipant(self, Form):
@@ -162,6 +161,12 @@ class DatabaseConnection:
     def deleteParticpant(self, participant_id):
         self.cursor.execute('DELETE FROM Participants WHERE id=' + str(participant_id))
         self.connection.commit()
+
+    def getTrip(self,Master_Key):
+        master_details = self.cursor.execute('select * from Master WHERE id =' + str(Master_Key)).fetchall()
+        trip_details = self.cursor.execute('select * from Trips WHERE Master_Key =' + str(Master_Key)).fetchall()
+        return trip_details, master_details
+
 
 
 

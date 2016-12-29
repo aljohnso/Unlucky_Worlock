@@ -23,7 +23,8 @@ app.config.from_envvar('PYCHARMPOAPROJECT_SETTINGS', silent=True)
 @app.route('/', methods=['GET', 'POST'])
 def Main():
     db = get_db()
-    entries =  db.cursor.execute('select * from  Master order by id desc').fetchall()
+    entries = db.checkTrip()
+    print(entries)
     return render_template("HomePage.html", entries=entries)
 
 
@@ -34,8 +35,10 @@ def TripPage(TripKey):
     :return: renders template of the selected trip with detailed information
     """
     db = get_db()
-    tripDetails = db.checkTrip()
-    return render_template("TripPage.html", info=tripDetails[0])
+    tripDetails, meta = db.getTrip(TripKey)
+    print(tripDetails)
+    print(meta)
+    return render_template("TripPage.html", Tripinfo=tripDetails[0], TripMeta=meta[0])
 
 
 @app.route('/addTrip', methods=['POST','GET'])
@@ -48,7 +51,7 @@ def add_Trip():
             flash('All fields are required.')
             return render_template('CreateTrip.html', form=form)
         else:
-            db.AddTrip(form)
+            db.AddTrip(form.data)
             flash('New entry was successfully posted')
             return redirect(url_for('Main'))
     elif request.method == 'GET':
