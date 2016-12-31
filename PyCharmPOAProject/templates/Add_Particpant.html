@@ -5,6 +5,32 @@
     <title>Title</title>
 </head>
 <body>
+<h1> {{ tripname[0][0] }}</h1>
+   {% for message in form.Participant.errors %}
+     <div>{{ message }}</div>
+      {% endfor %}
+      {% for message in form.Phone.errors %}
+     <div>{{ message }}</div>
+      {% endfor %}
+      {% for message in form.Driver.errors %}
+     <div>{{ message }}</div>
+      {% endfor %}
+      {% for message in form.Car_Capacity.errors %}
+     <div>{{ message }}</div>
+      {% endfor %}
+<form action= "{{ url_for('add_Participant', FormKey= request.path[-1]) }}" method="post">
+{#           {{ form.hidden_tag() }}<br>#}
+{#        {{ form.Participant.label }}<br>#}
+{#        {{ form.Participant}}#}
+{#        {{ form.Phone.lable }}<br>#}
+{#        {{ form.Phone }}#}
+{#        {{ form.Driver.lable }}<br>#}
+{#        {{ form.Driver }}#}
+{#        {{ form.Car_Capacity.lable }}<br>#}
+{#        {{ form.Car_Capacity }}#}
+{#        {{ form.submit }}<br>#}
 
+    {% import "bootstrap/wtf.html" as wtf %}
+    {{ wtf.quick_form(form) }}
 </body>
 </html>

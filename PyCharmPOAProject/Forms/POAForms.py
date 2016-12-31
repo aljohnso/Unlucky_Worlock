@@ -36,3 +36,4 @@ class AddToTripPOA(FlaskForm):
     Phone = IntegerField("Phone Number", [validators.DataRequired("So we can find you please fill in your phone number")])
     Driver = BooleanField("Driver")
     Car_Capacity = StringField("Car Capacity", [validators.DataRequired("Please put car capacity if you aren't driving for this trip put 0")])
+    submit = SubmitField("Add to Trip")

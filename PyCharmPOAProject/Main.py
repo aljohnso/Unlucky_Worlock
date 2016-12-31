@@ -1,11 +1,11 @@
 import os
 import sqlite3
-from Forms.POAForms import MakeTripFormPOA
+from Forms.POAForms import MakeTripFormPOA, AddToTripPOA
 
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash
 from DatabaseConnection.DatabaseConnection import DatabaseConnection
-
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -61,6 +61,23 @@ def add_Trip():
         return render_template('CreateTrip.html', form=form)
 
 
+@app.route('/addParticipant/<FormKey>',  methods=['POST','GET'])
+def add_Participant(FormKey):
+    db = get_db()
+    tripname = db.cursor.execute('select Trip_Name from Master WHERE id =' + str(FormKey)).fetchall()
+    form = AddToTripPOA()
+    if request.method == 'GET':
+        return render_template('Add_Particpant.html', form=form, tripname=tripname)
+    if request.method == 'POST':
+        if form.validate() == False:
+            flash('All fields are required.')
+            return render_template('Add_Particpant.html', form=form, tripname=tripname)
+        else:
+            db.Addparticipant(form.data, str(FormKey))
+            flash('New entry was successfully posted')
+            return redirect(url_for('Main') + '/trips' + str(FormKey))
+
+
 @app.teardown_appcontext
 def close_db(error):
     """Closes the database again at the end of the request."""
@@ -91,5 +108,6 @@ def init_db():
 
 
 if __name__ == '__main__':
+    Bootstrap(app)
     app.run()
     app.run(debug=True)
