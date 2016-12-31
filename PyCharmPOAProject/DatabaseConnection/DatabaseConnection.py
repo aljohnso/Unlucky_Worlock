@@ -35,10 +35,10 @@ class DatabaseConnection:
         :return: List of info for table
         """
         Master = self.MakeMaster(form)
-        # print(Master)
+        print(Master)
         self.cursor.execute(DatabaseConnection.MASTERDBCOMAND, Master)
         Trip = self.MakeTrip(form)
-        # print(Trip)
+        print(Trip)
         # print(TRIPSDBCOMAND)
         self.cursor.execute(DatabaseConnection.TRIPSDBCOMAND, Trip)
         self.connection.commit()
@@ -113,24 +113,36 @@ class DatabaseConnection:
         # print(data)
         return data
 
-    def deleteTrip(self, TripID):
+    def deleteTrip(self, MasterID):
         """
         Will Delete trip from database based on trip ID from Master Table and Trips Table
         :param TripID:
         :return: None
         """
-        self.cursor.execute('DELETE FROM Master WHERE id=' +  str(TripID))
-        self.cursor.execute('DELETE FROM Participants WHERE Trips_Key=' + str(TripID))
+
+        self.cursor.execute('DELETE FROM Master WHERE id=' + str(MasterID))#wrong
         self.connection.commit()
 
     def checkTrip(self, server_time = datetime.datetime.now()):
-        data = self.cursor.execute('select Deparure_Date from  Master order by id desc').fetchall()
-        row = 1
-        for entrie in data:
-            departuredate = datetime.datetime.strptime(entrie[0], '%Y-%m-%d')
-            if server_time >= departuredate:
-                self.deleteTrip(row)
-            row += 1
+        data = self.cursor.execute('select Deparure_Date, id from  Master order by id desc').fetchall()
+        print('data passed to check')
+        print(data)
+        # counter = 1
+        for ENTREE in data:
+            departuredate = datetime.datetime.strptime(ENTREE[0], '%Y-%m-%d')
+            print('checking entrie')
+            print(server_time, departuredate)
+            print(server_time >= departuredate)
+            if server_time >= departuredate:# I dont understand this line --Alasdair
+                index = data.index(ENTREE)
+                print('deleting trip')
+                # print(self.getTrip(index), index)
+                print(ENTREE)
+                self.cursor.execute('DELETE FROM Master WHERE id=' + str(ENTREE[1]))
+
+                print()
+            # counter += 1
+        self.connection.commit()
         return self.cursor.execute('select * from  Master order by id desc').fetchall()
 
     def Makeparticipant(self, Form):
@@ -145,9 +157,9 @@ class DatabaseConnection:
 
     def Addparticipant(self, Form, tripID):
         participant = self.Makeparticipant(Form)
-        print(participant)
+        # print(participant)
         participant.insert(0, tripID)
-        print(participant)
+        # print(participant)
         self.cursor.execute(self.PARTICIPANTDBCOMAND, participant)
         self.connection.commit()
 

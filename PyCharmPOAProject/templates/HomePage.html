@@ -86,6 +86,7 @@
                         <th>Participants</th>
                         <th>Participant Cap</th>
                         <th>Trip Location</th>
+                        <th> Trip Page</th>{#  if you think of a better name change this#}
                     </tr>
                 </thead>
                 <tbody class="entries">
@@ -98,6 +99,7 @@
                     <td> {{ TableRow[6] }}</td>
                     <td> {{ TableRow[7]}}</td>
                     <td> {{ TableRow[8]}}</td>
+                    <td><button href={{ url_for('main') + '/Trips' + TableRow[0]}}>Test</button></td>
                 </tr>
                 {% else %}
                     <li><em>Unbelievable.  No entries here so far</em></li>
