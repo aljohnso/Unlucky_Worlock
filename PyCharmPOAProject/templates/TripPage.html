@@ -13,6 +13,14 @@
 <body>
 <h2> {{TripMeta[1]}}</h2>
 <ul>
+    <li>Departure Date</li>
+    <li>{{ TripMeta[2] }}</li>
+        <li>Return Date</li>
+    <li>{{ TripMeta[3] }}</li>
+        <li>Prticpants </li>
+    <li>{{ TripMeta[6] }}</li>
+        <li>Particpants cap</li>
+    <li>{{ TripMeta[7] }}</li>
     <li><h4>Details</h4></li>
     <li>{{ Tripinfo[2]}} </li>
     <li>Cordinator Name </li>
@@ -28,13 +36,51 @@
     <li>Total Cost </li>
     <li>{{ Tripinfo[8]}} </li>
     <li>Cost Breakdown </li>
-    <li>{{ Tripinfo[9]}} </li>
-    <li>Car Cap</li>
     <li>{{ Tripinfo[10]}} </li>
-    <li>Substance free </li>
+    <li>Car Cap</li>
     <li>{{ Tripinfo[11]}} </li>
-    <li>weather</li>
+    <li>Substance free </li>
     <li>{{ Tripinfo[12]}} </li>
+    <li>weather</li>
+    <li>{{ Tripinfo[13]}} </li>
+
+    <h3> Particpants</h3>
+    <div class="row">
+        <div class="panel panel-primary filterable">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Driver</th>
+                        <th>Car Capacity</th>
+                    </tr>
+                </thead>
+                <tbody class="entries">
+                <tr>
+                    <td>{{ Tripinfo[3] }}</td>
+                    {%  if TripMeta[7] != 0 %}
+                    <td> Yes</td>
+                    <td>{{ TripMeta[7] }}</td>
+                    {% else %}
+                    <td>No</td>
+                    <td>NA</td>
+                    {% endif %}
+                </tr>
+                {% for TableRow in ParticpantInfo %}
+                <tr>
+                    <td> {{ TableRow[0] }}</td>
+                    {%  if TableRow[1]==1 %}
+                    <td> Yes</td>
+                    <td>{{ TableRow[2] }}</td>
+                    {% else %}
+                    <td>No</td>
+                    <td>NA</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
 
 </ul>
 </body>

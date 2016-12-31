@@ -24,8 +24,11 @@ app.config.from_envvar('PYCHARMPOAPROJECT_SETTINGS', silent=True)
 def Main():
     db = get_db()
     entries = db.checkTrip()
-    print(entries)
-    return render_template("HomePage.html", entries=entries)
+    entriesClean = []
+    for a in entries:
+        b = [list(map(lambda x: str(x), a))]
+        entriesClean += b
+    return render_template("HomePage.html", entries=entriesClean)
 
 
 @app.route("/trips/<TripKey>")
@@ -35,10 +38,10 @@ def TripPage(TripKey):
     :return: renders template of the selected trip with detailed information
     """
     db = get_db()
-    tripDetails, meta = db.getTrip(TripKey)
+    tripDetails, meta, ParticpantInfo = db.getTrip(TripKey)
     print(tripDetails)
     print(meta)
-    return render_template("TripPage.html", Tripinfo=tripDetails[0], TripMeta=meta[0])
+    return render_template("TripPage.html", Tripinfo=tripDetails[0], TripMeta=meta[0], ParticpantInfo= ParticpantInfo)
 
 
 @app.route('/addTrip', methods=['POST','GET'])

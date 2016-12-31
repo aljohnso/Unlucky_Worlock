@@ -125,19 +125,19 @@ class DatabaseConnection:
 
     def checkTrip(self, server_time = datetime.datetime.now()):
         data = self.cursor.execute('select Deparure_Date, id from  Master order by id desc').fetchall()
-        print('data passed to check')
-        print(data)
+        # print('data passed to check')
+        # print(data)
         # counter = 1
         for ENTREE in data:
             departuredate = datetime.datetime.strptime(ENTREE[0], '%Y-%m-%d')
-            print('checking entrie')
-            print(server_time, departuredate)
-            print(server_time >= departuredate)
+            # print('checking entrie')
+            # print(server_time, departuredate)
+            # print(server_time >= departuredate)
             if server_time >= departuredate:# I dont understand this line --Alasdair
                 index = data.index(ENTREE)
-                print('deleting trip')
-                # print(self.getTrip(index), index)
-                print(ENTREE)
+                # print('deleting trip')
+                # # print(self.getTrip(index), index)
+                # print(ENTREE)
                 self.cursor.execute('DELETE FROM Master WHERE id=' + str(ENTREE[1]))
 
                 print()
@@ -177,7 +177,9 @@ class DatabaseConnection:
     def getTrip(self,Master_Key):
         master_details = self.cursor.execute('select * from Master WHERE id =' + str(Master_Key)).fetchall()
         trip_details = self.cursor.execute('select * from Trips WHERE Master_Key =' + str(Master_Key)).fetchall()
-        return trip_details, master_details
+        particpant_details = self.cursor.execute('select Participant, Driver, Car_Capacity from Participants '
+                                                 'where Trips_Key=' + str(trip_details[0][0]))
+        return trip_details, master_details, particpant_details
 
 
 
