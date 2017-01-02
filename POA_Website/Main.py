@@ -1,7 +1,6 @@
 import os
 import sqlite3
 from Forms.POAForms import MakeTripFormPOA, AddToTripPOA
-
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash
 from DatabaseConnection.DatabaseConnection import DatabaseConnection
@@ -65,7 +64,8 @@ def add_Trip():
 @app.route('/addParticipant/<FormKey>',  methods=['POST','GET'])
 def add_Participant(FormKey):
     db = get_db()
-    tripname = db.cursor.execute('select Trip_Name, Participant_num, Partcipant_cap from Master WHERE id =' + str(FormKey)).fetchall()
+    tripname = db.cursor.execute('select Trip_Name, Participant_num, Partcipant_cap from'
+                                 ' Master WHERE id =' + str(FormKey)).fetchall()
     form = AddToTripPOA()
     if request.method == 'GET':
         return render_template('Add_Particpant.html', form=form, tripname=tripname)

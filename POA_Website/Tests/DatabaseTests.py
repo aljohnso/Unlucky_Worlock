@@ -36,7 +36,7 @@ class TestDB(unittest.TestCase):
         self.db.AddTrip(testInput)
         masterInfo = self.db.cursor.execute(TestDB.GETMASTERTESTDBCOMAND + '1').fetchall()#will get the info from the line the command calls as a list of tuples where each tuple has the row from the database
         tripInfo = self.db.cursor.execute(TestDB.GETTRIPTESTDBCOMAND + '1').fetchall()
-        ExpectedMaster = [(1, 'Red Rocks', '2016-10-12', '2016-12-12', 'Turn up and climb', 1, 2, 'Red Rocks, California')]#expected outputs
+        ExpectedMaster = [(1, 'Red Rocks', '2016-10-12', '2016-12-12', 'Turn up and climb', 1, 3, 'Red Rocks, California')]#expected outputs
         ExpectedTrip = [(1, 1, 'Turn up and climb', 'Alasdair Johnson', 'aljohnso@students.pitzer.edu', 9193975206,
                          'All the things','Service Road', 10, 180, 'cash for strip club', 5, 0)]
         self.db.deleteTrip(1)
@@ -150,9 +150,9 @@ class TestDB(unittest.TestCase):
             'select id, Master_Key, Details, Coordinator_Name, Coordinator_Email, Coordinator_Phone,' \
             ' Gear_List, Trip_Meeting_Place, Additional_Costs, Total_Cost, Cost_BreakDown, Car_Cap,  ' \
             'Substance_Frre from Trips order by id desc').fetchall()
-        print('DB info after check')
-        print(masterInfo)
-        print(tripInfo)
+        # print('DB info after check')
+        # print(masterInfo)
+        # print(tripInfo)
         ExpectedMaster = [(30, 'Red Rocks', str(datetime.date.today() + datetime.timedelta(days=2)), '2016-12-12',
                            'Turn up ...', str(datetime.date.today()), 1, 2, 'Red Rocks')]  # expected outputs
         ExpectedTrip = [(30, 30, 'Turn up and climb', 'Alasdair Johnson', 'aljohnso@students.pitzer.edu', 9193975206,
