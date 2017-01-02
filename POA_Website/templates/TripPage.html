@@ -12,15 +12,16 @@
 </head>
 <body>
 <h2> {{TripMeta[1]}}</h2>
+<a class="btn" href= {{ url_for('add_Participant', FormKey = Tripinfo[0] ) }} >Add Trip</a>
 <ul>
     <li>Departure Date</li>
     <li>{{ TripMeta[2] }}</li>
         <li>Return Date</li>
     <li>{{ TripMeta[3] }}</li>
         <li>Prticpants </li>
-    <li>{{ TripMeta[7] }}</li>
-        <li>Particpants cap</li>
     <li>{{ TripMeta[6] }}</li>
+        <li>Particpants cap</li>
+    <li>{{ TripMeta[7] }}</li>
     <li><h4>Details</h4></li>
     <li>{{ Tripinfo[2]}} </li>
     <li>Cordinator Name </li>

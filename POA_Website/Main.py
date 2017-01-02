@@ -64,7 +64,7 @@ def add_Trip():
 @app.route('/addParticipant/<FormKey>',  methods=['POST','GET'])
 def add_Participant(FormKey):
     db = get_db()
-    tripname = db.cursor.execute('select Trip_Name, Participant_num, Partcipant_cap from'
+    tripname = db.cursor.execute('select Trip_Name, Participant_num, Partcipant_cap, id from'
                                  ' Master WHERE id =' + str(FormKey)).fetchall()
     form = AddToTripPOA()
     if request.method == 'GET':

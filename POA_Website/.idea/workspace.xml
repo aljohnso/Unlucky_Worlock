@@ -2,42 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c16d905c-50fa-4497-a15b-9ae2bc3d03be" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/.idea/dataSources.local.xml" />
-      <change type="NEW" beforePath="" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/.idea/dataSources.xml" />
-      <change type="NEW" beforePath="" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/.idea/workspace.xml" />
-      <change type="NEW" beforePath="" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/DatabaseConnection/DatabaseConnection.py" />
-      <change type="DELETED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/DatabaseConnection/DatabaseConnection.py" afterPath="" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/.idea/PyCharmPOAProject.iml" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/.idea/POA Website.iml" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/.idea/dataSources/7b3d779c-07d1-433c-beed-da120fd3b13f.xml" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/.idea/dataSources/7b3d779c-07d1-433c-beed-da120fd3b13f.xml" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/.idea/dataSources/7b3d779c-07d1-433c-beed-da120fd3b13f/storage.xml" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/.idea/dataSources/7b3d779c-07d1-433c-beed-da120fd3b13f/storage.xml" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/.idea/dataSources/d6d08d23-9ccf-4013-a6eb-a59569ae8f40.xml" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/.idea/dataSources/d6d08d23-9ccf-4013-a6eb-a59569ae8f40.xml" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/.idea/dataSources/d6d08d23-9ccf-4013-a6eb-a59569ae8f40/storage.xml" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/.idea/dataSources/d6d08d23-9ccf-4013-a6eb-a59569ae8f40/storage.xml" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/.idea/inspectionProfiles/Project_Default.xml" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/.idea/inspectionProfiles/profiles_settings.xml" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/.idea/inspectionProfiles/profiles_settings.xml" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/.idea/misc.xml" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/.idea/misc.xml" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/.idea/modules.xml" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/.idea/modules.xml" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/.idea/sqldialects.xml" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/.idea/sqldialects.xml" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/.idea/vcs.xml" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/.idea/vcs.xml" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/ApplicationDataManger.sql" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/ApplicationDataManger.sql" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/DatabaseConnection/DataBaseControls/FlaskDatabaseMangment.py" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/DatabaseConnection/DataBaseControls/FlaskDatabaseMangment.py" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/DatabaseConnection/DataBaseControls/__init__.py" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/DatabaseConnection/DataBaseControls/__init__.py" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/DatabaseConnection/DatabaseSubmissionConstructors.py" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/DatabaseConnection/DatabaseSubmissionConstructors.py" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/DatabaseConnection/__init__.py" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/DatabaseConnection/__init__.py" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/FormTesting.py" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/FormTesting.py" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Forms/POAForms.py" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/Forms/POAForms.py" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Forms/__init__.py" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/Forms/__init__.py" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Main.py" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/Main.py" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/POA.db" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/POA.db" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests/ApplicationTests.py" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/Tests/ApplicationTests.py" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests/DataBase_Test_Scripts/DataBaseTest_Scripts_CreateTables.sql" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/Tests/DataBase_Test_Scripts/DataBaseTest_Scripts_CreateTables.sql" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests/DataBase_Test_Scripts/POA_Test.db" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/Tests/DataBase_Test_Scripts/POA_Test.db" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests/DatabaseConstructorsTest.py" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/Tests/DatabaseConstructorsTest.py" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests/DatabaseTests.py" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/Tests/DatabaseTests.py" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests/UserTests.py" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/Tests/UserTests.py" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/templates/Add_Particpant.html" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/templates/Add_Particpant.html" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/templates/CreateTrip.html" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/templates/CreateTrip.html" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/templates/HomePage.html" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/templates/HomePage.html" />
-      <change type="MOVED" beforePath="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/templates/TripPage.html" afterPath="$USER_HOME$/Code/Unlucky_Worlock/POA_Website/templates/TripPage.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/jsLinters/jscs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../POA_Website/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../POA_Website/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -47,22 +15,22 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetest_TestDB_test_deleteTrip.coverage" NAME="Nosetest TestDB.test_deleteTrip Coverage Results" MODIFIED="1482811641155" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests" />
-    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetest_TestDB_test_addTrip__1_.coverage" NAME="Nosetest TestDB.test_addTrip (1) Coverage Results" MODIFIED="1482984336211" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests" />
-    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetest_TestDB_test_checkTripMany.coverage" NAME="Nosetest TestDB.test_checkTripMany Coverage Results" MODIFIED="1483160417403" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests" />
-    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetests_in_DatabaseTests.coverage" NAME="Nosetests in DatabaseTests Coverage Results" MODIFIED="1483337520561" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests" />
+    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetest_TestDB_test_deleteTrip.coverage" NAME="Nosetest TestDB.test_deleteTrip Coverage Results" MODIFIED="1482811641155" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
+    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetest_TestDB_test_addTrip__1_.coverage" NAME="Nosetest TestDB.test_addTrip (1) Coverage Results" MODIFIED="1482984336211" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
+    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetest_TestDB_test_checkTripMany.coverage" NAME="Nosetest TestDB.test_checkTripMany Coverage Results" MODIFIED="1483160417403" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
+    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetests_in_DatabaseTests.coverage" NAME="Nosetests in DatabaseTests Coverage Results" MODIFIED="1483337520561" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
     <SUITE FILE_PATH="coverage/PyCharmPOAProject$PyCharmPOAProject.coverage" NAME="PyCharmPOAProject Coverage Results" MODIFIED="1481767332327" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetests_in_DatabaseConstructorTests.coverage" NAME="Nosetests in DatabaseConstructorTests Coverage Results" MODIFIED="1483328466683" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests" />
-    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetest_TestDB_test_AddTripWithParticipant.coverage" NAME="Nosetest TestDB.test_AddTripWithParticipant Coverage Results" MODIFIED="1483337118765" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests" />
-    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetest_TestDB_test_addTrip.coverage" NAME="Nosetest TestDB.test_addTrip Coverage Results" MODIFIED="1483331947687" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests" />
-    <SUITE FILE_PATH="coverage/PyCharmPOAProject$FlaskDatabaseMangment.coverage" NAME="FlaskDatabaseMangment Coverage Results" MODIFIED="1481693071171" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/DataBase/DataBaseControls" />
-    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetest_TestDB_test_expireTrip.coverage" NAME="Nosetest TestDB.test_expireTrip Coverage Results" MODIFIED="1483150244281" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests" />
-    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Main.coverage" NAME="Main Coverage Results" MODIFIED="1483338732256" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject" />
-    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetests_in_TestDB__2_.coverage" NAME="Nosetests in TestDB (2) Coverage Results" MODIFIED="1482810956074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests" />
-    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetests_in_TestDB__1_.coverage" NAME="Nosetests in TestDB (1) Coverage Results" MODIFIED="1482953961011" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests" />
-    <SUITE FILE_PATH="coverage/PyCharmPOAProject$FormTesting.coverage" NAME="FormTesting Coverage Results" MODIFIED="1482637466488" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject" />
-    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetests_in_TestDB.coverage" NAME="Nosetests in TestDB Coverage Results" MODIFIED="1483161278771" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests" />
-    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetest_DatabaseConstructorTests_test_MasterCommandConstructor.coverage" NAME="Nosetest DatabaseConstructorTests.test_MasterCommandConstructor Coverage Results" MODIFIED="1483328508054" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests" />
+    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetests_in_DatabaseConstructorTests.coverage" NAME="Nosetests in DatabaseConstructorTests Coverage Results" MODIFIED="1483328466683" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
+    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetest_TestDB_test_AddTripWithParticipant.coverage" NAME="Nosetest TestDB.test_AddTripWithParticipant Coverage Results" MODIFIED="1483337118765" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
+    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetest_TestDB_test_addTrip.coverage" NAME="Nosetest TestDB.test_addTrip Coverage Results" MODIFIED="1483331947687" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
+    <SUITE FILE_PATH="coverage/PyCharmPOAProject$FlaskDatabaseMangment.coverage" NAME="FlaskDatabaseMangment Coverage Results" MODIFIED="1481693071171" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DataBase/DataBaseControls" />
+    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetest_TestDB_test_expireTrip.coverage" NAME="Nosetest TestDB.test_expireTrip Coverage Results" MODIFIED="1483150244281" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
+    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Main.coverage" NAME="Main Coverage Results" MODIFIED="1483339119404" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetests_in_TestDB__2_.coverage" NAME="Nosetests in TestDB (2) Coverage Results" MODIFIED="1482810956074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
+    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetests_in_TestDB__1_.coverage" NAME="Nosetests in TestDB (1) Coverage Results" MODIFIED="1482953961011" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
+    <SUITE FILE_PATH="coverage/PyCharmPOAProject$FormTesting.coverage" NAME="FormTesting Coverage Results" MODIFIED="1482637466488" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetests_in_TestDB.coverage" NAME="Nosetests in TestDB Coverage Results" MODIFIED="1483161278771" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
+    <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetest_DatabaseConstructorTests_test_MasterCommandConstructor.coverage" NAME="Nosetest DatabaseConstructorTests.test_MasterCommandConstructor Coverage Results" MODIFIED="1483328508054" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -82,7 +50,7 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="Main.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Code/Unlucky_Worlock/POA_Website/Main.py">
+        <entry file="file://$PROJECT_DIR$/../POA_Website/Main.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="435">
               <caret line="29" column="65" lean-forward="false" selection-start-line="29" selection-start-column="65" selection-end-line="29" selection-end-column="65" />
@@ -95,7 +63,7 @@
         </entry>
       </file>
       <file leaf-file-name="DatabaseSubmissionConstructors.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Code/Unlucky_Worlock/POA_Website/DatabaseConnection/DatabaseSubmissionConstructors.py">
+        <entry file="file://$PROJECT_DIR$/../POA_Website/DatabaseConnection/DatabaseSubmissionConstructors.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="15">
               <caret line="31" column="21" lean-forward="false" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
@@ -105,10 +73,10 @@
         </entry>
       </file>
       <file leaf-file-name="DatabaseConnection.py" pinned="false" current-in-tab="true">
-        <entry file="file://$USER_HOME$/Code/Unlucky_Worlock/POA_Website/DatabaseConnection/DatabaseConnection.py">
+        <entry file="file://$PROJECT_DIR$/../POA_Website/DatabaseConnection/DatabaseConnection.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="11" lean-forward="true" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
+            <state relative-caret-position="465">
+              <caret line="31" column="28" lean-forward="true" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
               <folding>
                 <element signature="e#0#34#0" expanded="true" />
                 <marker date="1483338592000" expanded="true" signature="430:611" ph="insert into Master... " />
@@ -152,27 +120,27 @@
     </findStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$USER_HOME$/Code/Unlucky_Worlock" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="dbtable:/fe3367ca/d6d08d23-9ccf-4013-a6eb-a59569ae8f40/Master" />
-        <option value="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests/DataBase_Test_Scripts/DataBaseTest_Scripts_CreateTables.sql" />
+        <option value="$PROJECT_DIR$/Tests/DataBase_Test_Scripts/DataBaseTest_Scripts_CreateTables.sql" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/d6d08d23-9ccf-4013-a6eb-a59569ae8f40/console.sql" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/7b3d779c-07d1-433c-beed-da120fd3b13f/console.sql" />
-        <option value="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Forms/POAForms.py" />
-        <option value="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/templates/HomePage.html" />
-        <option value="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/templates/CreateTrip.html" />
-        <option value="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/templates/Add_Particpant.html" />
+        <option value="$PROJECT_DIR$/Forms/POAForms.py" />
+        <option value="$PROJECT_DIR$/templates/HomePage.html" />
+        <option value="$PROJECT_DIR$/templates/CreateTrip.html" />
+        <option value="$PROJECT_DIR$/templates/Add_Particpant.html" />
         <option value="dbtable:/fe3367ca/d6d08d23-9ccf-4013-a6eb-a59569ae8f40/Participants" />
-        <option value="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/DatabaseConnection/DataBaseControls/DatabaseSubmissionConstructors.py" />
-        <option value="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests/DatabaseConstructorsTest.py" />
-        <option value="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/DatabaseConnection/DatabaseSubmissionConstructors.py" />
-        <option value="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests/DatabaseTests.py" />
-        <option value="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/templates/TripPage.html" />
-        <option value="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Main.py" />
-        <option value="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/DatabaseConnection/DatabaseConnection.py" />
+        <option value="$PROJECT_DIR$/DatabaseConnection/DataBaseControls/DatabaseSubmissionConstructors.py" />
+        <option value="$PROJECT_DIR$/Tests/DatabaseConstructorsTest.py" />
+        <option value="$PROJECT_DIR$/DatabaseConnection/DatabaseSubmissionConstructors.py" />
+        <option value="$PROJECT_DIR$/Tests/DatabaseTests.py" />
+        <option value="$PROJECT_DIR$/templates/TripPage.html" />
+        <option value="$PROJECT_DIR$/Main.py" />
+        <option value="$PROJECT_DIR$/DatabaseConnection/DatabaseConnection.py" />
       </list>
     </option>
   </component>
@@ -292,7 +260,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/DatabaseConnection" />
+      <recent name="$PROJECT_DIR$/DatabaseConnection" />
     </key>
   </component>
   <component name="RunManager" selected="Python.Main">
@@ -301,13 +269,13 @@
       <option name="PARENT_ENVS" value="true" />
       <envs />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Tests" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="PyCharmPOAProject" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests/DatabaseTests.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tests/DatabaseTests.py" />
       <option name="CLASS_NAME" value="TestDB" />
       <option name="METHOD_NAME" value="test_AddTripWithParticipant" />
       <option name="FOLDER_NAME" value="" />
@@ -323,13 +291,13 @@
       <option name="PARENT_ENVS" value="true" />
       <envs />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Tests" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="PyCharmPOAProject" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests/DatabaseConstructorsTest.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tests/DatabaseConstructorsTest.py" />
       <option name="CLASS_NAME" value="DatabaseConstructorTests" />
       <option name="METHOD_NAME" value="test_MasterCommandConstructor" />
       <option name="FOLDER_NAME" value="" />
@@ -345,13 +313,13 @@
       <option name="PARENT_ENVS" value="true" />
       <envs />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Tests" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="PyCharmPOAProject" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests/DatabaseTests.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tests/DatabaseTests.py" />
       <option name="CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
       <option name="FOLDER_NAME" value="" />
@@ -367,13 +335,13 @@
       <option name="PARENT_ENVS" value="true" />
       <envs />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Tests" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="PyCharmPOAProject" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Tests/DatabaseTests.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tests/DatabaseTests.py" />
       <option name="CLASS_NAME" value="TestDB" />
       <option name="METHOD_NAME" value="test_addTrip" />
       <option name="FOLDER_NAME" value="" />
@@ -391,13 +359,13 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="PyCharmPOAProject" />
+      <module name="POA Website" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$USER_HOME$/Code/Unlucky_Worlock/PyCharmPOAProject/Main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../POA_Website/Main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -695,7 +663,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19588745" sideWeight="0.5021322" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32765958" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19148937" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26524824" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22695035" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3211781" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18025751" sideWeight="0.85328186" order="0" side_tool="false" content_ui="combo" />
@@ -769,7 +737,7 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/Code/Unlucky_Worlock/POA_Website/Tests/DataBase_Test_Scripts/DataBaseTest_Scripts_CreateTables.sql">
+    <entry file="file://$PROJECT_DIR$/../POA_Website/Tests/DataBase_Test_Scripts/DataBaseTest_Scripts_CreateTables.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
           <caret line="40" column="2" lean-forward="false" selection-start-line="40" selection-start-column="2" selection-end-line="40" selection-end-column="2" />
@@ -1145,7 +1113,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Code/Unlucky_Worlock/POA_Website/FormTesting.py">
+    <entry file="file://$PROJECT_DIR$/../POA_Website/FormTesting.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="348">
           <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="18" />
@@ -1155,7 +1123,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Code/Unlucky_Worlock/POA_Website/Forms/POAForms.py">
+    <entry file="file://$PROJECT_DIR$/../POA_Website/Forms/POAForms.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
           <caret line="38" column="39" lean-forward="true" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
@@ -1165,7 +1133,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Code/Unlucky_Worlock/POA_Website/templates/Add_Particpant.html">
+    <entry file="file://$PROJECT_DIR$/../POA_Website/templates/Add_Particpant.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="384">
           <caret line="37" column="8" lean-forward="false" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="8" />
@@ -1197,7 +1165,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Code/Unlucky_Worlock/POA_Website/POA.db">
+    <entry file="file://$PROJECT_DIR$/../POA_Website/POA.db">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-13500">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1218,7 +1186,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Code/Unlucky_Worlock/POA_Website/DatabaseConnection/DataBaseControls/__init__.py">
+    <entry file="file://$PROJECT_DIR$/../POA_Website/DatabaseConnection/DataBaseControls/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1237,7 +1205,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Code/Unlucky_Worlock/POA_Website/Tests/DatabaseConstructorsTest.py">
+    <entry file="file://$PROJECT_DIR$/../POA_Website/Tests/DatabaseConstructorsTest.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
           <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
@@ -1247,7 +1215,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Code/Unlucky_Worlock/POA_Website/Tests/DatabaseTests.py">
+    <entry file="file://$PROJECT_DIR$/../POA_Website/Tests/DatabaseTests.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2340">
           <caret line="156" column="74" lean-forward="false" selection-start-line="156" selection-start-column="74" selection-end-line="156" selection-end-column="74" />
@@ -1268,7 +1236,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Code/Unlucky_Worlock/POA_Website/templates/CreateTrip.html">
+    <entry file="file://$PROJECT_DIR$/../POA_Website/templates/CreateTrip.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1315">
           <caret line="96" column="0" lean-forward="true" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
@@ -1276,7 +1244,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Code/Unlucky_Worlock/POA_Website/templates/TripPage.html">
+    <entry file="file://$PROJECT_DIR$/../POA_Website/templates/TripPage.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="20" column="30" lean-forward="true" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
@@ -1284,7 +1252,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Code/Unlucky_Worlock/POA_Website/templates/HomePage.html">
+    <entry file="file://$PROJECT_DIR$/../POA_Website/templates/HomePage.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
           <caret line="43" column="33" lean-forward="false" selection-start-line="43" selection-start-column="33" selection-end-line="43" selection-end-column="33" />
@@ -1292,7 +1260,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Code/Unlucky_Worlock/POA_Website/Main.py">
+    <entry file="file://$PROJECT_DIR$/../POA_Website/Main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="29" column="65" lean-forward="false" selection-start-line="29" selection-start-column="65" selection-end-line="29" selection-end-column="65" />
@@ -1303,7 +1271,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Code/Unlucky_Worlock/POA_Website/DatabaseConnection/DatabaseSubmissionConstructors.py">
+    <entry file="file://$PROJECT_DIR$/../POA_Website/DatabaseConnection/DatabaseSubmissionConstructors.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="31" column="21" lean-forward="false" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
@@ -1311,10 +1279,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Code/Unlucky_Worlock/POA_Website/DatabaseConnection/DatabaseConnection.py">
+    <entry file="file://$PROJECT_DIR$/../POA_Website/DatabaseConnection/DatabaseConnection.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="11" lean-forward="true" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
+        <state relative-caret-position="465">
+          <caret line="31" column="28" lean-forward="true" selection-start-line="31" selection-start-column="28" selection-end-line="31" selection-end-column="28" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
             <marker date="1483338592000" expanded="true" signature="430:611" ph="insert into Master... " />

@@ -18,8 +18,8 @@
       {% for message in form.Car_Capacity.errors %}
      <div>{{ message }}</div>
       {% endfor %}
-{% if tripname[0][1] <= tripname[0][1] %}
-<form action= "{{ url_for('add_Participant', FormKey= request.path[-1]) }}" method="post">
+{% if tripname[0][1] <= tripname[0][2] %}
+<form action= "{{ url_for('add_Participant', FormKey= tripname[0][3]) }}" method="post">
 {#           {{ form.hidden_tag() }}<br>#}
 {#        {{ form.Participant.label }}<br>#}
 {#        {{ form.Participant}}#}
