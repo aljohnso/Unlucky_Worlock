@@ -1,8 +1,7 @@
-from DatabaseConnection.DataBaseControls.FlaskDatabaseMangment import AddTrip, MASTERDBCOMAND,PARTICIPANTDBCOMAND,TRIPSDBCOMAND
 from  DatabaseConnection.DatabaseConnection import DatabaseConnection
 import sqlite3, unittest, os, datetime
 import copy
-
+from DatabaseConnection.DatabaseSubmissionConstructors import TripCommandConstructor, MasterCommandConstructor, ParticipantCommandConstructor
 testParticipant_AJ = {'Participant':"alasdair Johnson",'Phone': 9193975206, 'Driver': 1, 'Car_Capacity' : 5}
 testParticipant_JL = {'Participant':"Jessie Levine",'Phone': 2523456439, 'Driver': 0, 'Car_Capacity' : 0}
 
@@ -28,9 +27,7 @@ class TestDB(unittest.TestCase):
     def setUp(self):
         self.db = DatabaseConnection(str(os.getcwd()) + '/DataBase_Test_Scripts/POA_Test.db')
         table_commands = open(str(os.getcwd())+'/DataBase_Test_Scripts/DataBaseTest_Scripts_CreateTables.sql').read()
-        # print(table_commands)
         self.db.cursor.executescript(table_commands)
-        print("Done")
 
     def tearDown(self):
         self.db.closeConnection()
@@ -39,9 +36,9 @@ class TestDB(unittest.TestCase):
         self.db.AddTrip(testInput)
         masterInfo = self.db.cursor.execute(TestDB.GETMASTERTESTDBCOMAND + '1').fetchall()#will get the info from the line the command calls as a list of tuples where each tuple has the row from the database
         tripInfo = self.db.cursor.execute(TestDB.GETTRIPTESTDBCOMAND + '1').fetchall()
-        ExpectedMaster = [(1, 'Red Rocks', '2016-10-12', '2016-12-12', 'Turn up ...', 1, 2, 'Red Rocks')]#expected outputs
+        ExpectedMaster = [(1, 'Red Rocks', '2016-10-12', '2016-12-12', 'Turn up and climb', 1, 2, 'Red Rocks, California')]#expected outputs
         ExpectedTrip = [(1, 1, 'Turn up and climb', 'Alasdair Johnson', 'aljohnso@students.pitzer.edu', 9193975206,
-                         'All the things','Service Road', 10, 95, 'cash for strip club', 5, 0)]
+                         'All the things','Service Road', 10, 180, 'cash for strip club', 5, 0)]
         self.db.deleteTrip(1)
         self.assertEqual(ExpectedMaster, masterInfo)#comparisons
         self.assertEqual(tripInfo, ExpectedTrip)
@@ -163,6 +160,23 @@ class TestDB(unittest.TestCase):
         self.db.deleteTrip(30)
         self.assertEqual(ExpectedMaster, masterInfo)  # comparisons
         self.assertEqual(tripInfo, ExpectedTrip)
+
+    def test_AddTripWithParticipant(self):
+        test_master = copy.deepcopy(self.test_master)
+        test_trip = copy.deepcopy(self.test_trip)
+        test_trip.pop()
+        test_trip.append(1)
+        self.db.cursor.execute(self.db.MASTERDBCOMAND, test_master)
+        self.db.cursor.execute(self.db.TRIPSDBCOMAND, test_trip)
+        particpants = self.db.cursor.execute('select Partcipant_cap, Participant_num from Master WHERE id=1').fetchall()[0]
+        print(particpants)
+        self.db.Addparticipant(testParticipant_AJ, 1)#driver car cap
+        particpants = self.db.cursor.execute('select Partcipant_cap, Participant_num from Master WHERE id=1').fetchall()[0]
+        expectedparticpants = (8,2)
+        self.assertEqual(particpants,expectedparticpants)
+
+
+
 
 
     # consider adding waitlist fetures new table?

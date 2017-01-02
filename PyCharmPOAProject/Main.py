@@ -41,6 +41,7 @@ def TripPage(TripKey):
     tripDetails, meta, ParticpantInfo = db.getTrip(TripKey)
     print(tripDetails)
     print(meta)
+    print(ParticpantInfo)
     return render_template("TripPage.html", Tripinfo=tripDetails[0], TripMeta=meta[0], ParticpantInfo= ParticpantInfo)
 
 
@@ -64,7 +65,7 @@ def add_Trip():
 @app.route('/addParticipant/<FormKey>',  methods=['POST','GET'])
 def add_Participant(FormKey):
     db = get_db()
-    tripname = db.cursor.execute('select Trip_Name from Master WHERE id =' + str(FormKey)).fetchall()
+    tripname = db.cursor.execute('select Trip_Name, Participant_num, Partcipant_cap from Master WHERE id =' + str(FormKey)).fetchall()
     form = AddToTripPOA()
     if request.method == 'GET':
         return render_template('Add_Particpant.html', form=form, tripname=tripname)
@@ -75,7 +76,7 @@ def add_Participant(FormKey):
         else:
             db.Addparticipant(form.data, str(FormKey))
             flash('New entry was successfully posted')
-            return redirect(url_for('Main') + '/trips' + str(FormKey))
+            return redirect(url_for('TripPage', TripKey=str(FormKey)))
 
 
 @app.teardown_appcontext

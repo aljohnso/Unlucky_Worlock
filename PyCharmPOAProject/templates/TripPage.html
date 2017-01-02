@@ -43,7 +43,6 @@
     <li>{{ Tripinfo[12]}} </li>
     <li>weather</li>
     <li>{{ Tripinfo[13]}} </li>
-
     <h3> Particpants</h3>
     <div class="row">
         <div class="panel panel-primary filterable">
@@ -69,7 +68,7 @@
                 {% for TableRow in ParticpantInfo %}
                 <tr>
                     <td> {{ TableRow[0] }}</td>
-                    {%  if TableRow[1]==1 %}
+                    {%  if TableRow[1]=='True' %}
                     <td> Yes</td>
                     <td>{{ TableRow[2] }}</td>
                     {% else %}
