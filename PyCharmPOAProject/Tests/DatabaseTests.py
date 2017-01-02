@@ -162,12 +162,11 @@ class TestDB(unittest.TestCase):
         self.assertEqual(tripInfo, ExpectedTrip)
 
     def test_AddTripWithParticipant(self):
-        test_master = copy.deepcopy(self.test_master)
-        test_trip = copy.deepcopy(self.test_trip)
-        test_trip.pop()
-        test_trip.append(1)
-        self.db.cursor.execute(self.db.MASTERDBCOMAND, test_master)
-        self.db.cursor.execute(self.db.TRIPSDBCOMAND, test_trip)
+        self.db.AddTrip(testInput)
+        # test_master = copy.deepcopy(self.test_master)
+        # test_trip = copy.deepcopy(self.test_trip)
+        # self.db.cursor.execute(self.db.MASTERDBCOMAND, test_master)
+        # self.db.cursor.execute(self.db.TRIPSDBCOMAND, test_trip)
         particpants = self.db.cursor.execute('select Partcipant_cap, Participant_num from Master WHERE id=1').fetchall()[0]
         print(particpants)
         self.db.Addparticipant(testParticipant_AJ, 1)#driver car cap

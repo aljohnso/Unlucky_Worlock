@@ -30,7 +30,7 @@ class MasterCommandConstructor:
         Master += [self.MakeShortDetails(str(form['Details']))]
         Master += [str(datetime.date.today())]
         Master += [1]
-        Master += [form['Car_Capacity']-1]#add including driver note
+        Master += [form['Car_Capacity']]#add including driver note
         return Master
 
     def MakeShortDetails(self, details):

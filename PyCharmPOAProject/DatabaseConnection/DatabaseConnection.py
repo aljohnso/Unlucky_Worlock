@@ -166,7 +166,7 @@ class DatabaseConnection:
         car_capacity = participant[4]
         self.cursor.execute(self.PARTICIPANTDBCOMAND, participant)
         self.cursor.execute('UPDATE Master SET Participant_num = Participant_num + 1 WHERE id =' + str(tripID))#TODO: this could cause an error not sure if trip and master will ever have diffrent ids
-        self.cursor.execute('UPDATE Master SET Participant_num = Participant_num +' + str(car_capacity) +' WHERE id =' + str(tripID))
+        self.cursor.execute('UPDATE Master SET Partcipant_cap = Partcipant_cap +' + str(car_capacity) +' WHERE id =' + str(tripID))
         self.connection.commit()
 
     def getParticipants(self, tripID):
