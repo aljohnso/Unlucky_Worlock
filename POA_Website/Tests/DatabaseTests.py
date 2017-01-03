@@ -5,7 +5,13 @@ from DatabaseConnection.DatabaseSubmissionConstructors import TripCommandConstru
 testParticipant_AJ = {'Participant':"alasdair Johnson",'Phone': 9193975206, 'Driver': 1, 'Car_Capacity' : 5}
 testParticipant_JL = {'Participant':"Jessie Levine",'Phone': 2523456439, 'Driver': 0, 'Car_Capacity' : 0}
 
-testInput = {'Trip_Meeting_Place': 'Service Road', 'GearList': 'All the things', 'Coordinator_Phone': 9193975206, 'Car_Capacity': 3, 'Return_Date': datetime.date(2016, 12, 12), 'Additional_Cost': 10, 'Coordinator_Email': 'aljohnso@students.pitzer.edu', 'Cost_Breakdown': 'cash for strip club', 'submit': True, 'Details': 'Turn up and climb', 'Car_Cap': 5, 'Substance_Free': False, 'Trip_Location': 'Red Rocks', 'Departure_Date': datetime.date(2016, 10, 12), 'Coordinator_Name': 'Alasdair Johnson', 'Trip_Name': 'Red Rocks', 'Trip_State': 'California'}
+testInput = {'Trip_Meeting_Place': 'Service Road', 'GearList': 'All the things',
+             'Coordinator_Phone': 9193975206, 'Car_Capacity': 3, 'Return_Date': datetime.date(2016, 12, 12),
+             'Additional_Cost': 10, 'Coordinator_Email': 'aljohnso@students.pitzer.edu',
+             'Cost_Breakdown': 'cash for strip club', 'submit': True, 'Details': 'Turn up and climb',
+             'Car_Cap': 5, 'Substance_Free': False, 'Trip_Location': 'Red Rocks',
+             'Departure_Date': datetime.date(2016, 10, 12), 'Coordinator_Name': 'Alasdair Johnson',
+             'Trip_Name': 'Red Rocks', 'Trip_State': 'California'}
 # conn = sqlite3.connect(str(os.getcwd()) + '/DataBase_Test_Scripts/POA_Test.db')
 
 
@@ -101,8 +107,10 @@ class TestDB(unittest.TestCase):
         self.db.Addparticipant(testParticipant_AJ, 1)
         expected_particitant = [(1,1,"alasdair Johnson",9193975206,1,5)]
         particpant_info = self.db.cursor.execute('select * from Participants ORDER BY id DESC ').fetchall()
+        master_info = self.db.cursor.execute('select Partcipant_cap, Participant_num from Master where id = 1').fetchall()
+        expected_master = [(8, 2)]
         self.assertEqual(expected_particitant,particpant_info)
-
+        self.assertEqual(expected_master, master_info)
 
     def test_deleteParticipant(self):
         self.db.AddTrip(testInput)
@@ -110,7 +118,10 @@ class TestDB(unittest.TestCase):
         self.db.deleteParticpant(1)
         expected_particitant = []
         particpant_info = self.db.cursor.execute('select * from Participants ORDER BY id DESC ').fetchall()
+        master_info = self.db.cursor.execute('select Partcipant_cap, Participant_num from Master where id = 1').fetchall()
+        expected_master = [(3, 1)]
         self.assertEqual(expected_particitant, particpant_info)
+        self.assertEqual(expected_master, master_info)
 
 
     def test_deleteParticipantWithTrip(self):

@@ -79,13 +79,20 @@ class DatabaseConnection:
             return None
 
     def deleteParticpant(self, participant_id):
+        data = self.cursor.execute('SELECT car_Capacity, Trips_Key FROM Participants WHERE id=' + str(participant_id)).fetchall()
+        car_capacity = data[0][0]
+        trip_key = data[0][1]
+        self.cursor.execute('UPDATE Master SET Participant_num = '
+                            'Participant_num - 1 WHERE id =' + str(trip_key))
+        self.cursor.execute('UPDATE Master SET Partcipant_cap = Partcipant_cap -'
+                            + str(car_capacity) + ' WHERE id =' + str(trip_key))
         self.cursor.execute('DELETE FROM Participants WHERE id=' + str(participant_id))
         self.connection.commit()
 
     def getTrip(self,Master_Key):
         master_details = self.cursor.execute('select * from Master WHERE id =' + str(Master_Key)).fetchall()
         trip_details = self.cursor.execute('select * from Trips WHERE Master_Key =' + str(Master_Key)).fetchall()
-        particpant_details = self.cursor.execute('select Participant, Driver, Car_Capacity from Participants '
+        particpant_details = self.cursor.execute('select Participant, Driver, Car_Capacity, id from Participants '
                                                  'where Trips_Key=' + str(trip_details[0][0])).fetchall()
         return trip_details, master_details, particpant_details
 
