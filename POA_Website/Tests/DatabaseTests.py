@@ -2,8 +2,12 @@ from  DatabaseConnection.DatabaseConnection import DatabaseConnection
 import sqlite3, unittest, os, datetime
 import copy
 from DatabaseConnection.DatabaseSubmissionConstructors import TripCommandConstructor, MasterCommandConstructor, ParticipantCommandConstructor
-testParticipant_AJ = {'Participant':"alasdair Johnson",'Phone': 9193975206, 'Driver': 1, 'Car_Capacity' : 5}
-testParticipant_JL = {'Participant':"Jessie Levine",'Phone': 2523456439, 'Driver': 0, 'Car_Capacity' : 0}
+
+testParticipant_AJ = {'Participant': "alasdair Johnson",
+                      'Email': 'aljohnso@students.pitzer.edu', 'Phone':9193975206, 'Driver': 1, 'Car_Capacity': 5}
+testParticipant_JL = {'Participant': "Jessie Levine",
+                      'Email': 'jlenvin@gmail.com', 'Phone': 2523456439, 'Driver': 0, 'Car_Capacity': 0}
+
 
 testInput = {'Trip_Meeting_Place': 'Service Road', 'GearList': 'All the things',
              'Coordinator_Phone': 9193975206, 'Car_Capacity': 3, 'Return_Date': datetime.date(2016, 12, 12),
@@ -42,10 +46,13 @@ class TestDB(unittest.TestCase):
         self.db.AddTrip(testInput)
         masterInfo = self.db.cursor.execute(TestDB.GETMASTERTESTDBCOMAND + '1').fetchall()#will get the info from the line the command calls as a list of tuples where each tuple has the row from the database
         tripInfo = self.db.cursor.execute(TestDB.GETTRIPTESTDBCOMAND + '1').fetchall()
+        particpant_info = self.db.cursor.execute('select * from Participants ORDER BY id DESC ').fetchall()
+        ExpectedParticipant = [(1, 1, 'Alasdair Johnson', 9193975206, 'aljohnso@students.pitzer.edu', 1, 3)]
         ExpectedMaster = [(1, 'Red Rocks', '2016-10-12', '2016-12-12', 'Turn up and climb', 1, 3, 'Red Rocks, California')]#expected outputs
         ExpectedTrip = [(1, 1, 'Turn up and climb', 'Alasdair Johnson', 'aljohnso@students.pitzer.edu', 9193975206,
                          'All the things','Service Road', 10, 180, 'cash for strip club', 5, 0)]
         self.db.deleteTrip(1)
+        self.assertEqual(particpant_info,ExpectedParticipant)
         self.assertEqual(ExpectedMaster, masterInfo)#comparisons
         self.assertEqual(tripInfo, ExpectedTrip)
 
@@ -57,10 +64,13 @@ class TestDB(unittest.TestCase):
         self.db.deleteTrip(2)
         masterInfo = self.db.cursor.execute(TestDB.GETMASTERTESTDBCOMAND + '2').fetchall()
         tripInfo = self.db.cursor.execute(TestDB.GETTRIPTESTDBCOMAND + '2').fetchall()
+        particpant_info = self.db.cursor.execute('select * from Participants WHERE Trips_Key=' + '2').fetchall()
         ExpectedMaster = []
         ExpectedTrip = []
+        ExpectedParticipant = []
         self.assertEqual(ExpectedMaster, masterInfo)
         self.assertEqual(tripInfo, ExpectedTrip)
+        self.assertEqual(particpant_info,ExpectedParticipant)
 
     def test_expireTrip(self):
         test_master = self.test_master
@@ -105,8 +115,9 @@ class TestDB(unittest.TestCase):
     def test_addParticipant(self):
         self.db.AddTrip(testInput)
         self.db.Addparticipant(testParticipant_AJ, 1)
-        expected_particitant = [(1,1,"alasdair Johnson",9193975206,1,5)]
+        expected_particitant = [(2, 1, 'alasdair Johnson', 9193975206, 'aljohnso@students.pitzer.edu', 1, 5), (1, 1, 'Alasdair Johnson', 9193975206, 'aljohnso@students.pitzer.edu', 1, 3)]
         particpant_info = self.db.cursor.execute('select * from Participants ORDER BY id DESC ').fetchall()
+        print(particpant_info)
         master_info = self.db.cursor.execute('select Partcipant_cap, Participant_num from Master where id = 1').fetchall()
         expected_master = [(8, 2)]
         self.assertEqual(expected_particitant,particpant_info)
@@ -116,10 +127,11 @@ class TestDB(unittest.TestCase):
         self.db.AddTrip(testInput)
         self.db.Addparticipant(testParticipant_AJ, 1)
         self.db.deleteParticpant(1)
+        self.db.deleteParticpant(2)
         expected_particitant = []
         particpant_info = self.db.cursor.execute('select * from Participants ORDER BY id DESC ').fetchall()
         master_info = self.db.cursor.execute('select Partcipant_cap, Participant_num from Master where id = 1').fetchall()
-        expected_master = [(3, 1)]
+        expected_master = [(0, 0)]
         self.assertEqual(expected_particitant, particpant_info)
         self.assertEqual(expected_master, master_info)
 

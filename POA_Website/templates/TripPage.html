@@ -57,17 +57,17 @@
                         <th>remove from trip</th>
                     </tr>
                 </thead>
-                <tbody class="entries">
-                <tr>
-                    <td>{{ Tripinfo[3] }}</td>
-                    {%  if TripMeta[7] != 0 %}
-                    <td> Yes</td>
-                    <td>{{ TripMeta[7] }}</td>
-                    {% else %}
-                    <td>No</td>
-                    <td>NA</td>
-                    {% endif %}
-                </tr>
+{#                <tbody class="entries">#}
+{#                <tr>#}
+{#                    <td>{{ Tripinfo[3] }}</td>#}
+{#                    {%  if TripMeta[7] != 0 %}#}
+{#                    <td> Yes</td>#}
+{#                    <td>{{ TripMeta[7] }}</td>#}
+{#                    {% else %}#}
+{#                    <td>No</td>#}
+{#                    <td>NA</td>#}
+{#                    {% endif %}#}
+{#                </tr>#}
                 {% for TableRow in ParticpantInfo %}
                 <tr>
                     <td> {{ TableRow[0] }}</td>

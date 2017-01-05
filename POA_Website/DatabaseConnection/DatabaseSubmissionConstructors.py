@@ -4,18 +4,13 @@ import datetime,requests
 class MasterCommandConstructor:
     MASTER_DB_ORDER = ['Trip_Name', 'Departure_Date', 'Return_Date']
 
-
-
-
-
-
     def __init__(self, form):
         """
         :param form:
         Will take in form and create a list that can be executed to put in database
         """
         self.master = self.MakeMaster(form)
-
+        self.leader = ParticipantCommandConstructor(form, None).participant#will need to add in master id after assingment
 
 
     def MakeMaster(self, form):
@@ -104,7 +99,7 @@ class TripCommandConstructor:
 
 
 class ParticipantCommandConstructor:
-    PARTICIPANT_DB_ORDER = ['Participant', 'Phone', 'Driver', 'Car_Capacity']
+    PARTICIPANT_DB_ORDER = ['Participant','Email', 'Phone', 'Driver', 'Car_Capacity']
 
     def __init__(self, form, tripID):
         """
@@ -118,10 +113,25 @@ class ParticipantCommandConstructor:
         :param Form: form from POAForms class that details
         :return:
         """
-
         participant = [TripID]
-        for index in ParticipantCommandConstructor.PARTICIPANT_DB_ORDER:
-            participant += [str(Form[index])]
-        print(Form.values())
-        print(participant)
+        try:
+            for index in ParticipantCommandConstructor.PARTICIPANT_DB_ORDER:
+                participant += [str(Form[index])]
+            print(Form.values())
+            print(participant)
+        except KeyError:
+            for index in ['Coordinator_Name', 'Coordinator_Email', 'Coordinator_Phone']:
+                participant += [str(Form[index])]
+            if Form['Car_Capacity'] != 0:
+                participant += ['1']
+            else:
+                participant += ['0']
+            participant += [Form['Car_Capacity']]
+            print(Form.values())
+            print(participant)
         return participant
+
+
+
+
+

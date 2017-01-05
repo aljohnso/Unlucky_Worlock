@@ -16,8 +16,8 @@ class DatabaseConnection:
                     'Gear_List, Trip_Meeting_Place, Additional_Costs, Cost_BreakDown, Car_Cap, Substance_Frre, ' \
                     'Total_Cost, Weather_Forcast, Master_Key) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)'
 
-    PARTICIPANTDBCOMAND = 'insert into Participants (Trips_Key, Participant, Phone, Driver, Car_Capacity)' \
-                          ' VALUES (?,?,?,?,?)'
+    PARTICIPANTDBCOMAND = 'insert into Participants (Trips_Key, Participant, Email, Phone, Driver, Car_Capacity)' \
+                          ' VALUES (?,?,?,?,?,?)'
 
     def __init__(self, path):
         """
@@ -35,13 +35,20 @@ class DatabaseConnection:
             :param form is the form from POAForms class  MakeTripFormPOA
             :return: List of info for table
         """
-        Master = MasterCommandConstructor(form).master
+        Masterinfo = MasterCommandConstructor(form)
+        Master = Masterinfo.master
+
         # print(Master)
         self.cursor.execute(DatabaseConnection.MASTERDBCOMAND, Master)
-        Trip = TripCommandConstructor(form,self.cursor.lastrowid).trip
-        print(Trip)
+        masterid = self.cursor.lastrowid
+        Trip = TripCommandConstructor(form,masterid).trip
+        # print(Trip)
         # print(TRIPSDBCOMAND)
         self.cursor.execute(DatabaseConnection.TRIPSDBCOMAND, Trip)
+        tripid = self.cursor.lastrowid
+        Leader = [tripid] + Masterinfo.leader[1:]
+        print(Leader)
+        self.cursor.execute(DatabaseConnection.PARTICIPANTDBCOMAND, Leader)
         self.connection.commit()
 
     def deleteTrip(self, MasterID):
@@ -50,8 +57,9 @@ class DatabaseConnection:
             :param TripID:
             :return: None
         """
+        print(MasterID)
 
-        self.cursor.execute('DELETE FROM Master WHERE id=' + str(MasterID))#wrong
+        self.cursor.execute('DELETE FROM Master WHERE id=' + str(MasterID))
         self.connection.commit()
 
     def checkTrip(self, server_time = datetime.datetime.now()):
@@ -65,7 +73,9 @@ class DatabaseConnection:
 
     def Addparticipant(self, Form, tripID):
         participant = ParticipantCommandConstructor(Form, tripID).participant
-        car_capacity = participant[4]
+        car_capacity = participant[5]
+        print(participant)
+        print(car_capacity)
         self.cursor.execute(self.PARTICIPANTDBCOMAND, participant)
         self.cursor.execute('UPDATE Master SET Participant_num = Participant_num + 1 WHERE id =' + str(tripID))#TODO: this could cause an error not sure if trip and master will ever have diffrent ids
         self.cursor.execute('UPDATE Master SET Partcipant_cap = Partcipant_cap +' + str(car_capacity) +' WHERE id =' + str(tripID))

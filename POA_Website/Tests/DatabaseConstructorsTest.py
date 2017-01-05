@@ -2,8 +2,8 @@ import unittest, datetime
 from DatabaseConnection.DatabaseSubmissionConstructors import ParticipantCommandConstructor, TripCommandConstructor, MasterCommandConstructor
 
 class DatabaseConstructorTests(unittest.TestCase):
-    testParticipant_AJ = {'Participant': "alasdair Johnson", 'Phone': 9193975206, 'Driver': 1, 'Car_Capacity': 5}
-    testParticipant_JL = {'Participant': "Jessie Levine", 'Phone': 2523456439, 'Driver': 0, 'Car_Capacity': 0}
+    testParticipant_AJ = {'Participant': "alasdair Johnson",'Email': 'aljohnso@students.pitzer.edu', 'Phone': 9193975206, 'Driver': 1, 'Car_Capacity': 5}
+    testParticipant_JL = {'Participant': "Jessie Levine", 'Email': 'jlenvin@gmail.com', 'Phone': 2523456439, 'Driver': 0, 'Car_Capacity': 0}
     testInput = {'Trip_Meeting_Place': 'Service Road', 'GearList': 'All the things', 'Coordinator_Phone': 9193975206,
                  'Car_Capacity': 3, 'Return_Date': datetime.date(2016, 12, 12), 'Additional_Cost': 10,
                  'Coordinator_Email': 'aljohnso@students.pitzer.edu', 'Cost_Breakdown': 'cash for strip club',
@@ -14,7 +14,7 @@ class DatabaseConstructorTests(unittest.TestCase):
     def test_ParticpantCommandConstructor(self):
         particpant = ParticipantCommandConstructor(DatabaseConstructorTests.testParticipant_AJ, 1).participant
         print(particpant)
-        expected_particpant = [1, "alasdair Johnson", "9193975206", "1", "5"]
+        expected_particpant = [1, 'alasdair Johnson', 'aljohnso@students.pitzer.edu', '9193975206', '1', '5']
         self.assertEqual(particpant, expected_particpant)#couldn cause error with the 1 being int we will see
 
     def test_MakeTripComandConstructor(self):
@@ -30,7 +30,7 @@ class DatabaseConstructorTests(unittest.TestCase):
     def test_MasterCommandConstructor(self):
         master = MasterCommandConstructor(DatabaseConstructorTests.testInput).master
         print(master)
-        expected_master = ['Red Rocks', '2016-10-12', '2016-12-12','National Conservation Area, Las Vegas, NV', 'Turn up and climb', str(datetime.date.today()), 1, 2]
+        expected_master = ['Red Rocks', '2016-10-12', '2016-12-12','National Conservation Area, Las Vegas, NV', 'Turn up and climb', str(datetime.date.today()), 1, 3]
         self.assertEqual(master, expected_master)
 
 
