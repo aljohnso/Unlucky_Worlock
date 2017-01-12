@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="POA.db" uuid="d6d08d23-9ccf-4013-a6eb-a59569ae8f40">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/POA.db</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="POA_Test.db" uuid="7b3d779c-07d1-433c-beed-da120fd3b13f">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/Tests/DataBase_Test_Scripts/POA_Test.db</jdbc-url>
+    </data-source>
+  </component>
+</project>
