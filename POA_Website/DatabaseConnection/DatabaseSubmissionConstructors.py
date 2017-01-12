@@ -1,4 +1,4 @@
-import datetime,requests
+import datetime,requests, re
 
 
 class MasterCommandConstructor:
@@ -77,19 +77,23 @@ class TripCommandConstructor:
         """
         try:
             URL = 'http://api.wunderground.com/api/dd0fa4bc432d5dbd/forecast10day/q/'
-            Location = GoogleMapsData['destination_addresses'][0].split(
-                ",")  # this could produce an error if they give us a city as well as adress and state
-            # print(Location)
-            state = Location[1][1:3]
-            place = "_".join(Location[0].split(" "))
-            # print(state, place)
-            data = requests.get(URL + state + '/' + place + '.json').json()
+            # Location = GoogleMapsData['destination_addresses'][0].split(",")
+            # # this could produce an error if they give us a city as well as adress and state
+            # # print(Location)
+            # state = Location[1][1:3]
+            # place = "_".join(Location[0].split(" "))
+            # # print(state, place)
+            # data = requests.get(URL + state + '/' + place + '.json').json()
+            Location = GoogleMapsData['destination_addresses'][0]
+            pattern = '(\d{5}([\-]\d{4})?)'
+            zipcode = re.search(pattern, Location).group(1)
+            data = requests.get(URL + zipcode + '.json').json()
             return data['forecast']['simpleforecast']  # gives 10 day forcast as a list of dicts
         except:
             raise Exception("Location format is not correct")
 
     def getGoogleMapsData(self, Location):
-        pitzerCollege = '1050 N Mills,Ave,Claremont,CA'
+        pitzerCollege = '1050 N Mills Ave,Claremont,CA'
         url = "http://maps.googleapis.com/maps/api/distancematrix/json"
         params = {'origins': pitzerCollege, 'destinations': Location, 'mode': 'driving', 'units': 'imperial'}
         response = requests.get(url, params=params)

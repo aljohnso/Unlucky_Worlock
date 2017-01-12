@@ -76,6 +76,7 @@ class DatabaseConnection:
         car_capacity = participant[5]
         print(participant)
         print(car_capacity)
+
         self.cursor.execute(self.PARTICIPANTDBCOMAND, participant)
         self.cursor.execute('UPDATE Master SET Participant_num = Participant_num + 1 WHERE id =' + str(tripID))#TODO: this could cause an error not sure if trip and master will ever have diffrent ids
         self.cursor.execute('UPDATE Master SET Partcipant_cap = Partcipant_cap +' + str(car_capacity) +' WHERE id =' + str(tripID))
@@ -105,6 +106,17 @@ class DatabaseConnection:
         particpant_details = self.cursor.execute('select Participant, Driver, Car_Capacity, id from Participants '
                                                  'where Trips_Key=' + str(trip_details[0][0])).fetchall()
         return trip_details, master_details, particpant_details
+
+    def checkParticipant(self, Form, tripID):
+        """
+        :param Form: The participant form from the forms package which is submited throught the addParticpant URL
+        :param tripID: The ID of the trip
+        :return: Bollean True means that trip driver cap reached, false means the oppisit du
+        This method will check to make sure that the trip has not reached car capacity
+        TODO: Create a class that handels trip states/ some way to cache states
+        """
+        drivers = self.cursor.execute('Select Driver from Participants Where Trips_Key=' + tripID).fetchall()
+        print(drivers)
 
 
 

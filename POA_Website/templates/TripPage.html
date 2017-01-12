@@ -71,7 +71,7 @@
                 {% for TableRow in ParticpantInfo %}
                 <tr>
                     <td> {{ TableRow[0] }}</td>
-                    {%  if TableRow[1]=='True' %}
+                    {%  if TableRow[1]=='True' or TableRow[1] == 1 or TableRow == '1'%}
                     <td> Yes</td>
                     <td>{{ TableRow[2] }}</td>
                     {% else %}

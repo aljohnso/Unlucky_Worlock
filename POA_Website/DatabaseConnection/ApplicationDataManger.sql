@@ -1,4 +1,4 @@
-PRAGMA foreign_keys = ON;
+PRAGMA foreign_keys = ON ;
 drop table if exists Master;
 create TABLE Master (
   id integer PRIMARY KEY AUTOINCREMENT ,
@@ -27,7 +27,7 @@ CREATE TABLE Trips(
   Car_Cap Integer NOT NULL,
   Substance_Frre Integer NOT NULL,
   Weather_Forcast blob NOT NULL,
-  FOREIGN KEY(Master_Key) REFERENCES Master(id)
+  FOREIGN KEY(Master_Key) REFERENCES Master(id) ON DELETE CASCADE
 );
 drop table if exists Participants;
 CREATE TABLE Participants(
@@ -38,7 +38,8 @@ CREATE TABLE Participants(
   Email TEXT NOT NULL,
   Driver Integer not NULL,
   Car_Capacity Integer not NULL,
-    FOREIGN KEY(Trips_Key) REFERENCES Trips(id)
+  FOREIGN KEY(Trips_Key) REFERENCES Trips(id) ON DELETE CASCADE
 );
+
 
 

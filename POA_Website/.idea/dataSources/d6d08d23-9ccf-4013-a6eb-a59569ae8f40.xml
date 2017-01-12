@@ -75,21 +75,26 @@
       <DataType>INTEGER(0,-1)|4</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="21" parent="4" name="Driver">
+    <column id="21" parent="4" name="Email">
       <Position>4</Position>
-      <DataType>INTEGER(0,-1)|4</DataType>
+      <DataType>TEXT(0,-1)|12</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="22" parent="4" name="Car_Capacity">
+    <column id="22" parent="4" name="Driver">
       <Position>5</Position>
       <DataType>INTEGER(0,-1)|4</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="23" parent="4">
+    <column id="23" parent="4" name="Car_Capacity">
+      <Position>6</Position>
+      <DataType>INTEGER(0,-1)|4</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="24" parent="4">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="24" parent="4" name="#FAKE_Participants_1">
+    <foreign-key id="25" parent="4" name="#FAKE_Participants_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Trips_Key</ColNames>
       <Deferrable>1</Deferrable>
@@ -99,79 +104,79 @@
       <OnDelete>delete</OnDelete>
       <OnUpdate>no-action</OnUpdate>
     </foreign-key>
-    <column id="25" parent="5" name="id">
+    <column id="26" parent="5" name="id">
       <DataType>INTEGER(0,-1)|4</DataType>
     </column>
-    <column id="26" parent="5" name="Master_Key">
+    <column id="27" parent="5" name="Master_Key">
       <Position>1</Position>
       <DataType>INTEGER(0,-1)|4</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="27" parent="5" name="Details">
+    <column id="28" parent="5" name="Details">
       <Position>2</Position>
       <DataType>TEXT(0,-1)|12</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="28" parent="5" name="Coordinator_Name">
+    <column id="29" parent="5" name="Coordinator_Name">
       <Position>3</Position>
       <DataType>TEXT(0,-1)|12</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="29" parent="5" name="Coordinator_Email">
+    <column id="30" parent="5" name="Coordinator_Email">
       <Position>4</Position>
       <DataType>TEXT(0,-1)|12</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="30" parent="5" name="Coordinator_Phone">
+    <column id="31" parent="5" name="Coordinator_Phone">
       <Position>5</Position>
       <DataType>INTEGER(0,-1)|4</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="31" parent="5" name="Gear_List">
+    <column id="32" parent="5" name="Gear_List">
       <Position>6</Position>
       <DataType>TEXT(0,-1)|12</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="32" parent="5" name="Trip_Meeting_Place">
+    <column id="33" parent="5" name="Trip_Meeting_Place">
       <Position>7</Position>
       <DataType>TEXT(0,-1)|12</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="33" parent="5" name="Additional_Costs">
+    <column id="34" parent="5" name="Additional_Costs">
       <Position>8</Position>
       <DataType>INTEGER(0,-1)|4</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="34" parent="5" name="Total_Cost">
+    <column id="35" parent="5" name="Total_Cost">
       <Position>9</Position>
       <DataType>INTEGER(0,-1)|4</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="35" parent="5" name="Cost_BreakDown">
+    <column id="36" parent="5" name="Cost_BreakDown">
       <Position>10</Position>
       <DataType>TEXT(0,-1)|12</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="36" parent="5" name="Car_Cap">
+    <column id="37" parent="5" name="Car_Cap">
       <Position>11</Position>
       <DataType>INTEGER(0,-1)|4</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="37" parent="5" name="Substance_Frre">
+    <column id="38" parent="5" name="Substance_Frre">
       <Position>12</Position>
       <DataType>INTEGER(0,-1)|4</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="38" parent="5" name="Weather_Forcast">
+    <column id="39" parent="5" name="Weather_Forcast">
       <Position>13</Position>
       <DataType>BLOB(0,-1)|12</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="39" parent="5">
+    <key id="40" parent="5">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="40" parent="5" name="#FAKE_Trips_1">
+    <foreign-key id="41" parent="5" name="#FAKE_Trips_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Master_Key</ColNames>
       <Deferrable>1</Deferrable>
@@ -181,10 +186,10 @@
       <OnDelete>delete</OnDelete>
       <OnUpdate>no-action</OnUpdate>
     </foreign-key>
-    <column id="41" parent="6" name="name">
+    <column id="42" parent="6" name="name">
       <DataType>(0,-1)|12</DataType>
     </column>
-    <column id="42" parent="6" name="seq">
+    <column id="43" parent="6" name="seq">
       <Position>1</Position>
       <DataType>(0,-1)|12</DataType>
     </column>
