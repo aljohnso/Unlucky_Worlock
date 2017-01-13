@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Pitzer Outdoor Adventures</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+{#    <style src = "POACreateTripCSS.css"></style>#}
+</head>
+<body>
+<h3> Trip List</h3>
+    <div class="row">
+        <div class="panel panel-primary filterable">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Trip Name</th>
+                        <th>Details</th>
+                        <th>Departure Date</th>
+                        <th>Return Date</th>
+                        <th>Participants</th>
+                        <th>Participant Cap</th>
+                        <th>Trip Location</th>
+                    </tr>
+                </thead>
+                <tbody class="entries">
+                {% for TableRow in entries %}
+                <tr>
+                    <td > <a href={{ url_for('main.Main') + 'trips/' + TableRow[0]}}>{{ TableRow[1]}}</a></td>
+                    <td> {{ TableRow[4] }}</td>
+                    <td> {{ TableRow[2] }}</td>
+                    <td> {{ TableRow[3] }}</td>
+                    <td> {{ TableRow[6] }}</td>
+                    <td> {{ TableRow[7]}}</td>
+                    <td> {{ TableRow[8]}}</td>
+                </tr>
+                {% else %}
+                    <li><em>Unbelievable.  No entries here so far</em></li>
+                {% endfor %}
+                </tbody>
+            </table>
+            <a class="btn" href= {{ url_for('main.add_Trip') }} >Add Trip</a>
+        </div>
+    </div>
+</body>
+</html>
