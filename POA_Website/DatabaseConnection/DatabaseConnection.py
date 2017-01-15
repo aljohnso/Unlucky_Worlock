@@ -1,4 +1,4 @@
-import sqlite3, requests, datetime
+import sqlite3, datetime
 from DatabaseConnection.DatabaseSubmissionConstructors import TripCommandConstructor, MasterCommandConstructor, ParticipantCommandConstructor
 
 
