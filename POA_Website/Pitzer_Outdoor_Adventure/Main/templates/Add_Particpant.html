@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1> {{ tripname[0][0] }}</h1>
+   {% for message in form.Participant.errors %}
+     <div>{{ message }}</div>
+      {% endfor %}
+      {% for message in form.Phone.errors %}
+     <div>{{ message }}</div>
+      {% endfor %}
+      {% for message in form.Driver.errors %}
+     <div>{{ message }}</div>
+      {% endfor %}
+      {% for message in form.Car_Capacity.errors %}
+     <div>{{ message }}</div>
+      {% endfor %}
+{% if tripname[0][1] <= tripname[0][2] - 1 %}
+<form action= "{{ url_for('main.add_Participant', FormKey= tripname[0][3]) }}" method="post">
+{#           {{ form.hidden_tag() }}<br>#}
+{#        {{ form.Participant.label }}<br>#}
+{#        {{ form.Participant}}#}
+{#        {{ form.Phone.lable }}<br>#}
+{#        {{ form.Phone }}#}
+{#        {{ form.Driver.lable }}<br>#}
+{#        {{ form.Driver }}#}
+{#        {{ form.Car_Capacity.lable }}<br>#}
+{#        {{ form.Car_Capacity }}#}
+{#        {{ form.submit }}<br>#}
+    {% import "bootstrap/wtf.html" as wtf %}
+    {{ wtf.quick_form(form) }}
+</form>
+{% else %}
+<h3>Trip Full :(</h3>
+{% endif %}
+</body>
+</html>
