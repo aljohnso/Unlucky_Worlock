@@ -32,17 +32,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="PyCharmPOAProject.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PyCharmPOAProject.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PyCharmPOAProject.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="84" column="13" selection-start-line="84" selection-start-column="13" selection-end-line="84" selection-end-column="13" />
+            <state relative-caret-position="195">
+              <caret line="16" column="40" lean-forward="false" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
               <folding>
-                <element signature="e#0#9#0" expanded="true" />
-                <marker date="1479986835647" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
-                <marker date="1479986835647" expanded="true" signature="1346:1428" ph="select * fro... Trips" />
-                <marker date="1479986835647" expanded="true" signature="2166:2260" ph="insert into Trips... " />
-                <marker date="1479986835647" expanded="true" signature="3695:3743" ph="select title... entries" />
+                <marker date="1480725761000" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
+                <marker date="1480725761000" expanded="true" signature="1346:1428" ph="select Trip_... Trips" />
+                <marker date="1480725761000" expanded="true" signature="2166:2260" ph="insert into Trips... " />
               </folding>
             </state>
           </provider>
@@ -51,8 +49,8 @@
       <file leaf-file-name="ApplicationTests.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Tests/ApplicationTests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="81" selection-start-line="8" selection-start-column="81" selection-end-line="8" selection-end-column="81" />
+            <state relative-caret-position="285">
+              <caret line="19" column="19" lean-forward="true" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -60,21 +58,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DatabaseTests.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DatabaseTests.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Tests/DatabaseTests.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="console.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/8185241e-a15f-44ee-b898-1426433192b1/console.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -83,11 +71,9 @@
       <file leaf-file-name="TripPage.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/TripPage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="17" column="16" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
-              <folding>
-                <marker date="1479969879768" expanded="true" signature="551:679" ph="..." />
-              </folding>
+            <state relative-caret-position="150">
+              <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -95,8 +81,8 @@
       <file leaf-file-name="POACreateTrip.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/POACreateTrip.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="63" column="16" selection-start-line="63" selection-start-column="16" selection-end-line="63" selection-end-column="45" />
+            <state relative-caret-position="1140">
+              <caret line="76" column="7" lean-forward="true" selection-start-line="76" selection-start-column="7" selection-end-line="76" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -142,20 +128,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
-  </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
-    <OptionsSetting value="true" id="Add" />
-    <OptionsSetting value="true" id="Remove" />
-    <OptionsSetting value="true" id="Checkout" />
-    <OptionsSetting value="true" id="Update" />
-    <OptionsSetting value="true" id="Status" />
-    <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
-    <ConfirmationsSetting value="0" id="Remove" />
+    <option name="y" value="23" />
+    <option name="width" value="1280" />
+    <option name="height" value="729" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -173,15 +148,8 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PyCharmPOAProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="PyCharmPOAProject" />
@@ -206,8 +174,27 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PyCharmPOAProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PyCharmPOAProject" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DataBase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DataBaseControls" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -318,7 +305,7 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
-      <command value="run-script" />
+      <command value="run" />
       <scripts />
       <node-interpreter value="project" />
       <envs />
@@ -482,28 +469,28 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="0" y="23" width="1280" height="729" extended-state="6" />
     <editor active="true" />
     <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37734374" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3872549" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20770878" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32189542" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3774584" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1603631" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3872549" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3212121" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20770878" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32843137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -526,6 +513,9 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -553,13 +543,57 @@
     <entry file="file://$PROJECT_DIR$/PyCharmPOAProject.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1480725761000" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
+            <marker date="1480725761000" expanded="true" signature="1346:1428" ph="select Trip_... Trips" />
+            <marker date="1480725761000" expanded="true" signature="2166:2260" ph="insert into Trips... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/ApplicationTests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="8" column="81" lean-forward="false" selection-start-line="8" selection-start-column="81" selection-end-line="8" selection-end-column="81" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <marker date="1479986835647" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
-            <marker date="1479986835647" expanded="true" signature="1346:1428" ph="select * fro... Trips" />
-            <marker date="1479986835647" expanded="true" signature="2166:2260" ph="insert into Trips... " />
-            <marker date="1479986835647" expanded="true" signature="3695:3743" ph="select title... entries" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/DatabaseTests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/TripPage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="16" lean-forward="false" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/POACreateTrip.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="945">
+          <caret line="63" column="16" lean-forward="false" selection-start-line="63" selection-start-column="16" selection-end-line="63" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PyCharmPOAProject.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1480725761000" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
+            <marker date="1480725761000" expanded="true" signature="1346:1428" ph="select Trip_... Trips" />
+            <marker date="1480725761000" expanded="true" signature="2166:2260" ph="insert into Trips... " />
           </folding>
         </state>
       </provider>
@@ -567,37 +601,27 @@
     <entry file="file://$PROJECT_DIR$/PyCharmPOAProject.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1258">
-          <caret line="74" column="29" selection-start-line="74" selection-start-column="29" selection-end-line="74" selection-end-column="29" />
+          <caret line="74" column="29" lean-forward="false" selection-start-line="74" selection-start-column="29" selection-end-line="74" selection-end-column="29" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
-            <marker date="1479986835647" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
-            <marker date="1479986835647" expanded="true" signature="1346:1428" ph="select * fro... Trips" />
-            <marker date="1479986835647" expanded="true" signature="2166:2260" ph="insert into Trips... " />
-            <marker date="1479986835647" expanded="true" signature="3695:3743" ph="select title... entries" />
+            <marker date="1480725761000" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
+            <marker date="1480725761000" expanded="true" signature="1346:1428" ph="select Trip_... Trips" />
+            <marker date="1480725761000" expanded="true" signature="2166:2260" ph="insert into Trips... " />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/43a5aa61-091f-461f-9f30-357afc8f881c/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/43a5aa61-091f-461f-9f30-357afc8f881c/console.sql" />
     <entry file="file://$PROJECT_DIR$/ApplicationDataManger.sql" />
     <entry file="file://$PROJECT_DIR$/POA.db" />
     <entry file="file://$PROJECT_DIR$/templates/POACreateTrip.html" />
     <entry file="file://$PROJECT_DIR$/PyCharmPOAProject.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1156">
-          <caret line="68" column="48" selection-start-line="68" selection-start-column="48" selection-end-line="68" selection-end-column="48" />
+          <caret line="68" column="48" lean-forward="false" selection-start-line="68" selection-start-column="48" selection-end-line="68" selection-end-column="48" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
-            <marker date="1479986835647" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
-            <marker date="1479986835647" expanded="true" signature="1346:1428" ph="select * fro... Trips" />
-            <marker date="1479986835647" expanded="true" signature="2166:2260" ph="insert into Trips... " />
-            <marker date="1479986835647" expanded="true" signature="3695:3743" ph="select title... entries" />
+            <marker date="1480725761000" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
+            <marker date="1480725761000" expanded="true" signature="1346:1428" ph="select Trip_... Trips" />
+            <marker date="1480725761000" expanded="true" signature="2166:2260" ph="insert into Trips... " />
           </folding>
         </state>
       </provider>
@@ -610,13 +634,11 @@
     <entry file="file://$PROJECT_DIR$/PyCharmPOAProject.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
-            <marker date="1479986835647" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
-            <marker date="1479986835647" expanded="true" signature="1346:1428" ph="select * fro... Trips" />
-            <marker date="1479986835647" expanded="true" signature="2166:2260" ph="insert into Trips... " />
-            <marker date="1479986835647" expanded="true" signature="3695:3743" ph="select title... entries" />
+            <marker date="1480725761000" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
+            <marker date="1480725761000" expanded="true" signature="1346:1428" ph="select Trip_... Trips" />
+            <marker date="1480725761000" expanded="true" signature="2166:2260" ph="insert into Trips... " />
           </folding>
         </state>
       </provider>
@@ -627,101 +649,43 @@
     <entry file="dbDummy://dbtable:/61bb5009/928407c3-2533-4241-a54b-e8838b681a71/Trips" />
     <entry file="file://$PROJECT_DIR$/templates/POACreateTrip.html" />
     <entry file="file://$PROJECT_DIR$/DataBase/DataBaseControls/__init__.py" />
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/8bd9ce49-1aee-4092-bb68-4b3702f92e50/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/928407c3-2533-4241-a54b-e8838b681a71/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/8bd9ce49-1aee-4092-bb68-4b3702f92e50/console.sql" />
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/928407c3-2533-4241-a54b-e8838b681a71/console.sql" />
     <entry file="dbDummy://dbtable:/61bb5009/928407c3-2533-4241-a54b-e8838b681a71/sqlite_sequence" />
     <entry file="dbDummy://dbtable:/61bb5009/928407c3-2533-4241-a54b-e8838b681a71/Trips" />
     <entry file="file://$PROJECT_DIR$/DataBase/DataBaseControls/FlaskDatabaseMangment.py" />
     <entry file="file://$PROJECT_DIR$/flaskPOA.db" />
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/63fe8e62-a8a1-4a3c-a9bd-08aace1ce49d/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/63fe8e62-a8a1-4a3c-a9bd-08aace1ce49d/console.sql" />
     <entry file="file://$PROJECT_DIR$/POA.db" />
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/43a5aa61-091f-461f-9f30-357afc8f881c/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/43a5aa61-091f-461f-9f30-357afc8f881c/console.sql" />
     <entry file="file://$PROJECT_DIR$/ApplicationDataManger.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="129">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="3" selection-end-line="16" selection-end-column="4" />
-          <folding />
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="3" selection-end-line="16" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/POACreateTrip.html">
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/8185241e-a15f-44ee-b898-1426433192b1/console.sql" />
+    <entry file="file://$PROJECT_DIR$/requirments.txt" />
+    <entry file="file://$PROJECT_DIR$/Tests/UserTests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="63" column="16" selection-start-line="63" selection-start-column="16" selection-end-line="63" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/8185241e-a15f-44ee-b898-1426433192b1/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="0">
+          <caret line="0" column="46" lean-forward="false" selection-start-line="0" selection-start-column="46" selection-end-line="0" selection-end-column="46" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/TripPage.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="17" column="16" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
-          <folding>
-            <marker date="1479969879768" expanded="true" signature="551:679" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/requirments.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Tests/UserTests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="46" selection-start-line="0" selection-start-column="46" selection-end-line="0" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Tests/DatabaseTests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="150">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Tests/ApplicationTests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="81" selection-start-line="8" selection-start-column="81" selection-end-line="8" selection-end-column="81" />
+        <state relative-caret-position="285">
+          <caret line="19" column="19" lean-forward="true" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -730,15 +694,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PyCharmPOAProject.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="84" column="13" selection-start-line="84" selection-start-column="13" selection-end-line="84" selection-end-column="13" />
+        <state relative-caret-position="195">
+          <caret line="16" column="40" lean-forward="false" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
-            <marker date="1479986835647" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
-            <marker date="1479986835647" expanded="true" signature="1346:1428" ph="select * fro... Trips" />
-            <marker date="1479986835647" expanded="true" signature="2166:2260" ph="insert into Trips... " />
-            <marker date="1479986835647" expanded="true" signature="3695:3743" ph="select title... entries" />
+            <marker date="1480725761000" expanded="true" signature="933:1023" ph="select Trip_... Trips" />
+            <marker date="1480725761000" expanded="true" signature="1346:1428" ph="select Trip_... Trips" />
+            <marker date="1480725761000" expanded="true" signature="2166:2260" ph="insert into Trips... " />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/POACreateTrip.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1140">
+          <caret line="76" column="7" lean-forward="true" selection-start-line="76" selection-start-column="7" selection-end-line="76" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/DatabaseTests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
