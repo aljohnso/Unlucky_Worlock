@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c16d905c-50fa-4497-a15b-9ae2bc3d03be" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Documentation/DatabaseConnection.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Documentation/Forms.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Documentation/Pitzer_Outdoor_Adventure" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/POA_Website.iml" afterPath="$PROJECT_DIR$/.idea/POA_Website.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DatabaseConnection/DatabaseConnection.py" afterPath="$PROJECT_DIR$/DatabaseConnection/DatabaseConnection.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pitzer_Outdoor_Adventure/__init__.py" afterPath="$PROJECT_DIR$/Pitzer_Outdoor_Adventure/__init__.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/POA.db" afterPath="$PROJECT_DIR$/POA.db" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/controllers.py" afterPath="$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/controllers.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tests/DataBase_Test_Scripts/POA_Test.db" afterPath="$PROJECT_DIR$/Tests/DataBase_Test_Scripts/POA_Test.db" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,11 +20,12 @@
     <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetest_TestDB_test_addTrip__1_.coverage" NAME="Nosetest TestDB.test_addTrip (1) Coverage Results" MODIFIED="1482984336211" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
     <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetest_TestDB_test_checkTripMany.coverage" NAME="Nosetest TestDB.test_checkTripMany Coverage Results" MODIFIED="1483160417403" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
     <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetests_in_DatabaseTests.coverage" NAME="Nosetests in DatabaseTests Coverage Results" MODIFIED="1483337520561" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
+    <SUITE FILE_PATH="coverage/POA Website$Nosetests_in_DatabaseTests.coverage" NAME="Nosetests in DatabaseTests Coverage Results" MODIFIED="1484762043058" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
     <SUITE FILE_PATH="coverage/PyCharmPOAProject$PyCharmPOAProject.coverage" NAME="PyCharmPOAProject Coverage Results" MODIFIED="1481767332327" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetests_in_DatabaseConstructorTests.coverage" NAME="Nosetests in DatabaseConstructorTests Coverage Results" MODIFIED="1483328466683" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
     <SUITE FILE_PATH="coverage/POA Website$POA_Website.coverage" NAME="POA_Website Coverage Results" MODIFIED="1484202856753" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetest_TestDB_test_AddTripWithParticipant.coverage" NAME="Nosetest TestDB.test_AddTripWithParticipant Coverage Results" MODIFIED="1483337118765" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
-    <SUITE FILE_PATH="coverage/POA Website$run.coverage" NAME="run Coverage Results" MODIFIED="1484290298512" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/POA Website$run.coverage" NAME="run Coverage Results" MODIFIED="1486099138665" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PyCharmPOAProject$Nosetest_TestDB_test_addTrip.coverage" NAME="Nosetest TestDB.test_addTrip Coverage Results" MODIFIED="1483331947687" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
     <SUITE FILE_PATH="coverage/POA Website$Nosetests_in_DatabaseConstructorTests.coverage" NAME="Nosetests in DatabaseConstructorTests Coverage Results" MODIFIED="1483672547619" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Tests" />
     <SUITE FILE_PATH="coverage/PyCharmPOAProject$FlaskDatabaseMangment.coverage" NAME="FlaskDatabaseMangment Coverage Results" MODIFIED="1481693071171" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/DataBase/DataBaseControls" />
@@ -55,20 +55,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-                <marker date="1484203633000" expanded="true" signature="2156:2268" ph="select Trip_... " />
-                <marker date="1484203633000" expanded="true" signature="2954:2998" ph="select Trips... Participants" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="run.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/run.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -82,101 +68,32 @@
       <file leaf-file-name="ApplicationDataManger.sql" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DatabaseConnection/ApplicationDataManger.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="12" selection-end-column="2" />
+            <state relative-caret-position="-112">
+              <caret line="11" column="32" lean-forward="false" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Pitzer_Outdoor_Adventure/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="26" lean-forward="false" selection-start-line="0" selection-start-column="26" selection-end-line="0" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DatabaseConnection.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DatabaseConnection/DatabaseConnection.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1245">
-              <caret line="84" column="38" lean-forward="true" selection-start-line="84" selection-start-column="38" selection-end-line="84" selection-end-column="38" />
-              <folding>
-                <marker date="1484428640000" expanded="true" signature="420:601" ph="insert into Master... " />
-                <marker date="1484428640000" expanded="true" signature="625:924" ph="insert into Trips... " />
-                <marker date="1484428640000" expanded="true" signature="954:1091" ph="insert into Participants... " />
-                <marker date="1484428640000" expanded="true" signature="2470:2498" ph="DELETE FROM " />
-                <marker date="1484428640000" expanded="true" signature="2651:2705" ph="select Depar... Master" />
-                <marker date="1484428640000" expanded="true" signature="2907:2935" ph="DELETE FROM " />
-                <marker date="1484428640000" expanded="true" signature="3024:3062" ph="select * fro... Master" />
-                <marker date="1484428640000" expanded="true" signature="3389:3455" ph="UPDATE Maste... " />
-                <marker date="1484428640000" expanded="true" signature="3589:3675" ph="UPDATE Maste... " />
-                <marker date="1484428640000" expanded="true" signature="3825:3870" ph="SELECT * FRO... Particpants" />
-                <marker date="1484428640000" expanded="true" signature="4038:4096" ph="SELECT car_C... Participants" />
-                <marker date="1484428640000" expanded="true" signature="4225:4322" ph="UPDATE Maste... " />
-                <marker date="1484428640000" expanded="true" signature="4370:4485" ph="UPDATE Maste... " />
-                <marker date="1484428640000" expanded="true" signature="4533:4567" ph="DELETE FROM " />
-                <marker date="1484428640000" expanded="true" signature="4706:4737" ph="select * fro... Master" />
-                <marker date="1484428640000" expanded="true" signature="4813:4851" ph="select * fro... Trips" />
-                <marker date="1484428640000" expanded="true" signature="4933:5064" ph="select Parti... Participants" />
-                <marker date="1484428640000" expanded="true" signature="5694:5742" ph="Select Drive... Participants" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="controllers.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="controllers.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/controllers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="13" column="25" lean-forward="false" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="25" />
+            <state relative-caret-position="878">
+              <caret line="98" column="23" lean-forward="true" selection-start-line="98" selection-start-column="23" selection-end-line="98" selection-end-column="23" />
               <folding>
                 <element signature="e#0#56#0" expanded="true" />
-                <marker date="1484290096000" expanded="true" signature="1696:1808" ph="select Trip_... " />
-                <marker date="1484290096000" expanded="true" signature="2478:2522" ph="select Trips... Participants" />
+                <marker date="1486099003000" expanded="true" signature="2841:2953" ph="select Trip_... " />
+                <marker date="1486099003000" expanded="true" signature="4431:4475" ph="select Trips... Participants" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HomePage.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/templates/HomePage.html">
+      <file leaf-file-name="GoogleLogin.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/templates/GoogleLogin.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="645">
-              <caret line="43" column="50" lean-forward="false" selection-start-line="43" selection-start-column="50" selection-end-line="43" selection-end-column="50" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TripPage.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/templates/TripPage.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="31" lean-forward="false" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CreateTrip.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/templates/CreateTrip.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="765">
-              <caret line="51" column="25" lean-forward="false" selection-start-line="51" selection-start-column="18" selection-end-line="51" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Add_Particpant.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/templates/Add_Particpant.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="30" column="35" lean-forward="false" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
+            <state relative-caret-position="105">
+              <caret line="7" column="29" lean-forward="false" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -187,9 +104,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Python Unit Test" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -199,6 +116,8 @@
       <find>check</find>
       <find>car</find>
       <find>url_for</find>
+      <find>gcallback</find>
+      <find>g</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -225,14 +144,16 @@
         <option value="$PROJECT_DIR$/ApplicationDataManger.sql" />
         <option value="$PROJECT_DIR$/Main.py" />
         <option value="$PROJECT_DIR$/DatabaseConnection/Database.py" />
-        <option value="$PROJECT_DIR$/run.py" />
-        <option value="$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/controllers.py" />
         <option value="$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/templates/HomePage.html" />
         <option value="$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/templates/TripPage.html" />
         <option value="$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/templates/CreateTrip.html" />
         <option value="$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/templates/Add_Particpant.html" />
         <option value="$PROJECT_DIR$/DatabaseConnection/DatabaseConnection.py" />
         <option value="$PROJECT_DIR$/Pitzer_Outdoor_Adventure/__init__.py" />
+        <option value="$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/templates/Google Login.html" />
+        <option value="$PROJECT_DIR$/run.py" />
+        <option value="$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/templates/GoogleLogin.html" />
+        <option value="$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/controllers.py" />
       </list>
     </option>
   </component>
@@ -243,8 +164,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="900" />
+    <option name="height" value="797" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -264,7 +186,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -319,13 +240,22 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="DatabaseConnection" />
+              <option name="myItemId" value="Pitzer_Outdoor_Adventure" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -334,40 +264,18 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="FullScreen" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main" />
+      <recent name="$PROJECT_DIR$/DatabaseConnection" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/DatabaseConnection" />
       <recent name="$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/templates" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/DatabaseConnection" />
-    </key>
   </component>
   <component name="RunManager" selected="Python.run">
-    <configuration default="false" name="Nosetests in DatabaseTests" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="PyCharmPOAProject" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tests/DatabaseTests.py" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <method />
-    </configuration>
     <configuration default="false" name="Main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -442,6 +350,28 @@
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/run.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Nosetests in DatabaseTests" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="POA_Website" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Tests/DatabaseTests.py" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_CLASS" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
@@ -678,19 +608,19 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Python.POA_Website" />
-      <item index="1" class="java.lang.String" itemvalue="Python tests.Nosetests in DatabaseTests" />
-      <item index="2" class="java.lang.String" itemvalue="Python.Main" />
-      <item index="3" class="java.lang.String" itemvalue="Python.DatabaseSubmissionConstructors" />
-      <item index="4" class="java.lang.String" itemvalue="Python tests.Nosetests in DatabaseConstructorTests" />
-      <item index="5" class="java.lang.String" itemvalue="Python.run" />
+      <item index="1" class="java.lang.String" itemvalue="Python.Main" />
+      <item index="2" class="java.lang.String" itemvalue="Python.DatabaseSubmissionConstructors" />
+      <item index="3" class="java.lang.String" itemvalue="Python tests.Nosetests in DatabaseConstructorTests" />
+      <item index="4" class="java.lang.String" itemvalue="Python.run" />
+      <item index="5" class="java.lang.String" itemvalue="Python tests.Nosetests in DatabaseTests" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.run" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Nosetests in DatabaseConstructorTests" />
-        <item index="2" class="java.lang.String" itemvalue="Python.DatabaseSubmissionConstructors" />
-        <item index="3" class="java.lang.String" itemvalue="Python.Main" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Nosetests in DatabaseTests" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Nosetests in DatabaseTests" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Nosetests in DatabaseConstructorTests" />
+        <item index="3" class="java.lang.String" itemvalue="Python.DatabaseSubmissionConstructors" />
+        <item index="4" class="java.lang.String" itemvalue="Python.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -711,9 +641,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Nosetest_TestDB_test_AddTripWithParticipant - 2017.01.02 at 00h 47m 54s.xml">
-      <configuration name="Nosetest TestDB.test_AddTripWithParticipant" configurationId="tests" />
-    </history-entry>
     <history-entry file="Nosetest_TestDB_test_AddTripWithParticipant - 2017.01.02 at 00h 55m 10s.xml">
       <configuration name="Nosetest TestDB.test_AddTripWithParticipant" configurationId="tests" />
     </history-entry>
@@ -741,6 +668,9 @@
     <history-entry file="Nosetests_in_DatabaseTests - 2017.01.02 at 01h 12m 06s.xml">
       <configuration name="Nosetests in DatabaseTests" configurationId="tests" />
     </history-entry>
+    <history-entry file="Nosetests_in_DatabaseTests - 2017.01.18 at 09h 54m 18s.xml">
+      <configuration name="Nosetests in DatabaseTests" configurationId="tests" />
+    </history-entry>
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -752,30 +682,30 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="23" width="1440" height="797" extended-state="0" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19098713" sideWeight="0.85328186" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19670959" sideWeight="0.85328186" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32624114" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22650602" sideWeight="0.50500715" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19384836" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32650602" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19036144" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2680851" sideWeight="0.49499285" order="2" side_tool="false" content_ui="tabs" x="-18" y="291" width="1398" height="491" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24964234" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3211781" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17811158" sideWeight="0.14671814" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39716312" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22650602" sideWeight="0.49499285" order="2" side_tool="false" content_ui="tabs" x="-18" y="291" width="1398" height="491" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20240964" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24618992" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Concurrent Activities Diagram" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32907802" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39716312" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32792208" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -828,13 +758,11 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="1" />
+      <option name="time" value="2" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="dbDummy://dbtable:/fe3367ca/7b3d779c-07d1-433c-beed-da120fd3b13f/Master" />
-    <entry file="dbDummy://dbtable:/fe3367ca/7b3d779c-07d1-433c-beed-da120fd3b13f/Master" />
     <entry file="dbDummy://dbtable:/fe3367ca/7b3d779c-07d1-433c-beed-da120fd3b13f/Master" />
     <entry file="dbDummy://dbtable:/fe3367ca/7b3d779c-07d1-433c-beed-da120fd3b13f/Master" />
     <entry file="dbDummy://dbtable:/fe3367ca/7b3d779c-07d1-433c-beed-da120fd3b13f/Master" />
@@ -965,18 +893,94 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Tests/DatabaseTests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="37" column="37" lean-forward="false" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/templates/HomePage.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="645">
           <caret line="43" column="50" lean-forward="false" selection-start-line="43" selection-start-column="50" selection-end-line="43" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Documentation/Pitzer_Outdoor_Adventure">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Documentation/Forms.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Documentation/DatabaseConnection.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../test.db">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/ApplicationTests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="20" lean-forward="true" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/DatabaseTests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Pitzer_Outdoor_Adventure/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="26" lean-forward="false" selection-start-line="0" selection-start-column="26" selection-end-line="0" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/templates/Add_Particpant.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="30" column="35" lean-forward="false" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DatabaseConnection/DatabaseConnection.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="22" column="11" lean-forward="false" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
+          <folding>
+            <marker date="1484454616000" expanded="true" signature="420:601" ph="insert into Master... " />
+            <marker date="1484454616000" expanded="true" signature="625:924" ph="insert into Trips... " />
+            <marker date="1484454616000" expanded="true" signature="954:1091" ph="insert into Participants... " />
+            <marker date="1484454616000" expanded="true" signature="2470:2498" ph="DELETE FROM " />
+            <marker date="1484454616000" expanded="true" signature="2651:2705" ph="select Depar... Master" />
+            <marker date="1484454616000" expanded="true" signature="2907:2935" ph="DELETE FROM " />
+            <marker date="1484454616000" expanded="true" signature="3024:3062" ph="select * fro... Master" />
+            <marker date="1484454616000" expanded="true" signature="3389:3455" ph="UPDATE Maste... " />
+            <marker date="1484454616000" expanded="true" signature="3589:3675" ph="UPDATE Maste... " />
+            <marker date="1484454616000" expanded="true" signature="3825:3870" ph="SELECT * FRO... Particpants" />
+            <marker date="1484454616000" expanded="true" signature="4038:4096" ph="SELECT car_C... Participants" />
+            <marker date="1484454616000" expanded="true" signature="4225:4322" ph="UPDATE Maste... " />
+            <marker date="1484454616000" expanded="true" signature="4370:4485" ph="UPDATE Maste... " />
+            <marker date="1484454616000" expanded="true" signature="4533:4567" ph="DELETE FROM " />
+            <marker date="1484454616000" expanded="true" signature="4706:4737" ph="select * fro... Master" />
+            <marker date="1484454616000" expanded="true" signature="4813:4851" ph="select * fro... Trips" />
+            <marker date="1484454616000" expanded="true" signature="4933:5064" ph="select Parti... Participants" />
+            <marker date="1484454616000" expanded="true" signature="5694:5742" ph="Select Drive... Participants" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -990,52 +994,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/templates/CreateTrip.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
+        <state relative-caret-position="734">
           <caret line="51" column="25" lean-forward="false" selection-start-line="51" selection-start-column="18" selection-end-line="51" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/templates/Add_Particpant.html">
+    <entry file="file://$PROJECT_DIR$/Main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="35" lean-forward="false" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Documentation/Pitzer_Outdoor_Adventure">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Documentation/Forms.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Documentation/DatabaseConnection.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/controllers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="13" column="25" lean-forward="false" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="25" />
+        <state relative-caret-position="-570">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding>
-            <element signature="e#0#56#0" expanded="true" />
-            <marker date="1484290096000" expanded="true" signature="1696:1808" ph="select Trip_... " />
-            <marker date="1484290096000" expanded="true" signature="2478:2522" ph="select Trips... Participants" />
+            <element signature="e#0#9#0" expanded="true" />
+            <marker date="1484203633000" expanded="true" signature="2156:2268" ph="select Trip_... " />
+            <marker date="1484203633000" expanded="true" signature="2954:2998" ph="select Trips... Participants" />
           </folding>
         </state>
       </provider>
@@ -1050,64 +1022,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DatabaseConnection/ApplicationDataManger.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="12" selection-end-column="2" />
+        <state relative-caret-position="-112">
+          <caret line="11" column="32" lean-forward="false" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../test.db">
+    <entry file="file://$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/templates/GoogleLogin.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="105">
+          <caret line="7" column="29" lean-forward="false" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DatabaseConnection/DatabaseConnection.py">
+    <entry file="file://$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/controllers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1245">
-          <caret line="84" column="38" lean-forward="true" selection-start-line="84" selection-start-column="38" selection-end-line="84" selection-end-column="38" />
+        <state relative-caret-position="878">
+          <caret line="98" column="23" lean-forward="true" selection-start-line="98" selection-start-column="23" selection-end-line="98" selection-end-column="23" />
           <folding>
-            <marker date="1484428640000" expanded="true" signature="420:601" ph="insert into Master... " />
-            <marker date="1484428640000" expanded="true" signature="625:924" ph="insert into Trips... " />
-            <marker date="1484428640000" expanded="true" signature="954:1091" ph="insert into Participants... " />
-            <marker date="1484428640000" expanded="true" signature="2470:2498" ph="DELETE FROM " />
-            <marker date="1484428640000" expanded="true" signature="2651:2705" ph="select Depar... Master" />
-            <marker date="1484428640000" expanded="true" signature="2907:2935" ph="DELETE FROM " />
-            <marker date="1484428640000" expanded="true" signature="3024:3062" ph="select * fro... Master" />
-            <marker date="1484428640000" expanded="true" signature="3389:3455" ph="UPDATE Maste... " />
-            <marker date="1484428640000" expanded="true" signature="3589:3675" ph="UPDATE Maste... " />
-            <marker date="1484428640000" expanded="true" signature="3825:3870" ph="SELECT * FRO... Particpants" />
-            <marker date="1484428640000" expanded="true" signature="4038:4096" ph="SELECT car_C... Participants" />
-            <marker date="1484428640000" expanded="true" signature="4225:4322" ph="UPDATE Maste... " />
-            <marker date="1484428640000" expanded="true" signature="4370:4485" ph="UPDATE Maste... " />
-            <marker date="1484428640000" expanded="true" signature="4533:4567" ph="DELETE FROM " />
-            <marker date="1484428640000" expanded="true" signature="4706:4737" ph="select * fro... Master" />
-            <marker date="1484428640000" expanded="true" signature="4813:4851" ph="select * fro... Trips" />
-            <marker date="1484428640000" expanded="true" signature="4933:5064" ph="select Parti... Participants" />
-            <marker date="1484428640000" expanded="true" signature="5694:5742" ph="Select Drive... Participants" />
+            <element signature="e#0#56#0" expanded="true" />
+            <marker date="1486099003000" expanded="true" signature="2841:2953" ph="select Trip_... " />
+            <marker date="1486099003000" expanded="true" signature="4431:4475" ph="select Trips... Participants" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-            <marker date="1484203633000" expanded="true" signature="2156:2268" ph="select Trip_... " />
-            <marker date="1484203633000" expanded="true" signature="2954:2998" ph="select Trips... Participants" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Pitzer_Outdoor_Adventure/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="26" lean-forward="false" selection-start-line="0" selection-start-column="26" selection-end-line="0" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
