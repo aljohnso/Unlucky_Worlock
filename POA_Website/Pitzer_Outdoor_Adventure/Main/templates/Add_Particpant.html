@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<h1> {{ tripname[0][0] }}</h1>
+<h1> {{ tripname[0] }}</h1>
    {% for message in form.Participant.errors %}
      <div>{{ message }}</div>
       {% endfor %}
@@ -18,7 +18,7 @@
       {% for message in form.Car_Capacity.errors %}
      <div>{{ message }}</div>
       {% endfor %}
-{% if tripname[0][1] <= tripname[0][2] - 1 %}
+{% if tripname[1] <= tripname[2] - 1 and tripname[4]%}{# Check to see if the trip is full #}
 <form action= "{{ url_for('main.add_Participant', FormKey= tripname[0][3]) }}" method="post">
 {#           {{ form.hidden_tag() }}<br>#}
 {#        {{ form.Participant.label }}<br>#}

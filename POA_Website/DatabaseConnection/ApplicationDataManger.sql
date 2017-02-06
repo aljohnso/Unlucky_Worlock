@@ -25,6 +25,7 @@ CREATE TABLE Trips(
   Total_Cost Integer NOT NULL,
   Cost_BreakDown Text NOT NULL,
   Car_Cap Integer NOT NULL,
+--   Num_Cars_On_Trip Integer NOT NULL,
   Substance_Frre Integer NOT NULL,
   Weather_Forcast blob NOT NULL,
   FOREIGN KEY(Master_Key) REFERENCES Master(id) ON DELETE CASCADE
