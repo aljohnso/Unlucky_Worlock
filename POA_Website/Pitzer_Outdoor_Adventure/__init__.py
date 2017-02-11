@@ -1,4 +1,4 @@
-from flask import Flask, g
+from Flask import Flask, g
 from Pitzer_Outdoor_Adventure.Main.controllers import main
 app = Flask(__name__)
 from flask_bootstrap import Bootstrap
