@@ -1,5 +1,5 @@
 import os
-import Main
+import Pitzer_Outdoor_Adventure as Main
 import unittest
 import tempfile
 
