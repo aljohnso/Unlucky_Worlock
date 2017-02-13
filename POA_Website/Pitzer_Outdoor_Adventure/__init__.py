@@ -17,3 +17,6 @@ def close_db(error):
 
 app.register_blueprint(main)
 print(app.url_map)
+
+if __name__ == "__main__":
+    app.run()
