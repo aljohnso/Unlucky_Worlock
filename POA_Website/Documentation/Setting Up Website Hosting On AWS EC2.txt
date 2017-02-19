@@ -178,32 +178,9 @@ This is from Flask on EC2 running in a virtual envirment
 WOW were home free we did it guys!!!
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-
-
-
-
-
-
-
-
-
 http://stackoverflow.com/questions/30642894/getting-flask-to-use-python3-apache-mod-wsgi
 http://stackoverflow.com/questions/30674644/installing-mod-wsgi-for-python3-on-ubuntu/30682386#30682386
 http://modwsgi.readthedocs.io/en/develop/user-guides/virtual-environments.html
 http://stackoverflow.com/questions/7225900/how-to-pip-install-packages-according-to-requirements-txt-from-a-local-directory
+http://modwsgi.readthedocs.io/en/develop/user-guides/virtual-environments.html
+https://modwsgi.readthedocs.io/en/develop/user-guides/quick-configuration-guide.html
