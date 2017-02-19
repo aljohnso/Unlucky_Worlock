@@ -1,5 +1,5 @@
 from Forms.POAForms import MakeTripFormPOA, AddToTripPOA
-from Flask import  request, redirect, url_for, \
+from flask import  request, redirect, url_for, \
      render_template, flash,Blueprint
 from DatabaseConnection.Database import db
 main = Blueprint('main', __name__, template_folder='templates')

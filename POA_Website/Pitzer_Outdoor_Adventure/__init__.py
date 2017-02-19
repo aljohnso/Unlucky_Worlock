@@ -1,4 +1,4 @@
-from Flask import Flask, g
+from flask import Flask, g
 from Pitzer_Outdoor_Adventure.Main.controllers import main
 app = Flask(__name__)
 from flask_bootstrap import Bootstrap
@@ -16,7 +16,7 @@ def close_db(error):
         g.sqlite_db.closeConnection()
 
 app.register_blueprint(main)
-print(app.url_map)
+# print(app.url_map)
 
 if __name__ == "__main__":
     app.run()

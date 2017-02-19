@@ -1,0 +1,209 @@
+This guide represents about 40 hours of labor involving me learning the basics of Apache and mod-wsgi. I am forever grateful to all the sources on the Internet that made this possible without which I could not have done this. I will link to them at the bottom of this documents.
+
+Lets start off with a basic 'hello world' config which will be based mostly off of.
+
+We are following the wonderful tutorial acomponied by vidoe series by:
+Manuel Amunategui
+	http://amunategui.github.io/idea-to-pitch/
+	https://www.youtube.com/watch?v=3HuYr6G2Z28&list=UUq4pm1i_VZqxKVVOz5qRBIA&index=1
+
+First I recommend following his configuration guidelines for your ec2 instance to the t. 
+
+Once you ssh in I will put the rest of the configure stuff here so that we have a continues flow.
+
+Install your Apache web server:
+	sudo apt-get install apache2
+	sudo apt-get update
+
+Install the mod-wsgi:
+	sudo apt-get install libapache2-mod-wsgi-py3
+	a2enmod wsgi
+
+Install Pip3 (pip3 means that it will install only python 3.x packages which is the whole point of this tutorial):
+	sudo apt install python3-pip
+
+Install virtualenv
+	pip3 install virtualenv
+
+Now navigate to the desired directory for your virtual environment:
+I choose to put it in my home/ubuntu directory so I go:
+	cd /home/ubuntu
+
+Create the enviorment with the command:
+	virtualenv -p python3 ./venv3 
+
+Now we have created an environment with the name venv3. We will use this to install flask later for now lets just take note of the path to it
+PATH_TO_VIRTUL_ENV = /home/ubuntu
+
+Now this is where things get all server side and I get confused we are curently following an amagimation of 3 set up guides on how to do this so I cant give you much why just check out the links at the bottom if you want to try and reason your way to a why
+
+So now we activate our virtual envorment to install the wsgi script:
+source ./venv3/bin/activate
+
+Your command prompt should look something like (venv3) ubuntu@ip-11-1-1-111:~$ 
+
+now we need to run:
+	sudo apt-get install apache2-dev
+this gets us the correct header files which is cool I guess
+
+then we install mod_wsgi
+	pip install mod_wsgi
+
+Next run:
+	sudo venv3/bin/mod_wsgi-express install-module
+This should return something like this:
+	LoadModule wsgi_module "/usr/lib/apache2/modules/mod_wsgi-py35.cpython-35m-x86_64-linux-gnu.so"
+	WSGIPythonHome "/home/ubuntu/venv3"
+I would save these as we will need them soon. I am fairly certain that what we have done is told mod_wsgi where we want our python interpeter to be. ive read on the interent the reason for this is that python does something wacky with ASCII or UNICODE encodiengs and so it need to be specally compiled for wsgi IDK on that though. 
+
+Next were going to tell it where to run so we need to modify a file so run
+
+sudo nano /etc/apache2/mods-available/wsgi_express.{load,conf}
+
+and paste in the lines we got from running sudo venv3/bin/mod_wsgi-express install-module
+Note if it loads you into a different file paste the lines into that one as well #possible place to fail 
+
+next exit and save you might get told your saving to a different file as long as it saves it has worked ok
+
+Finally enable the module and check Apache's error log:
+	a2enmod wsgi
+	sudo service apache2 restart
+	less /var/log/apache2/error.log
+
+now back to simple stuff deactive the virtual enviorment:
+deactivate 
+
+Now move to the www sounds like it has to do with web stuff so lets put our app here
+	cd /var/www
+	sudo mkdir flask-app
+	cd flask-app
+	sudo mkdir helloworld-app
+	cd helloworld-app
+
+now we will make to files a run.py and a requirements.txt
+	sudo nano /var/www/flask-app/helloworld-app/run.py
+	In this file put the following:
+
+import nltk
+from flask import Flask
+app=Flask(__name__)
+
+@app.route('/')
+def home():
+    return  "This is from Flask on EC2 running in a virtual envirment"
+
+if __name__ == "__main__":
+    app.run()
+
+	sudo nano /var/www/flask-app/helloworld-app/requirments.txt
+	In this file we place the programs requirments in this case we install flask and nltk to make sure other librays work aswell as flask once installed. (I have seen numorous other turorials that simply just use a work around to get flask working)
+
+Flask==0.11.1
+nltk==3.2.1
+
+Now lets install the requirments:
+
+1. Activate virtual enviroment
+	source /home/ubuntu/venv3/bin/activate
+2. install requirments.txt
+	pip install -r requirments.txt
+
+Now deactivate the enviorment:
+deactivate 
+
+Now lets configure our appache server:
+
+sudo nano /etc/apache2/sites-available/helloworld-app.conf
+
+<VirtualHost *:80>
+    ServerName PUT YOUR SERVER IP HERE
+    ServerAdmin admin@mywebsite.com 
+    WSGIScriptAlias / /var/www/flask-app/app.wsgi
+    WSGIDaemonProcess flaskProcess
+    <Location /flask>
+	    WSGIProcessGroup flaskProcess
+	    WSGIApplicationGroup %{GLOBAL}
+	    Require all granted
+	</Location>
+    <Directory /var/www/flask-app/helloworld-app/>
+        Order allow,deny
+        Allow from all
+    </Directory>
+    <Directory /var/www/FlaskApps/flask-app/helloworld-app/static/>
+        Order allow,deny
+        Allow from all
+    </Directory>
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    LogLevel warn
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+now lets restrart the server
+	sudo service apache2 reload
+
+next enable the site
+	sudo a2ensite helloworld-app
+	sudo /etc/init.d/apache2 reload
+
+Now lets configure the web server gate interface:
+sudo nano /var/www/flask-app/app.wsgi
+
+import os, sys
+
+PROJECT_DIR = '/var/www/flask-app/helloworld-app'
+VIRTUAL_ENV = "/home/ubuntu"
+sys.path.insert(0, PROJECT_DIR)
+
+
+def execfile(filename):
+    globals = dict( __file__ = filename )
+    exec( open(filename).read(), globals )
+
+activate_this = os.path.join( VIRTUAL_ENV, 'venv3/bin', 'activate_this.py' )
+execfile( activate_this )
+
+# run points to the home.py file
+from run import app as application
+application.secret_key = "somesecretsessionkey"
+
+
+run some last reloads
+sudo service apache2 restart
+sudo /etc/init.d/apache2 reload 
+
+And go to your servers IP in browser to check that your example site works if it does you should see
+
+This is from Flask on EC2 running in a virtual envirment
+
+WOW were home free we did it guys!!!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+http://stackoverflow.com/questions/30642894/getting-flask-to-use-python3-apache-mod-wsgi
+http://stackoverflow.com/questions/30674644/installing-mod-wsgi-for-python3-on-ubuntu/30682386#30682386
+http://modwsgi.readthedocs.io/en/develop/user-guides/virtual-environments.html
+http://stackoverflow.com/questions/7225900/how-to-pip-install-packages-according-to-requirements-txt-from-a-local-directory
