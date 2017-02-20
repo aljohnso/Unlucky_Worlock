@@ -23,7 +23,7 @@ class DatabaseConnection:
         """
             Will create Datbase Connection
         """
-        self.connection = sqlite3.connect(path)
+        self.connection = sqlite3.connect(path, check_same_thread=False)
         self.cursor = self.connection.cursor()
 
     def closeConnection(self):
