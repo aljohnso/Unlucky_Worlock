@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c16d905c-50fa-4497-a15b-9ae2bc3d03be" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Documentation/Keys.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Documentation/Pitzer_Outdoor_Adventure" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Documentation/Setting Up Website Hosting On AWS EC2" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documentation/Setting Up Website Hosting On AWS EC2.txt" afterPath="$PROJECT_DIR$/Documentation/Setting Up Website Hosting On AWS EC2.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/controllers.py" afterPath="$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/controllers.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -59,7 +56,7 @@
         <entry file="file://$PROJECT_DIR$/run.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="60">
-              <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+              <caret line="4" column="13" lean-forward="true" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -94,34 +91,51 @@
               <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
-                <marker date="1486855755000" expanded="true" signature="420:601" ph="insert into Master... " />
-                <marker date="1486855755000" expanded="true" signature="625:924" ph="insert into Trips... " />
-                <marker date="1486855755000" expanded="true" signature="954:1091" ph="insert into Participants... " />
-                <marker date="1486855755000" expanded="true" signature="2470:2498" ph="DELETE FROM " />
-                <marker date="1486855755000" expanded="true" signature="2651:2705" ph="select Depar... Master" />
-                <marker date="1486855755000" expanded="true" signature="2907:2935" ph="DELETE FROM " />
-                <marker date="1486855755000" expanded="true" signature="3024:3062" ph="select * fro... Master" />
-                <marker date="1486855755000" expanded="true" signature="3389:3455" ph="UPDATE Maste... " />
-                <marker date="1486855755000" expanded="true" signature="3589:3675" ph="UPDATE Maste... " />
-                <marker date="1486855755000" expanded="true" signature="3825:3870" ph="SELECT * FRO... Particpants" />
-                <marker date="1486855755000" expanded="true" signature="4038:4096" ph="SELECT car_C... Participants" />
-                <marker date="1486855755000" expanded="true" signature="4225:4322" ph="UPDATE Maste... " />
-                <marker date="1486855755000" expanded="true" signature="4370:4485" ph="UPDATE Maste... " />
-                <marker date="1486855755000" expanded="true" signature="4533:4567" ph="DELETE FROM " />
-                <marker date="1486855755000" expanded="true" signature="4706:4737" ph="select * fro... Master" />
-                <marker date="1486855755000" expanded="true" signature="4813:4851" ph="select * fro... Trips" />
-                <marker date="1486855755000" expanded="true" signature="4933:5064" ph="select Parti... Participants" />
-                <marker date="1486855755000" expanded="true" signature="5694:5742" ph="Select Drive... Participants" />
+                <marker date="1487806033000" expanded="true" signature="420:601" ph="insert into Master... " />
+                <marker date="1487806033000" expanded="true" signature="625:924" ph="insert into Trips... " />
+                <marker date="1487806033000" expanded="true" signature="954:1091" ph="insert into Participants... " />
+                <marker date="1487806033000" expanded="true" signature="1123:1310" ph="..." />
+                <marker date="1487806033000" expanded="true" signature="1342:1374" ph="..." />
+                <marker date="1487806033000" expanded="true" signature="1404:2232" ph="..." />
+                <marker date="1487806033000" expanded="true" signature="1413:1609" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+                <marker date="1487806033000" expanded="true" signature="1900:1944" ph="..." />
+                <marker date="1487806033000" expanded="true" signature="2269:2574" ph="..." />
+                <marker date="1487806033000" expanded="true" signature="2278:2440" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+                <marker date="1487806033000" expanded="true" signature="2495:2523" ph="DELETE FROM " />
+                <marker date="1487806033000" expanded="true" signature="2639:3100" ph="..." />
+                <marker date="1487806033000" expanded="true" signature="2676:2730" ph="select Depar... Master" />
+                <marker date="1487806033000" expanded="true" signature="2771:2979" ph="..." />
+                <marker date="1487806033000" expanded="true" signature="2932:2960" ph="DELETE FROM " />
+                <marker date="1487806033000" expanded="true" signature="3049:3087" ph="select * fro... Master" />
+                <marker date="1487806033000" expanded="true" signature="3145:3749" ph="..." />
+                <marker date="1487806033000" expanded="true" signature="3414:3480" ph="UPDATE Maste... " />
+                <marker date="1487806033000" expanded="true" signature="3614:3700" ph="UPDATE Maste... " />
+                <marker date="1487806033000" expanded="true" signature="3789:3977" ph="..." />
+                <marker date="1487806033000" expanded="true" signature="3802:3937" ph="..." />
+                <marker date="1487806033000" expanded="true" signature="3850:3895" ph="SELECT * FRO... Particpants" />
+                <marker date="1487806033000" expanded="true" signature="4026:4649" ph="..." />
+                <marker date="1487806033000" expanded="true" signature="4063:4121" ph="SELECT car_C... Participants" />
+                <marker date="1487806033000" expanded="true" signature="4249:4348" ph="'...'" />
+                <marker date="1487806033000" expanded="true" signature="4250:4347" ph="UPDATE Maste... " />
+                <marker date="1487806033000" expanded="true" signature="4395:4510" ph="UPDATE Maste... " />
+                <marker date="1487806033000" expanded="true" signature="4558:4592" ph="DELETE FROM " />
+                <marker date="1487806033000" expanded="true" signature="4684:5192" ph="..." />
+                <marker date="1487806033000" expanded="true" signature="4731:4762" ph="select * fro... Master" />
+                <marker date="1487806033000" expanded="true" signature="4838:4876" ph="select * fro... Trips" />
+                <marker date="1487806033000" expanded="true" signature="4957:5090" ph="'...'" />
+                <marker date="1487806033000" expanded="true" signature="4958:5089" ph="select Parti... Participants" />
+                <marker date="1487806033000" expanded="true" signature="5248:5679" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+                <marker date="1487806033000" expanded="true" signature="5719:5767" ph="Select Drive... Participants" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DatabaseTests.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DatabaseTests.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Tests/DatabaseTests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="257">
-              <caret line="90" column="48" lean-forward="true" selection-start-line="90" selection-start-column="48" selection-end-line="90" selection-end-column="48" />
+            <state relative-caret-position="452">
+              <caret line="90" column="48" lean-forward="false" selection-start-line="90" selection-start-column="48" selection-end-line="90" selection-end-column="48" />
               <folding>
                 <marker date="1484203633000" expanded="true" signature="11549:11718" ph="select id, T... Master" />
                 <marker date="1484203633000" expanded="true" signature="11747:12029" ph="select id, M... Trips" />
@@ -143,14 +157,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="controllers.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="controllers.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/controllers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="48" lean-forward="false" selection-start-line="1" selection-start-column="48" selection-end-line="1" selection-end-column="48" />
+            <state relative-caret-position="-53">
+              <caret line="27" column="102" lean-forward="false" selection-start-line="27" selection-start-column="102" selection-end-line="27" selection-end-column="102" />
               <folding>
-                <marker date="1487023615000" expanded="true" signature="1696:1808" ph="select Trip_... " />
-                <marker date="1487023615000" expanded="true" signature="2478:2522" ph="select Trips... Participants" />
+                <element signature="e#0#56#0" expanded="true" />
+                <marker date="1487806416000" expanded="true" signature="1696:1808" ph="select Trip_... " />
+                <marker date="1487806416000" expanded="true" signature="2483:2527" ph="select Trips... Participants" />
               </folding>
             </state>
           </provider>
@@ -181,8 +196,8 @@
       <file leaf-file-name="Add_Particpant.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/templates/Add_Particpant.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="30" column="35" lean-forward="false" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
+            <state relative-caret-position="135">
+              <caret line="9" column="29" lean-forward="true" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -238,10 +253,10 @@
         <option value="$PROJECT_DIR$/DatabaseConnection/DatabaseConnection.py" />
         <option value="$PROJECT_DIR$/Tests/ApplicationTests.py" />
         <option value="$PROJECT_DIR$/application.wsgi" />
-        <option value="$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/controllers.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/Pitzer_Outdoor_Adventure/__init__.py" />
         <option value="$PROJECT_DIR$/run.py" />
+        <option value="$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/controllers.py" />
       </list>
     </option>
   </component>
@@ -254,7 +269,7 @@
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="600" />
+    <option name="height" value="802" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -285,6 +300,60 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="POA_Website" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="POA Website" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="POA_Website" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Pitzer_Outdoor_Adventure" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="POA Website" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="POA_Website" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Pitzer_Outdoor_Adventure" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="POA Website" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="POA_Website" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Pitzer_Outdoor_Adventure" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -729,7 +798,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="600" extended-state="0" />
+    <frame x="0" y="23" width="1440" height="802" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19670959" sideWeight="0.85328186" order="0" side_tool="false" content_ui="combo" />
@@ -960,14 +1029,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/templates/Add_Particpant.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="35" lean-forward="false" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Documentation/Pitzer_Outdoor_Adventure">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1005,17 +1066,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/controllers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="48" lean-forward="false" selection-start-line="1" selection-start-column="48" selection-end-line="1" selection-end-column="48" />
-          <folding>
-            <marker date="1487023615000" expanded="true" signature="1696:1808" ph="select Trip_... " />
-            <marker date="1487023615000" expanded="true" signature="2478:2522" ph="select Trips... Participants" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Tests/ApplicationTests.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -1032,24 +1082,41 @@
           <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding>
             <element signature="e#0#24#0" expanded="true" />
-            <marker date="1486855755000" expanded="true" signature="420:601" ph="insert into Master... " />
-            <marker date="1486855755000" expanded="true" signature="625:924" ph="insert into Trips... " />
-            <marker date="1486855755000" expanded="true" signature="954:1091" ph="insert into Participants... " />
-            <marker date="1486855755000" expanded="true" signature="2470:2498" ph="DELETE FROM " />
-            <marker date="1486855755000" expanded="true" signature="2651:2705" ph="select Depar... Master" />
-            <marker date="1486855755000" expanded="true" signature="2907:2935" ph="DELETE FROM " />
-            <marker date="1486855755000" expanded="true" signature="3024:3062" ph="select * fro... Master" />
-            <marker date="1486855755000" expanded="true" signature="3389:3455" ph="UPDATE Maste... " />
-            <marker date="1486855755000" expanded="true" signature="3589:3675" ph="UPDATE Maste... " />
-            <marker date="1486855755000" expanded="true" signature="3825:3870" ph="SELECT * FRO... Particpants" />
-            <marker date="1486855755000" expanded="true" signature="4038:4096" ph="SELECT car_C... Participants" />
-            <marker date="1486855755000" expanded="true" signature="4225:4322" ph="UPDATE Maste... " />
-            <marker date="1486855755000" expanded="true" signature="4370:4485" ph="UPDATE Maste... " />
-            <marker date="1486855755000" expanded="true" signature="4533:4567" ph="DELETE FROM " />
-            <marker date="1486855755000" expanded="true" signature="4706:4737" ph="select * fro... Master" />
-            <marker date="1486855755000" expanded="true" signature="4813:4851" ph="select * fro... Trips" />
-            <marker date="1486855755000" expanded="true" signature="4933:5064" ph="select Parti... Participants" />
-            <marker date="1486855755000" expanded="true" signature="5694:5742" ph="Select Drive... Participants" />
+            <marker date="1487806033000" expanded="true" signature="420:601" ph="insert into Master... " />
+            <marker date="1487806033000" expanded="true" signature="625:924" ph="insert into Trips... " />
+            <marker date="1487806033000" expanded="true" signature="954:1091" ph="insert into Participants... " />
+            <marker date="1487806033000" expanded="true" signature="1123:1310" ph="..." />
+            <marker date="1487806033000" expanded="true" signature="1342:1374" ph="..." />
+            <marker date="1487806033000" expanded="true" signature="1404:2232" ph="..." />
+            <marker date="1487806033000" expanded="true" signature="1413:1609" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+            <marker date="1487806033000" expanded="true" signature="1900:1944" ph="..." />
+            <marker date="1487806033000" expanded="true" signature="2269:2574" ph="..." />
+            <marker date="1487806033000" expanded="true" signature="2278:2440" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+            <marker date="1487806033000" expanded="true" signature="2495:2523" ph="DELETE FROM " />
+            <marker date="1487806033000" expanded="true" signature="2639:3100" ph="..." />
+            <marker date="1487806033000" expanded="true" signature="2676:2730" ph="select Depar... Master" />
+            <marker date="1487806033000" expanded="true" signature="2771:2979" ph="..." />
+            <marker date="1487806033000" expanded="true" signature="2932:2960" ph="DELETE FROM " />
+            <marker date="1487806033000" expanded="true" signature="3049:3087" ph="select * fro... Master" />
+            <marker date="1487806033000" expanded="true" signature="3145:3749" ph="..." />
+            <marker date="1487806033000" expanded="true" signature="3414:3480" ph="UPDATE Maste... " />
+            <marker date="1487806033000" expanded="true" signature="3614:3700" ph="UPDATE Maste... " />
+            <marker date="1487806033000" expanded="true" signature="3789:3977" ph="..." />
+            <marker date="1487806033000" expanded="true" signature="3802:3937" ph="..." />
+            <marker date="1487806033000" expanded="true" signature="3850:3895" ph="SELECT * FRO... Particpants" />
+            <marker date="1487806033000" expanded="true" signature="4026:4649" ph="..." />
+            <marker date="1487806033000" expanded="true" signature="4063:4121" ph="SELECT car_C... Participants" />
+            <marker date="1487806033000" expanded="true" signature="4249:4348" ph="'...'" />
+            <marker date="1487806033000" expanded="true" signature="4250:4347" ph="UPDATE Maste... " />
+            <marker date="1487806033000" expanded="true" signature="4395:4510" ph="UPDATE Maste... " />
+            <marker date="1487806033000" expanded="true" signature="4558:4592" ph="DELETE FROM " />
+            <marker date="1487806033000" expanded="true" signature="4684:5192" ph="..." />
+            <marker date="1487806033000" expanded="true" signature="4731:4762" ph="select * fro... Master" />
+            <marker date="1487806033000" expanded="true" signature="4838:4876" ph="select * fro... Trips" />
+            <marker date="1487806033000" expanded="true" signature="4957:5090" ph="'...'" />
+            <marker date="1487806033000" expanded="true" signature="4958:5089" ph="select Parti... Participants" />
+            <marker date="1487806033000" expanded="true" signature="5248:5679" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+            <marker date="1487806033000" expanded="true" signature="5719:5767" ph="Select Drive... Participants" />
           </folding>
         </state>
       </provider>
@@ -1073,18 +1140,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/run.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Tests/DatabaseTests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="90" column="48" lean-forward="true" selection-start-line="90" selection-start-column="48" selection-end-line="90" selection-end-column="48" />
+        <state relative-caret-position="452">
+          <caret line="90" column="48" lean-forward="false" selection-start-line="90" selection-start-column="48" selection-end-line="90" selection-end-column="48" />
           <folding>
             <marker date="1484203633000" expanded="true" signature="11549:11718" ph="select id, T... Master" />
             <marker date="1484203633000" expanded="true" signature="11747:12029" ph="select id, M... Trips" />
@@ -1101,6 +1160,34 @@
             <marker date="1484203633000" expanded="true" signature="19758:20009" ph="select id, M... Trips" />
             <marker date="1484203633000" expanded="true" signature="21074:21135" ph="select Partc... Master" />
             <marker date="1484203633000" expanded="true" signature="21294:21355" ph="select Partc... Master" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/run.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="13" lean-forward="true" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/templates/Add_Particpant.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="29" lean-forward="true" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Pitzer_Outdoor_Adventure/Main/controllers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-53">
+          <caret line="27" column="102" lean-forward="false" selection-start-line="27" selection-start-column="102" selection-end-line="27" selection-end-column="102" />
+          <folding>
+            <element signature="e#0#56#0" expanded="true" />
+            <marker date="1487806416000" expanded="true" signature="1696:1808" ph="select Trip_... " />
+            <marker date="1487806416000" expanded="true" signature="2483:2527" ph="select Trips... Participants" />
           </folding>
         </state>
       </provider>

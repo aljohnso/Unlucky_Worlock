@@ -58,13 +58,13 @@ def add_Participant(FormKey):
         else:
             db.Addparticipant(form.data, str(FormKey))
             flash('New entry was successfully posted')
-            return redirect(url_for('TripPage', TripKey=str(FormKey)))
+            return redirect(url_for('main.TripPage', TripKey=str(FormKey)))
 
 
 @main.route('/deleteParicipant/<id>')
 def remove_particpant(id):
     tripKey = db.cursor.execute('select Trips_Key from Participants where id=' + id).fetchall()[0][0]
     db.deleteParticpant(id)
-    return redirect(url_for('TripPage', TripKey=tripKey))
+    return redirect(url_for('main.TripPage', TripKey=tripKey))
 
 
