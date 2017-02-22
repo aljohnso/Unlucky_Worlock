@@ -39,7 +39,7 @@ def add_Trip():
         else:
             db.AddTrip(form.data)
             flash('New entry was successfully posted')
-            return redirect(url_for('Main'))
+            return redirect(url_for('main.Main'))#Im going to be honest this naming schema is terible
     elif request.method == 'GET':
         return render_template('CreateTrip.html', form=form)
 
