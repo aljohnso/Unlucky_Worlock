@@ -184,3 +184,4 @@ http://modwsgi.readthedocs.io/en/develop/user-guides/virtual-environments.html
 http://stackoverflow.com/questions/7225900/how-to-pip-install-packages-according-to-requirements-txt-from-a-local-directory
 http://modwsgi.readthedocs.io/en/develop/user-guides/virtual-environments.html
 https://modwsgi.readthedocs.io/en/develop/user-guides/quick-configuration-guide.html
+https://www.edureka.co/blog/amazon-aws-tutorial/?utm_source=youtube&utm_medium=description&utm_campaign=Amazon-AWS-Training
