@@ -1,3 +1,7 @@
 from DatabaseConnection.DatabaseConnection import *
 import os
-db = DatabaseConnection('/var/www/Unlucky_Worlock/POA_Website' + '/bin/POA.db')
+
+try:
+    db = DatabaseConnection('/var/www/Unlucky_Worlock/POA_Website' + '/bin/POA.db')
+except:
+    db = DatabaseConnection(os.getcwd() + '/bin/POA.db')
