@@ -2,6 +2,12 @@ from Forms.POAForms import MakeTripFormPOA, AddToTripPOA
 from flask import  request, redirect, url_for, \
      render_template, flash,Blueprint
 from DatabaseConnection.Database import db
+import json
+import flask
+import httplib2
+import apiclient as google
+from oauth2client import client
+import os
 main = Blueprint('main', __name__, template_folder='templates')
 
 
@@ -59,6 +65,20 @@ def add_Participant(FormKey):
             db.Addparticipant(form.data, str(FormKey))
             flash('New entry was successfully posted')
             return redirect(url_for('main.TripPage', TripKey=str(FormKey)))
+
+@main.route('/login', methods=['POST', 'GET'])
+def login():
+    if 'credentials' not in flask.session:#are they already authenticated if not go to authentication
+        return flask.redirect(flask.url_for('main.gCallback'))
+    credentials = client.OAuth2Credentials.from_json(flask.session['credentials'])
+    if credentials.access_token_expired:#if the acess token is expired ask them to reauthenticate
+        return flask.redirect(flask.url_for('main.gCallback'))
+    else:#if authenticated get user info
+        http_auth = credentials.authorize(httplib2.Http())
+        service = google.discovery.build('oauth2', 'v2', http_auth)#we ask for there profile information
+        userinfo = service.userinfo().get().execute()#execute requst
+        print(userinfo)
+        return json.dumps(userinfo)
 
 
 @main.route('/deleteParicipant/<id>')
