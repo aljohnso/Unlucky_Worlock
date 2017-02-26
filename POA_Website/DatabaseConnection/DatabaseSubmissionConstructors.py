@@ -90,7 +90,7 @@ class TripCommandConstructor:
             data = requests.get(URL + zipcode + '.json').json()
             return data['forecast']['simpleforecast']  # gives 10 day forcast as a list of dicts
         except:
-            raise Exception("Location format is not correct")
+            return ""
 
     def getGoogleMapsData(self, Location):
         pitzerCollege = '1050 N Mills Ave,Claremont,CA'

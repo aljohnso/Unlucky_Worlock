@@ -1,5 +1,5 @@
 from Forms.POAForms import MakeTripFormPOA, AddToTripPOA
-from Flask import  request, redirect, url_for, \
+from flask import  request, redirect, url_for, \
      render_template, flash,Blueprint
 from DatabaseConnection.Database import db
 main = Blueprint('main', __name__, template_folder='templates')
@@ -39,7 +39,7 @@ def add_Trip():
         else:
             db.AddTrip(form.data)
             flash('New entry was successfully posted')
-            return redirect(url_for('Main'))
+            return redirect(url_for('main.Main'))#Im going to be honest this naming schema is terible
     elif request.method == 'GET':
         return render_template('CreateTrip.html', form=form)
 
@@ -58,13 +58,13 @@ def add_Participant(FormKey):
         else:
             db.Addparticipant(form.data, str(FormKey))
             flash('New entry was successfully posted')
-            return redirect(url_for('TripPage', TripKey=str(FormKey)))
+            return redirect(url_for('main.TripPage', TripKey=str(FormKey)))
 
 
 @main.route('/deleteParicipant/<id>')
 def remove_particpant(id):
     tripKey = db.cursor.execute('select Trips_Key from Participants where id=' + id).fetchall()[0][0]
     db.deleteParticpant(id)
-    return redirect(url_for('TripPage', TripKey=tripKey))
+    return redirect(url_for('main.TripPage', TripKey=tripKey))
 
 

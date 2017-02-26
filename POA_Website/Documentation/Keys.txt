@@ -1,8 +1,0 @@
-Keys
-SSH:
-	eb
-	nature is perfect
-
-AWS User:
-	AKIAIBTLQWLTMZBATZ6A
-	x/ej4/3zoBU8vvSl7Z9qza1wapoFk7d9ThR+lQOI 

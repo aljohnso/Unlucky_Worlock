@@ -13,5 +13,11 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/Tests/DataBase_Test_Scripts/POA_Test.db</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="SERVER.db [2]" uuid="209037b5-c48a-4e3e-b934-f4022c416aa3">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/bin/POA.db</jdbc-url>
+    </data-source>
   </component>
 </project>
