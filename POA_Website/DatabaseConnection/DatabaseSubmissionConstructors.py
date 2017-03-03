@@ -62,13 +62,24 @@ class TripCommandConstructor:
         locationData = self.getGoogleMapsData(location)
         for index in TripCommandConstructor.TRIPS_DB_ORDER:
             Trip += [str(Form[index])]
-        distance = float(locationData['rows'][0]['elements'][0]['distance']['text'][:-3])
+        distance = self.getDistance(locationData)
         total_Cost = distance*.17*2 + Form['Additional_Cost']
         Trip += [int(Form["Substance_Free"])]
         Trip += [total_Cost]
         Trip += [str(self.getWeather(locationData))]
         Trip += [master_key]
         return Trip
+
+    def getDistance(self, LocationData):
+        """
+        Will try if the data is not valid will return 0
+        :param LocationData: Google maps API Return
+        :return: Distance
+        """
+        try:
+            return float(LocationData['rows'][0]['elements'][0]['distance']['text'][:-3])
+        except:
+            return 0
 
     def getWeather(self, GoogleMapsData):
         """
@@ -93,13 +104,16 @@ class TripCommandConstructor:
             return ""
 
     def getGoogleMapsData(self, Location):
-        pitzerCollege = '1050 N Mills Ave,Claremont,CA'
-        url = "http://maps.googleapis.com/maps/api/distancematrix/json"
-        params = {'origins': pitzerCollege, 'destinations': Location, 'mode': 'driving', 'units': 'imperial'}
-        response = requests.get(url, params=params)
-        data = response.json()
-        # print(data)
-        return data
+        try:
+            pitzerCollege = '1050 N Mills Ave,Claremont,CA'
+            url = "http://maps.googleapis.com/maps/api/distancematrix/json"
+            params = {'origins': pitzerCollege, 'destinations': Location, 'mode': 'driving', 'units': 'imperial'}
+            response = requests.get(url, params=params)
+            data = response.json()
+            # print(data)
+            return data
+        except:
+            return None
 
 
 class ParticipantCommandConstructor:
