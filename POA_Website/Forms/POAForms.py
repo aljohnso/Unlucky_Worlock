@@ -6,8 +6,8 @@ from wtforms.fields.html5 import EmailField
 class MakeTripFormPOA(FlaskForm):
     # this info should cover all tables master, Trips
     Trip_Name = StringField("Trip Name", [validators.DataRequired("Please name your trip")])
-    Departure_Date = DateField("Departure Date", [validators.DataRequired("Please Enter Departure Date")])
-    Return_Date = DateField("Return Date", [validators.DataRequired("Please Enter Return Date")])
+    Departure_Date = DateField("Departure Date", [validators.DataRequired("Please Enter Departure Date Fromat YYYY-MM-DD")])
+    Return_Date = DateField("Return Date", [validators.DataRequired("Please Enter Return Date Fromat YYYY-MM-DD")])
     # Deatails Short this will be an indexed version of trip details
     # Post time will be automaticly created with python DateTime Extention
     # Participant Num will be set to 1 when trip is created and then will be added to as the particpants table is updated
@@ -17,12 +17,12 @@ class MakeTripFormPOA(FlaskForm):
     Details = StringField("Trip Details", [validators.DataRequired("Please enter a trip discription")])
     Coordinator_Name = StringField("Coordinator Name", [validators.DataRequired("please enter your name")])
     Coordinator_Email = StringField("Coordinator Email", [validators.DataRequired("Please enter your email address."), validators.Email("Please enter your email address.")])
-    Coordinator_Phone = IntegerField("Coordinator Phone", [validators.DataRequired("Please enter your phone number")])
+    Coordinator_Phone = IntegerField("Coordinator Phone", [validators.DataRequired("Please enter your phone number as 7 Integers no other charecters")])
     GearList = StringField("Gear List", [validators.DataRequired("Please enter gear list if none enter none")])
     Trip_Meeting_Place =StringField("Trip Meeting Place", [validators.DataRequired("Please enter meeting place")])
-    Additional_Cost = IntegerField("Additional Cost Estimate")#condsider adding validator
+    Additional_Cost = IntegerField("Additional Cost Estimate", [validators.DataRequired("Please enter a Number If your cost is 0 enter 0")])
     # Total cost will be computed using additional cost and the cost estiment from the trip location feild hopefully
-    Cost_Breakdown = StringField('cost break down')
+    Cost_Breakdown = StringField('cost break down', [validators.DataRequired("Please enter What you will be spending money on if cost is zero enter NA")])
     Car_Cap = IntegerField("Max number of cars on trip", [validators.DataRequired("Please enter Max num of Cars on trip")])
     Car_Capacity = IntegerField("Number of spaces in your car", [validators.DataRequired("Please enter your car capacity if you dont have a car put 0")])
     Substance_Free = BooleanField("Substance Free")
