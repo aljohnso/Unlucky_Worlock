@@ -63,7 +63,7 @@ class TripCommandConstructor:
         for index in TripCommandConstructor.TRIPS_DB_ORDER:
             Trip += [str(Form[index])]
         distance = self.getDistance(locationData)
-        total_Cost = distance*.17*2 + Form['Additional_Cost']
+        total_Cost = distance*.17*2 + int(Form['Additional_Cost'])
         Trip += [int(Form["Substance_Free"])]
         Trip += [total_Cost]
         Trip += [str(self.getWeather(locationData))]
