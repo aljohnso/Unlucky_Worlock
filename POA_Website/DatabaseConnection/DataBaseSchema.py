@@ -29,7 +29,7 @@ class Master(db.Model):
         self.Trip_Location = MasterDict['Trip_Location']
 
     def __repr__(self):
-        return '<Trip %r>' % (self.Trip_Name) % (self.Details_Short)
+        return '<Trip %r> ' % (self.Trip_Name) % (self.Details_Short)
 
 
 
