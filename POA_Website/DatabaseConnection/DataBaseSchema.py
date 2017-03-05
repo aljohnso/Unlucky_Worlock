@@ -8,7 +8,8 @@ class Master(db.Model):
     """
         Contains Schema for master contains basic trip info
     """
-    id = db.Column(db.Integer, primary_key=True)
+    __tablename__ = "Master"
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
     Trip_Name = db.Column(db.String(100))
     Departure_Date = db.Column(db.Date)
     Return_Date = db.Column(db.Date)
@@ -17,6 +18,8 @@ class Master(db.Model):
     Participant_num = db.Column(db.Integer)
     Participant_cap = db.Column(db.Integer)
     Trip_Location = db.Column(db.String(100))
+    Trip_Participants = db.relationship('Participants', backref = "Master", lazy='dynamic')
+    Trip_Trip = db.relationship('Trips', backref="Master", lazy='dynamic')
 
     def __init__(self, MasterDict):
         self.Trip_Name = MasterDict['Trip_Name']
@@ -29,7 +32,7 @@ class Master(db.Model):
         self.Trip_Location = MasterDict['Trip_Location']
 
     def __repr__(self):
-        return '<Trip %r> ' % (self.Trip_Name) % (self.Details_Short)
+        return '<Trip %r> ' + str(self.Trip_Name) + str(self.Details_Short)
 
 
 
@@ -37,8 +40,9 @@ class Trips(db.Model):
     """
         Schema for the trips table contains detailed info for trips
     """
+    __tablename__ = "Trips"
     id = db.Column(db.Integer, primary_key=True)
-    Master_Key = db.Column(db.Integer, db.ForeignKey("Master.id", onupdate="CASCADE",
+    Master_Key = db.Column(db.Integer, db.ForeignKey("Master.id",
                                                      ondelete="CASCADE"), nullable=False)
     Details = db.Column(db.String(3000))
     Coordinator_Name = db.Column(db.String(70))
@@ -72,8 +76,9 @@ class Trips(db.Model):
         return '<Trip %r>' % (self.Master_Key) % (self.Coordinator_Name)
 
 class Participants(db.Model):
+    __tablename__ = "Participants"
     id = db.Column(db.Integer, primary_key=True)
-    Master_Key = db.Column(db.Integer, db.ForeignKey("Master.id", onupdate="CASCADE",
+    Master_Key = db.Column(db.Integer, db.ForeignKey("Master.id",
                                                      ondelete="CASCADE"), nullable=False)
     Participant = db.Column(db.String(120))
     Phone = db.Column(db.Integer)
