@@ -40,8 +40,9 @@ class MasterCommandConstructor:
 
 
 class TripCommandConstructor:
-    TRIPS_DB_ORDER = ['Details', 'Coordinator_Name', 'Coordinator_Email', 'Coordinator_Phone', 'GearList',
-                      'Trip_Meeting_Place', 'Additional_Cost', 'Cost_Breakdown', 'Car_Cap']
+    TRIPS_DB_ORDER = ['Details', 'Coordinator_Name', 'Coordinator_Email',
+                      'Coordinator_Phone', 'GearList', 'Trip_Meeting_Place',
+                      'Additional_Cost', 'Cost_Breakdown', 'Car_Cap']
 
     WUNDERGROUND_KEY = 'dd0fa4bc432d5dbd'
 
@@ -120,19 +121,19 @@ class TripCommandConstructor:
 class ParticipantCommandConstructor:
     PARTICIPANT_DB_ORDER = ['Participant','Email', 'Phone', 'Driver', 'Car_Capacity']
 
-    def __init__(self, form, tripID):
+    def __init__(self, form, MasterID):
         """
         :param form:
         Will take in form and create a list that can be executed to put in database
         """
-        self.participant = self.Makeparticipant(form, tripID)
+        self.participant = self.Makeparticipant(form, MasterID)
 
-    def Makeparticipant(self, Form, TripID):
+    def Makeparticipant(self, Form, MasterID):
         """
         :param Form: form from POAForms class that details
         :return:
         """
-        participant = {"Trips_Key":TripID}
+        participant = {"Master_Key":MasterID}
         try:
             for index in ParticipantCommandConstructor.PARTICIPANT_DB_ORDER:
                 participant[index] = Form[index]
