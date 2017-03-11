@@ -2,6 +2,7 @@ import unittest, datetime
 from DatabaseConnection.DatabaseSubmissionConstructors import ParticipantConstructor, TripConstructor, MasterConstructor
 
 class DatabaseConstructorTests(unittest.TestCase):
+
     testParticipant_AJ = {'Participant': "alasdair Johnson",'Email': 'aljohnso@students.pitzer.edu', 'Phone': 9193975206, 'Driver': 1, 'Car_Capacity': 5}
     CorrecttestInput = {'Trip_Meeting_Place': 'Service Road', 'GearList': 'All the things', 'Coordinator_Phone': 9193975206,
                  'Car_Capacity': 3, 'Return_Date': datetime.date(2016, 12, 12), 'Additional_Cost': 10,
@@ -41,7 +42,7 @@ class DatabaseConstructorTests(unittest.TestCase):
          'Trip_Meeting_Place': 'Service Road', 'Substance_Free': 0, 'Details': 'Turn up and climb',
          'Additional_Cost': 10, 'Cost_Breakdown': 'cash for strip club', 'Total_Cost': 92.62,
         'Coordinator_Name': 'Alasdair Johnson', 'Coordinator_Phone': 9193975206}
-        expected_particpant = {'Participant': 'alasdair Johnson', 'Car_Capacity': 3,
+        expected_particpant = {'Participant': 'Alasdair Johnson', 'Car_Capacity': 3,
                                'Master_Key': 1, 'Driver': 1, 'Phone': 9193975206,
                                'Email': 'aljohnso@students.pitzer.edu'}
         #expected_trip = ['Turn up and climb', 'Alasdair Johnson', 'aljohnso@students.pitzer.edu', '9193975206',
@@ -54,17 +55,16 @@ class DatabaseConstructorTests(unittest.TestCase):
         Tests make trip when google maps returns and invalid location / no location, this will discribe cases
         where users give location in incorrect location.
         """
-        makeTrip = TripConstructor(DatabaseConstructorTests.CorrecttestInput, 1)
+        makeTrip = TripConstructor(DatabaseConstructorTests.IncorrecttestInput, 1)
         trip = makeTrip.trip
         cordinator = makeTrip.leader
-
         expected_trip = {'GearList': 'All the things',
          'Weather_Forcast':  "",
          'Master_Key': 1, 'Coordinator_Email': 'aljohnso@students.pitzer.edu',
          'Trip_Meeting_Place': 'Service Road', 'Substance_Free': 0, 'Details': 'Turn up and climb',
          'Additional_Cost': 10, 'Cost_Breakdown': 'cash for strip club', 'Total_Cost': 10,
          'Coordinator_Name': 'Alasdair Johnson', 'Coordinator_Phone': 9193975206}
-        expected_particpant = {'Participant': 'alasdair Johnson', 'Car_Capacity': 5,
+        expected_particpant = {'Participant': 'Alasdair Johnson', 'Car_Capacity': 3,
                                'Master_Key': 1, 'Driver': 1, 'Phone': 9193975206,
                                'Email': 'aljohnso@students.pitzer.edu'}
         self.assertDictEqual(trip, expected_trip)
