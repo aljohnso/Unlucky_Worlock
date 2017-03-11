@@ -1,7 +1,6 @@
 import datetime,requests, re
 
-
-class MasterCommandConstructor:
+class MasterConstructor:
     MASTER_DB_ORDER = ['Trip_Name', 'Departure_Date', 'Return_Date']
 
     def __init__(self, form):
@@ -10,8 +9,6 @@ class MasterCommandConstructor:
         Will take in form and create a list that can be executed to put in database
         """
         self.master = self.MakeMaster(form)
-        self.leader = ParticipantCommandConstructor(form, None).participant#will need to add in master id after assingment
-
 
     def MakeMaster(self, form):
         """
@@ -19,13 +16,18 @@ class MasterCommandConstructor:
         :return: Dictionary for creating Master row in table
         """
         Master = {} # consider using dict.values()
-        for index in MasterCommandConstructor.MASTER_DB_ORDER:
-            Master[index] = str(form[index])
+        for index in MasterConstructor.MASTER_DB_ORDER:
+            Master[index] = form[index]
         Master['Trip_Location'] = form['Trip_Location'] + ', ' + form['Trip_State']
         Master['Details'] = self.MakeShortDetails(str(form['Details']))
-        Master['Post_Time'] = str(datetime.date.today())
+        Master['Post_Time'] = datetime.date.today()
         Master['Participant_num'] = 1
         Master['Car_Capacity'] = form['Car_Capacity'] # add including driver note
+        Master['Car_Cap'] = form['Car_Cap']
+        if form['Car_Capacity'] > 0:
+            Master['Car_Num'] = 1
+        else:
+            Master['Car_Num'] = 0
         return Master
 
     def MakeShortDetails(self, details):
@@ -39,10 +41,11 @@ class MasterCommandConstructor:
             return details
 
 
-class TripCommandConstructor:
+
+class TripConstructor:
     TRIPS_DB_ORDER = ['Details', 'Coordinator_Name', 'Coordinator_Email',
                       'Coordinator_Phone', 'GearList', 'Trip_Meeting_Place',
-                      'Additional_Cost', 'Cost_Breakdown', 'Car_Cap']
+                      'Additional_Cost', 'Cost_Breakdown']
 
     WUNDERGROUND_KEY = 'dd0fa4bc432d5dbd'
 
@@ -52,6 +55,7 @@ class TripCommandConstructor:
         Will take in form and create a list that can be executed to put in database
         """
         self.trip = self.MakeTrip(form, master_key)
+        self.leader = ParticipantConstructor(form, master_key).participant
 
     def MakeTrip(self, Form, master_key):
         """
@@ -61,7 +65,7 @@ class TripCommandConstructor:
         Trip = {}
         location = str(Form['Trip_Location'] + ',' + Form['Trip_State'])
         locationData = self.getGoogleMapsData(location)
-        for index in TripCommandConstructor.TRIPS_DB_ORDER:
+        for index in TripConstructor.TRIPS_DB_ORDER:
             Trip[index] = Form[index]
         distance = self.getDistance(locationData)
         total_Cost = distance*.17*2 + Form['Additional_Cost']
@@ -69,7 +73,7 @@ class TripCommandConstructor:
         Trip["Total_Cost"] = total_Cost
         Trip["Weather_Forcast"] = str(self.getWeather(locationData))
         Trip["Master_Key"] = master_key
-        print(Trip)
+        # print(Trip)
         return Trip
 
     def getDistance(self, LocationData):
@@ -98,7 +102,7 @@ class TripCommandConstructor:
             # # print(state, place)
             # data = requests.get(URL + state + '/' + place + '.json').json()
             Location = GoogleMapsData['destination_addresses'][0]
-            pattern = '(\d{5}([\-]\d{4})?)'
+            pattern = '(\d{5}([\-]\d{4})?)'#regex for zipcode
             zipcode = re.search(pattern, Location).group(1)
             data = requests.get(URL + zipcode + '.json').json()
             return data['forecast']['simpleforecast']  # gives 10 day forcast as a list of dicts
@@ -118,7 +122,7 @@ class TripCommandConstructor:
             return None
 
 
-class ParticipantCommandConstructor:
+class ParticipantConstructor:
     PARTICIPANT_DB_ORDER = ['Participant','Email', 'Phone', 'Driver', 'Car_Capacity']
 
     def __init__(self, form, MasterID):
@@ -135,7 +139,7 @@ class ParticipantCommandConstructor:
         """
         participant = {"Master_Key":MasterID}
         try:
-            for index in ParticipantCommandConstructor.PARTICIPANT_DB_ORDER:
+            for index in ParticipantConstructor.PARTICIPANT_DB_ORDER:
                 participant[index] = Form[index]
             print(Form.values())
             print(participant)

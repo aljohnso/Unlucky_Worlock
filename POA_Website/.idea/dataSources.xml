@@ -7,17 +7,17 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/POA.db</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="POA_Test.db" uuid="7b3d779c-07d1-433c-beed-da120fd3b13f">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/Tests/DataBase_Test_Scripts/POA_Test.db</jdbc-url>
-    </data-source>
     <data-source source="LOCAL" name="SERVER.db [2]" uuid="209037b5-c48a-4e3e-b934-f4022c416aa3">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/bin/POA.db</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="SQLAlchameyPOA.db" uuid="6117fa60-6fc3-4727-98e0-0b4024fe7c3e">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/Tests/protyping/SQLAlchameyPOA.db</jdbc-url>
     </data-source>
   </component>
 </project>
