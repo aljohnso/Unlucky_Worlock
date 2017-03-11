@@ -1,4 +1,4 @@
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy, inspect
 from DatabaseConnection.DatabaseConnection import DatabaseConnection
 from DatabaseConnection.DatabaseSubmissionConstructors import MasterConstructor, TripConstructor, ParticipantConstructor
 db = SQLAlchemy()
@@ -29,13 +29,14 @@ class Master(db.Model):
         self.Trip_Name = MasterDict['Trip_Name']
         self.Departure_Date = MasterDict['Departure_Date']
         self.Return_Date = MasterDict['Return_Date']
-        self.Details_Short = MasterDict['Details']
+        self.Details_Short = MasterDict['Details']  # name changes here
         self.Post_Time = MasterDict['Post_Time']
         self.Participant_num = MasterDict['Participant_num']
-        self.Participant_cap = MasterDict['Car_Capacity']
+        self.Participant_cap = MasterDict['Car_Capacity']  # name changes here
         self.Trip_Location = MasterDict['Trip_Location']
         self.Car_Num = MasterDict['Car_Num']
         self.Car_Cap = MasterDict['Car_Cap']
+        assert inspect(Master).primary_key[0] is not None  # this may not do anything
 
     def __repr__(self):
         return '<Trip %r> ' + str(self.Trip_Name) + str(self.Details_Short)
@@ -49,7 +50,7 @@ class Trips(db.Model):
     query_class = DatabaseConnection
     id = db.Column(db.Integer, primary_key=True)
     Master_Key = db.Column(db.Integer, db.ForeignKey("Master.id",
-                                                     ondelete="CASCADE"), nullable=False)
+                                                     ondelete="CASCADE"))
     Details = db.Column(db.String(3000))
     Coordinator_Name = db.Column(db.String(70))
     Coordinator_Email = db.Column(db.String(120))
@@ -70,12 +71,14 @@ class Trips(db.Model):
         self.Coordinator_Phone = TripDict['Coordinator_Phone']
         self.Gear_List = TripDict['GearList']
         self.Trip_Meeting_Place = TripDict['Trip_Meeting_Place']
-        self.Additional_Costs = TripDict['Additional_Cost']
+        self.Additional_Costs = TripDict['Additional_Cost']#Name changes
         self.Total_Cost = TripDict["Total_Cost"]
-        self.Cost_BreakDown = TripDict['Cost_Breakdown']
+        self.Cost_BreakDown = TripDict['Cost_Breakdown']#name Changes
         self.Substance_Free = TripDict["Substance_Free"]
-        self.Weather_Forecast = TripDict["Weather_Forcast"]
+        self.Weather_Forecast = TripDict["Weather_Forcast"]#name change
         self.Master_Key = TripDict['Master_Key']
+        assert self.Master_Key is not None
+        assert self.Master_Key is Masterid
 
     def __repr__(self):
         return '<Trips %r>' % self.Master_Key
@@ -86,7 +89,7 @@ class Participants(db.Model):
     query_class = DatabaseConnection
     id = db.Column(db.Integer, primary_key=True)
     Master_Key = db.Column(db.Integer, db.ForeignKey("Master.id",
-                                                     ondelete="CASCADE"), nullable=False)
+                                                     ondelete="CASCADE"))
     Participant = db.Column(db.String(120))
     Phone = db.Column(db.Integer)
     Email = db.Column(db.String(120))
@@ -96,11 +99,13 @@ class Participants(db.Model):
     def __init__(self, form, Masterid):
         ParticpantDict = ParticipantConstructor(form, Masterid).participant
         self.Participant = ParticpantDict['Participant']
-        self.Phone = ParticpantDict['Email']
-        self.Email = ParticpantDict['Phone']
+        self.Phone = ParticpantDict['Phone']
+        self.Email = ParticpantDict['Email']
         self.Driver = ParticpantDict['Driver']
         self.Car_Capacity = ParticpantDict['Car_Capacity']
         self.Master_Key = ParticpantDict["Master_Key"]
+        assert self.Master_Key is not None
+        assert self.Master_Key is Masterid
 
     def __repr__(self):
         return '<Particpant %r>' % self.Participant
@@ -112,6 +117,9 @@ class TripModel():
     """
     def __init__(self, form):
         master = Master(form)
+        db.session.flush()
+        print(master.id)
+        # print(master.__dict__)
         self.master = master
         self.trip = Trips(form, master.id)
         self.leader = Participants(form, master.id)

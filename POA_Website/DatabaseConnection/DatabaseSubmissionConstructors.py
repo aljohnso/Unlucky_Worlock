@@ -141,8 +141,8 @@ class ParticipantConstructor:
         try:
             for index in ParticipantConstructor.PARTICIPANT_DB_ORDER:
                 participant[index] = Form[index]
-            print(Form.values())
-            print(participant)
+            # print(Form.values())
+            # print(participant)
         except KeyError:
             participant['Participant'] = Form['Coordinator_Name']
             participant['Email'] = Form['Coordinator_Email']
@@ -152,8 +152,8 @@ class ParticipantConstructor:
             else:
                 participant['Driver'] = 0
             participant['Car_Capacity'] = Form['Car_Capacity']
-            print(Form.values())
-            print(participant)
+            # print(Form.values())
+            # print(participant)
         return participant
 
 
