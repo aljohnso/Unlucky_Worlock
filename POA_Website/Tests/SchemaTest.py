@@ -25,7 +25,7 @@ expected_trip = {'GearList': 'All the things',
                  'Weather_Forcast': "",
                  'Master_Key': 1, 'Coordinator_Email': 'aljohnso@students.pitzer.edu',
                  'Trip_Meeting_Place': 'Service Road', 'Substance_Free': 0, 'Details': 'Turn up and climb',
-                 'Additional_Cost': 10, 'Cost_Breakdown': 'cash for strip club', 'Total_Cost': 10,
+                 'Additional_Cost': 10, 'Cost_Breakdown': 'cash for strip club', 'Total_Cost':  92.62,
                  'Coordinator_Name': 'Alasdair Johnson', 'Coordinator_Phone': 9193975206}
 
 

@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy, inspect
-from DatabaseConnection.DatabaseConnection import DatabaseConnection
+from DatabaseConnection.DatabaseQuery import POA_db_query
 from DatabaseConnection.DatabaseSubmissionConstructors import MasterConstructor, TripConstructor, ParticipantConstructor
 db = SQLAlchemy()
 # this tells SQLAlchemy to add our custom query class DBconnection
@@ -9,7 +9,7 @@ class Master(db.Model):
         Contains Schema for master contains basic trip info
     """
     __tablename__ = "Master"
-    query_class = DatabaseConnection
+    query_class = POA_db_query
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     Trip_Name = db.Column(db.String(100))
     Departure_Date = db.Column(db.Date)
@@ -47,7 +47,7 @@ class Trips(db.Model):
         Schema for the trips table contains detailed info for trips
     """
     __tablename__ = "Trips"
-    query_class = DatabaseConnection
+    query_class = POA_db_query
     id = db.Column(db.Integer, primary_key=True)
     Master_Key = db.Column(db.Integer, db.ForeignKey("Master.id",
                                                      ondelete="CASCADE"))
@@ -86,7 +86,7 @@ class Trips(db.Model):
 
 class Participants(db.Model):
     __tablename__ = "Participants"
-    query_class = DatabaseConnection
+    query_class = POA_db_query
     id = db.Column(db.Integer, primary_key=True)
     Master_Key = db.Column(db.Integer, db.ForeignKey("Master.id",
                                                      ondelete="CASCADE"))
@@ -114,14 +114,30 @@ class TripModel():
     """
     This class is a work around for the fact we need master id to create the other to parts of the trip
     It makes me wounder if having trip and master seperate was a good idea but it is forced anyway by particpant
+
+    NOTE: This will only work if called when the database is in an application context without the proper context
+    we should get some wacky error message saying as much
     """
     def __init__(self, form):
         master = Master(form)
+        db.session.add(master)
         db.session.flush()
-        print(master.id)
-        # print(master.__dict__)
+        db.session.refresh(master)
         self.master = master
         self.trip = Trips(form, master.id)
         self.leader = Participants(form, master.id)
+        assert self.master is not None
+        assert self.trip is not None
+        assert self.leader is not None
+
+    def addModel(self):
+        """
+        Will add trip to db after construction
+        NOTE: Will need to commit after this method
+        is called to insure that it is added to the db
+        """
+        db.session.add(self.trip)
+        db.session.add(self.leader)
+        # db.session.add(self.master)
 
 

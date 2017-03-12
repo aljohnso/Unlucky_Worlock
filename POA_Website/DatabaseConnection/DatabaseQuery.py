@@ -3,7 +3,7 @@ from DatabaseConnection.DatabaseSubmissionConstructors import TripConstructor, M
 from DatabaseConnection import DataBaseSchema as Schema
 from flask_sqlalchemy import BaseQuery
 
-class DatabaseConnection(BaseQuery):
+class POA_db_query(BaseQuery):
 
     def checkTrip(self, server_time = datetime.datetime.now()):
             """

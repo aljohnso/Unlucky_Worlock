@@ -5,7 +5,7 @@ from DatabaseConnection.DatabaseSubmissionConstructors import TripConstructor, M
 from flask_testing import TestCase
 from Pitzer_Outdoor_Adventure import app
 from DatabaseConnection.DataBaseSchema import db, Master, Participants, Trips, TripModel
-from DatabaseConnection.DatabaseConnection import DatabaseConnection
+from DatabaseConnection.DatabaseQuery import POA_db_query
 
 Inputs = {'testParticipant_AJ':{'Participant': "alasdair Johnson",
                       'Email': 'aljohnso@students.pitzer.edu', 'Phone':9193975206, 'Driver': 1, 'Car_Capacity': 5},
@@ -28,9 +28,22 @@ Inputs = {'testParticipant_AJ':{'Participant': "alasdair Johnson",
                       'Trip_Location': 'the middle of knower 123423421', 'Departure_Date': datetime.date(2016, 10, 12),
                       'Coordinator_Name': 'Alasdair Johnson', 'Trip_Name': 'Red Rocks', 'Trip_State': 'ZX'}}
 
-Expected = {}
+Expected = {'expected_particpant' : {'Participant': 'Alasdair Johnson', 'Car_Capacity': 3,
+                               'Master_Key': 1, 'Driver': 1, 'Phone': 9193975206,
+                               'Email': 'aljohnso@students.pitzer.edu', 'id':1},
+        'expected_master' : {'Details_Short': 'Turn up and climb', 'Departure_Date': datetime.date(2016, 10, 12),
+                           'Post_Time': datetime.date.today(),
+                           'Trip_Name': 'Red Rocks', 'Participant_num': 1, 'Return_Date': datetime.date(2016, 12, 12),
+                           'Participant_cap': 3,
+                           'Trip_Location': 'National Conservation Area, Las Vegas, NV', 'Car_Cap': 3, 'Car_Num': 1, 'id':1},
+        'expected_trip': {'Gear_List': 'All the things',
+                         'Weather_Forecast': "",
+                         'Master_Key': 1, 'Coordinator_Email': 'aljohnso@students.pitzer.edu',
+                         'Trip_Meeting_Place': 'Service Road', 'Substance_Free': 0, 'Details': 'Turn up and climb',
+                         'Additional_Costs': 10, 'Cost_BreakDown': 'cash for strip club', 'Total_Cost': 92.62,
+                         'Coordinator_Name': 'Alasdair Johnson', 'Coordinator_Phone': 9193975206, 'id':1}}
 
-class MyTest(TestCase):
+class Database_Use_Tests(TestCase):
 
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.getcwd() + '/DataBase_Test_Scripts/testing.db'
     # TESTING = True
@@ -47,73 +60,68 @@ class MyTest(TestCase):
         db.session.remove()
         db.drop_all()
 
-    def test_addTrip(self):
+    def test_TripModel_Constructor(self):
         """
         Standered adding trip op will assert that trip can be inserted and extraceted
         from db
         """
-        #Adding Trip
+        # create trip
         model = TripModel(Inputs['CorrecttestInputRedRocks'])
-        db.session.add(model.master)#adding master
-        print(model.trip)
-        # db.session.add(model.trip)
-        # db.session.add(model.leader)
-        # db.session.commit()
+
+        # add to db
+        db.session.add(model.master)
+        db.session.add(model.trip)
+        db.session.add(model.leader)
+        # db.session.commit() #removed so database does not get full of stuff
+
+        #queries
         masterInfo = Master.query.filter_by(id = 1).all()[0].__dict__
-        tripInfo = Trips.query.filter_by(Master_Key = 1)
-        particpant_info = Participants.query.filter_by(Master_Key = 1)
-        ExpectedParticipant = Inputs['testParticipant_AJ']
-        ExpectedMaster = {'Details': 'Turn up and climb', 'Departure_Date': datetime.date(2016, 10, 12),
-                           'Post_Time': datetime.date.today(),
-                           'Trip_Name': 'Red Rocks', 'Participant_num': 1,
-                           'Return_Date': datetime.date(2016, 12, 12), 'Car_Capacity': 3,
-                           'Trip_Location': 'National Conservation Area, Las Vegas, NV'}
-        ExpectedTrip ={'GearList': 'All the things','Weather_Forcast':  "",
-         'Master_Key': 1, 'Coordinator_Email': 'aljohnso@students.pitzer.edu',
-         'Trip_Meeting_Place': 'Service Road', 'Substance_Free': 0, 'Details': 'Turn up and climb',
-         'Additional_Cost': 10, 'Cost_Breakdown': 'cash for strip club', 'Total_Cost': 92.62,
-        'Coordinator_Name': 'Alasdair Johnson', 'Coordinator_Phone': 9193975206}
-        self.assertDictEqual(ExpectedMaster, masterInfo)#comparisons
-        # self.assertDictEqual(particpant_info,ExpectedParticipant)
-        # self.assertDictEqual(tripInfo, ExpectedTrip)
+        tripInfo = Trips.query.filter_by(Master_Key = 1).all()[0].__dict__
+        particpant_info = Participants.query.filter_by(Master_Key = 1).all()[0].__dict__
+
+        #remove unessary stuff for comparisons
+        masterInfo.pop('_sa_instance_state', None)
+        tripInfo.pop('_sa_instance_state', None)
+        particpant_info.pop('_sa_instance_state', None)
+        tripInfo['Weather_Forecast'] = "" # Take out forcast as this is checked in Constructor tests
+
+        #Assertions
+        self.assertDictEqual(Expected['expected_master'], masterInfo)#comparisons
+        self.assertDictEqual(Expected['expected_particpant'],particpant_info)
+        self.assertDictEqual(Expected['expected_trip'], tripInfo)
+
+    def test_TripModel_addModel(self):
+        """
+        Standered adding trip op will assert that trip can be inserted and extraceted
+        from db
+        """
+        # create trip
+        model = TripModel(Inputs['CorrecttestInputRedRocks'])
+
+        # add to db
+        model.addModel()
+        # db.session.commit() #removed so database does not get full of stuff
+
+        #queries
+        masterInfo = Master.query.filter_by(id = 1).all()[0].__dict__
+        tripInfo = Trips.query.filter_by(Master_Key = 1).all()[0].__dict__
+        particpant_info = Participants.query.filter_by(Master_Key = 1).all()[0].__dict__
+
+        #remove unessary stuff for comparisons
+        masterInfo.pop('_sa_instance_state', None)
+        tripInfo.pop('_sa_instance_state', None)
+        particpant_info.pop('_sa_instance_state', None)
+        tripInfo['Weather_Forecast'] = "" # Take out forcast as this is checked in Constructor tests
+
+        #Assertions
+        self.assertDictEqual(Expected['expected_master'], masterInfo)#comparisons
+        self.assertDictEqual(Expected['expected_particpant'],particpant_info)
+        self.assertDictEqual(Expected['expected_trip'], tripInfo)
 
 
 # class TestDB(unittest.TestCase):
-#     test_master = ['Red Rocks', '2016-10-12', '2016-12-12', 'Red Rocks', 'Turn up ...', str(datetime.date.today()), 1, 2]
-#     test_trip = ['Turn up and climb', 'Alasdair Johnson', 'aljohnso@students.pitzer.edu', '9193975206',
-#                  'All the things', 'Service Road', '10', 'cash for strip club', '5', 0, 95.0,
-#                  "{'forecastday': [{'avehumidity': 69, 'qpf_night': {'in': 0.0, 'mm': 0}, 'skyicon': '', 'qpf_day': {'in': None, 'mm': None}, 'qpf_allday': {'in': 0.0, 'mm': 0}, 'low': {'celsius': '-2', 'fahrenheit': '29'}, 'minhumidity': 0, 'icon': 'partlycloudy', 'snow_day': {'cm': None, 'in': None}, 'pop': 20, 'high': {'celsius': '6', 'fahrenheit': '43'}, 'conditions': 'Partly Cloudy', 'date': {'tz_long': 'America/New_York', 'monthname': 'December', 'year': 2016, 'month': 12, 'day': 29, 'sec': 0, 'epoch': '1483056000', 'isdst': '0', 'weekday_short': 'Thu', 'min': '00', 'weekday': 'Thursday', 'monthname_short': 'Dec', 'yday': 363, 'hour': 19, 'ampm': 'PM', 'pretty': '7:00 PM EST on December 29, 2016', 'tz_short': 'EST'}, 'maxwind': {'degrees': 0, 'mph': 0, 'kph': 0, 'dir': ''}, 'avewind': {'degrees': 234, 'mph': 3, 'kph': 5, 'dir': 'SW'}, 'snow_night': {'cm': 0.0, 'in': 0.0}, 'snow_allday': {'cm': 0.0, 'in': 0.0}, 'maxhumidity': 0, 'icon_url': 'http://icons.wxug.com/i/c/k/partlycloudy.gif', 'period': 1}, {'avehumidity': 60, 'qpf_night': {'in': 0.0, 'mm': 0}, 'skyicon': '', 'qpf_day': {'in': 0.0, 'mm': 0}, 'qpf_allday': {'in': 0.0, 'mm': 0}, 'low': {'celsius': '-5', 'fahrenheit': '23'}, 'minhumidity': 0, 'icon': 'mostlycloudy', 'snow_day': {'cm': 0.0, 'in': 0.0}, 'pop': 20, 'high': {'celsius': '1', 'fahrenheit': '34'}, 'conditions': 'Mostly Cloudy', 'date': {'tz_long': 'America/New_York', 'monthname': 'December', 'year': 2016, 'month': 12, 'day': 30, 'sec': 0, 'epoch': '1483142400', 'isdst': '0', 'weekday_short': 'Fri', 'min': '00', 'weekday': 'Friday', 'monthname_short': 'Dec', 'yday': 364, 'hour': 19, 'ampm': 'PM', 'pretty': '7:00 PM EST on December 30, 2016', 'tz_short': 'EST'}, 'maxwind': {'degrees': 282, 'mph': 25, 'kph': 40, 'dir': 'WNW'}, 'avewind': {'degrees': 282, 'mph': 18, 'kph': 29, 'dir': 'WNW'}, 'snow_night': {'cm': 0.0, 'in': 0.0}, 'snow_allday': {'cm': 0.0, 'in': 0.0}, 'maxhumidity': 0, 'icon_url': 'http://icons.wxug.com/i/c/k/mostlycloudy.gif', 'period': 2}, {'avehumidity': 56, 'qpf_night': {'in': 0.01, 'mm': 0}, 'skyicon': '', 'qpf_day': {'in': 0.02, 'mm': 1}, 'qpf_allday': {'in': 0.03, 'mm': 1}, 'low': {'celsius': '1', 'fahrenheit': '33'}, 'minhumidity': 0, 'icon': 'chancerain', 'snow_day': {'cm': 0.0, 'in': 0.0}, 'pop': 40, 'high': {'celsius': '4', 'fahrenheit': '39'}, 'conditions': 'Chance of Rain', 'date': {'tz_long': 'America/New_York', 'monthname': 'December', 'year': 2016, 'month': 12, 'day': 31, 'sec': 0, 'epoch': '1483228800', 'isdst': '0', 'weekday_short': 'Sat', 'min': '00', 'weekday': 'Saturday', 'monthname_short': 'Dec', 'yday': 365, 'hour': 19, 'ampm': 'PM', 'pretty': '7:00 PM EST on December 31, 2016', 'tz_short': 'EST'}, 'maxwind': {'degrees': 197, 'mph': 15, 'kph': 24, 'dir': 'SSW'}, 'avewind': {'degrees': 197, 'mph': 11, 'kph': 18, 'dir': 'SSW'}, 'snow_night': {'cm': 0.0, 'in': 0.0}, 'snow_allday': {'cm': 0.0, 'in': 0.0}, 'maxhumidity': 0, 'icon_url': 'http://icons.wxug.com/i/c/k/chancerain.gif', 'period': 3}, {'avehumidity': 69, 'qpf_night': {'in': 0.14, 'mm': 4}, 'skyicon': '', 'qpf_day': {'in': 0.0, 'mm': 0}, 'qpf_allday': {'in': 0.14, 'mm': 4}, 'low': {'celsius': '1', 'fahrenheit': '33'}, 'minhumidity': 0, 'icon': 'partlycloudy', 'snow_day': {'cm': 0.0, 'in': 0.0}, 'pop': 10, 'high': {'celsius': '5', 'fahrenheit': '41'}, 'conditions': 'Partly Cloudy', 'date': {'tz_long': 'America/New_York', 'monthname': 'January', 'year': 2017, 'month': 1, 'day': 1, 'sec': 0, 'epoch': '1483315200', 'isdst': '0', 'weekday_short': 'Sun', 'min': '00', 'weekday': 'Sunday', 'monthname_short': 'Jan', 'yday': 0, 'hour': 19, 'ampm': 'PM', 'pretty': '7:00 PM EST on January 01, 2017', 'tz_short': 'EST'}, 'maxwind': {'degrees': 263, 'mph': 5, 'kph': 8, 'dir': 'W'}, 'avewind': {'degrees': 263, 'mph': 4, 'kph': 6, 'dir': 'W'}, 'snow_night': {'cm': 0.0, 'in': 0.0}, 'snow_allday': {'cm': 0.0, 'in': 0.0}, 'maxhumidity': 0, 'icon_url': 'http://icons.wxug.com/i/c/k/partlycloudy.gif', 'period': 4}, {'avehumidity': 85, 'qpf_night': {'in': 0.41, 'mm': 10}, 'skyicon': '', 'qpf_day': {'in': 0.04, 'mm': 1}, 'qpf_allday': {'in': 0.45, 'mm': 11}, 'low': {'celsius': '4', 'fahrenheit': '40'}, 'minhumidity': 0, 'icon': 'chancerain', 'snow_day': {'cm': 0.0, 'in': 0.0}, 'pop': 60, 'high': {'celsius': '6', 'fahrenheit': '42'}, 'conditions': 'Chance of Rain', 'date': {'tz_long': 'America/New_York', 'monthname': 'January', 'year': 2017, 'month': 1, 'day': 2, 'sec': 0, 'epoch': '1483401600', 'isdst': '0', 'weekday_short': 'Mon', 'min': '00', 'weekday': 'Monday', 'monthname_short': 'Jan', 'yday': 1, 'hour': 19, 'ampm': 'PM', 'pretty': '7:00 PM EST on January 02, 2017', 'tz_short': 'EST'}, 'maxwind': {'degrees': 124, 'mph': 10, 'kph': 16, 'dir': 'SE'}, 'avewind': {'degrees': 124, 'mph': 6, 'kph': 10, 'dir': 'SE'}, 'snow_night': {'cm': 0.0, 'in': 0.0}, 'snow_allday': {'cm': 0.0, 'in': 0.0}, 'maxhumidity': 0, 'icon_url': 'http://icons.wxug.com/i/c/k/chancerain.gif', 'period': 5}, {'avehumidity': 90, 'qpf_night': {'in': 0.0, 'mm': 0}, 'skyicon': '', 'qpf_day': {'in': 0.11, 'mm': 3}, 'qpf_allday': {'in': 0.11, 'mm': 3}, 'low': {'celsius': '8', 'fahrenheit': '46'}, 'minhumidity': 0, 'icon': 'rain', 'snow_day': {'cm': 0.0, 'in': 0.0}, 'pop': 90, 'high': {'celsius': '11', 'fahrenheit': '51'}, 'conditions': 'Rain', 'date': {'tz_long': 'America/New_York', 'monthname': 'January', 'year': 2017, 'month': 1, 'day': 3, 'sec': 0, 'epoch': '1483488000', 'isdst': '0', 'weekday_short': 'Tue', 'min': '00', 'weekday': 'Tuesday', 'monthname_short': 'Jan', 'yday': 2, 'hour': 19, 'ampm': 'PM', 'pretty': '7:00 PM EST on January 03, 2017', 'tz_short': 'EST'}, 'maxwind': {'degrees': 203, 'mph': 5, 'kph': 8, 'dir': 'SSW'}, 'avewind': {'degrees': 203, 'mph': 4, 'kph': 6, 'dir': 'SSW'}, 'snow_night': {'cm': 0.0, 'in': 0.0}, 'snow_allday': {'cm': 0.0, 'in': 0.0}, 'maxhumidity': 0, 'icon_url': 'http://icons.wxug.com/i/c/k/rain.gif', 'period': 6}, {'avehumidity': 68, 'qpf_night': {'in': 0.0, 'mm': 0}, 'skyicon': '', 'qpf_day': {'in': 0.0, 'mm': 0}, 'qpf_allday': {'in': 0.0, 'mm': 0}, 'low': {'celsius': '-1', 'fahrenheit': '30'}, 'minhumidity': 0, 'icon': 'partlycloudy', 'snow_day': {'cm': 0.0, 'in': 0.0}, 'pop': 20, 'high': {'celsius': '8', 'fahrenheit': '47'}, 'conditions': 'Partly Cloudy', 'date': {'tz_long': 'America/New_York', 'monthname': 'January', 'year': 2017, 'month': 1, 'day': 4, 'sec': 0, 'epoch': '1483574400', 'isdst': '0', 'weekday_short': 'Wed', 'min': '00', 'weekday': 'Wednesday', 'monthname_short': 'Jan', 'yday': 3, 'hour': 19, 'ampm': 'PM', 'pretty': '7:00 PM EST on January 04, 2017', 'tz_short': 'EST'}, 'maxwind': {'degrees': 273, 'mph': 15, 'kph': 24, 'dir': 'W'}, 'avewind': {'degrees': 273, 'mph': 10, 'kph': 16, 'dir': 'W'}, 'snow_night': {'cm': 0.0, 'in': 0.0}, 'snow_allday': {'cm': 0.0, 'in': 0.0}, 'maxhumidity': 0, 'icon_url': 'http://icons.wxug.com/i/c/k/partlycloudy.gif', 'period': 7}, {'avehumidity': 52, 'qpf_night': {'in': 0.08, 'mm': 2}, 'skyicon': '', 'qpf_day': {'in': 0.0, 'mm': 0}, 'qpf_allday': {'in': 0.08, 'mm': 2}, 'low': {'celsius': '-4', 'fahrenheit': '24'}, 'minhumidity': 0, 'icon': 'mostlycloudy', 'snow_day': {'cm': 0.0, 'in': 0.0}, 'pop': 0, 'high': {'celsius': '0', 'fahrenheit': '32'}, 'conditions': 'Mostly Cloudy', 'date': {'tz_long': 'America/New_York', 'monthname': 'January', 'year': 2017, 'month': 1, 'day': 5, 'sec': 0, 'epoch': '1483660800', 'isdst': '0', 'weekday_short': 'Thu', 'min': '00', 'weekday': 'Thursday', 'monthname_short': 'Jan', 'yday': 4, 'hour': 19, 'ampm': 'PM', 'pretty': '7:00 PM EST on January 05, 2017', 'tz_short': 'EST'}, 'maxwind': {'degrees': 289, 'mph': 15, 'kph': 24, 'dir': 'WNW'}, 'avewind': {'degrees': 289, 'mph': 11, 'kph': 18, 'dir': 'WNW'}, 'snow_night': {'cm': 2.0, 'in': 0.8}, 'snow_allday': {'cm': 2.0, 'in': 0.8}, 'maxhumidity': 0, 'icon_url': 'http://icons.wxug.com/i/c/k/mostlycloudy.gif', 'period': 8}, {'avehumidity': 52, 'qpf_night': {'in': 0.06, 'mm': 2}, 'skyicon': '', 'qpf_day': {'in': 0.09, 'mm': 2}, 'qpf_allday': {'in': 0.16, 'mm': 4}, 'low': {'celsius': '-7', 'fahrenheit': '20'}, 'minhumidity': 0, 'icon': 'snow', 'snow_day': {'cm': 2.5, 'in': 1.0}, 'pop': 40, 'high': {'celsius': '-2', 'fahrenheit': '29'}, 'conditions': 'Snow Showers', 'date': {'tz_long': 'America/New_York', 'monthname': 'January', 'year': 2017, 'month': 1, 'day': 6, 'sec': 0, 'epoch': '1483747200', 'isdst': '0', 'weekday_short': 'Fri', 'min': '00', 'weekday': 'Friday', 'monthname_short': 'Jan', 'yday': 5, 'hour': 19, 'ampm': 'PM', 'pretty': '7:00 PM EST on January 06, 2017', 'tz_short': 'EST'}, 'maxwind': {'degrees': 273, 'mph': 10, 'kph': 16, 'dir': 'W'}, 'avewind': {'degrees': 273, 'mph': 9, 'kph': 14, 'dir': 'W'}, 'snow_night': {'cm': 1.8, 'in': 0.7}, 'snow_allday': {'cm': 4.3, 'in': 1.7}, 'maxhumidity': 0, 'icon_url': 'http://icons.wxug.com/i/c/k/snow.gif', 'period': 9}, {'avehumidity': 61, 'qpf_night': {'in': 0.0, 'mm': 0}, 'skyicon': '', 'qpf_day': {'in': 0.0, 'mm': 0}, 'qpf_allday': {'in': 0.0, 'mm': 0}, 'low': {'celsius': '-7', 'fahrenheit': '19'}, 'minhumidity': 0, 'icon': 'partlycloudy', 'snow_day': {'cm': 0.0, 'in': 0.0}, 'pop': 20, 'high': {'celsius': '-2', 'fahrenheit': '28'}, 'conditions': 'Partly Cloudy', 'date': {'tz_long': 'America/New_York', 'monthname': 'January', 'year': 2017, 'month': 1, 'day': 7, 'sec': 0, 'epoch': '1483833600', 'isdst': '0', 'weekday_short': 'Sat', 'min': '00', 'weekday': 'Saturday', 'monthname_short': 'Jan', 'yday': 6, 'hour': 19, 'ampm': 'PM', 'pretty': '7:00 PM EST on January 07, 2017', 'tz_short': 'EST'}, 'maxwind': {'degrees': 278, 'mph': 10, 'kph': 16, 'dir': 'W'}, 'avewind': {'degrees': 278, 'mph': 8, 'kph': 13, 'dir': 'W'}, 'snow_night': {'cm': 0.0, 'in': 0.0}, 'snow_allday': {'cm': 0.0, 'in': 0.0}, 'maxhumidity': 0, 'icon_url': 'http://icons.wxug.com/i/c/k/partlycloudy.gif', 'period': 10}]}",
-#                  1]
-#
-#     GETMASTERTESTDBCOMAND = 'select id, Trip_Name , Deparure_Date, Return_Date, Details_Short, Participant_num,' \
-#                             ' Partcipant_cap, Trip_Location from  Master WHERE id ='
-#     GETTRIPTESTDBCOMAND = 'select id, Master_Key, Details, Coordinator_Name, Coordinator_Email, Coordinator_Phone,' \
-#                           ' Gear_List, Trip_Meeting_Place, Additional_Costs, Total_Cost, Cost_BreakDown, Car_Cap,  ' \
-#                           'Substance_Frre from  Trips WHERE Master_Key ='
-#
-#     def setUp(self):
-#         self.db = DatabaseConnection(str(os.getcwd()) + '/DataBase_Test_Scripts/POA_Test.db')
-#         table_commands = open(str(os.getcwd())+'/DataBase_Test_Scripts/DataBaseTest_Scripts_CreateTables.sql').read()
-#         self.db.cursor.executescript(table_commands)
-#
-#     def tearDown(self):
-#         self.db.closeConnection()
-#
-#     def test_addTrip(self):
-#         self.db.AddTrip(testInput)
-#         masterInfo = self.db.cursor.execute(TestDB.GETMASTERTESTDBCOMAND + '1').fetchall()#will get the info from the line the command calls as a list of tuples where each tuple has the row from the database
-#         tripInfo = self.db.cursor.execute(TestDB.GETTRIPTESTDBCOMAND + '1').fetchall()
-#         particpant_info = self.db.cursor.execute('select * from Participants ORDER BY id DESC ').fetchall()
-#         ExpectedParticipant = [(1, 1, 'Alasdair Johnson', 9193975206, 'aljohnso@students.pitzer.edu', 1, 3)]
-#         ExpectedMaster = [(1, 'Red Rocks', '2016-10-12', '2016-12-12', 'Turn up and climb', 1, 3, 'Red Rocks, California')]#expected outputs
-#         ExpectedTrip = [(1, 1, 'Turn up and climb', 'Alasdair Johnson', 'aljohnso@students.pitzer.edu', 9193975206,
-#                          'All the things','Service Road', 10, 180, 'cash for strip club', 5, 0)]
-#         self.db.deleteTrip(1)
-#         self.assertEqual(particpant_info,ExpectedParticipant)
-#         self.assertEqual(ExpectedMaster, masterInfo)#comparisons
-#         self.assertEqual(tripInfo, ExpectedTrip)
-#
-#
+
+
 #     def test_deleteTrip(self):
 #         self.db.AddTrip(testInput)
 #         self.db.AddTrip(testInput)

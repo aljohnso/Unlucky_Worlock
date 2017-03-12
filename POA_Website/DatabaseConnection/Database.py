@@ -1,7 +1,7 @@
-from DatabaseConnection.DatabaseConnection import *
+from DatabaseConnection.DatabaseQuery import *
 import os
 
 try:
-    db = DatabaseConnection('/var/www/Unlucky_Worlock/POA_Website' + '/bin/POA.db')
+    db = POA_db_query('/var/www/Unlucky_Worlock/POA_Website' + '/bin/POA.db')
 except:
-    db = DatabaseConnection(os.getcwd() + '/bin/POA.db')
+    db = POA_db_query(os.getcwd() + '/bin/POA.db')
