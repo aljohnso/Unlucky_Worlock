@@ -21,8 +21,10 @@ class Master(db.Model):
     Car_Num = db.column(db.Integer)
     Car_Cap = db.Column(db.Integer)
     Trip_Location = db.Column(db.String(100))
-    Trip_Participants = db.relationship('Participants', backref = "Master", lazy='dynamic')
-    Trip_Trip = db.relationship('Trips', backref="Master", lazy='dynamic')
+
+
+    Trip_Participants = db.relationship('Participants', backref = "Master", lazy='dynamic', cascade="all,delete")
+    Trip_Trip = db.relationship('Trips', backref="Master", lazy='dynamic', cascade="all,delete")
 
     def __init__(self, form):
         MasterDict = MasterConstructor(form).master
@@ -51,6 +53,8 @@ class Trips(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     Master_Key = db.Column(db.Integer, db.ForeignKey("Master.id",
                                                      ondelete="CASCADE"))
+    Master_Relationship = db.relationship("Master", backref=db.backref("Trips", cascade="all,delete"))
+
     Details = db.Column(db.String(3000))
     Coordinator_Name = db.Column(db.String(70))
     Coordinator_Email = db.Column(db.String(120))
@@ -90,6 +94,7 @@ class Participants(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     Master_Key = db.Column(db.Integer, db.ForeignKey("Master.id",
                                                      ondelete="CASCADE"))
+    Master_Relationship = db.relationship("Master", backref=db.backref("Participants", cascade="all,delete"))
     Participant = db.Column(db.String(120))
     Phone = db.Column(db.Integer)
     Email = db.Column(db.String(120))

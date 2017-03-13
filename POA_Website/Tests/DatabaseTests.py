@@ -1,7 +1,6 @@
 
-import sqlite3, unittest, os, datetime
-import copy
-from DatabaseConnection.DatabaseSubmissionConstructors import TripConstructor, MasterConstructor, ParticipantConstructor
+import unittest, os, datetime
+from copy import deepcopy
 from flask_testing import TestCase
 from Pitzer_Outdoor_Adventure import app
 from DatabaseConnection.DataBaseSchema import db, Master, Participants, Trips, TripModel
@@ -52,18 +51,15 @@ class Database_Use_Tests(TestCase):
         return app
 
     def setUp(self):
-
         db.create_all()
 
     def tearDown(self):
-
         db.session.remove()
         db.drop_all()
 
     def test_TripModel_Constructor(self):
         """
-        Standered adding trip op will assert that trip can be inserted and extraceted
-        from db
+        asserts that TripModel Constructor works correctly
         """
         # create trip
         model = TripModel(Inputs['CorrecttestInputRedRocks'])
@@ -75,9 +71,9 @@ class Database_Use_Tests(TestCase):
         # db.session.commit() #removed so database does not get full of stuff
 
         #queries
-        masterInfo = Master.query.filter_by(id = 1).all()[0].__dict__
-        tripInfo = Trips.query.filter_by(Master_Key = 1).all()[0].__dict__
-        particpant_info = Participants.query.filter_by(Master_Key = 1).all()[0].__dict__
+        masterInfo = deepcopy(Master.query.filter_by(id = 1).all()[0].__dict__)
+        tripInfo = deepcopy(Trips.query.filter_by(Master_Key = 1).all()[0].__dict__)
+        particpant_info = deepcopy(Participants.query.filter_by(Master_Key = 1).all()[0].__dict__)
 
         #remove unessary stuff for comparisons
         masterInfo.pop('_sa_instance_state', None)
@@ -118,64 +114,110 @@ class Database_Use_Tests(TestCase):
         self.assertDictEqual(Expected['expected_particpant'],particpant_info)
         self.assertDictEqual(Expected['expected_trip'], tripInfo)
 
+    def test_foren_key_relationships(self):
+        """
+        Tests to make sure cascade delete works ie delete master deletes all particpants and trip
+        associated
+        """
+        # create trip
+        model = TripModel(Inputs['CorrecttestInputRedRocks'])
+
+        # add to db
+        db.session.add(model.master)
+        db.session.add(model.trip)
+        db.session.add(model.leader)
+        # db.session.commit() #removed so database does not get full of stuff
+
+        #queries
+        masterInfo = deepcopy(Master.query.filter_by(id = 1).all()[0].__dict__)
+        tripInfo = deepcopy(Trips.query.filter_by(Master_Key = 1).all()[0].__dict__)
+        particpant_info = deepcopy(Participants.query.filter_by(Master_Key = 1).all()[0].__dict__)
+
+        #remove unessary stuff for comparisons
+        masterInfo.pop('_sa_instance_state', None)
+        tripInfo.pop('_sa_instance_state', None)
+        particpant_info.pop('_sa_instance_state', None)
+        tripInfo['Weather_Forecast'] = "" # Take out forcast as this is checked in Constructor tests
+
+        #Assertions before delete lets make sure everying is the way we want
+        self.assertDictEqual(Expected['expected_master'], masterInfo)#comparisons
+        self.assertDictEqual(Expected['expected_particpant'],particpant_info)
+        self.assertDictEqual(Expected['expected_trip'], tripInfo)
+
+        JessieIsBae = Participants(Inputs['testParticipant_JL'], 1)
+        for i in range(6):
+            #Love u <3
+            db.session.add(JessieIsBae)
+
+        #delete master
+
+        tripMaster = Master.query.filter_by(id = 1).first()
+        db.session.delete(tripMaster)
+
+        # queries
+        masterInfo = Master.query.filter_by(id=1).all()
+        tripInfo = Trips.query.filter_by(Master_Key=1).all()
+        particpant_info = Participants.query.filter_by(Master_Key=1).all()
+        print(particpant_info)#visual check none of the Jessies sliped through
+        particpant_info = Participants.query.filter_by(Master_Key=1).all()
+
+        # Assertions before delete lets make sure everying is the way we want
+        self.assertEqual([], masterInfo)  # comparisons
+        self.assertEqual([], tripInfo)
+        self.assertEqual([], particpant_info)
+
+    def test_expireTrip(self):
+        """
+        Makes sure that expire trip does the fallowing:
+            Deletes trips that have expired
+            Deletes associated particpants
+            Leaves correct trips
+            Leaves correct particpants
+        """
+        model = TripModel(Inputs['CorrecttestInputRedRocks'])
+        model.master.Departure_Date = datetime.date.today() + datetime.timedelta(days=2)
+
+        # add to db
+        db.session.add(model.master)
+        db.session.add(model.trip)
+        db.session.add(model.leader)
+
+        Expiredmodel = TripModel(Inputs['CorrecttestInputRedRocks'])
+
+        # add to db
+        db.session.add(Expiredmodel.master)
+        db.session.add(Expiredmodel.trip)
+        db.session.add(Expiredmodel.leader)
+
+        # make sure both trips were added
+        self.assertTrue(len(Master.query.all()) == 2)
+
+        Master.query.checkTrip()
+
+        self.assertTrue(len(Master.query.all()) == 1)
+
+        masterInfo = Master.query.filter_by(id=1).all()[0].__dict__
+        tripInfo = Trips.query.filter_by(Master_Key=1).all()[0].__dict__
+        particpant_info = Participants.query.filter_by(Master_Key=1).all()[0].__dict__
+
+        # remove unessary stuff for comparisons
+        masterInfo.pop('_sa_instance_state', None)
+        tripInfo.pop('_sa_instance_state', None)
+        particpant_info.pop('_sa_instance_state', None)
+        tripInfo['Weather_Forecast'] = ""  # Take out forcast as this is checked in Constructor tests
+
+        expected_master = deepcopy(Expected['expected_master'])
+        expected_master['Departure_Date'] = datetime.date.today() + datetime.timedelta(days=2)
+
+        # Assertions
+        self.assertDictEqual(expected_master, masterInfo)  # comparisons
+        self.assertDictEqual(Expected['expected_particpant'], particpant_info)
+        self.assertDictEqual(Expected['expected_trip'], tripInfo)
+
+
 
 # class TestDB(unittest.TestCase):
 
-
-#     def test_deleteTrip(self):
-#         self.db.AddTrip(testInput)
-#         self.db.AddTrip(testInput)
-#         self.db.deleteTrip(1)
-#         self.db.deleteTrip(2)
-#         masterInfo = self.db.cursor.execute(TestDB.GETMASTERTESTDBCOMAND + '2').fetchall()
-#         tripInfo = self.db.cursor.execute(TestDB.GETTRIPTESTDBCOMAND + '2').fetchall()
-#         particpant_info = self.db.cursor.execute('select * from Participants WHERE Trips_Key=' + '2').fetchall()
-#         ExpectedMaster = []
-#         ExpectedTrip = []
-#         ExpectedParticipant = []
-#         self.assertEqual(ExpectedMaster, masterInfo)
-#         self.assertEqual(tripInfo, ExpectedTrip)
-#         self.assertEqual(particpant_info,ExpectedParticipant)
-#
-#     def test_expireTrip(self):
-#         test_master = self.test_master
-#         test_trip = self.test_trip
-#         print(test_master)
-#         print(test_trip)
-#         self.db.cursor.execute(self.db.MASTERDBCOMAND, test_master)
-#         self.db.cursor.execute(self.db.TRIPSDBCOMAND, test_trip)
-#         test_master1 = test_master[:1] + [str(datetime.date.today() + datetime.timedelta(days=2))] + test_master[2:]
-#         test_master1.pop()
-#         test_master1.append(2)
-#         print("later date insert")
-#         print(test_master1)
-#         test_trip.pop()
-#         test_trip.append(2)
-#         self.db.cursor.execute(self.db.MASTERDBCOMAND, test_master1)
-#         self.db.cursor.execute(self.db.TRIPSDBCOMAND, test_trip)
-#         # print('Database cintens before check')
-#         # print('Trips')
-#         # print(self.db.cursor.execute('select Details, Master_Key  from Trips order by id DESC ').fetchall())
-#         # print('Master')
-#         # print(self.db.cursor.execute('select Deparure_Date, id from Master order by id DESC ').fetchall())
-#         self.db.connection.commit()
-#         # self.db.AddTrip(testInput)
-#         # testInput['Departure_Date'] = datetime.date.today() + datetime.timedelta(days=2)
-#         # self.db.AddTrip(testInput)
-#         masterInfo = self.db.checkTrip()
-#          # = self.db.cursor.execute('select * from  Master order by id desc').fetchall()#will get the info from the line the command calls as a list of tuples where each tuple has the row from the database
-#         tripInfo = self.db.cursor.execute('select id, Master_Key, Details, Coordinator_Name, Coordinator_Email, Coordinator_Phone,' \
-#                           ' Gear_List, Trip_Meeting_Place, Additional_Costs, Total_Cost, Cost_BreakDown, Car_Cap,  ' \
-#                           'Substance_Frre from Trips order by id desc').fetchall()
-#         # print('DB info after check')
-#         # print(masterInfo)
-#         # print(tripInfo)
-#         ExpectedMaster = [(2, 'Red Rocks', str(datetime.date.today() + datetime.timedelta(days=2)), '2016-12-12', 'Turn up ...',str(datetime.date.today()), 1, 2, 'Red Rocks')]#expected outputs
-#         ExpectedTrip = [(2, 2, 'Turn up and climb', 'Alasdair Johnson', 'aljohnso@students.pitzer.edu', 9193975206,
-#                          'All the things','Service Road', 10, 95, 'cash for strip club', 5, 0)]
-#         self.db.deleteTrip(2)
-#         self.assertEqual(ExpectedMaster, masterInfo)#comparisons
-#         self.assertEqual(tripInfo, ExpectedTrip)
 #
 #     def test_addParticipant(self):
 #         self.db.AddTrip(testInput)
@@ -187,36 +229,6 @@ class Database_Use_Tests(TestCase):
 #         expected_master = [(8, 2)]
 #         self.assertEqual(expected_particitant,particpant_info)
 #         self.assertEqual(expected_master, master_info)
-#
-#     def test_deleteParticipant(self):
-#         self.db.AddTrip(testInput)
-#         self.db.Addparticipant(testParticipant_AJ, 1)
-#         self.db.deleteParticpant(1)
-#         self.db.deleteParticpant(2)
-#         expected_particitant = []
-#         particpant_info = self.db.cursor.execute('select * from Participants ORDER BY id DESC ').fetchall()
-#         master_info = self.db.cursor.execute('select Partcipant_cap, Participant_num from Master where id = 1').fetchall()
-#         expected_master = [(0, 0)]
-#         self.assertEqual(expected_particitant, particpant_info)
-#         self.assertEqual(expected_master, master_info)
-#
-#
-#     def test_deleteParticipantWithTrip(self):
-#         self.db.AddTrip(testInput)
-#         self.db.Addparticipant(testParticipant_AJ, 1)
-#         self.db.Addparticipant(testParticipant_JL, 1)
-#         self.db.deleteTrip(1)
-#         ExpectedMaster = []
-#         ExpectedTrip = []
-#         expected_particitant= []
-#         masterInfo = self.db.cursor.execute(
-#             'select * from  Master order by id desc').fetchall()  # will get the info from the line the command calls as a list of tuples where each tuple has the row from the database
-#         tripInfo = self.db.cursor.execute('select * from  Trips order by id desc').fetchall()
-#         particpant_info = self.db.cursor.execute('select * from Participants ORDER BY id DESC ').fetchall()
-#         self.assertEqual(expected_particitant, particpant_info)
-#         self.assertEqual(ExpectedMaster, masterInfo)#comparisons
-#         self.assertEqual(tripInfo, ExpectedTrip)
-#     #
 #     def test_checkTripMany(self):
 #         test_master = copy.deepcopy(self.test_master)
 #         test_trip = copy.deepcopy(self.test_trip)
@@ -248,20 +260,7 @@ class Database_Use_Tests(TestCase):
 #         self.db.deleteTrip(30)
 #         self.assertEqual(ExpectedMaster, masterInfo)  # comparisons
 #         self.assertEqual(tripInfo, ExpectedTrip)
-#
-#     def test_AddTripWithParticipant(self):
-#         self.db.AddTrip(testInput)
-#         # test_master = copy.deepcopy(self.test_master)
-#         # test_trip = copy.deepcopy(self.test_trip)
-#         # self.db.cursor.execute(self.db.MASTERDBCOMAND, test_master)
-#         # self.db.cursor.execute(self.db.TRIPSDBCOMAND, test_trip)
-#         particpants = self.db.cursor.execute('select Partcipant_cap, Participant_num from Master WHERE id=1').fetchall()[0]
-#         print(particpants)
-#         self.db.Addparticipant(testParticipant_AJ, 1)#driver car cap
-#         particpants = self.db.cursor.execute('select Partcipant_cap, Participant_num from Master WHERE id=1').fetchall()[0]
-#         expectedparticpants = (8,2)
-#         self.assertEqual(particpants,expectedparticpants)
-#
+
 
 
 

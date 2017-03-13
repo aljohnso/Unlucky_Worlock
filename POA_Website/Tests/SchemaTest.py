@@ -1,5 +1,5 @@
 import unittest, datetime
-from DatabaseConnection.DataBaseSchema import Master, Trips, Participants, TripModel
+from DatabaseConnection.DataBaseSchema import Master, Trips, Participants, TripModel, db
 Inputs = {'testParticipant_AJ':{'Participant': "alasdair Johnson",
                       'Email': 'aljohnso@students.pitzer.edu', 'Phone':9193975206, 'Driver': 1, 'Car_Capacity': 3},
      'testParticipant_JL' : {'Participant': "Jessie Levine",
@@ -75,13 +75,8 @@ class MyTestCase(unittest.TestCase):
                                'Email': 'aljohnso@students.pitzer.edu'}
         self.assertDictEqual(out, expected_particpant)
 
-    # def test_TripModel(self):
-    #     input = Inputs['CorrecttestInputRedRocks']
-    #     out = TripModel(input)
-    #     print(out.master)
-    #     print(out.master.id)
-    #     print(out)
-    #     self.assertDictEqual(out.__dict__, {'a':1})
+
+
 
 if __name__ == '__main__':
     unittest.main()

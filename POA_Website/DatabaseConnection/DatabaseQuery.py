@@ -1,5 +1,5 @@
 import datetime
-from DatabaseConnection.DatabaseSubmissionConstructors import TripConstructor, MasterConstructor, ParticipantConstructor
+
 from DatabaseConnection import DataBaseSchema as Schema
 from flask_sqlalchemy import BaseQuery
 
@@ -11,66 +11,20 @@ class POA_db_query(BaseQuery):
             :return: a list of Master objects that contain all trips that are going out
             in the futre while the past ones have been deleted
             """
-            Schema.Master.query.filter(Schema.Master.Post_Time <= server_time).delete()#get all
-            Schema.db.session.commit()
+            expiredTrips = Schema.Master.query.filter(Schema.Master.Departure_Date <= server_time)#get all
+            for trip in expiredTrips:
+                Schema.db.session.delete(trip)#delete every trip and there childeren
+            Schema.db.session.commit()#comit changes
+
             return Schema.Master.query.all()
 
-  # def AddTrip(self, form):
-  #     # add Master
-  #     Masterinfo = MasterCommandConstructor(form)
-  #     MasterObject = Master(Masterinfo.master)  # creates master object
-  #     # print(Master)
-  #     db.session.add(MasterObject)  # add master to db
-  #     masterid = MasterObject.id
-  #     print(masterid)
-  #     # Add Trip
-  #     Trip = TripCommandConstructor(form, masterid)
-  #     TripInfo = Trip.trip
-  #     TripObject = Trips(TripInfo)
-  #     db.session.add(TripObject)
-  #     # Add Leader
-  #     LeaderObject = Participants(Trip.leader)  # leader is constructed when
-  #     db.session.add(LeaderObject)
-  #     db.session.commit()
 
-#
+
+
+
+
 # class DatabaseConnection1(db):
-#     """
-#         This class contains all maniputaltion fuctions for the database by intializing the object we open the database
-#         Assumes POA Schema 12-26-16
-#         TODO:CHANGE IF UPDATED
 #
-#     """
-#
-#     def __init__(self):
-#         """
-#             Will create Datbase Connection
-#         """
-#         # self.db = db #getting SQLAlchamey db from schema class
-#
-#     def AddTrip(self, form):
-#         """'
-#             used to construct the db insert for the trip table
-#             :param form is the form from POAForms class  MakeTripFormPOA
-#             :return: List of info for table
-#         """
-#         print("In add Trip")
-#         #add Master
-#         Masterinfo = MasterCommandConstructor(form)
-#         MasterObject = Master(Masterinfo.master)#creates master object
-#         # print(Master)
-#         db.session.add(MasterObject)#add master to db
-#         masterid = MasterObject.id
-#         print(masterid)
-#         #Add Trip
-#         Trip = TripCommandConstructor(form,masterid)
-#         TripInfo = Trip.trip
-#         TripObject = Trips(TripInfo)
-#         db.session.add(TripObject)
-#         #Add Leader
-#         LeaderObject = Participants(Trip.leader)#leader is constructed when
-#         db.session.add(LeaderObject)
-#         db.session.commit()
 #
 #     def deleteTrip(self, MasterID):
 #         """
@@ -82,15 +36,7 @@ class POA_db_query(BaseQuery):
 #         Master.query.filter_by(id=MasterID).delete()
 #         self.db.session.commit()
 #
-#     def checkTrip(self, server_time = datetime.datetime.now()):
-#         """
-#         :param server_time: the current date can be changed for testing puropuses
-#         :return: a list of Master objects that contain all trips that are going out
-#         in the futre while the past ones have been deleted
-#         """
-#         Master.query.filter_by(Master.Post_Time<server_time).delete()#get all
-#         self.db.session.commit()
-#         return Master.query.all()
+
 #
 #
 #     def Addparticipant(self, Form, MasterID):

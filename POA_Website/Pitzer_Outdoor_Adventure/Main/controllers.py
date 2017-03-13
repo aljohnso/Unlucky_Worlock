@@ -1,6 +1,7 @@
 from Forms.POAForms import MakeTripFormPOA, AddToTripPOA
 from flask import  request, redirect, url_for, \
      render_template, flash,Blueprint
+from DatabaseConnection.DataBaseSchema import db, Master, Participants, TripModel, Trips
 import json
 import flask
 import httplib2
