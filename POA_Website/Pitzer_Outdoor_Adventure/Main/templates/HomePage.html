@@ -22,19 +22,23 @@
                         <th>Return Date</th>
                         <th>Participants</th>
                         <th>Participant Cap</th>
+                        <th>Cars</th> {#  anyone have a better name #}
+                        <th>Car Cap</th>
                         <th>Trip Location</th>
                     </tr>
                 </thead>
                 <tbody class="entries">
                 {% for TableRow in entries %}
                 <tr>
-                    <td > <a href={{ url_for('main.Main') + 'trips/' + TableRow[0]}}>{{ TableRow[1]}}</a></td>
-                    <td> {{ TableRow[4] }}</td>
-                    <td> {{ TableRow[2] }}</td>
-                    <td> {{ TableRow[3] }}</td>
-                    <td> {{ TableRow[6] }}</td>
-                    <td> {{ TableRow[7]}}</td>
-                    <td> {{ TableRow[8]}}</td>
+                    <td > <a href={{ url_for('main.Main') + 'trips/' + str(TableRow.id)}}>{{ TableRow.Trip_Name}}</a></td>
+                    <td> {{ TableRow.Trip_Name }}</td>
+                    <td> {{ TableRow.Details_Short }}</td>
+                    <td> {{ TableRow.Departure_Date }}</td>
+                    <td> {{ TableRow.Return_Date }}</td>
+                    <td> {{ TableRow.Participant_num}}</td>
+                    <td> {{ TableRow.Car_Num}}</td>
+                    <td> {{ TableRow.Car_Cap}}</td>
+                    <td> {{ TableRow.Trip_Location}}</td>
                 </tr>
                 {% else %}
                     <li><em>Unbelievable.  No entries here so far</em></li>

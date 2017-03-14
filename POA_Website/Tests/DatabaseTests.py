@@ -192,11 +192,11 @@ class Database_Use_Tests(TestCase):
         # make sure both trips were added
         self.assertTrue(len(Master.query.all()) == 2)
 
-        Master.query.checkTrip()
+        masterInfo = Master.query.checkTrip().all()[0].__dict__
 
         self.assertTrue(len(Master.query.all()) == 1)
 
-        masterInfo = Master.query.filter_by(id=1).all()[0].__dict__
+        # masterInfo = Master.query.filter_by(id=1).all()[0].__dict__
         tripInfo = Trips.query.filter_by(Master_Key=1).all()[0].__dict__
         particpant_info = Participants.query.filter_by(Master_Key=1).all()[0].__dict__
 

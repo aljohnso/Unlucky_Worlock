@@ -143,6 +143,6 @@ class TripModel():
         """
         db.session.add(self.trip)
         db.session.add(self.leader)
-        # db.session.add(self.master)
+        # db.session.add(self.master)  # not sure if this is needed
 
 
