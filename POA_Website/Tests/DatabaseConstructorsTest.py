@@ -5,14 +5,14 @@ class DatabaseConstructorTests(unittest.TestCase):
 
     testParticipant_AJ = {'Participant': "alasdair Johnson",'Email': 'aljohnso@students.pitzer.edu', 'Phone': 9193975206, 'Driver': 1, 'Car_Capacity': 5}
     CorrecttestInput = {'Trip_Meeting_Place': 'Service Road', 'GearList': 'All the things', 'Coordinator_Phone': 9193975206,
-                 'Car_Capacity': 3, 'Return_Date': datetime.date(2016, 12, 12), 'Additional_Cost': 10,
+                 'Car_Capacity': 3, 'Return_Date': datetime.date(2016, 12, 12), 'Additional_Cost': '10',
                  'Coordinator_Email': 'aljohnso@students.pitzer.edu', 'Cost_Breakdown': 'cash for strip club',
                  'submit': True, 'Details': 'Turn up and climb', 'Car_Cap': 3, 'Substance_Free': False,
                  'Trip_Location': 'National Conservation Area, Las Vegas', 'Departure_Date': datetime.date(2016, 10, 12),
                         'Coordinator_Name': 'Alasdair Johnson', 'Trip_Name': 'Red Rocks', 'Trip_State': 'NV'}
     #Discribes a correct input from form
     IncorrecttestInput = {'Trip_Meeting_Place': 'Service Road', 'GearList': 'All the things', 'Coordinator_Phone': 9193975206,
-                 'Car_Capacity': 3, 'Return_Date': datetime.date(2016, 12, 12), 'Additional_Cost': 10,
+                 'Car_Capacity': 3, 'Return_Date': datetime.date(2016, 12, 12), 'Additional_Cost': '10',
                  'Coordinator_Email': 'aljohnso@students.pitzer.edu', 'Cost_Breakdown': 'cash for strip club',
                  'submit': True, 'Details': 'Turn up and climb', 'Car_Cap': 3, 'Substance_Free': False,
                  'Trip_Location': '', 'Departure_Date': datetime.date(2016, 10, 12),

@@ -12,19 +12,19 @@ main = Blueprint('main', __name__, template_folder='templates')
 
 @main.route('/', methods=['GET', 'POST'])
 def Main():
-    masters =  Master.query.checkTrip()
-    print(masters)
+    masters = Master.query.checkTrip()
+    # print(masters[0].Car_Cap)
     return render_template("HomePage.html", entries=masters)
 
 
-@main.route("/trips/<TripKey>")
+@main.route("/trips/<int:TripKey>")
 def TripPage(TripKey):
     """
     :param TripKey: The name of the trip
     :return: renders template of the selected trip with detailed information
     """
-    meta = Master.query.filter_by(id=TripKey).all()[0]  # returns a 1 element list lets get the object from that
-    tripDetails = Trips.query.filter_by(Master_Key=TripKey).all()[0]
+    meta = Master.query.filter_by(id=TripKey).first()  # returns a 1 element list lets get the object from that
+    tripDetails = Trips.query.filter_by(Master_Key=TripKey).first()
     ParticpantInfo = Participants.query.filter_by(Master_Key=TripKey).all()
     print(tripDetails)
     print(meta)
@@ -64,6 +64,10 @@ def add_Participant(FormKey):
         else:
             particpant = Participants(form.data, int(FormKey))
             db.session.add(particpant)
+            master = Master.query.filter_by(id = int(FormKey)).first()
+            master.Participant_num += 1
+            if particpant.Driver == 1:
+                master.Car_Num += 1
             db.session.commit()
             flash('New entry was successfully posted')
             return redirect(url_for('main.TripPage', TripKey=str(FormKey)))
@@ -87,6 +91,10 @@ def login():
 def remove_particpant(id):
     paricipant = Participants.query.filter_by(id=int(id))
     tripKey = paricipant.all()[0].Master_Key
+    master = Master.query.filter_by(id=int(tripKey )).first()
+    master.Participant_num -= 1
+    if paricipant.first().Driver == 1:
+        master.Car_Num -= 1
     paricipant.delete()
     db.session.commit()
     return redirect(url_for('main.TripPage', TripKey=tripKey))

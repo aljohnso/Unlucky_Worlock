@@ -18,7 +18,26 @@
       {% for message in form.Car_Capacity.errors %}
      <div>{{ message }}</div>
       {% endfor %}
-{% if tripname.Participant_num <= tripname.Participant_cap - 1 or tripname.Participant_num == 0%}
+{% if tripname.Car_Num == tripname.Car_Cap %}
+    <h3>Trip Full :(</h3>
+{% elif tripname.Participant_num <= tripname.Participant_cap - 1 or tripname.Participant_num == 0 %}
+    <form action= "{{ url_for('main.add_Participant', FormKey= tripname.id) }}" method="post">
+{#           {{ form.hidden_tag() }}<br>#}
+{#        {{ form.Participant.label }}<br>#}
+{#        {{ form.Participant}}#}
+{#        {{ form.Phone.lable }}<br>#}
+{#        {{ form.Phone }}#}
+{#        {{ form.Driver.lable }}<br>#}
+{#        {{ form.Driver }}#}
+{#        {{ form.Car_Capacity.lable }}<br>#}
+{#        {{ form.Car_Capacity }}#}
+{#        {{ form.submit }}<br>#}
+    {% import "bootstrap/wtf.html" as wtf %}
+    {{ wtf.quick_form(form) }}
+    </form>
+{% elif  tripname.Car_Num >= tripname.Car_Cap - 1 and tripname.Participant_num >= tripname.Participant_cap%}
+    <h3>Must be a driver to add</h3>
+
 <form action= "{{ url_for('main.add_Participant', FormKey= tripname.id) }}" method="post">
 {#           {{ form.hidden_tag() }}<br>#}
 {#        {{ form.Participant.label }}<br>#}
@@ -33,8 +52,6 @@
     {% import "bootstrap/wtf.html" as wtf %}
     {{ wtf.quick_form(form) }}
 </form>
-{% else %}
-<h3>Trip Full :(</h3>
 {% endif %}
 </body>
 </html>

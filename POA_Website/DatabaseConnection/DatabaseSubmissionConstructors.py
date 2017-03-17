@@ -68,8 +68,9 @@ class TripConstructor:
         for index in TripConstructor.TRIPS_DB_ORDER:
             Trip[index] = Form[index]
         distance = self.getDistance(locationData)
-        total_Cost = distance*.17*2 + Form['Additional_Cost']
+        total_Cost = distance*.17*2 + int(Form['Additional_Cost'])
         Trip["Substance_Free"] = int(Form["Substance_Free"])
+        Trip['Additional_Cost'] = int(Form['Additional_Cost'])
         Trip["Total_Cost"] = total_Cost
         Trip["Weather_Forcast"] = str(self.getWeather(locationData))
         Trip["Master_Key"] = master_key

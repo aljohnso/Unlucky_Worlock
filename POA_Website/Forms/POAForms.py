@@ -20,7 +20,7 @@ class MakeTripFormPOA(FlaskForm):
     Coordinator_Phone = IntegerField("Coordinator Phone", [validators.DataRequired("Please enter your phone number as 7 Integers no other charecters")])
     GearList = StringField("Gear List", [validators.DataRequired("Please enter gear list if none enter none")])
     Trip_Meeting_Place =StringField("Trip Meeting Place", [validators.DataRequired("Please enter meeting place")])
-    Additional_Cost = IntegerField("Additional Cost Estimate", [validators.DataRequired("Please enter a Number If your cost is 0 enter 0")])
+    Additional_Cost = StringField("Additional Cost Estimate", [validators.DataRequired("Please enter a Number If your cost is 0 enter 0")])
     # Total cost will be computed using additional cost and the cost estiment from the trip location feild hopefully
     Cost_Breakdown = StringField('cost break down', [validators.DataRequired("Please enter What you will be spending money on if cost is zero enter NA")])
     Car_Cap = IntegerField("Max number of cars on trip", [validators.DataRequired("Please enter Max num of Cars on trip")])
