@@ -4,8 +4,8 @@ python:
   - "3.5"
 # install pip packages
 install:
-  - "pip install -r requirements.txt"
+  - "pip install -r POA_Website/requirements.txt"
 
 Script:
-  - "Test"
+  - "POA_Website/Tests/DatabaseTest.py"
 
