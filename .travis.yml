@@ -7,5 +7,5 @@ install:
   - "pip install -r POA_Website/requirements.txt"
 
 Script:
-  - "POA_Website/Tests/DatabaseTest.py"
+  - "pytest -q SchemaTest.py"
 
