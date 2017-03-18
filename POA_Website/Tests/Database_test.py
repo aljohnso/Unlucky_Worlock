@@ -192,7 +192,7 @@ class Database_Use_Tests(TestCase):
         # make sure both trips were added
         self.assertTrue(len(Master.query.all()) == 2)
 
-        masterInfo = Master.query.checkTrip().all()[0].__dict__
+        masterInfo = Master.query.checkTrip()[0].__dict__
 
         self.assertTrue(len(Master.query.all()) == 1)
 
