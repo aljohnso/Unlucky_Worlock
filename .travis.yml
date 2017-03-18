@@ -6,6 +6,5 @@ python:
 install:
   - "pip install -r POA_Website/requirements.txt"
 
-Script:
-  - nosetests
+script: nosetests
 
