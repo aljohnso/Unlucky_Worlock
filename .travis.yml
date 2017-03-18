@@ -8,3 +8,6 @@ install:
 
 script: nosetests -w ./POA_Website
 
+notifications:
+  slack: pzoutdooradventure:TOK5fOz7Dp3IjBgYi4SbSr09
+
