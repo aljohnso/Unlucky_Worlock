@@ -45,7 +45,7 @@ Expected = {'expected_particpant' : {'Participant': 'Alasdair Johnson', 'Car_Cap
 class Database_Use_Tests(TestCase):
 
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.getcwd() + '/DataBase_Test_Scripts/testing.db'
-    # TESTING = True
+    TESTING = True
 
     def create_app(self):
         return app
@@ -213,62 +213,6 @@ class Database_Use_Tests(TestCase):
         self.assertDictEqual(expected_master, masterInfo)  # comparisons
         self.assertDictEqual(Expected['expected_particpant'], particpant_info)
         self.assertDictEqual(Expected['expected_trip'], tripInfo)
-
-
-
-# class TestDB(unittest.TestCase):
-
-#
-#     def test_addParticipant(self):
-#         self.db.AddTrip(testInput)
-#         self.db.Addparticipant(testParticipant_AJ, 1)
-#         expected_particitant = [(2, 1, 'alasdair Johnson', 9193975206, 'aljohnso@students.pitzer.edu', 1, 5), (1, 1, 'Alasdair Johnson', 9193975206, 'aljohnso@students.pitzer.edu', 1, 3)]
-#         particpant_info = self.db.cursor.execute('select * from Participants ORDER BY id DESC ').fetchall()
-#         print(particpant_info)
-#         master_info = self.db.cursor.execute('select Partcipant_cap, Participant_num from Master where id = 1').fetchall()
-#         expected_master = [(8, 2)]
-#         self.assertEqual(expected_particitant,particpant_info)
-#         self.assertEqual(expected_master, master_info)
-#     def test_checkTripMany(self):
-#         test_master = copy.deepcopy(self.test_master)
-#         test_trip = copy.deepcopy(self.test_trip)
-#         for i in range(1,30):
-#             test_trip.pop()
-#             test_trip.append(i)
-#             self.db.cursor.execute(self.db.MASTERDBCOMAND, test_master)
-#             self.db.cursor.execute(self.db.TRIPSDBCOMAND, test_trip)
-#         test_master1 = test_master[:1] + [str(datetime.date.today() + datetime.timedelta(days=2))] + test_master[2:]
-#         test_trip.pop()
-#         test_trip.append(30)
-#         self.db.cursor.execute(self.db.MASTERDBCOMAND, test_master1)
-#         self.db.cursor.execute(self.db.TRIPSDBCOMAND, test_trip)
-#         self.db.connection.commit()
-#
-#         masterInfo = self.db.checkTrip()
-#
-#         tripInfo = self.db.cursor.execute(
-#             'select id, Master_Key, Details, Coordinator_Name, Coordinator_Email, Coordinator_Phone,' \
-#             ' Gear_List, Trip_Meeting_Place, Additional_Costs, Total_Cost, Cost_BreakDown, Car_Cap,  ' \
-#             'Substance_Frre from Trips order by id desc').fetchall()
-#         # print('DB info after check')
-#         # print(masterInfo)
-#         # print(tripInfo)
-#         ExpectedMaster = [(30, 'Red Rocks', str(datetime.date.today() + datetime.timedelta(days=2)), '2016-12-12',
-#                            'Turn up ...', str(datetime.date.today()), 1, 2, 'Red Rocks')]  # expected outputs
-#         ExpectedTrip = [(30, 30, 'Turn up and climb', 'Alasdair Johnson', 'aljohnso@students.pitzer.edu', 9193975206,
-#                          'All the things', 'Service Road', 10, 95, 'cash for strip club', 5, 0)]
-#         self.db.deleteTrip(30)
-#         self.assertEqual(ExpectedMaster, masterInfo)  # comparisons
-#         self.assertEqual(tripInfo, ExpectedTrip)
-
-
-
-
-
-    # consider adding waitlist fetures new table?
-    # also add email notifiactions confirming particpants
-    # add blacklist feature
-    #encrypt database files
 
 
 if __name__ == '__main__':
