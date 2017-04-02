@@ -68,7 +68,7 @@ next exit and save you might get told your saving to a different file as long as
 Finally enable the module and check Apache's error log:
 	a2enmod wsgi
 	sudo service apache2 restart
-	less /var/log/apache2/error.log
+		
 
 now back to simple stuff deactive the virtual enviorment:
 deactivate 
