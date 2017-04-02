@@ -2,20 +2,13 @@ from flask import Flask, g
 import os
 from DatabaseConnection.DataBaseSchema import db
 from Pitzer_Outdoor_Adventure.Main.controllers import main
-app = Flask(__name__)
+
 from flask_bootstrap import Bootstrap
 from Config.config import configure_app
 
-SQLALCHEMY_DATABASE_URI='sqlite:///' + os.getcwd() + '/SQLAlchameyPOA.db'
-app.config.update(dict(
-    SECRET_KEY='development key',
-    USERNAME='admin',
-    PASSWORD='default',
-    SQLALCHEMY_DATABASE_URI=SQLALCHEMY_DATABASE_URI),
-    SQLALCHEMY_TRACK_MODIFICATIONS = False,
-    DEBUG = True
-)
-# configure_app(app)
+
+app = Flask(__name__)
+configure_app(app, 'default')#set app congif here
 print("app config set")
 Bootstrap(app)
 db.init_app(app)
