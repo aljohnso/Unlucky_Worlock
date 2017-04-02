@@ -87,6 +87,30 @@ def login():
         return json.dumps(userinfo)
 
 
+@main.route('/gCallback')
+def gCallback():
+    """
+    This handels authentication not quite sure how but it does
+    :return:
+    """
+    secret = os.path.join(main.root_path[:-29], 'secret/client_secret.json')#access the secret file
+    #the -29 changes path yo POA Website rather than the path to Main
+    flow = client.flow_from_clientsecrets(secret, scope='https://www.googleapis.com/auth/userinfo.profile',
+                                          redirect_uri=flask.url_for('main.gCallback', _external=True))
+     # ,include_granted_scopes=True)
+    if 'code' not in flask.request.args:
+        auth_uri = flow.step1_get_authorize_url()#sends request to google which redircects user to sign in
+        return flask.redirect(auth_uri)
+    else:
+        auth_code = flask.request.args.get('code')#we have recived a token form a user
+        credentials = flow.step2_exchange(auth_code)#authenticate that token with google
+        flask.session['credentials'] = credentials.to_json()#we have authenticated the user
+        return flask.redirect(flask.url_for('main.login'))#once authenticated return to main page
+
+
+
+
+
 @main.route('/deleteParicipant/<id>')
 def remove_particpant(id):
     paricipant = Participants.query.filter_by(id=int(id))
