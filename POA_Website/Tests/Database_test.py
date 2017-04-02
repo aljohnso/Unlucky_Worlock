@@ -44,6 +44,7 @@ Expected = {'expected_particpant' : {'Participant': 'Alasdair Johnson', 'Car_Cap
 
 class Database_Use_Tests(TestCase):
 
+
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.getcwd() + '/DataBase_Test_Scripts/testing.db'
     TESTING = True
 
@@ -61,6 +62,7 @@ class Database_Use_Tests(TestCase):
         """
         asserts that TripModel Constructor works correctly
         """
+        self.maxDiff = None
         # create trip
         model = TripModel(Inputs['CorrecttestInputRedRocks'])
 
