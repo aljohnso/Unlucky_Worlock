@@ -1,10 +1,17 @@
-import uuid, os
+import uuid, os, json
 class BaseConfig(object):
     DEBUG = False
     TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # sqlite :memory: identifier is the default if no filepath is present
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.getcwd() + '/SQLAlchameyPOA.db'
+    filePath = os.getcwd() + "/secret/databaseURI.json"
+    with open(filePath) as data_file:
+        data = json.load(data_file)
+    try:
+        SQLALCHEMY_DATABASE_URI = data["SQLALCHEMY_DATABASE_URI"]
+    except:
+        print('WARNING LOCAL DB IN USE AAAAAAAAAĀ')
+        SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.getcwd() + '/SQLAlchameyPOA.db'
     SECRET_KEY = str(uuid.uuid4())
 
 
