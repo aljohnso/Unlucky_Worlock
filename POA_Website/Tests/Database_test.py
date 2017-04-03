@@ -77,7 +77,7 @@ class Database_Use_Tests(TestCase):
         tripInfo = deepcopy(Trips.query.filter_by(Master_Key = 1).all()[0].__dict__)
         particpant_info = deepcopy(Participants.query.filter_by(Master_Key = 1).all()[0].__dict__)
 
-        print(masterInfo)
+
         #remove unessary stuff for comparisons
         masterInfo.pop('_sa_instance_state', None)
         tripInfo.pop('_sa_instance_state', None)
