@@ -4,10 +4,11 @@ class BaseConfig(object):
     TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # sqlite :memory: identifier is the default if no filepath is present
-    filePath = os.getcwd() + "/secret/databaseURI.json"
-    with open(filePath) as data_file:
-        data = json.load(data_file)
     try:
+        #Here We attempt to load from the AWS RDS DB
+        filePath = os.getcwd() + "/secret/databaseURI.json"
+        with open(filePath) as data_file:
+            data = json.load(data_file)
         SQLALCHEMY_DATABASE_URI = data["SQLALCHEMY_DATABASE_URI"]
     except:
         print('WARNING LOCAL DB IN USE AAAAAAAAAĀ')
