@@ -11,39 +11,41 @@
 
 </head>
 <body>
-<h2> {{TripMeta[1]}}</h2>
-<a class="btn" href= {{ url_for('main.add_Participant', FormKey = Tripinfo[0] ) }} >Add to Trip</a>
+<h2> {{TripMeta.Trip_Name}}</h2>
+<a class="btn" href= {{ url_for('main.add_Participant', FormKey = TripMeta.id ) }} >Add to Trip</a>
 <ul>
     <li>Departure Date</li>
-    <li>{{ TripMeta[2] }}</li>
-        <li>Return Date</li>
-    <li>{{ TripMeta[3] }}</li>
-        <li>Prticpants </li>
-    <li>{{ TripMeta[6] }}</li>
-        <li>Particpants cap</li>
-    <li>{{ TripMeta[7] }}</li>
-    <li><h4>Details</h4></li>
-    <li>{{ Tripinfo[2]}} </li>
-    <li>Cordinator Name </li>
-    <li>{{ Tripinfo[3]}} </li>
-    <li>Cordinator Email </li>
-    <li>{{ Tripinfo[4]}} </li>
-    <li>Cordinator Phone </li>
-    <li>{{ Tripinfo[5]}} </li>
-    <li>Gear List</li>
-    <li>{{ Tripinfo[6]}} </li>
-    <li>Trip Meeting Place </li>
-    <li>{{ Tripinfo[7]}} </li>
-    <li>Total Cost </li>
-    <li>{{ Tripinfo[8]}} </li>
-    <li>Cost Breakdown </li>
-    <li>{{ Tripinfo[10]}} </li>
+    <li>{{ TripMeta.Departure_Date }}</li>
+    <li>Return Date</li>
+    <li>{{ TripMeta.Return_Date }}</li>
+    <li>Prticpants </li>
+    <li>{{ TripMeta.Participant_num }}</li>
+    <li>Particpants cap</li>
+    <li>{{ TripMeta.Participant_cap }}</li>
     <li>Car Cap</li>
-    <li>{{ Tripinfo[11]}} </li>
+    <li>{{ TripMeta.Car_Cap }} </li>
+    <li> Cars</li>
+    <li>{{ TripMeta.Car_Num}} </li>
+    <li><h4>Details</h4></li>
+    <li>{{ Tripinfo.Details}} </li>
+    <li>Cordinator Name </li>
+    <li>{{ Tripinfo.Coordinator_Name}} </li>
+    <li>Cordinator Email </li>
+    <li>{{ Tripinfo.Coordinator_Email}} </li>
+    <li>Cordinator Phone </li>
+    <li>{{ Tripinfo.Coordinator_Phone}} </li>
+    <li>Gear List</li>
+    <li>{{ Tripinfo.Gear_List}} </li>
+    <li>Trip Meeting Place </li>
+    <li>{{ Tripinfo.Trip_Meeting_Place}} </li>
+    <li>Total Cost </li>
+    <li>{{ Tripinfo.Total_Cost}} </li>
+    <li>Cost Breakdown </li>
+    <li>{{ Tripinfo.Cost_BreakDown}} </li>
     <li>Substance free </li>
-    <li>{{ Tripinfo[12]}} </li>
+    <li>{{ Tripinfo.Substance_Free}} </li>
 {#    <li>weather</li>#}
-{#    <li>{{ Tripinfo[13]}} </li>#}
+{#    <li>{{ Tripinfo.Weather_Forecast}} </li>#}
 </ul>
     <h3> Particpants</h3>
     <div class="row">
@@ -57,28 +59,17 @@
                         <th>remove from trip</th>
                     </tr>
                 </thead>
-{#                <tbody class="entries">#}
-{#                <tr>#}
-{#                    <td>{{ Tripinfo[3] }}</td>#}
-{#                    {%  if TripMeta[7] != 0 %}#}
-{#                    <td> Yes</td>#}
-{#                    <td>{{ TripMeta[7] }}</td>#}
-{#                    {% else %}#}
-{#                    <td>No</td>#}
-{#                    <td>NA</td>#}
-{#                    {% endif %}#}
-{#                </tr>#}
                 {% for TableRow in ParticpantInfo %}
                 <tr>
-                    <td> {{ TableRow[0] }}</td>
-                    {%  if TableRow[1]=='True' or TableRow[1] == 1 or TableRow == '1'%}
+                    <td> {{ TableRow.Participant }}</td>
+                    {%  if TableRow.Driver=='True' or TableRow.Driver == 1 or TableRow == '1'%}
                     <td> Yes</td>
-                    <td>{{ TableRow[2] }}</td>
+                    <td>{{ TableRow.Car_Capacity }}</td>
                     {% else %}
                     <td>No</td>
                     <td>NA</td>
                     {% endif %}
-                    <td><a class="btn btn-danger" href={{ url_for('main.remove_particpant', id= TableRow[3] ) }} role="button">X</a></td>
+                    <td><a class="btn btn-danger" href={{ url_for('main.remove_particpant', id= TableRow.id ) }} role="button">X</a></td>
                 </tr>
                 {% endfor %}
                 </tbody>
