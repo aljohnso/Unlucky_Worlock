@@ -30,6 +30,7 @@ class DatabaseConstructorTests(unittest.TestCase):
         """
         Tests Make trip constructior with all valid inputs
         """
+        self.maxDiff = None
         makeTrip = TripConstructor(DatabaseConstructorTests.CorrecttestInput, 1)
         trip = makeTrip.trip
         cordinator = makeTrip.leader
