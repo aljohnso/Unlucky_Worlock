@@ -11,6 +11,7 @@ app.config.update(dict(
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.getcwd() + '/SQLAlchameyPOA.db'
 ))
 db.init_app(app)
+#wow
 with app.app_context():
     # Extensions like Flask-SQLAlchemy now know what the "current" app
     # is while within this block. Therefore, you can now run........
