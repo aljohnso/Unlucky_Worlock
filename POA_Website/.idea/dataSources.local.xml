@@ -7,14 +7,20 @@
       <secret-storage>master_key</secret-storage>
       <auth-required>false</auth-required>
     </data-source>
-    <data-source name="POA_Test.db" uuid="7b3d779c-07d1-433c-beed-da120fd3b13f">
+    <data-source name="SERVER.db [2]" uuid="209037b5-c48a-4e3e-b934-f4022c416aa3">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+    </data-source>
+    <data-source name="SQLAlchameyPOA.db" uuid="6117fa60-6fc3-4727-98e0-0b4024fe7c3e">
       <database-info product="SQLite" version="3.8.11" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native" />
       <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
       <secret-storage>master_key</secret-storage>
       <auth-required>false</auth-required>
     </data-source>
-    <data-source name="SERVER.db [2]" uuid="209037b5-c48a-4e3e-b934-f4022c416aa3">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
+    <data-source name="SQLAlchameyPOA.db [Outer]" uuid="e8487947-12ad-4e94-8981-79e8e8a69ada">
+      <database-info product="SQLite" version="3.8.11" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native" />
+      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
+      <secret-storage>master_key</secret-storage>
+      <auth-required>false</auth-required>
     </data-source>
   </component>
 </project>

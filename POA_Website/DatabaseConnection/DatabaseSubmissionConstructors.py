@@ -1,7 +1,6 @@
 import datetime,requests, re
 
-
-class MasterCommandConstructor:
+class MasterConstructor:
     MASTER_DB_ORDER = ['Trip_Name', 'Departure_Date', 'Return_Date']
 
     def __init__(self, form):
@@ -10,22 +9,25 @@ class MasterCommandConstructor:
         Will take in form and create a list that can be executed to put in database
         """
         self.master = self.MakeMaster(form)
-        self.leader = ParticipantCommandConstructor(form, None).participant#will need to add in master id after assingment
-
 
     def MakeMaster(self, form):
         """
         :param form: form is the form from POAForms class  MakeTripFormPOA will create the row for Master table
-        :return: List for creating Master row in table
+        :return: Dictionary for creating Master row in table
         """
-        Master = []#consider using dict.values()
-        for index in MasterCommandConstructor.MASTER_DB_ORDER:
-            Master += [str(form[index])]
-        Master += [form['Trip_Location'] + ', ' + form['Trip_State']]
-        Master += [self.MakeShortDetails(str(form['Details']))]
-        Master += [str(datetime.date.today())]
-        Master += [1]
-        Master += [form['Car_Capacity']]#add including driver note
+        Master = {} # consider using dict.values()
+        for index in MasterConstructor.MASTER_DB_ORDER:
+            Master[index] = form[index]
+        Master['Trip_Location'] = form['Trip_Location'] + ', ' + form['Trip_State']
+        Master['Details'] = self.MakeShortDetails(str(form['Details']))
+        Master['Post_Time'] = datetime.date.today()
+        Master['Participant_num'] = 1
+        Master['Car_Capacity'] = form['Car_Capacity'] # add including driver note
+        Master['Car_Cap'] = form['Car_Cap']
+        if form['Car_Capacity'] > 0:
+            Master['Car_Num'] = 1
+        else:
+            Master['Car_Num'] = 0
         return Master
 
     def MakeShortDetails(self, details):
@@ -39,9 +41,11 @@ class MasterCommandConstructor:
             return details
 
 
-class TripCommandConstructor:
-    TRIPS_DB_ORDER = ['Details', 'Coordinator_Name', 'Coordinator_Email', 'Coordinator_Phone', 'GearList',
-                      'Trip_Meeting_Place', 'Additional_Cost', 'Cost_Breakdown', 'Car_Cap']
+
+class TripConstructor:
+    TRIPS_DB_ORDER = ['Details', 'Coordinator_Name', 'Coordinator_Email',
+                      'Coordinator_Phone', 'GearList', 'Trip_Meeting_Place',
+                      'Additional_Cost', 'Cost_Breakdown']
 
     WUNDERGROUND_KEY = 'dd0fa4bc432d5dbd'
 
@@ -51,23 +55,26 @@ class TripCommandConstructor:
         Will take in form and create a list that can be executed to put in database
         """
         self.trip = self.MakeTrip(form, master_key)
+        self.leader = ParticipantConstructor(form, master_key).participant
 
     def MakeTrip(self, Form, master_key):
         """
         :param Form: form is the form from POAForms class  MakeTripFormPOA will create the row for Trip table
         :return: The List for creating row in trip table
         """
-        Trip = []
+        Trip = {}
         location = str(Form['Trip_Location'] + ',' + Form['Trip_State'])
         locationData = self.getGoogleMapsData(location)
-        for index in TripCommandConstructor.TRIPS_DB_ORDER:
-            Trip += [str(Form[index])]
+        for index in TripConstructor.TRIPS_DB_ORDER:
+            Trip[index] = Form[index]
         distance = self.getDistance(locationData)
         total_Cost = distance*.17*2 + int(Form['Additional_Cost'])
-        Trip += [int(Form["Substance_Free"])]
-        Trip += [total_Cost]
-        Trip += [str(self.getWeather(locationData))]
-        Trip += [master_key]
+        Trip["Substance_Free"] = int(Form["Substance_Free"])
+        Trip['Additional_Cost'] = int(Form['Additional_Cost'])
+        Trip["Total_Cost"] = total_Cost
+        Trip["Weather_Forcast"] = str(self.getWeather(locationData))
+        Trip["Master_Key"] = master_key
+        # print(Trip)
         return Trip
 
     def getDistance(self, LocationData):
@@ -96,7 +103,7 @@ class TripCommandConstructor:
             # # print(state, place)
             # data = requests.get(URL + state + '/' + place + '.json').json()
             Location = GoogleMapsData['destination_addresses'][0]
-            pattern = '(\d{5}([\-]\d{4})?)'
+            pattern = '(\d{5}([\-]\d{4})?)'#regex for zipcode
             zipcode = re.search(pattern, Location).group(1)
             data = requests.get(URL + zipcode + '.json').json()
             return data['forecast']['simpleforecast']  # gives 10 day forcast as a list of dicts
@@ -116,37 +123,38 @@ class TripCommandConstructor:
             return None
 
 
-class ParticipantCommandConstructor:
+class ParticipantConstructor:
     PARTICIPANT_DB_ORDER = ['Participant','Email', 'Phone', 'Driver', 'Car_Capacity']
 
-    def __init__(self, form, tripID):
+    def __init__(self, form, MasterID):
         """
         :param form:
         Will take in form and create a list that can be executed to put in database
         """
-        self.participant = self.Makeparticipant(form, tripID)
+        self.participant = self.Makeparticipant(form, MasterID)
 
-    def Makeparticipant(self, Form, TripID):
+    def Makeparticipant(self, Form, MasterID):
         """
         :param Form: form from POAForms class that details
         :return:
         """
-        participant = [TripID]
+        participant = {"Master_Key":MasterID}
         try:
-            for index in ParticipantCommandConstructor.PARTICIPANT_DB_ORDER:
-                participant += [str(Form[index])]
-            print(Form.values())
-            print(participant)
+            for index in ParticipantConstructor.PARTICIPANT_DB_ORDER:
+                participant[index] = Form[index]
+            # print(Form.values())
+            # print(participant)
         except KeyError:
-            for index in ['Coordinator_Name', 'Coordinator_Email', 'Coordinator_Phone']:
-                participant += [str(Form[index])]
+            participant['Participant'] = Form['Coordinator_Name']
+            participant['Email'] = Form['Coordinator_Email']
+            participant['Phone'] = Form['Coordinator_Phone']
             if Form['Car_Capacity'] != 0:
-                participant += ['1']
+                participant['Driver'] = 1
             else:
-                participant += ['0']
-            participant += [Form['Car_Capacity']]
-            print(Form.values())
-            print(participant)
+                participant['Driver'] = 0
+            participant['Car_Capacity'] = Form['Car_Capacity']
+            # print(Form.values())
+            # print(participant)
         return participant
 
 
