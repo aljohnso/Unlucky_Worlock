@@ -12,8 +12,8 @@ configure_app(app, 'default')#set app congif here
 print("app config set")
 Bootstrap(app)
 db.init_app(app)
-with app.app_context():
-    db.create_all()
+#with app.app_context():
+ #   db.create_all()
 # @app.teardown_appcontext
 # def shutdown_session(exception=None):
 #     db.db_session.remove()
