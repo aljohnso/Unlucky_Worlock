@@ -1,0 +1,163 @@
+<html lang="en-US">
+<head>
+	<link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Lato:300italic' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+	<title> POA Homepage </title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+</head>
+
+<style>
+#header {
+    background-color:#669EF2;
+    color:white;
+    padding:10px;
+    height:120px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #669EF2;
+    height: 48px;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #F2BB66;
+}
+
+#footer {
+	background-color:#669EF2;
+	height:60px;
+    color:white;
+    text-align:center;
+    padding:3px;
+
+}
+
+.mySlides {
+	display:none;
+	margin-left:330px;
+}
+</style>
+
+<body style="background-color: #F2BB66;">
+	<div id="header">
+		<h1 style = "font-family:'Source Sans Pro'; font-size: 300%; font-weight: lighter; text-align:center;">
+		<b><u> Pitzer Outdoor Adventure (POA)</u></b></h1>
+	</div>
+
+
+	<div id="nav">
+		<ul>
+  			<li><a href="#About">About</a><br></li>
+  			<li><a href="#CurrentTrips">Current Trips</a><br></li>
+  			<li><a href="https://www.facebook.com/groups/176936922714472/" target="_blank">Facebook</a></li>
+  			<li><a href="https://www.instagram.com/p_o_yay/" target="_blank">Instagram</a><br></li>
+  			<li><a href="http://i.imgur.com/sqk3c0i.png" target="_blank">Flickr</a><li>
+		</ul>
+	</div>
+
+
+
+	<div>
+		<h2 style = "font-family:'Lato'; text-align: center; color: black"> <i>Leave only footprints, take only pictures. </i></h2>
+		<div class="slideshow" style="width:63%">
+  		<img class="mySlides w3-animate-right" src="http://i.imgur.com/e2S0jDV.jpg" style="width:100%;">
+  		<img class="mySlides w3-animate-right" src="http://imgur.com/R8UpXH7.jpg" style="width:100%;">
+  		<img class="mySlides w3-animate-right" src="http://imgur.com/pfq9SqK.jpg" style="width:100%;">
+  		<img class="mySlides w3-animate-right" src="http://i.imgur.com/sqk3c0i.png" style="width:100%;">
+  		<img class="mySlides w3-animate-right" src="http://i.imgur.com/nXkXtyn.jpg" style="width:100%;">
+  		<br>
+		
+	</div>
+	<h2 style="font-family:'Lato'; margin-left:10px; text-align: center; color: black"><a name="Mission Statement"><u> Mission Statement </u></a></h2>
+	<p style = "font-family:'Lato'; font-size: 130%; text-align: center; vertical-align: center; color: black;">To promote the exploration and respect of nature and what it has to offer through training, immersion trips, and workshops. POA is committed to the education, treatment, and rehabilitation of nature.</p>
+
+
+
+
+	
+	<script>
+	var myIndex = 0;
+	carousel();
+
+	function carousel() {
+    	var i;
+    	var x = document.getElementsByClassName("mySlides");
+    	for (i = 0; i < x.length; i++) {
+      		x[i].style.display = "none";  
+    	}
+    	myIndex++;
+    	if (myIndex > x.length) {myIndex = 1}    
+    	x[myIndex-1].style.display = "block";  
+    	setTimeout(carousel, 5000); // Change image every 2 seconds
+	}
+	</script>
+
+	<br>
+
+	<div class="About">
+			<h2 style="font-family:'Lato'; margin-left:10px; text-align: center; color: black"><a name="About"><u> About </u></a></h2>
+			<p title="About" style="font-family: 'Lato'; font-size: 130%; text-align: center; color: black"> 
+			Pitzer Outdoor Adventure (POA) is a student-operated organization that serves students at the Claremont Colleges. The main function of POA is providing a forum for students to schedule trips that explore interesting areas in Southern California and beyond. POA meetings are held every Wednesday evening at the Grove House on Pitzer's campus.
+			</p>
+
+			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d630.6371315905728!2d-117.70535508882199!3d34.10482140217381!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c331bba0a8f113%3A0x33ece5c71bae3cd2!2sGrove+House%2C+Claremont%2C+CA+91711!5e0!3m2!1sen!2sus!4v1490030058604" width="600" height="450" frameborder="0" style="border:0; margin-left:555px; border:3px solid #669EF2"" allowfullscreen></iframe>
+			
+	</div>
+
+	<br>
+	<br>
+	<br>
+	<br>
+
+	<div class="CurrentTrips">
+		<h2 style="font-family:'Lato'; margin-left:10px; text-align: center; color: black"><a name="CurrentTrips"><u> Current Trips </u></a></h2>
+    	<div class="row">
+        <div class="panel panel-primary filterable">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Trip Name</th>
+                        <th>Details</th>
+                        <th>Departure Date</th>
+                        <th>Return Date</th>
+                        <th>Participants</th>
+                        <th>Participant Cap</th>
+                        <th>Trip Location</th>
+                    </tr>
+                </thead>
+                <tbody class="entries">
+                
+                </tbody>
+            </table>
+            <a class="btn" href= /addTrip style="color: black">Add Trip</a>
+    </div>
+
+<hr>
+
+	<div id="footer">
+		<img src="http://pitweb.pitzer.edu/admission/wp-content/uploads/sites/20/2014/03/pitzer_logo_sans_colleges_orange-transparent.png" style="width:10%;">
+	</div>
+
+
+</body>
+</html>
