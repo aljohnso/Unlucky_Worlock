@@ -3,10 +3,11 @@ from flask import  request, redirect, url_for, \
 from DatabaseConnection.DataBaseSchema import Master, db
 import datetime
 from Tests.protyping.testApp.DatabaseInterfacetest import DatabaseTest
+from flask_mail import Message, Mail
 main = Blueprint('main', __name__, template_folder='templates')
 
 dataBase = DatabaseTest()
-
+mail = Mail()
 @main.route('/', methods=['GET', 'POST'])
 def Main():
     # expected_master = {'Details': 'Turn up and climb', 'Departure_Date': datetime.date.today(),
@@ -29,3 +30,13 @@ def Main():
 
     response = dataBase.addMaster(testInput)
     return response[0].Trip_Name
+
+
+
+@main.route("/send")
+def index():
+    msg = Message("Hello",
+                  sender="from@example.com",
+                  recipients=["aljohnso@students.pitzer.edu"])
+    mail.send(msg)
+    return "sent"
