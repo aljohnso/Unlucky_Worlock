@@ -14,7 +14,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + currentPath + '/' + datab
 db = SQLAlchemy(app)
 db.init_app(app)
 
-# PyCharm comments aren't working? HELP?
 class Account(db.Model):
     # Defines a variable with certain fixed parameters, much like one would in C#.
     # Maybe look up a way to record how many objects are in your database?
@@ -79,7 +78,9 @@ def main():
     print(str(Account.query.all()[0].accessData()))
     return str(
         # Account.query.all()[0].__dict__
-        "<html> <h1>Hello World</h1></html>")
+        #"<html> <h1>Hello World</h1></html>"
+        'hi'
+    )
 
 def createAccount(rawData):
     # Try making rawData a json file that you can then unpack. Test if it works?

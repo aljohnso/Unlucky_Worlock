@@ -16,10 +16,6 @@ with app.app_context():
     # Extensions like Flask-SQLAlchemy now know what the "current" app
     # is while within this block. Therefore, you can now run........
     db.create_all()
-@app.teardown_appcontext
-def close_db(error):
-    """Closes the database again at the end of the request."""
-    if hasattr(g, 'sqlite_db'):
-        g.sqlite_db.closeConnection()
+
 
 app.register_blueprint(main)
