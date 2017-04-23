@@ -99,7 +99,20 @@ def createAccount(rawData):
 
 def modifyAccount(rawData):
     #memes
+    data = json.loads(rawData)
     print('Insert a thing here! Produce a spreadsheet already filled with the users information, then have it resubmit to this function.')
+    self.googleNum = data["googleNum"]  # Given
+    self.username = None  # username
+    self.email = None  # email # Not given, surprisingly? Ask Alasdair about this.
+    self.firstName = firstName  # Given
+    self.lastName = lastName  # Given
+    self.age = None  # age
+    self.height = None  # height
+    self.allergies = None  # allergies
+    self.dietRestrictions = None  # dietRestrictions
+    self.studentIDNumber = None  # studentIDNumber
+    self.phoneNumber = 1112223333  # phoneNumber
+    self.carCapacity = 0  # capCapacity
 
 def sampleConstructor():
     sampleData = {
