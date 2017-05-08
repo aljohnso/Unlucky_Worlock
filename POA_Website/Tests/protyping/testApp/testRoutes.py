@@ -1,8 +1,10 @@
-from flask import  request, redirect, url_for, \
-     render_template, flash,Blueprint
-from DatabaseConnection.DataBaseSchema import Master, db
-import datetime
+from flask import request, redirect, url_for, render_template, flash, Blueprint
+
+from Tests.TestForms.SecondForms import CreateAccountForm
+from Tests.protyping.UserAccounts import db, Account, databaseName, currentPath, createAccount
 from Tests.protyping.testApp.DatabaseInterfacetest import DatabaseTest
+import json
+
 main = Blueprint('main', __name__, template_folder='templates')
 
 dataBase = DatabaseTest()
@@ -29,9 +31,54 @@ def Main():
     #
     # response = dataBase.addMaster(testInput)
     # return response[0].Trip_Name
-    Iam = {
-        "Matthew" : "Me",
-        "Not Matthew" : "Not Me"
+    #http://stackoverflow.com/questions/23712986/pre-populate-a-wtforms-in-flask-with-data-from-a-sqlalchemy-object
+    sampleData = {
+        'family_name' : 'Vonallmen',
+        'locale' : 'en',
+        'name' : 'Matthew Vonallmen',
+        'picture' : 'badmeme.jpg',
+        'given_name' : 'Matthew',
+        'id' : '123456789'
     }
+    userInfo = json.dumps(sampleData)
+    unpackedInfo = json.loads(userInfo)
+    form = CreateAccountForm(FirstName_Box = unpackedInfo["given_name"][:], LastName_Box = unpackedInfo["family_name"][:]) # Make this user info.
+    if request.method == 'POST':
+        # print(form.data)  # returns a dictionary with keys that are the fields in the table
+        if form.validate_on_submit() == False:
+            flash('All fields are required.')
+            return render_template("ModifyAccount.html", form=form)
+        else:
+            flash('New entry was successfully posted')
+            print(form.data)
+            unpackedInfo = {
+                'family_name': form.data["LastName_Box"],
+                'locale': 'en',
+                'name': str(form.data["FirstName_Box"][:] + form.data["LastName_Box"][:]),
+                'picture': 'badmeme.jpg',
+                'given_name': form.data["FirstName_Box"][:],
+                'id': '123456789'
+            }
+            #unpackedInfo = form.data["FirstName_Box"]
+            packedInfo = json.dumps(unpackedInfo)
+            # First Pass form to class that parse to dict that can be passed to createAccount
+            # create the createAcount object and add it to the session then commit
+            #EXTRA CREDIT make a page to edit account info
+            createAccount(packedInfo)
+            #temp = createAccount(packedInfo)
+            #temp = Account(form.data['Sample_Box'], "spam", 10000)
+            #db.session.add(temp)
+            #db.session.commit()
+            print(Account.query.all)
+            return redirect(url_for('main.postData'))
+    elif request.method == 'GET':
+        return render_template("ModifyAccount.html", form=form)
 
-    return render_template("ModifyAccount.html", name=Iam.values() )
+
+@main.route('/data')
+def postData():
+    a = Account.query.all()
+    b =""
+    for obj in a:
+        b += obj.firstName + " "
+    return b

@@ -12,7 +12,7 @@ databaseName = 'test.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + currentPath + '/' + databaseName
 
 db = SQLAlchemy(app)
-db.init_app(app)
+# db.init_app(app)
 
 class Account(db.Model):
     # Defines a variable with certain fixed parameters, much like one would in C#.
@@ -59,6 +59,7 @@ class Account(db.Model):
         dataDict = {
             'googleNum' : str(self.googleNum)[:],
             'username' : str(self.username)[:],
+            'email' : str(self.email)[:],
         }
         data = json.dumps(dataDict)
         return data

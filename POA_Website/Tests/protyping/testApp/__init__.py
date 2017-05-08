@@ -1,7 +1,8 @@
 from flask import Flask, g
 from Tests.protyping.testApp.testRoutes import main
 app = Flask(__name__)
-from DatabaseConnection.DataBaseSchema import db
+from Tests.protyping.UserAccounts import db
+from flask_bootstrap import Bootstrap
 import os
 
 app.config.update(dict(
@@ -11,6 +12,7 @@ app.config.update(dict(
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.getcwd() + '/SQLAlchameyPOA.db'
 ))
 db.init_app(app)
+Bootstrap(app)
 #wow
 with app.app_context():
     # Extensions like Flask-SQLAlchemy now know what the "current" app
