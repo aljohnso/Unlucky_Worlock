@@ -1,16 +1,25 @@
-from Forms.POAForms import MakeTripFormPOA, AddToTripPOA
+from Forms.POAForms import MakeTripFormPOA, AddToTripPOA, CreateAccountForm
 from flask import  request, redirect, url_for, \
      render_template, flash,Blueprint, session
 from DatabaseConnection.DataBaseSchema import db, \
-    Master, Participants, TripModel, Trips
-from Tests.protyping.UserAccounts import db, Account, databaseName, currentPath, createAccount
-from Tests.TestForms.SecondForms import CreateAccountForm
+    Master, Participants, TripModel, Trips, Account, createAccount
+#from Tests.protyping.UserAccounts import db, Account, databaseName, currentPath, createAccount
+#from Tests.TestForms.SecondForms import CreateAccountForm
+from functools import wraps
 import json, flask, httplib2
 import apiclient as google
 from oauth2client import client
 
 import os
 main = Blueprint('main', __name__, template_folder='templates')
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'credentials' not in session or 'Googledata' not in session:
+            return redirect(url_for('main.login'))
+        return f(*args, **kwargs)
+    return decorated_function
 
 
 @main.route('/', methods=['GET', 'POST'])
@@ -92,12 +101,16 @@ def login():
         flask.session['Googledata'] = userinfo
         print(flask.session)
         #return rendertemplate(create acoubt.html, form=form)
+        #Account.query.filter_by(id=flask.session['Googledata']['id']).first().googleNum
+        #if flask.session['Googledata']['id']==Account.query.filter_by(id=flask.session['Googledata']['id']).first().googleNum:
         return redirect(url_for('main.makeAccount'))
 
 @main.route('/createAccount', methods=['POST', 'GET'])
+@login_required
 def makeAccount():
-    if 'credentials' not in session or 'Googledata' not in session:
-        return redirect(url_for('main.login'))
+    #Account.query.filter_by(id=flask.session['Googledata']['id']).first().googleNum
+    if None != Account.query.filter_by(id=flask.session['Googledata']['id']).first():
+        return redirect(url_for('main.Main'))
     else:
         form = CreateAccountForm(FirstName_Box=flask.session['Googledata']["given_name"][:], LastName_Box=flask.session['Googledata']["family_name"][:])
         #TODO: remove googledata from session if you can not that important
@@ -105,7 +118,6 @@ def makeAccount():
             # print(form.data)  # returns a dictionary with keys that are the fields in the table
             if form.validate_on_submit() == False:
                 flash('All fields are required.')
-                print(Account.query.all())
                 return render_template("ModifyAccount.html", form=form)
             else:
                 flash('New entry was successfully posted')
@@ -137,7 +149,7 @@ def makeAccount():
                 # db.session.add(temp)
                 # db.session.commit()
                 print(Account.query.all())
-                #print(Account.query.all()[0].accessData)
+                print(Account.query.all()[0].accessData)
                 return str(Account.query.all())
         elif request.method == 'GET':
             return render_template("ModifyAccount.html", form=form)
