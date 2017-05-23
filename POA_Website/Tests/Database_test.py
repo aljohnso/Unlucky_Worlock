@@ -43,7 +43,7 @@ Expected = {'expected_particpant' : {'Participant': 'Alasdair Johnson', 'Car_Cap
                          'Coordinator_Name': 'Alasdair Johnson', 'Coordinator_Phone': 9193975206, 'id':1}}
 
 class Database_Use_Tests(TestCase):
-
+    #TODO: add test for adding car to trip WTF
 
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.getcwd() + '/DataBase_Test_Scripts/testing.db'
     TESTING = True
