@@ -17,10 +17,11 @@ db = SQLAlchemy(app)
 class Account(db.Model):
     # Defines a variable with certain fixed parameters, much like one would in C#.
     # Maybe look up a way to record how many objects are in your database?
-    id = db.Column(db.Integer, primary_key=True)
-    googleNum = db.Column(db.Integer)
+    id = db.Column(db.String(30), primary_key=True)
+    googleNum = db.Column(db.String(30))
+    picture = db.Column(db.String(200))
     #newVar = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True)
+    username = db.Column(db.String(80)) #, unique=True)
     email = db.Column(db.String(120), unique=True)
     firstName = db.Column(db.String(120))
     lastName = db.Column(db.String(120))
@@ -37,23 +38,42 @@ class Account(db.Model):
     # How to structure the profile picture? What data type, and how do I use it?
     # In total, there are 11 variables so far per account.
 
-    def __init__(self, firstName, lastName, googleNum):
-        self.googleNum = googleNum # Given
-        self.username = None #username
-        self.email = None #email # Not given, surprisingly? Ask Alasdair about this.
-        self.firstName = firstName # Given
-        self.lastName = lastName # Given
-        self.age = None #age
-        self.height = None #height
-        self.allergies = None #allergies
-        self.dietRestrictions = None #dietRestrictions
-        self.studentIDNumber = None #studentIDNumber
-        self.phoneNumber = 1112223333 #phoneNumber
-        self.carCapacity = 0 #capCapacity
+    def __init__(self, inputData):
+        self.id = str(inputData['googleNum'][:])
+        self.googleNum = str(inputData['googleNum'][:]) # Given
+        self.picture = str(inputData['picture'][:])
+        self.username = str(inputData['username'][:]) #username
+        self.email = str(inputData['email'][:]) #email # Not given, surprisingly? Ask Alasdair about this.
+        self.firstName = str(inputData['firstName'][:]) # Given
+        self.lastName = str(inputData['lastName'][:]) # Given
+        self.age = int(inputData['age'][:]) #age
+        self.height = float(inputData['height'][:]) #height
+        self.allergies = str(inputData['allergies'][:]) #allergies
+        self.dietRestrictions = str(inputData['dietRestrictions'][:]) #dietRestrictions
+        self.studentIDNumber = int(inputData['studentIDNumber'][:]) #studentIDNumber
+        self.phoneNumber = int(inputData['phoneNumber'][:]) #phoneNumber
+        self.carCapacity = int(inputData['carCapacity'][:]) #capCapacity
         # Also given a picture. That's neat. How to access it?
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        #return '<User %r, ID: >' % self.username
+        return '<User ' + self.username + ', ID: ' + self.googleNum + '>'
+
+    def modifyAccount(self, rawData):
+        # memes
+        data = json.loads(rawData)
+        print('Insert a thing here! Produce a spreadsheet already filled with the users information, then have it resubmit to this function.')
+        self.username = str(data['username'][:])  # username
+        self.email = str(data['email'][:])  # email # Not given, surprisingly? Ask Alasdair about this.
+        self.firstName = str(data['firstName'][:])  # Given
+        self.lastName = str(data['lastName'][:])  # Given
+        self.age = int(data['age'][:])  # age
+        self.height = float(data['height'][:])  # height
+        self.allergies = str(data['allergies'][:])  # allergies
+        self.dietRestrictions = str(data['dietRestrictions'][:])  # dietRestrictions
+        self.studentIDNumber = int(data['studentIDNumber'][:])  # studentIDNumber
+        self.phoneNumber = int(data['phoneNumber'][:])  # phoneNumber
+        self.carCapacity = int(data['carCapacity'][:])  # capCapacity
 
     def accessData(self):
         dataDict = {
@@ -64,8 +84,8 @@ class Account(db.Model):
         data = json.dumps(dataDict)
         return data
 
-def newUser(firstName, lastName, googleNum):
-    generatedUser = Account(firstName, lastName, googleNum)
+def newUser(inputData):
+    generatedUser = Account(inputData)
     return generatedUser
 
 # Ask Alasdair what the @app.route thing does again, then WRITE IT DOWN.
@@ -84,36 +104,25 @@ def main():
     )
 
 def createAccount(rawData):
-    # Try making rawData a json file that you can then unpack. Test if it works?
-    unpackedData = json.loads(rawData)
-    firstName = unpackedData['given_name'][:]
-    lastName = unpackedData['family_name'][:]
-    googleNum = unpackedData['id'][:]
+    # Try making rawData a json file that you can then unpack. Test if it works? (future matthew -->)OR DON'T DO THAT
+    #unpackedData = json.loads(rawData)
+    #firstName = unpackedData['given_name'][:]
+    #lastName = unpackedData['family_name'][:]
+    #googleNum = unpackedData['id'][:]
     # WHY ARE WE NOT GIVEN THEIR EMAIL?
     # Have a variable that indicates how much security clearance they have; admin or user?
     # ^^^ Have three different levels: User, TechAdmin, and GearClosetWorker.  << from Alasdair
+    #if os.path.exists(currentPath + '/' + databaseName):
+    #    print('God is dead and WE HAVE KILLED HIM!')
+    #else:
+    #    with app.app_context():
+    #        db.create_all()
     print('hi!')
     # Don't try to store different data types inside of the same database; it's totally not worth the trouble. Just work with Users.
     # If this works, how do we log into an account? Do we store a username and password in here?
-    db.session.add(newUser(firstName, lastName, googleNum))
+    db.session.add(newUser(json.loads(rawData)))
     db.session.commit()
 
-def modifyAccount(rawData):
-    #memes
-    data = json.loads(rawData)
-    print('Insert a thing here! Produce a spreadsheet already filled with the users information, then have it resubmit to this function.')
-    self.googleNum = data["googleNum"]  # Given
-    self.username = None  # username
-    self.email = None  # email # Not given, surprisingly? Ask Alasdair about this.
-    self.firstName = firstName  # Given
-    self.lastName = lastName  # Given
-    self.age = None  # age
-    self.height = None  # height
-    self.allergies = None  # allergies
-    self.dietRestrictions = None  # dietRestrictions
-    self.studentIDNumber = None  # studentIDNumber
-    self.phoneNumber = 1112223333  # phoneNumber
-    self.carCapacity = 0  # capCapacity
 
 def sampleConstructor():
     sampleData = {
@@ -125,7 +134,7 @@ def sampleConstructor():
         'id' : '123456789'
     }
     transportData = json.dumps(sampleData)
-    createAccount(transportData)
+    #createAccount(transportData)
 
 if __name__=='__main__':
     print('Creating a database...')
@@ -134,10 +143,10 @@ if __name__=='__main__':
     else:
         with app.app_context():
             db.create_all()
-        sampleConstructor()
+        #sampleConstructor()
     # What does it mean when the app is "running?"
     # How do you display things on screen? Like, the website screen?
-    app.run()
+    #app.run()
 
 
 # vvv How to select individual stuff.

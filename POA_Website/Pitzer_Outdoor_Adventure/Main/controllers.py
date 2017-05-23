@@ -105,17 +105,26 @@ def makeAccount():
             # print(form.data)  # returns a dictionary with keys that are the fields in the table
             if form.validate_on_submit() == False:
                 flash('All fields are required.')
+                print(Account.query.all())
                 return render_template("ModifyAccount.html", form=form)
             else:
                 flash('New entry was successfully posted')
                 print(form.data)
                 userinfo = {
-                    'family_name': form.data["LastName_Box"],
-                    'locale': 'en',
-                    'name': str(form.data["FirstName_Box"][:] + form.data["LastName_Box"][:]),
-                    'picture': 'badmeme.jpg',
-                    'given_name': form.data["FirstName_Box"][:],
-                    'id': '123456789'
+                    'googleNum': flask.session['Googledata']['id'][:],
+                    'picture': flask.session['Googledata']['picture'][:],
+                    'username': str(form.data['FirstName_Box'][:] + ' ' + form.data['LastName_Box'][:]),
+                    'email': form.data['Email_Box'][:],
+                    'firstName': form.data['FirstName_Box'][:],
+                    'lastName': form.data['LastName_Box'][:],
+                    'age': str(form.data['Age_Box'])[:],
+                    'height': str(form.data['Height_Box'])[:],
+                    'allergies': 'TBD',
+                    'dietRestrictions': 'TBD',
+                    'studentIDNumber': str(form.data['StudentIDNumber_Box'])[:],
+                    'phoneNumber': str(form.data['PhoneNumber_Box'])[:],
+                    'carCapacity': str(form.data['CarCapacity_Box'])[:],
+                    'locale': flask.session['Googledata']['locale'][:],
                 }
                 # # unpackedInfo = form.data["FirstName_Box"]
                 packedInfo = json.dumps(userinfo)
@@ -127,8 +136,9 @@ def makeAccount():
                 # temp = Account(form.data['Sample_Box'], "spam", 10000)
                 # db.session.add(temp)
                 # db.session.commit()
-                print(Account.query.all)
-                return "It worked"
+                print(Account.query.all())
+                #print(Account.query.all()[0].accessData)
+                return str(Account.query.all())
         elif request.method == 'GET':
             return render_template("ModifyAccount.html", form=form)
 
