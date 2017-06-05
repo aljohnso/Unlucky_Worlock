@@ -147,8 +147,8 @@ class TripModel():
 class Account(db.Model):
     # Defines a variable with certain fixed parameters, much like one would in C#.
     # Maybe look up a way to record how many objects are in your database?
-    id = db.Column(db.String(30), primary_key=True)
-    googleNum = db.Column(db.String(30))
+    id = db.Column(db.String(80), primary_key=True)
+    googleNum = db.Column(db.String(80))
     picture = db.Column(db.String(200))
     #newVar = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80)) #, unique=True)
@@ -165,6 +165,7 @@ class Account(db.Model):
     studentIDNumber = db.Column(db.Integer)
     phoneNumber = db.Column(db.Integer)
     carCapacity = db.Column(db.Integer)
+    locale = db.Column(db.String(80))
     # How to structure the profile picture? What data type, and how do I use it?
     # In total, there are 11 variables so far per account.
 
@@ -183,6 +184,7 @@ class Account(db.Model):
         self.studentIDNumber = int(inputData['studentIDNumber'][:]) #studentIDNumber
         self.phoneNumber = int(inputData['phoneNumber'][:]) #phoneNumber
         self.carCapacity = int(inputData['carCapacity'][:]) #capCapacity
+        self.locale = str(inputData['locale'][:])
         # Also given a picture. That's neat. How to access it?
 
     def __repr__(self):
@@ -190,7 +192,6 @@ class Account(db.Model):
         return '<User ' + self.username + ', ID: ' + self.googleNum + '>'
 
     def modifyAccount(self, rawData):
-        # memes
         data = json.loads(rawData)
         print('Insert a thing here! Produce a spreadsheet already filled with the users information, then have it resubmit to this function.')
         self.username = str(data['username'][:])  # username
@@ -208,11 +209,21 @@ class Account(db.Model):
     def accessData(self):
         dataDict = {
             'googleNum' : str(self.googleNum)[:],
+            'picture' : str(self.picture)[:],
             'username' : str(self.username)[:],
             'email' : str(self.email)[:],
+            'firstName': str(self.firstName)[:],
+            'lastName': str(self.lastName)[:],
+            'age': str(self.age)[:],
+            'height': str(self.height)[:],
+            'allergies': str(self.allergies)[:],
+            'dietRestrictions': str(self.dietRestrictions)[:],
+            'studentIDNumber': str(self.studentIDNumber)[:],
+            'phoneNumber': str(self.phoneNumber)[:],
+            'carCapacity': str(self.carCapacity)[:],
+            'locale': str(self.locale)[:],
         }
-        data = json.dumps(dataDict)
-        return data
+        return dataDict
 
 def newUser(inputData):
     generatedUser = Account(inputData)
