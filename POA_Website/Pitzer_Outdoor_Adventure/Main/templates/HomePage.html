@@ -10,44 +10,62 @@
 {#    <style src = "POACreateTripCSS.css"></style>#}
 </head>
 <body>
-<h3> Trip List</h3>
+<div class="container">
     <div class="row">
-        <div class="panel panel-primary filterable">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Trip Name</th>
-                        <th>Details</th>
-                        <th>Departure Date</th>
-                        <th>Return Date</th>
-                        <th>Participants</th>
-                        <th>Participant Cap</th>
-                        <th>Cars</th> {#  anyone have a better name #}
-                        <th>Car Cap</th>
-                        <th>Trip Location</th>
-                    </tr>
-                </thead>
-                <tbody class="entries">
-                {% for TableRow in entries %}
-                <tr>
-                    <td > <a href={{ url_for('main.TripPage', TripKey = TableRow.id)}}>{{ TableRow.Trip_Name}}</a></td>
-                    <td> {{ TableRow.Details_Short }}</td>
-                    <td> {{ TableRow.Departure_Date }}</td>
-                    <td> {{ TableRow.Return_Date }}</td>
-                    <td> {{ TableRow.Participant_num }}</td>
-                    <td> {{ TableRow.Participant_cap}}</td>
-{#                    <td>Why would it work?</td>#}
-                    <td> {{ TableRow.Car_Num}}</td>
-                    <td> {{ TableRow.Car_Cap}}</td>
-                    <td> {{ TableRow.Trip_Location}}</td>
-                </tr>
+    <h3> Trip List
+            <div class='pull-right'>
+                {% if credentials in session %}
+                    <a class="btn btn-primary" href="#" role="button">
+                    Account Info
+                    </a>
+
                 {% else %}
-                    <li><em>Unbelievable.  No entries here so far</em></li>
-                {% endfor %}
-                </tbody>
-            </table>
-            <a class="btn" href= {{ url_for('main.add_Trip') }} >Add Trip</a>
-        </div>
+                    <a class="btn btn-primary" href={{url_for('main.login')}} role="button">
+                    Login
+                    </a>
+                {% endif %}
+            </div>
+        </h3>
     </div>
+
+        <div class="row">
+            <div class="panel panel-primary filterable">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Trip Name</th>
+                            <th>Details</th>
+                            <th>Departure Date</th>
+                            <th>Return Date</th>
+                            <th>Participants</th>
+                            <th>Participant Cap</th>
+                            <th>Cars</th> {#  anyone have a better name #}
+                            <th>Car Cap</th>
+                            <th>Trip Location</th>
+                        </tr>
+                    </thead>
+                    <tbody class="entries">
+                    {% for TableRow in entries %}
+                    <tr>
+                        <td > <a href={{ url_for('main.TripPage', TripKey = TableRow.id)}}>{{ TableRow.Trip_Name}}</a></td>
+                        <td> {{ TableRow.Details_Short }}</td>
+                        <td> {{ TableRow.Departure_Date }}</td>
+                        <td> {{ TableRow.Return_Date }}</td>
+                        <td> {{ TableRow.Participant_num }}</td>
+                        <td> {{ TableRow.Participant_cap}}</td>
+    {#                    <td>Why would it work?</td>#}
+                        <td> {{ TableRow.Car_Num}}</td>
+                        <td> {{ TableRow.Car_Cap}}</td>
+                        <td> {{ TableRow.Trip_Location}}</td>
+                    </tr>
+                    {% else %}
+                        <li><em>Unbelievable.  No entries here so far</em></li>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <a class="btn" href= {{ url_for('main.add_Trip') }} >Add Trip</a>
+            </div>
+        </div>
+</div>
 </body>
 </html>
