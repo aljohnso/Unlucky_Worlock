@@ -2,20 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Account Information</title>
+    <title>Create Account</title>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </head>
-<h1>
+<body>
 {# Variables:
 Meme
 second meme
 #}
 {#    {% import "bootstrap/wtf.html" as wtf %}#}
 {#    {{ wtf.quick_form(form) }}#}
-    <h1>Edit Account Information</h1>
-    Enter your new account information here.
-    <h1> </h1> {# <-- Is a space. #}
-    <form action= "{{ url_for('main.editAccount') }}" method="post">
+    <h1>Create New Account</h1>
+    <form action= "{{ url_for('main.makeAccount') }}" method="post">
         {#  <form> #}
         {% import "bootstrap/wtf.html" as wtf %}
         {{ wtf.quick_form(form) }}

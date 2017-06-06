@@ -1,4 +1,4 @@
-from Forms.POAForms import MakeTripFormPOA, AddToTripPOA, CreateAccountForm
+from Forms.POAForms import MakeTripFormPOA, AddToTripPOA, CreateAccountForm, ModifyAccountForm
 from flask import  request, redirect, url_for, \
      render_template, flash,Blueprint, session
 from DatabaseConnection.DataBaseSchema import db, \
@@ -105,6 +105,19 @@ def login():
         #if flask.session['Googledata']['id']==Account.query.filter_by(id=flask.session['Googledata']['id']).first().googleNum:
         return redirect(url_for('main.makeAccount'))
 
+@main.route('/logout', methods=['POST', 'GET'])
+@login_required
+def logout():
+    flask.session.pop('Googledata', None)
+    flask.session.pop('credentials', None)
+    return redirect(url_for('main.Main'))
+
+@main.route('/profile', methods=['POST', 'GET'])
+@login_required
+def profile():
+    print(Account.query.filter_by(id=flask.session['Googledata']['id']).first().accessData()['picture'])
+    return render_template("ProfilePage.html", user=Account.query.filter_by(id=flask.session['Googledata']['id']).first())
+
 @main.route('/createAccount', methods=['POST', 'GET'])
 @login_required
 def makeAccount():
@@ -118,7 +131,7 @@ def makeAccount():
             # print(form.data)  # returns a dictionary with keys that are the fields in the table
             if form.validate_on_submit() == False:
                 flash('All fields are required.')
-                return render_template("ModifyAccount.html", form=form)
+                return render_template("NewAccount.html", form=form)
             else:
                 flash('New entry was successfully posted')
                 print(form.data)
@@ -149,12 +162,55 @@ def makeAccount():
                 # db.session.add(temp)
                 # db.session.commit()
                 print(Account.query.all())
-                print(Account.query.all()[0].accessData)
-                return str(Account.query.all())
+                print(Account.query.all()[0].accessData())
+                return redirect(url_for('main.Main'))
+        elif request.method == 'GET':
+            return render_template("NewAccount.html", form=form)
+
+@main.route('/editAccount', methods=['POST', 'GET'])
+@login_required
+def editAccount():
+    print('made it to stage one')
+    if None == Account.query.filter_by(id=flask.session['Googledata']['id']).first():
+        print('took a wrong turn')
+        return redirect(url_for('main.Main'))
+    else:
+        currentData = Account.query.filter_by(id=flask.session['Googledata']['id']).first().accessData()
+        form = ModifyAccountForm(FirstName_Box=currentData['firstName'][:], LastName_Box=currentData['lastName'][:], Email_Box=currentData['email'][:], Age_Box=currentData['age'][:], Height_Box=currentData['height'][:], StudentIDNumber_Box=currentData['studentIDNumber'][:], PhoneNumber_Box=currentData['phoneNumber'][:], CarCapacity_Box=currentData['carCapacity'][:])
+        if request.method == 'POST':
+            # print(form.data)  # returns a dictionary with keys that are the fields in the table
+            if form.validate_on_submit() == False:
+                flash('All fields are required.')
+                return render_template("ModifyAccount.html", form=form)
+            else:
+                flash('Account was successfully modified')
+                print(form.data)
+                userinfo = {
+                    'googleNum': flask.session['Googledata']['id'][:],
+                    'picture': flask.session['Googledata']['picture'][:],
+                    'username': str(form.data['FirstName_Box'][:] + ' ' + form.data['LastName_Box'][:]),
+                    'email': str(form.data['Email_Box'][:]),
+                    'firstName': str(form.data['FirstName_Box'][:]),
+                    'lastName': str(form.data['LastName_Box'][:]),
+                    'age': str(form.data['Age_Box'])[:],
+                    'height': str(form.data['Height_Box'])[:],
+                    'allergies': 'TBD',
+                    'dietRestrictions': 'TBD',
+                    'studentIDNumber': str(form.data['StudentIDNumber_Box'])[:],
+                    'phoneNumber': str(form.data['PhoneNumber_Box'])[:],
+                    'carCapacity': str(form.data['CarCapacity_Box'])[:],
+                }
+                # # unpackedInfo = form.data["FirstName_Box"]
+                #THINGS TO ASK ALASDAIR
+                # Do queries make copies of our users, or return the actual entries? (ask because of modifyAccount function)
+                # Why does it not recognize the existence of Googledata here? How did it work in createAccount?
+                packedInfo = json.dumps(userinfo)
+                Account.query.filter_by(id=flask.session['Googledata']['id']).first().modifyAccount(packedInfo)
+                print(Account.query.all())
+                print(Account.query.all()[0].accessData())
+                return "It worked, I think?" #render_template("main.Main")
         elif request.method == 'GET':
             return render_template("ModifyAccount.html", form=form)
-
-
 
 @main.route('/gCallback')
 def gCallback():
