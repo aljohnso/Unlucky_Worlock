@@ -155,6 +155,7 @@ class Account(db.Model):
     email = db.Column(db.String(120), unique=True)
     firstName = db.Column(db.String(120))
     lastName = db.Column(db.String(120))
+    gender = db.Column(db.String(80))
     age = db.Column(db.String(80))
     # vvv Is this a thing? db.Double? Cuz I honestly don't know.
     height = db.Column(db.Float)
@@ -177,12 +178,13 @@ class Account(db.Model):
         self.email = str(inputData['email'][:]) #email # Not given, surprisingly? Ask Alasdair about this.
         self.firstName = str(inputData['firstName'][:]) # Given
         self.lastName = str(inputData['lastName'][:]) # Given
+        self.gender = str(inputData['gender'][:])
         self.age = int(inputData['age'][:]) #age
         self.height = float(inputData['height'][:]) #height
         self.allergies = str(inputData['allergies'][:]) #allergies
         self.dietRestrictions = str(inputData['dietRestrictions'][:]) #dietRestrictions
         self.studentIDNumber = int(inputData['studentIDNumber'][:]) #studentIDNumber
-        self.phoneNumber = int(inputData['phoneNumber'][:]) #phoneNumber
+        self.phoneNumber = str(self.formatPhoneNumber(inputData['phoneNumber'][:])) #phoneNumber
         self.carCapacity = int(inputData['carCapacity'][:]) #capCapacity
         self.locale = str(inputData['locale'][:])
         # Also given a picture. That's neat. How to access it?
@@ -191,6 +193,18 @@ class Account(db.Model):
         #return '<User %r, ID: >' % self.username
         return '<User ' + self.username + ', ID: ' + self.googleNum + '>'
 
+    def formatPhoneNumber(self, oldNum):
+        newNum = oldNum.replace("(", "")
+        newNum = newNum.replace(")", "")
+        newNum = newNum.replace("-", "")
+        newNum = newNum.replace(" ", "")
+        if len(newNum)==10:
+            print(newNum[0:3] + "-" + newNum[3:6] + "-" + newNum[6:10])
+            return newNum[0:3] + "-" + newNum[3:6] + "-" + newNum[6:10]
+        else:
+            print(oldNum)
+            return oldNum
+
     def modifyAccount(self, rawData):
         data = json.loads(rawData)
         print('Insert a thing here! Produce a spreadsheet already filled with the users information, then have it resubmit to this function.')
@@ -198,12 +212,13 @@ class Account(db.Model):
         self.email = str(data['email'][:])  # email # Not given, surprisingly? Ask Alasdair about this.
         self.firstName = str(data['firstName'][:])  # Given
         self.lastName = str(data['lastName'][:])  # Given
+        self.gender = str(data['gender'][:])
         self.age = int(data['age'][:])  # age
         self.height = float(data['height'][:])  # height
         self.allergies = str(data['allergies'][:])  # allergies
         self.dietRestrictions = str(data['dietRestrictions'][:])  # dietRestrictions
         self.studentIDNumber = int(data['studentIDNumber'][:])  # studentIDNumber
-        self.phoneNumber = int(data['phoneNumber'][:])  # phoneNumber
+        self.phoneNumber = str(self.formatPhoneNumber(data['phoneNumber'][:]))  # phoneNumber
         self.carCapacity = int(data['carCapacity'][:])  # capCapacity
 
     def accessData(self):
@@ -214,6 +229,7 @@ class Account(db.Model):
             'email' : str(self.email)[:],
             'firstName': str(self.firstName)[:],
             'lastName': str(self.lastName)[:],
+            'gender': str(self.gender)[:],
             'age': str(self.age)[:],
             'height': str(self.height)[:],
             'allergies': str(self.allergies)[:],
@@ -221,7 +237,7 @@ class Account(db.Model):
             'studentIDNumber': str(self.studentIDNumber)[:],
             'phoneNumber': str(self.phoneNumber)[:],
             'carCapacity': str(self.carCapacity)[:],
-            'locale': str(self.locale)[:],
+            'locale': str(self.locale)[:]
         }
         return dataDict
 

@@ -16,7 +16,7 @@ main = Blueprint('main', __name__, template_folder='templates')
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if 'credentials' not in session or 'Googledata' not in session:
+        if 'credentials' not in flask.session or 'Googledata' not in flask.session:
             return redirect(url_for('main.login'))
         return f(*args, **kwargs)
     return decorated_function
@@ -26,6 +26,10 @@ def login_required(f):
 def Main():
     masters = Master.query.checkTrip()
     # print(masters[0].Car_Cap)
+    #if 'Googledata' in flask.session:
+    #    flask.session.pop('Googledata', None)
+    #if 'credentials' in flask.session:
+    #    flask.session.pop('credentials', None)
     return render_template("HomePage.html", entries=masters)
 
 
@@ -103,7 +107,10 @@ def login():
         #return rendertemplate(create acoubt.html, form=form)
         #Account.query.filter_by(id=flask.session['Googledata']['id']).first().googleNum
         #if flask.session['Googledata']['id']==Account.query.filter_by(id=flask.session['Googledata']['id']).first().googleNum:
-        return redirect(url_for('main.makeAccount'))
+        if None != Account.query.filter_by(id=flask.session['Googledata']['id']).first():
+            return redirect(url_for('main.Main'))
+        else:
+            return redirect(url_for('main.makeAccount'))
 
 @main.route('/logout', methods=['POST', 'GET'])
 @login_required
@@ -142,6 +149,7 @@ def makeAccount():
                     'email': form.data['Email_Box'][:],
                     'firstName': form.data['FirstName_Box'][:],
                     'lastName': form.data['LastName_Box'][:],
+                    'gender': 'TBD', #form.data['Gender_Box'][:],
                     'age': str(form.data['Age_Box'])[:],
                     'height': str(form.data['Height_Box'])[:],
                     'allergies': 'TBD',
@@ -192,6 +200,7 @@ def editAccount():
                     'email': str(form.data['Email_Box'][:]),
                     'firstName': str(form.data['FirstName_Box'][:]),
                     'lastName': str(form.data['LastName_Box'][:]),
+                    'gender': 'TBD', #form.data['Gender_Box'][:],
                     'age': str(form.data['Age_Box'])[:],
                     'height': str(form.data['Height_Box'])[:],
                     'allergies': 'TBD',
@@ -215,7 +224,7 @@ def editAccount():
 @main.route('/gCallback')
 def gCallback():
     """
-    This handels authentication not quite sure how but it does
+    This handles authentication, not quite sure how but it does.
     :return:
     """
     secret = os.path.join(main.root_path[:-29], 'secret/client_secret.json')#access the secret file

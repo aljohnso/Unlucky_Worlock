@@ -1,20 +1,23 @@
 /**
  * Created by matth_000 on 6/4/2017.
  */
-$(document).ready(function() {
+$(document).ready(function()
+{
     var panels = $('.user-infos');
     var panelsButton = $('.dropdown-user');
     panels.hide();
 
     //Click dropdown
-    panelsButton.click(function() {
+    panelsButton.click(function()
+    {
         //get data-for attribute
         var dataFor = $(this).attr('data-for');
         var idFor = $(dataFor);
 
         //current button
         var currentButton = $(this);
-        idFor.slideToggle(400, function() {
+        idFor.slideToggle(400, function()
+        {
             //Completed slidetoggle
             if(idFor.is(':visible'))
             {
@@ -30,7 +33,8 @@ $(document).ready(function() {
 
     $('[data-toggle="tooltip"]').tooltip();
 
-    $('button').click(function(e) {
+    $('button').click(function(e)
+    {
         e.preventDefault();
         alert("This is a demo.\n :-)");
     });

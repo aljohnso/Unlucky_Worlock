@@ -14,11 +14,10 @@
     <div class="row">
         <h3> Trip List
             <div class='pull-right'>
-                {% if credentials in session %}
-                    <a class="btn btn-primary" href="#" role="button">
+                {% if 'credentials' in session %}
+                    <a class="btn btn-primary" href={{url_for('main.profile')}} role="button">
                     Account Info
                     </a>
-
                 {% else %}
                     <a class="btn btn-primary" href={{url_for('main.login')}} role="button">
                     Login
