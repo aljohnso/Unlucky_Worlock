@@ -117,7 +117,7 @@ class Participants(db.Model):
 class TripModel():
     """
     This class is a work around for the fact we need master id to create the other to parts of the trip
-    It makes me wounder if having trip and master seperate was a good idea but it is forced anyway by particpant
+    It makes me wounder if having trip and master separate was a good idea but it is forced anyway by particpant
 
     NOTE: This will only work if called when the database is in an application context without the proper context
     we should get some wacky error message saying as much
