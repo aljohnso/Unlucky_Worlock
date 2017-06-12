@@ -23,7 +23,6 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-
 @main.route('/', methods=['GET', 'POST'])
 def Main():
     masters = Master.query.checkTrip()
@@ -128,9 +127,10 @@ def profile():
     return render_template("ProfilePage.html", user=Account.query.filter_by(id=flask.session['Googledata']['id']).first())
 
 @main.route('/createAccount', methods=['POST', 'GET'])
-@login_required
 def makeAccount():
     #Account.query.filter_by(id=flask.session['Googledata']['id']).first().googleNum
+    if 'credentials' not in flask.session or 'Googledata' not in flask.session:
+        return redirect(url_for('main.Main'))
     if None != Account.query.filter_by(id=flask.session['Googledata']['id']).first():
         return redirect(url_for('main.Main'))
     else:
