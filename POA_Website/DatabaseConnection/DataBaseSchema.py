@@ -155,7 +155,7 @@ class Account(db.Model):
     email = db.Column(db.String(120), unique=True)
     firstName = db.Column(db.String(120))
     lastName = db.Column(db.String(120))
-    gender = db.Column(db.String(80))
+    #gender = db.Column(db.String(80))
     age = db.Column(db.String(80))
     # vvv Is this a thing? db.Double? Cuz I honestly don't know.
     height = db.Column(db.Float)
@@ -178,7 +178,7 @@ class Account(db.Model):
         self.email = str(inputData['email'][:]) #email # Not given, surprisingly? Ask Alasdair about this.
         self.firstName = str(inputData['firstName'][:]) # Given
         self.lastName = str(inputData['lastName'][:]) # Given
-        self.gender = str(inputData['gender'][:])
+        #self.gender = str(inputData['gender'][:])
         self.age = int(inputData['age'][:]) #age
         self.height = float(inputData['height'][:]) #height
         self.allergies = str(inputData['allergies'][:]) #allergies
@@ -212,7 +212,7 @@ class Account(db.Model):
         self.email = str(data['email'][:])  # email # Not given, surprisingly? Ask Alasdair about this.
         self.firstName = str(data['firstName'][:])  # Given
         self.lastName = str(data['lastName'][:])  # Given
-        self.gender = str(data['gender'][:])
+        #self.gender = str(data['gender'][:])
         self.age = int(data['age'][:])  # age
         self.height = float(data['height'][:])  # height
         self.allergies = str(data['allergies'][:])  # allergies
@@ -229,7 +229,6 @@ class Account(db.Model):
             'email' : str(self.email)[:],
             'firstName': str(self.firstName)[:],
             'lastName': str(self.lastName)[:],
-            'gender': str(self.gender)[:],
             'age': str(self.age)[:],
             'height': str(self.height)[:],
             'allergies': str(self.allergies)[:],

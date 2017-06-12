@@ -18,6 +18,8 @@ def login_required(f):
     def decorated_function(*args, **kwargs):
         if 'credentials' not in flask.session or 'Googledata' not in flask.session:
             return redirect(url_for('main.login'))
+        elif None == Account.query.filter_by(id=flask.session['Googledata']['id']).first():
+            return redirect(url_for('main.login'))
         return f(*args, **kwargs)
     return decorated_function
 
