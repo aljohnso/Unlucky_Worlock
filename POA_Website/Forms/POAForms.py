@@ -3,6 +3,20 @@ from wtforms import StringField, IntegerField, SubmitField, DateField, BooleanFi
 from wtforms.fields.html5 import EmailField
 
 
+class SampleValid(object):
+    def __init__(self, min=-1, max=-1, message=None):
+        self.min = min
+        self.max = max
+        if not message:
+            message = u'Field must be between %i and %i characters long.' % (min, max)
+        self.message = message
+
+    def __call__(self, form, field):
+        l = field.data and len(field.data) or 0
+        if l < self.min or self.max != -1 and l > self.max:
+            raise validators.ValidationError(self.message)
+
+
 class MakeTripFormPOA(FlaskForm):
     # this info should cover all tables master, Trips
     Trip_Name = StringField("Trip Name", [validators.DataRequired("Please name your trip")])
@@ -65,5 +79,5 @@ class ModifyAccountForm(FlaskForm):
     Height_Box = IntegerField("Height (inches)", [validators.DataRequired("Height Required")])
     StudentIDNumber_Box = IntegerField("Student ID #", [validators.DataRequired("Student ID Number Required")])
     PhoneNumber_Box = StringField("Phone Number", [validators.DataRequired("Phone Number Required")])
-    CarCapacity_Box = IntegerField("Car Capacity", [validators.DataRequired("Car Capacity Required")])
+    CarCapacity_Box = StringField("Car Capacity", [validators.DataRequired("Car Capacity Required")])
     submit = SubmitField("Submit New Account Information")
