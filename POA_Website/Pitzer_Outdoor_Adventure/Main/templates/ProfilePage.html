@@ -20,7 +20,8 @@
         <A href={{url_for('main.logout')}} >Logout</A>
           {# Distance these two buttons from each other, so that "Logout" is plastered to the right! #}
        <br>
-    <p class=" text-info">May 05,2014,03:00 pm </p>
+    {# <p class=" text-info">May 05,2014,03:00 pm </p> #}
+    <p class=" text-info">{{ time.strftime('%B') }} {{ time.day }}, {{ time.year }}, {{ time.strftime('%I') }}:{{ time.strftime('%M') }} {{ time.strftime('%p').lower() }}</p>
           {# Make the above time real! #}
       </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >

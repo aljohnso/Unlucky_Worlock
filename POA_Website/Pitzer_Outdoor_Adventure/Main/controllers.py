@@ -9,6 +9,7 @@ from functools import wraps
 import json, flask, httplib2
 import apiclient as google
 from oauth2client import client
+from datetime import datetime
 
 import os
 main = Blueprint('main', __name__, template_folder='templates')
@@ -129,8 +130,12 @@ def logout():
 @main.route('/profile', methods=['POST', 'GET'])
 @login_required
 def profile():
-    print(Account.query.filter_by(id=flask.session['Googledata']['id']).first().accessData()['picture'])
-    return render_template("ProfilePage.html", user=Account.query.filter_by(id=flask.session['Googledata']['id']).first())
+    # print(Account.query.filter_by(id=flask.session['Googledata']['id']).first().accessData()['picture'])
+    tempTime = datetime.today()
+    # print(tempTime.strftime('%B'))
+    # https://docs.python.org/2/library/datetime.html#module-datetime
+    # https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior
+    return render_template("ProfilePage.html", user=Account.query.filter_by(id=flask.session['Googledata']['id']).first(), time=tempTime)
 
 @main.route('/createAccount', methods=['POST', 'GET'])
 def makeAccount():
