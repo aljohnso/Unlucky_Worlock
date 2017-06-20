@@ -68,9 +68,11 @@ def add_Trip():
 
 
 @main.route('/addParticipant/<FormKey>',  methods=['POST','GET'])
+@login_required
 def add_Participant(FormKey):
+    tempUser = Account.query.filter_by(id=flask.session['Googledata']['id']).first()
     tripname = Master.query.filter_by(id=FormKey).all()[0]
-    # Could be made more efficent by only querying for trip name
+    # Could be made more efficient by only querying for trip name
     form = AddToTripPOA()
     if request.method == 'GET':
         return render_template('Add_Particpant.html', form=form, tripname=tripname)
@@ -79,13 +81,17 @@ def add_Participant(FormKey):
             flash('All fields are required.')
             return render_template('Add_Particpant.html', form=form, tripname=tripname)
         else:
-            particpant = Participants(form.data, int(FormKey))
-            db.session.add(particpant)
-            master = Master.query.filter_by(id = int(FormKey)).first()
+            # TODO: Write a function to do all this stuff in the else case that uses the decorated login protector.
+            participant = Participants(tempUser, form.data["Driver"], int(FormKey))
+            db.session.add(participant)
+            master = Master.query.filter_by(id=int(FormKey)).first()
             master.Participant_num += 1
-            if particpant.Driver == 1:
+            if form.data["Driver"]:
                 master.Car_Num += 1
+                master.Participant_cap += tempUser.carCapacity
             db.session.commit()
+            # TODO: If they don't have a car, redirect them to the TripPage without running them through the form asking if they want to be a driver.
+            # TODO: Check to make sure no data is being asked of the user that we can easily get from their profile info.
             flash('New entry was successfully posted')
             return redirect(url_for('main.TripPage', TripKey=str(FormKey)))
 
@@ -249,13 +255,13 @@ def gCallback():
 
 @main.route('/deleteParicipant/<id>')
 def remove_particpant(id):
-    paricipant = Participants.query.filter_by(id=int(id))
-    tripKey = paricipant.all()[0].Master_Key
+    participant = Participants.query.filter_by(id=int(id))
+    tripKey = participant.all()[0].Master_Key
     master = Master.query.filter_by(id=int(tripKey )).first()
     master.Participant_num -= 1
-    if paricipant.first().Driver == 1:
+    if participant.first().Driver == 1:
         master.Car_Num -= 1
-    paricipant.delete()
+    participant.delete()
     db.session.commit()
     return redirect(url_for('main.TripPage', TripKey=tripKey))
 

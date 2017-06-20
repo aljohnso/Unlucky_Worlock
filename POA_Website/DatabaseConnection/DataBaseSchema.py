@@ -95,24 +95,24 @@ class Participants(db.Model):
                                                      ondelete="CASCADE"))
     Master_Relationship = db.relationship("Master", backref=db.backref("Participants", cascade="all,delete"))
     Participant = db.Column(db.String(120))
-    Phone = db.Column(db.Integer)
+    Phone = db.Column(db.String(120))
     Email = db.Column(db.String(120))
-    Driver = db.Column(db.Integer)
+    Driver = db.Column(db.Boolean)
     Car_Capacity = db.Column(db.Integer)
 
-    def __init__(self, form, Masterid):
-        ParticpantDict = ParticipantConstructor(form, Masterid).participant
-        self.Participant = ParticpantDict['Participant']
-        self.Phone = ParticpantDict['Phone']
-        self.Email = ParticpantDict['Email']
-        self.Driver = ParticpantDict['Driver']
-        self.Car_Capacity = ParticpantDict['Car_Capacity']
-        self.Master_Key = ParticpantDict["Master_Key"]
+    def __init__(self, account, driver , masterID):
+        tempData = account.accessData()
+        self.Participant = tempData["username"] #ParticipantDict['Participant']
+        self.Phone = tempData["phoneNumber"] #ParticipantDict['Phone']
+        self.Email = tempData["email"] #ParticipantDict['Email']
+        self.Driver = driver #ParticipantDict['Driver']
+        self.Car_Capacity = tempData["carCapacity"] #ParticipantDict['Car_Capacity']
+        self.Master_Key = masterID
         assert self.Master_Key is not None
-        assert self.Master_Key is Masterid
+        #assert self.Master_Key is masterID
 
     def __repr__(self):
-        return '<Particpant %r>' % self.Participant
+        return '<Participant %r>' % self.Participant
 
 class TripModel():
     """
@@ -129,10 +129,10 @@ class TripModel():
         db.session.refresh(master)
         self.master = master
         self.trip = Trips(form, master.id)
-        self.leader = Participants(form, master.id)
+        # self.leader = Participants(form, master.id)
         assert self.master is not None
         assert self.trip is not None
-        assert self.leader is not None
+        # assert self.leader is not None
 
     def addModel(self):
         """
@@ -141,7 +141,7 @@ class TripModel():
         is called to insure that it is added to the db
         """
         db.session.add(self.trip)
-        db.session.add(self.leader)
+        # db.session.add(self.leader)
         # db.session.add(self.master)  # not sure if this is needed
 
 class Account(db.Model):
