@@ -151,7 +151,6 @@ def makeAccount():
                     'email': form.data['Email_Box'][:],
                     'firstName': form.data['FirstName_Box'][:],
                     'lastName': form.data['LastName_Box'][:],
-                    'gender': 'TBD', #form.data['Gender_Box'][:],
                     'age': str(form.data['Age_Box'])[:],
                     'height': str(form.data['Height_Box'])[:],
                     'allergies': 'TBD',
@@ -202,7 +201,6 @@ def editAccount():
                     'email': str(form.data['Email_Box'][:]),
                     'firstName': str(form.data['FirstName_Box'][:]),
                     'lastName': str(form.data['LastName_Box'][:]),
-                    'gender': 'TBD', #form.data['Gender_Box'][:],
                     'age': str(form.data['Age_Box'])[:],
                     'height': str(form.data['Height_Box'])[:],
                     'allergies': 'TBD',
@@ -217,6 +215,8 @@ def editAccount():
                 # Why does it not recognize the existence of Googledata here? How did it work in createAccount?
                 packedInfo = json.dumps(userinfo)
                 Account.query.filter_by(id=flask.session['Googledata']['id']).first().modifyAccount(packedInfo)
+                db.session.commit()
+                # Fixed! Now account changes are permanent.  =)
                 print(Account.query.all())
                 print(Account.query.all()[0].accessData())
                 return "It worked, I think?" #render_template("main.Main")

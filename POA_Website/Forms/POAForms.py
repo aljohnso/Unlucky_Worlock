@@ -4,7 +4,7 @@ from wtforms.fields.html5 import EmailField
 
 
 class SampleValid(object):
-    def __init__(self, min=-1, max=-1, message=None):
+    def __init__(self, min=3, max=3, message=None):
         self.min = min
         self.max = max
         if not message:
@@ -14,6 +14,47 @@ class SampleValid(object):
     def __call__(self, form, field):
         l = field.data and len(field.data) or 0
         if l < self.min or self.max != -1 and l > self.max:
+            raise validators.ValidationError(self.message)
+
+class CheckDigit(object):
+    def __init__(self, message=None):
+        if not message:
+            message = "Please enter a non-negative integer."
+        self.message = message
+
+    def __call__(self, form, field):
+        if field.data.isdigit() == False:
+            raise validators.ValidationError(self.message)
+        if int(field.data) < 0:
+            # Don't you dare change this to an elif statement, or combine into a single if statement! It will break if you do!
+            raise validators.ValidationError(self.message)
+
+class CheckFloat(object):
+    def __init__(self, message=None):
+        if not message:
+            message = "Please enter a non-negative number in decimal form."
+        self.message = message
+
+    def __call__(self, form, field):
+        cutDots = field.data.replace(".", "")
+        if cutDots.isdigit() == False:
+            raise validators.ValidationError(self.message)
+        if float(field.data) < 0:
+            raise validators.ValidationError(self.message)
+
+class CheckPhoneNumber(object):
+    def __init__(self, message=None):
+        if not message:
+            message = "This phone number cannot be processed."
+        self.message = message
+
+    def __call__(self, form, field):
+        testForNums = field.data[:]
+        testForNums = testForNums.replace("(", "")
+        testForNums = testForNums.replace(")", "")
+        testForNums = testForNums.replace("-", "")
+        testForNums = testForNums.replace(" ", "")
+        if testForNums.isdigit() == False:
             raise validators.ValidationError(self.message)
 
 
@@ -43,7 +84,7 @@ class MakeTripFormPOA(FlaskForm):
     # Weather Forcast will use weather API to get this assuming google maps passes us a location
     submit = SubmitField("Create Trip")
     #TODO: Obviously the participants feilds will not be filled in however make sure that the HTML Reflects this
-    # TODO: Add location validoator
+    # TODO: Add location validator
 
 class AddToTripPOA(FlaskForm):
     # this form will handle all additions to the particpants table
@@ -59,25 +100,24 @@ class CreateAccountForm(FlaskForm):
     FirstName_Box = StringField("First Name", [validators.DataRequired("First Name Required")])
     LastName_Box = StringField("Last Name", [validators.DataRequired("Last Name Required")])
     Email_Box = StringField("Email", [validators.DataRequired("Email Required")])
-    #Gender_Box = StringField("Gender", [validators.DataRequired("Gender Required")])
     Age_Box = IntegerField("Age", [validators.DataRequired("Age Required")])
     Height_Box = IntegerField("Height (inches)", [validators.DataRequired("Height Required")])
     StudentIDNumber_Box = IntegerField("Student ID #", [validators.DataRequired("Student ID Number Required")])
-    PhoneNumber_Box = StringField("Phone Number", [validators.DataRequired("Phone Number Required")])
-    CarCapacity_Box = IntegerField("Car Capacity", [validators.DataRequired("Car Capacity Required")])
+    PhoneNumber_Box = StringField("Phone Number", [validators.DataRequired("Phone Number Required"), CheckPhoneNumber()])
+    CarCapacity_Box = StringField("Car Capacity", [validators.DataRequired("Car Capacity Required"), CheckDigit()])
     submit = SubmitField("Create Account")
     # Is "DecimalField a thing?
     # Bad news! Car capacity cannot be set to zero for some reason!
-    # Is this because IntegerField can only accept positive numbers?
+    # Is this because IntegerField can only accept positive numbers? FIXED
 
 class ModifyAccountForm(FlaskForm):
     FirstName_Box = StringField("First Name", [validators.DataRequired("First Name Required")])
     LastName_Box = StringField("Last Name", [validators.DataRequired("Last Name Required")])
     Email_Box = StringField("Email", [validators.DataRequired("Email Required")])
-    #Gender_Box = StringField("Gender", [validators.DataRequired("Gender Required")])
     Age_Box = IntegerField("Age", [validators.DataRequired("Age Required")])
     Height_Box = IntegerField("Height (inches)", [validators.DataRequired("Height Required")])
     StudentIDNumber_Box = IntegerField("Student ID #", [validators.DataRequired("Student ID Number Required")])
-    PhoneNumber_Box = StringField("Phone Number", [validators.DataRequired("Phone Number Required")])
-    CarCapacity_Box = StringField("Car Capacity", [validators.DataRequired("Car Capacity Required")])
+    PhoneNumber_Box = StringField("Phone Number", [validators.DataRequired("Phone Number Required"), CheckPhoneNumber()])
+    CarCapacity_Box = StringField("Car Capacity", [validators.DataRequired("Car Capacity Required"), CheckDigit()])
     submit = SubmitField("Submit New Account Information")
+    # Things to run over with Alasdair: How does the trip system work, and how can we incorporate user accounts into it?

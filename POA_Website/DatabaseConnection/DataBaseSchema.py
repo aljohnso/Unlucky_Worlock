@@ -158,7 +158,8 @@ class Account(db.Model):
     #gender = db.Column(db.String(80))
     age = db.Column(db.String(80))
     # vvv Is this a thing? db.Double? Cuz I honestly don't know.
-    height = db.Column(db.Float)
+    height = db.Column(db.Integer)
+    #height = db.Column(db.Float)
     # vvv Maybe represent these two (allergies and diet) as lists that you can add new elements to? Is that possible in SQL?
     # ^^^ Should be! Or maybe use a JSon file(?) which is apparently the same thing but for databases?
     allergies = db.Column(db.String(120))
@@ -178,9 +179,8 @@ class Account(db.Model):
         self.email = str(inputData['email'][:]) #email # Not given, surprisingly? Ask Alasdair about this.
         self.firstName = str(inputData['firstName'][:]) # Given
         self.lastName = str(inputData['lastName'][:]) # Given
-        #self.gender = str(inputData['gender'][:])
         self.age = int(inputData['age'][:]) #age
-        self.height = float(inputData['height'][:]) #height
+        self.height = int(inputData['height'][:]) #height
         self.allergies = str(inputData['allergies'][:]) #allergies
         self.dietRestrictions = str(inputData['dietRestrictions'][:]) #dietRestrictions
         self.studentIDNumber = int(inputData['studentIDNumber'][:]) #studentIDNumber
@@ -214,7 +214,7 @@ class Account(db.Model):
         self.lastName = str(data['lastName'][:])  # Given
         #self.gender = str(data['gender'][:])
         self.age = int(data['age'][:])  # age
-        self.height = float(data['height'][:])  # height
+        self.height = int(data['height'][:])  # height
         self.allergies = str(data['allergies'][:])  # allergies
         self.dietRestrictions = str(data['dietRestrictions'][:])  # dietRestrictions
         self.studentIDNumber = int(data['studentIDNumber'][:])  # studentIDNumber
