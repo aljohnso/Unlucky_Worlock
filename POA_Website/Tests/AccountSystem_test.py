@@ -2,7 +2,7 @@ import unittest, os, datetime, json
 from copy import deepcopy
 from flask_testing import TestCase
 from Pitzer_Outdoor_Adventure import app
-from DatabaseConnection.DatabaseQuery import POA_db_query
+from DatabaseConnection.DatabaseQuery import Master_db_query
 from Forms.POAForms import CreateAccountForm, ModifyAccountForm
 from DatabaseConnection.DataBaseSchema import db, Master, Participants, TripModel, Trips, Account, createAccount
 

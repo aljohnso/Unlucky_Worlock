@@ -47,19 +47,23 @@ def TripPage(TripKey):
     print(tripDetails)
     print(meta)
     print(ParticpantInfo)
+    # TODO: Add a button at the top called "Leave Trip" which removes you from this trip if you are on it.
     return render_template("TripPage.html", Tripinfo=tripDetails, TripMeta=meta, ParticpantInfo=ParticpantInfo)
 
 
 @main.route('/addTrip', methods=['POST','GET'])
+@login_required
 def add_Trip():
+    tempUser = Account.query.filter_by(id=flask.session['Googledata']['id']).first()
     form = MakeTripFormPOA()
+    # TODO: Make the above form autofill the car capacity with the user's data.
     if request.method == 'POST':
-        # print(form.data)  # returns a dictonary with keys that are the feilds in the table
+        # print(form.data)  # returns a dictionary with keys that are the fields in the table
         if form.validate() == False:
             flash('All fields are required.')
             return render_template('CreateTrip.html', form=form)
         else:
-            model = TripModel(form.data)
+            model = TripModel(form.data, tempUser)
             model.addModel()  # add trip to db
             db.session.commit()
             flash('New entry was successfully posted')
@@ -74,27 +78,24 @@ def add_Participant(FormKey):
     tempUser = Account.query.filter_by(id=flask.session['Googledata']['id']).first()
     tripname = Master.query.filter_by(id=FormKey).all()[0]
     # Could be made more efficient by only querying for trip name
-    form = AddToTripPOA()
-    if request.method == 'GET':
-        return render_template('Add_Particpant.html', form=form, tripname=tripname)
-    if request.method == 'POST':
-        if form.validate() == False:
-            flash('All fields are required.')
+    if tempUser.carCapacity != 0:
+        form = AddToTripPOA()
+        if request.method == 'GET':
             return render_template('Add_Particpant.html', form=form, tripname=tripname)
-        else:
-            # TODO: Write a function to do all this stuff in the else case that uses the decorated login protector.
-            participant = Participants(tempUser, form.data["Driver"], int(FormKey))
-            db.session.add(participant)
-            master = Master.query.filter_by(id=int(FormKey)).first()
-            master.Participant_num += 1
-            if form.data["Driver"]:
-                master.Car_Num += 1
-                master.Participant_cap += tempUser.carCapacity
-            db.session.commit()
-            # TODO: If they don't have a car, redirect them to the TripPage without running them through the form asking if they want to be a driver.
-            # TODO: Check to make sure no data is being asked of the user that we can easily get from their profile info.
-            flash('New entry was successfully posted')
-            return redirect(url_for('main.TripPage', TripKey=str(FormKey)))
+        if request.method == 'POST':
+            if form.validate() == False:
+                flash('All fields are required.')
+                return render_template('Add_Particpant.html', form=form, tripname=tripname)
+            else:
+                Participants.query.addParticipant(tempUser, form.data["Driver"], int(FormKey))
+                # TODO: Make sure you can only remove yourself from a trip.
+                flash('New entry was successfully posted')
+                return redirect(url_for('main.TripPage', TripKey=str(FormKey)))
+    else:
+        Participants.query.addParticipant(tempUser, False, int(FormKey))
+        flash('New entry was successfully posted')
+        return redirect(url_for('main.TripPage', TripKey=str(FormKey)))
+
 
 @main.route('/login', methods=['POST', 'GET'])
 def login():
@@ -146,7 +147,7 @@ def makeAccount():
         return redirect(url_for('main.Main'))
     else:
         form = CreateAccountForm(FirstName_Box=flask.session['Googledata']["given_name"][:], LastName_Box=flask.session['Googledata']["family_name"][:])
-        #TODO: remove googledata from session if you can not that important
+        #TODO: Remove Googledata from session if you can, but doing this isn't that important.
         if request.method == 'POST':
             # print(form.data)  # returns a dictionary with keys that are the fields in the table
             if form.validate_on_submit() == False:

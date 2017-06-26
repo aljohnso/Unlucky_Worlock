@@ -7,48 +7,48 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </head>
 <body>
- {% for message in form.Trip_Name.errors %}
-     <div>{{ message }}</div>
-      {% endfor %}
-  {% for message in form.Departure_Date.errors %}
-     <div>{{ message }}</div>
-      {% endfor %}
-  {% for message in form.Return_Date.errors %}
-     <div>{{ message }}</div>
-      {% endfor %}
-  {% for message in form.Trip_Location.errors %}
-     <div>{{ message }}</div>
-      {% endfor %}
-  {% for message in form.Details.errors %}
-     <div>{{ message }}</div>
-      {% endfor %}
-  {% for message in form.Coordinator_Name.errors %}
-     <div>{{ message }}</div>
-      {% endfor %}
-  {% for message in form.Coordinator_Email.errors %}
-     <div>{{ message }}</div>
-      {% endfor %}
-  {% for message in form.Coordinator_Phone.errors %}
-     <div>{{ message }}</div>
-      {% endfor %}
-  {% for message in form.GearList.errors %}
-     <div>{{ message }}</div>
-      {% endfor %}
- {% for message in form.Trip_Meeting_Place.errors %}
-     <div>{{ message }}</div>
-      {% endfor %}
-  {% for message in form.Additional_Cost.errors %}
-     <div>{{ message }}</div>
-      {% endfor %}
-  {% for message in form.Car_Cap.errors %}
-     <div>{{ message }}</div>
-      {% endfor %}
-  {% for message in form.Substance_Free.errors %}
-     <div>{{ message }}</div>
-      {% endfor %}
-   {% for message in form.Car_Capacity.errors %}
-     <div>{{ message }}</div>
-      {% endfor %}
+{# {% for message in form.Trip_Name.errors %}#}
+{#     <div>{{ message }}</div>#}
+{#      {% endfor %}#}
+{#  {% for message in form.Departure_Date.errors %}#}
+{#     <div>{{ message }}</div>#}
+{#      {% endfor %}#}
+{#  {% for message in form.Return_Date.errors %}#}
+{#     <div>{{ message }}</div>#}
+{#      {% endfor %}#}
+{#  {% for message in form.Trip_Location.errors %}#}
+{#     <div>{{ message }}</div>#}
+{#      {% endfor %}#}
+{#  {% for message in form.Details.errors %}#}
+{#     <div>{{ message }}</div>#}
+{#      {% endfor %}#}
+{#  {% for message in form.Coordinator_Name.errors %}#}
+{#     <div>{{ message }}</div>#}
+{#      {% endfor %}#}
+{#  {% for message in form.Coordinator_Email.errors %}#}
+{#     <div>{{ message }}</div>#}
+{#      {% endfor %}#}
+{#  {% for message in form.Coordinator_Phone.errors %}#}
+{#     <div>{{ message }}</div>#}
+{#      {% endfor %}#}
+{#  {% for message in form.GearList.errors %}#}
+{#     <div>{{ message }}</div>#}
+{#      {% endfor %}#}
+{# {% for message in form.Trip_Meeting_Place.errors %}#}
+{#     <div>{{ message }}</div>#}
+{#      {% endfor %}#}
+{#  {% for message in form.Additional_Cost.errors %}#}
+{#     <div>{{ message }}</div>#}
+{#      {% endfor %}#}
+{#  {% for message in form.Car_Cap.errors %}#}
+{#     <div>{{ message }}</div>#}
+{#      {% endfor %}#}
+{#  {% for message in form.Substance_Free.errors %}#}
+{#     <div>{{ message }}</div>#}
+{#      {% endfor %}#}
+{#   {% for message in form.Car_Capacity.errors %}#}
+{#     <div>{{ message }}</div>#}
+{#      {% endfor %}#}
 <form action= "{{ url_for('main.add_Trip') }}" method="post">
 {#    {{ form.hidden_tag() }}<br>#}
 {##}

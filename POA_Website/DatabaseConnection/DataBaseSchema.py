@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy, inspect
-from DatabaseConnection.DatabaseQuery import POA_db_query
+from DatabaseConnection.DatabaseQuery import Master_db_query, Participant_manipulation_query
 from DatabaseConnection.DatabaseSubmissionConstructors import MasterConstructor, TripConstructor, ParticipantConstructor
 import json
 db = SQLAlchemy()
@@ -10,7 +10,7 @@ class Master(db.Model):
         Contains Schema for master contains basic trip info
     """
     __tablename__ = "Master"
-    query_class = POA_db_query
+    query_class = Master_db_query
     id = db.Column(db.Integer, primary_key=True, nullable=False, unique=True)
     Trip_Name = db.Column(db.String(100))
     Departure_Date = db.Column(db.Date)
@@ -25,7 +25,7 @@ class Master(db.Model):
     Trip_Participants = db.relationship('Participants', backref = "Master", lazy='dynamic', cascade="all,delete")
     Trip_Trip = db.relationship('Trips', backref="Master", lazy='dynamic', cascade="all,delete")
 
-    def __init__(self, form):
+    def __init__(self, form, user):
         MasterDict = MasterConstructor(form).master
         self.Trip_Name = MasterDict['Trip_Name']
         self.Departure_Date = MasterDict['Departure_Date']
@@ -33,7 +33,7 @@ class Master(db.Model):
         self.Details_Short = MasterDict['Details']  # name changes here
         self.Post_Time = MasterDict['Post_Time']
         self.Participant_num = MasterDict['Participant_num']
-        self.Participant_cap = MasterDict['Car_Capacity']  # name changes here
+        self.Participant_cap = user.carCapacity  # name changes here
         self.Trip_Location = MasterDict['Trip_Location']
         self.Car_Num = MasterDict['Car_Num']
         self.Car_Cap = MasterDict['Car_Cap']
@@ -48,7 +48,7 @@ class Trips(db.Model):
         Schema for the trips table contains detailed info for trips
     """
     __tablename__ = "Trips"
-    query_class = POA_db_query
+    query_class = Master_db_query
     id = db.Column(db.Integer, primary_key=True)
     Master_Key = db.Column(db.Integer, db.ForeignKey("Master.id",
                                                      ondelete="CASCADE"))
@@ -66,12 +66,13 @@ class Trips(db.Model):
     Substance_Free = db.Column(db.Integer)
     Weather_Forecast = db.Column(db.String(30000))#Def not an optimal way of doint this
 
-    def __init__(self, form, Masterid):
+    def __init__(self, form, Masterid, user):
         TripDict = TripConstructor(form, Masterid).trip
+        tempData = user.accessData()
         self.Details = TripDict['Details']
-        self.Coordinator_Name = TripDict['Coordinator_Name']
-        self.Coordinator_Email = TripDict['Coordinator_Email']
-        self.Coordinator_Phone = TripDict['Coordinator_Phone']
+        self.Coordinator_Name = tempData["username"]
+        self.Coordinator_Email = tempData["email"]
+        self.Coordinator_Phone = tempData["phoneNumber"]
         self.Gear_List = TripDict['GearList']
         self.Trip_Meeting_Place = TripDict['Trip_Meeting_Place']
         self.Additional_Costs = TripDict['Additional_Cost']#Name changes
@@ -89,10 +90,9 @@ class Trips(db.Model):
 
 class Participants(db.Model):
     __tablename__ = "Participants"
-    query_class = POA_db_query
+    query_class = Participant_manipulation_query
     id = db.Column(db.Integer, primary_key=True)
-    Master_Key = db.Column(db.Integer, db.ForeignKey("Master.id",
-                                                     ondelete="CASCADE"))
+    Master_Key = db.Column(db.Integer, db.ForeignKey("Master.id", ondelete="CASCADE"))
     Master_Relationship = db.relationship("Master", backref=db.backref("Participants", cascade="all,delete"))
     Participant = db.Column(db.String(120))
     Phone = db.Column(db.String(120))
@@ -122,14 +122,14 @@ class TripModel():
     NOTE: This will only work if called when the database is in an application context without the proper context
     we should get some wacky error message saying as much
     """
-    def __init__(self, form):
-        master = Master(form)
+    def __init__(self, formData, user):
+        master = Master(formData, user)
         db.session.add(master)
         db.session.flush()
         db.session.refresh(master)
         self.master = master
-        self.trip = Trips(form, master.id)
-        # self.leader = Participants(form, master.id)
+        self.trip = Trips(formData, master.id, user)
+        self.leader = Participants(user, formData["Driver"], master.id)
         assert self.master is not None
         assert self.trip is not None
         # assert self.leader is not None
@@ -141,7 +141,7 @@ class TripModel():
         is called to insure that it is added to the db
         """
         db.session.add(self.trip)
-        # db.session.add(self.leader)
+        db.session.add(self.leader)
         # db.session.add(self.master)  # not sure if this is needed
 
 class Account(db.Model):
@@ -168,7 +168,7 @@ class Account(db.Model):
     phoneNumber = db.Column(db.Integer)
     carCapacity = db.Column(db.Integer)
     locale = db.Column(db.String(80))
-    # How to structure the profile picture? What data type, and how do I use it?
+    # How to structure the h picture? What data type, and how do I use it?
     # In total, there are 11 variables so far per account.
 
     def __init__(self, inputData):

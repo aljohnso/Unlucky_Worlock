@@ -4,7 +4,7 @@ from copy import deepcopy
 from flask_testing import TestCase
 from Pitzer_Outdoor_Adventure import app
 from DatabaseConnection.DataBaseSchema import db, Master, Participants, Trips, TripModel
-from DatabaseConnection.DatabaseQuery import POA_db_query
+from DatabaseConnection.DatabaseQuery import Master_db_query
 
 Inputs = {'testParticipant_AJ':{'Participant': "alasdair Johnson",
                       'Email': 'aljohnso@students.pitzer.edu', 'Phone':9193975206, 'Driver': 1, 'Car_Capacity': 5},

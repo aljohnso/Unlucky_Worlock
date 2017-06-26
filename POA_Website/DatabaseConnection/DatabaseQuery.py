@@ -3,7 +3,7 @@ import datetime
 from DatabaseConnection import DataBaseSchema as Schema
 from flask_sqlalchemy import BaseQuery
 
-class POA_db_query(BaseQuery):
+class Master_db_query(BaseQuery):
 
     def checkTrip(self, server_time = datetime.datetime.now()):
             """
@@ -18,8 +18,22 @@ class POA_db_query(BaseQuery):
 
             return Schema.Master.query.all()
 
-
-
+class Participant_manipulation_query(BaseQuery):
+    def addParticipant(self, tempUser, isDriver, masterID):
+        """
+        stuff
+        """
+        # TODO: Write a function to do all this stuff in the else case that uses the decorated login protector.
+        participant = Schema.Participants(tempUser, isDriver, masterID)
+        Schema.db.session.add(participant)
+        master = Schema.Master.query.filter_by(id=masterID).first()
+        master.Participant_num += 1
+        if isDriver:
+            master.Car_Num += 1
+            master.Participant_cap += tempUser.carCapacity
+        Schema.db.session.commit()
+        # TODO: If they don't have a car, redirect them to the TripPage without running them through the form asking if they want to be a driver.
+        # TODO: Check to make sure no data is being asked of the user that we can easily get from their profile info.
 
 
 
