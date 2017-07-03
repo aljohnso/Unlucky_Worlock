@@ -21,7 +21,7 @@
 {% if tripname.Car_Num == tripname.Car_Cap %}
     <h3>Trip Full :(</h3>
 {% elif tripname.Participant_Num < tripname.Participant_Cap or tripname.Participant_Num == 0 %}
-    <form action= "{{ url_for('main.add_Participant', FormKey=tripname.id) }}" method="post">
+    <form action= "{{ url_for('main.addParticipant', FormKey=tripname.id) }}" method="post">
 {#           {{ form.hidden_tag() }}<br>#}
 {#        {{ form.Participant.label }}<br>#}
 {#        {{ form.Participant}}#}
@@ -38,7 +38,7 @@
 {% elif  tripname.Car_Num < tripname.Car_Cap and tripname.Participant_Num >= tripname.Participant_Cap%}
     <h3>Must be a driver to add</h3>
 
-<form action= "{{ url_for('main.add_Participant', FormKey= tripname.id) }}" method="post">
+<form action= "{{ url_for('main.addParticipant', FormKey= tripname.id) }}" method="post">
 {#           {{ form.hidden_tag() }}<br>#}
 {#        {{ form.Participant.label }}<br>#}
 {#        {{ form.Participant}}#}

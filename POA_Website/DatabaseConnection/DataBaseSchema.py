@@ -7,7 +7,7 @@ db = SQLAlchemy()
 
 class Master(db.Model):
     """
-        Contains Schema for master contains basic trip info
+    Contains Schema for master contains basic trip info
     """
     __tablename__ = "Master"
     query_class = Master_db_query
@@ -45,13 +45,12 @@ class Master(db.Model):
 
 class Trips(db.Model):
     """
-        Schema for the trips table contains detailed info for trips
+    Schema for the trips table contains detailed info for trips
     """
     __tablename__ = "Trips"
     query_class = Master_db_query
     id = db.Column(db.Integer, primary_key=True)
-    Master_Key = db.Column(db.Integer, db.ForeignKey("Master.id",
-                                                     ondelete="CASCADE"))
+    Master_Key = db.Column(db.Integer, db.ForeignKey("Master.id", ondelete="CASCADE"))
     Master_Relationship = db.relationship("Master", backref=db.backref("Trips", cascade="all,delete"))
 
     Details = db.Column(db.String(3000))
@@ -64,7 +63,7 @@ class Trips(db.Model):
     Total_Cost = db.Column(db.Integer)
     Cost_BreakDown = db.Column(db.String(3000))
     Substance_Free = db.Column(db.Integer)
-    Weather_Forecast = db.Column(db.String(30000))#Def not an optimal way of doint this
+    Weather_Forecast = db.Column(db.String(30000)) # Definitely not an optimal way of doing this.
 
     def __init__(self, form, Masterid, user):
         TripDict = TripConstructor(form, Masterid).trip
@@ -100,13 +99,13 @@ class Participants(db.Model):
     Driver = db.Column(db.Boolean)
     Car_Capacity = db.Column(db.Integer)
 
-    def __init__(self, account, driver , masterID):
+    def __init__(self, account, driver, carSeats, masterID):
         tempData = account.accessData()
         self.Participant = tempData["username"] #ParticipantDict['Participant']
         self.Phone = tempData["phoneNumber"] #ParticipantDict['Phone']
         self.Email = tempData["email"] #ParticipantDict['Email']
         self.Driver = driver #ParticipantDict['Driver']
-        self.Car_Capacity = tempData["carCapacity"] #ParticipantDict['Car_Capacity']
+        self.Car_Capacity = carSeats #ParticipantDict['Car_Capacity']
         self.Master_Key = masterID
         assert self.Master_Key is not None
         #assert self.Master_Key is masterID
@@ -117,7 +116,7 @@ class Participants(db.Model):
 class TripModel():
     """
     This class is a work around for the fact we need master id to create the other to parts of the trip
-    It makes me wounder if having trip and master separate was a good idea but it is forced anyway by particpant
+    It makes me wounder if having trip and master separate was a good idea but it is forced anyway by participant
 
     NOTE: This will only work if called when the database is in an application context without the proper context
     we should get some wacky error message saying as much
@@ -129,7 +128,7 @@ class TripModel():
         db.session.refresh(master)
         self.master = master
         self.trip = Trips(formData, master.id, user)
-        self.leader = Participants(user, formData["Driver"], master.id)
+        self.leader = Participants(user, formData["Driver"], formData["Car_Capacity"], master.id)
         assert self.master is not None
         assert self.trip is not None
         # assert self.leader is not None

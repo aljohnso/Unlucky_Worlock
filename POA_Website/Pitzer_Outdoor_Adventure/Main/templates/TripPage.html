@@ -27,8 +27,10 @@
                 });
             })
         })
-		$(function() {
-			$(".meterbar > span").each(function() {
+		$(function()
+        {
+			$(".meterbar > span").each(function()
+            {
 				$(this)
 					.data("origWidth", $(this).width())
 					.width(0)
@@ -54,7 +56,7 @@
         .meterbar
         {
             height: 30px;  /* Can be anything. */
-            width: 120px; /* Can also be anything. */
+            width: 120px; /* Can also be anything, but will likely be overridden */
             position: relative;
             background: #555;
             -moz-border-radius: 25px;
@@ -101,14 +103,14 @@
 <div class="modal fade message-popup" id="addParticipantModal" tabindex="-1" role="dialog" aria-labelledby="user1Message">
     <div class="modal-dialog" role="document">
         <div class="modal-content" id="message-model-content">
-            {# memes #}
+            {# code gets inserted here #}
         </div>
     </div>
 </div>
 
 <div class="container">
 <div class="col-md-2  toppad  pull-right col-md-offset-3 ">
-    <A href={{url_for('main.Main')}} >Return to trips page</A>
+    <A href={{url_for('main.mainPage')}} >Return to trips page</A>
 </div>
 <h2 align="center">{{TripMeta.Trip_Name}}</h2>
 <br>
@@ -151,7 +153,7 @@
     {# "Details" is big and looks like a break on the page. NOT RELEVANT ANYMORE #}
         {{ TripMeta.Participant_Num }}/{{ TripMeta.Participant_Cap }} participants on this trip
         <div class="meterbar people" style="{{ "width: " + "160" + "px;" }}">
-            <span style="{{ "width: " + participantRatio + "%;" }}"><span></span></span>
+            <span style="{{ "width: " + participantRatio + "%;" }}"></span>
         </div>
         {{ TripMeta.Car_Num }}/{{ TripMeta.Car_Cap }} cars on this trip
         <div class="meterbar cars" style="{{ "width: " + "160" + "px;" }}">
@@ -187,7 +189,7 @@
                     <td>No</td>
                     <td>N/A</td>
                     {% endif %}
-                    <td><a class="btn btn-danger" href={{ url_for('main.remove_particpant', id= TableRow.id ) }} role="button">X</a></td>
+                    <td><a class="btn btn-danger" href={{ url_for('main.removeParticipant', theID=TableRow.id) }} role="button">X</a></td>
                 </tr>
                 {% endfor %}
                 </tbody>
@@ -198,7 +200,7 @@
 </body>
 </html>
 
-{#    <a class="btn" href= {{ url_for('main.add_Participant', FormKey = TripMeta.id ) }} >Add to Trip</a>#}
+{#    <a class="btn" href= {{ url_for('main.addParticipant', FormKey = TripMeta.id ) }} >Add to Trip</a>#}
 {#<br>#}
 {#<table cellpadding="0" cellspacing="0" border="1" align="left">#}
 {#<tr>#}
