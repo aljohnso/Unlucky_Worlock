@@ -47,18 +47,22 @@ def TripPage(TripKey):
     #print(tripDetails)
     #print(meta)
     #print(ParticpantInfo)
-    if int(round(meta.Participant_cap))==0:
+    if int(round(meta.Participant_Cap))==0:
         participantRatio = "100"
     else:
-        participantRatio = str(round(100 * float(meta.Participant_num)/float(meta.Participant_cap)))
+        participantRatio = str(round(100 * float(meta.Participant_Num)/float(meta.Participant_Cap)))
     if int(round(meta.Car_Cap)) == 0:
         carRatio = "100"
     else:
         carRatio = str(round(100 * float(meta.Car_Num)/float(meta.Car_Cap)))
     if int(participantRatio) < 0:
         participantRatio = "0"
+    elif int(participantRatio) > 100:
+        participantRatio = "100"
     if int(carRatio) < 0:
         carRatio = "0"
+    elif int(carRatio) > 100:
+        carRatio = "100"
     # TODO: Add a button at the top called "Leave Trip" which removes you from this trip if you are on it.
     # ^^^ Wait! Do we want the coordinator to be able to boot people from trips? Shouldn't they retain the original menu format?
     return render_template("TripPage.html", Tripinfo=tripDetails, TripMeta=meta, ParticipantInfo=ParticipantInfo, participantRatio=participantRatio, carRatio=carRatio)
@@ -87,30 +91,45 @@ def add_Trip():
 
 @main.route('/addParticipant/<FormKey>',  methods=['POST','GET'])
 @login_required
-def add_Participant(FormKey):
+def addParticipant(FormKey):
     tempUser = Account.query.filter_by(id=flask.session['Googledata']['id']).first()
-    tripname = Master.query.filter_by(id=FormKey).all()[0]
+    tripInfo = Master.query.filter_by(id=FormKey).all()[0]
     # Could be made more efficient by only querying for trip name.
-    if tempUser.carCapacity != 0:
-        form = AddToTripPOA()
-        if request.method == 'GET':
-            return render_template('Add_Particpant.html', form=form, tripname=tripname)
-        if request.method == 'POST':
-            if form.validate() == False:
-                flash('All fields are required.')
-                return render_template('Add_Particpant.html', form=form, tripname=tripname)
-            else:
-                Participants.query.addParticipant(tempUser, form.data["Driver"], int(FormKey))
-                # TODO: Make sure you can only remove yourself from a trip.
-                # TODO: Should you be able to add yourself multiple times to a trip?
-                # ^^^ Wait! Do we want the coordinator to be able to boot people from trips? Shouldn't they retain the original menu format?
-                flash('New entry was successfully posted')
-                return redirect(url_for('main.TripPage', TripKey=str(FormKey)))
-    else:
-        Participants.query.addParticipant(tempUser, False, int(FormKey))
-        flash('New entry was successfully posted')
-        return redirect(url_for('main.TripPage', TripKey=str(FormKey)))
+    # if tempUser.carCapacity != 0:
+    form = AddToTripPOA(Car_Capacity=str(tempUser.carCapacity))
+    if request.method == 'GET':
+        return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo)
+    if request.method == 'POST':
+        if form.validate() == False:
+            flash('All fields are required.')
+            return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo)
+        else:
+            Participants.query.addParticipant(tempUser, form.data["Driver"], int(FormKey))
+            # TODO: Make sure you can only remove yourself from a trip.
+            # TODO: Should you be able to add yourself multiple times to a trip?
+            # ^^^ Wait! Do we want the coordinator to be able to boot people from trips? Shouldn't they retain the original menu format?
+            flash('New entry was successfully posted')
+            return redirect(url_for('main.TripPage', TripKey=str(FormKey)))
+    # else:
+    # Participants.query.addParticipant(tempUser, False, int(FormKey))
+    # flash('New entry was successfully posted')
+    # return redirect(url_for('main.TripPage', TripKey=str(FormKey)))
 
+@main.route('/checkAddParticipant/<FormKey>',  methods=['POST','GET'])
+@login_required
+def checkAddParticipant(FormKey):
+    tempTrip = Master.query.filter_by(id=FormKey).all()[0]
+    tempUser = Account.query.filter_by(id=flask.session['Googledata']['id']).first()
+    if tempTrip.Participant_Cap < tempTrip.Participant_Num + 1 and tempTrip.Car_Cap < tempTrip.Car_Num + 1:
+        # You cannot join the trip, no buts about it.
+        # FLASH A THING ON THE SCREEN
+        return redirect(url_for("main.addParticipant", FormKey=str(FormKey)))
+    elif tempTrip.Participant_Cap + tempUser.carCapacity >= tempTrip.Participant_Num + 1 and tempTrip.Participant_Cap < tempTrip.Participant_Num + 1:
+        # You are forced to be a driver.
+        return redirect(url_for("main.addParticipant", FormKey=str(FormKey)))
+    else:
+        # You can join, no problem!
+        return redirect(url_for("main.addParticipant", FormKey=str(FormKey)))
 
 @main.route('/login', methods=['POST', 'GET'])
 def login():

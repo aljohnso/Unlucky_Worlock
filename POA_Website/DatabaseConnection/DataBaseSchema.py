@@ -17,8 +17,8 @@ class Master(db.Model):
     Return_Date = db.Column(db.Date)
     Details_Short = db.Column(db.String(100))
     Post_Time = db.Column(db.Date)
-    Participant_num = db.Column(db.Integer)
-    Participant_cap = db.Column(db.Integer)
+    Participant_Num = db.Column(db.Integer)
+    Participant_Cap = db.Column(db.Integer)
     Car_Num = db.Column(db.Integer)
     Car_Cap = db.Column(db.Integer)
     Trip_Location = db.Column(db.String(100))
@@ -32,8 +32,8 @@ class Master(db.Model):
         self.Return_Date = MasterDict['Return_Date']
         self.Details_Short = MasterDict['Details']  # name changes here
         self.Post_Time = MasterDict['Post_Time']
-        self.Participant_num = MasterDict['Participant_num']
-        self.Participant_cap = user.carCapacity  # name changes here
+        self.Participant_Num = MasterDict['Participant_num']
+        self.Participant_Cap = user.carCapacity  # name changes here
         self.Trip_Location = MasterDict['Trip_Location']
         self.Car_Num = MasterDict['Car_Num']
         self.Car_Cap = MasterDict['Car_Cap']

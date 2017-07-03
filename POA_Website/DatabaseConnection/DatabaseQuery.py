@@ -26,11 +26,15 @@ class Participant_manipulation_query(BaseQuery):
         # TODO: Write a function to do all this stuff in the else case that uses the decorated login protector.
         participant = Schema.Participants(tempUser, isDriver, masterID)
         Schema.db.session.add(participant)
+        Schema.db.session.commit()
         master = Schema.Master.query.filter_by(id=masterID).first()
-        master.Participant_num += 1
-        if isDriver:
-            master.Car_Num += 1
-            master.Participant_cap += tempUser.carCapacity
+        master.Participant_num = len(Schema.Participants.query.filter_by(Master_Key=masterID).all())
+        driverList = Schema.Participants.query.filter_by(Master_Key=masterID, Driver=True).all()
+        master.Car_Num = len(driverList)
+        sumCapacity = 0
+        for people in driverList:
+            sumCapacity += people.Car_Capacity
+        master.Participant_Cap = sumCapacity
         Schema.db.session.commit()
         # TODO: If they don't have a car, redirect them to the TripPage without running them through the form asking if they want to be a driver.
         # TODO: Check to make sure no data is being asked of the user that we can easily get from their profile info.

@@ -92,12 +92,12 @@ class MakeTripFormPOA(FlaskForm):
     # TODO: Add location validator
 
 class AddToTripPOA(FlaskForm):
-    # this form will handle all additions to the particpants table
+    # this form will handle all additions to the participants table
     # Participant = StringField("Name", [validators.DataRequired("We need to know who you are please fill in your name brah")])
     # Phone = IntegerField("Phone Number", [validators.DataRequired("So we can find you please fill in your phone number")])
     # Email = EmailField('Email address', [validators.DataRequired(), validators.Email()])
     Driver = BooleanField("Driver")
-    # Car_Capacity = StringField("Car Capacity", [validators.DataRequired("Please put car capacity if you aren't driving for this trip put 0")])
+    Car_Capacity = StringField("Car Capacity", [validators.DataRequired("Please put car capacity if you aren't driving for this trip put 0"), CheckDigit()])
     submit = SubmitField("Add to Trip")
 
 class CreateAccountForm(FlaskForm):

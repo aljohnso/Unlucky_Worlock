@@ -12,6 +12,43 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     {# Below is the user-made css #}
     <link rel="stylesheet" type="text/css" href="/static/FormatTrip.css">
+    <script>
+        $(document).ready(function ()
+        {
+            $("#addParticipant").click(function ()
+            {
+                console.log("clicked");
+                $.get('/addParticipant/' + {{ TripMeta.id }})
+                .done(function(data)
+                {
+                    console.log(data);
+                    $('#message-model-content').html(data);
+                    $("#addParticipantModal").modal("show");
+                });
+            })
+        })
+		$(function() {
+			$(".meterbar > span").each(function() {
+				$(this)
+					.data("origWidth", $(this).width())
+					.width(0)
+					.animate({
+						width: $(this).data("origWidth")
+					}, 1200);
+			});
+		});
+{#        function getModal()#}
+{#        {#}
+{#            console.log("clicked");#}
+{#            $.get('/addParticipant/' + {{ TripMeta.id }})#}
+{#            .done(function(data)#}
+{#            {#}
+{#                console.log(data);#}
+{#                $('#message-model-content').html(data);#}
+{#                $("#addParticipantModal").modal("show");#}
+{#            });#}
+{#        }#}
+    </script>
 {#  #}
     <style>
         .meterbar
@@ -52,13 +89,23 @@
           background-color: #f1a165;
           background-image: linear-gradient(to bottom, #f1a165, #f36d0a);
         }
-        @keyframes expandWidth {
+        @keyframes expandWidth
+        {
            0% { width: 0; }
            100% { width: auto; }
         }
     </style>
 </head>
 <body>
+
+<div class="modal fade message-popup" id="addParticipantModal" tabindex="-1" role="dialog" aria-labelledby="user1Message">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="message-model-content">
+            {# memes #}
+        </div>
+    </div>
+</div>
+
 <div class="container">
 <div class="col-md-2  toppad  pull-right col-md-offset-3 ">
     <A href={{url_for('main.Main')}} >Return to trips page</A>
@@ -102,9 +149,9 @@
     </div>
     <div style="float: left; width: 300px; padding-left: 100px;">
     {# "Details" is big and looks like a break on the page. NOT RELEVANT ANYMORE #}
-        {{ TripMeta.Participant_num }}/{{ TripMeta.Participant_cap }} participants on this trip
+        {{ TripMeta.Participant_Num }}/{{ TripMeta.Participant_Cap }} participants on this trip
         <div class="meterbar people" style="{{ "width: " + "160" + "px;" }}">
-            <span style="{{ "width: " + participantRatio + "%;" }}"></span>
+            <span style="{{ "width: " + participantRatio + "%;" }}"><span></span></span>
         </div>
         {{ TripMeta.Car_Num }}/{{ TripMeta.Car_Cap }} cars on this trip
         <div class="meterbar cars" style="{{ "width: " + "160" + "px;" }}">
@@ -116,7 +163,7 @@
 <div class="container">
     <h3>Participants
         <div style="float:right;">
-            <a class="btn btn-success" href= {{ url_for('main.add_Participant', FormKey = TripMeta.id ) }} >Join Trip</a>
+            <a class="btn btn-success" id="addParticipant">Join Trip</a>
         </div>
     </h3>
     <div class="row">
