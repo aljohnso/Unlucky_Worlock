@@ -1,20 +1,20 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SubmitField, DateField, BooleanField,validators, DecimalField
+from wtforms import StringField, IntegerField, SubmitField, DateField, BooleanField, SelectField, validators, DecimalField
 from wtforms.fields.html5 import EmailField
 
 
-class SampleValid(object):
-    def __init__(self, min=3, max=3, message=None):
-        self.min = min
-        self.max = max
-        if not message:
-            message = u'Field must be between %i and %i characters long.' % (min, max)
-        self.message = message
-
-    def __call__(self, form, field):
-        l = field.data and len(field.data) or 0
-        if l < self.min or self.max != -1 and l > self.max:
-            raise validators.ValidationError(self.message)
+# class SampleValid(object):
+#     def __init__(self, min=3, max=3, message=None):
+#         self.min = min
+#         self.max = max
+#         if not message:
+#             message = u'Field must be between %i and %i characters long.' % (min, max)
+#         self.message = message
+#
+#     def __call__(self, form, field):
+#         l = field.data and len(field.data) or 0
+#         if l < self.min or self.max != -1 and l > self.max:
+#             raise validators.ValidationError(self.message)
 
 class CheckDigit(object):
     def __init__(self, message=None):
@@ -59,18 +59,21 @@ class CheckPhoneNumber(object):
 
 
 class MakeTripFormPOA(FlaskForm):
+    # Ideally, you'd be able to display whether dates are valid without refreshing the page.
     # COMMENTED OUT: COORDINATOR NAME, COORDINATOR EMAIL, COORDINATOR PHONE, CAR CAPACITY
     # this info should cover all tables master, Trips
+    # Test_Meme = SelectField("Test Select Field", [validators.DataRequired("Didn't work?")], choices=[("hi", "meme")])
     Trip_Name = StringField("Trip Name", [validators.DataRequired("Please name your trip")])
+    # vvv REFORMAT THESE TWO THEY'RE REALLY BAD!!!
     Departure_Date = DateField("Departure Date", [validators.DataRequired("Please Enter Departure Date Fromat YYYY-MM-DD")])
     Return_Date = DateField("Return Date", [validators.DataRequired("Please Enter Return Date Fromat YYYY-MM-DD")])
     # Deatails Short this will be an indexed version of trip details
-    # Post time will be automaticly created with python DateTime Extention
+    # Post time will be automatically created with python DateTime Extension
     # Participant Num will be set to 1 when trip is created and then will be added to as the particpants table is updated
-    # Particpant cap will be set by the car capacity feild and updated as people add to the trip
+    # Particpant cap will be set by the car capacity field and updated as people add to the trip
     Trip_Location = StringField("Trip Location", [validators.DataRequired("Please enter your trips location")])
-    Trip_State =StringField("Trip State", [validators.DataRequired("Please enter the state your trip will take place in")])
-    Details = StringField("Trip Details", [validators.DataRequired("Please enter a trip discription")])
+    Trip_State =StringField("Trip State", [validators.DataRequired("Please enter the state in which your trip will take place")])
+    Details = StringField("Trip Details", [validators.DataRequired("Please enter a trip description")])
     #Coordinator_Name = StringField("Coordinator Name", [validators.DataRequired("please enter your name")])
     #Coordinator_Email = StringField("Coordinator Email", [validators.DataRequired("Please enter your email address."), validators.Email("Please enter your email address.")])
     #Coordinator_Phone = IntegerField("Coordinator Phone", [validators.DataRequired("Please enter your phone number as 7 Integers no other charecters")])
@@ -85,7 +88,7 @@ class MakeTripFormPOA(FlaskForm):
     Driver = BooleanField("Driver")
     # Weather Forcast will use weather API to get this assuming google maps passes us a location
     submit = SubmitField("Create Trip")
-    #TODO: Obviously the participants feilds will not be filled in however make sure that the HTML Reflects this
+    #TODO: Obviously the participants fields will not be filled in however make sure that the HTML Reflects this
     # TODO: Add location validator
 
 class AddToTripPOA(FlaskForm):

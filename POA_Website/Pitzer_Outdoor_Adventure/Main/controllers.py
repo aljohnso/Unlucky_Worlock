@@ -1,6 +1,6 @@
 from Forms.POAForms import MakeTripFormPOA, AddToTripPOA, CreateAccountForm, ModifyAccountForm
 from flask import  request, redirect, url_for, \
-     render_template, flash,Blueprint, session
+     render_template, flash, Blueprint, session
 from DatabaseConnection.DataBaseSchema import db, \
     Master, Participants, TripModel, Trips, Account, createAccount
 #from Tests.protyping.UserAccounts import db, Account, databaseName, currentPath, createAccount
@@ -41,14 +41,27 @@ def TripPage(TripKey):
     :param TripKey: The name of the trip
     :return: renders template of the selected trip with detailed information
     """
-    meta = Master.query.filter_by(id=TripKey).first()  # returns a 1 element list lets get the object from that
+    meta = Master.query.filter_by(id=TripKey).first()  # Returns a 1 element list lets get the object from that
     tripDetails = Trips.query.filter_by(Master_Key=TripKey).first()
-    ParticpantInfo = Participants.query.filter_by(Master_Key=TripKey).all()
-    print(tripDetails)
-    print(meta)
-    print(ParticpantInfo)
+    ParticipantInfo = Participants.query.filter_by(Master_Key=TripKey).all()
+    #print(tripDetails)
+    #print(meta)
+    #print(ParticpantInfo)
+    if int(round(meta.Participant_cap))==0:
+        participantRatio = "100"
+    else:
+        participantRatio = str(round(100 * float(meta.Participant_num)/float(meta.Participant_cap)))
+    if int(round(meta.Car_Cap)) == 0:
+        carRatio = "100"
+    else:
+        carRatio = str(round(100 * float(meta.Car_Num)/float(meta.Car_Cap)))
+    if int(participantRatio) < 0:
+        participantRatio = "0"
+    if int(carRatio) < 0:
+        carRatio = "0"
     # TODO: Add a button at the top called "Leave Trip" which removes you from this trip if you are on it.
-    return render_template("TripPage.html", Tripinfo=tripDetails, TripMeta=meta, ParticpantInfo=ParticpantInfo)
+    # ^^^ Wait! Do we want the coordinator to be able to boot people from trips? Shouldn't they retain the original menu format?
+    return render_template("TripPage.html", Tripinfo=tripDetails, TripMeta=meta, ParticipantInfo=ParticipantInfo, participantRatio=participantRatio, carRatio=carRatio)
 
 
 @main.route('/addTrip', methods=['POST','GET'])
@@ -56,18 +69,18 @@ def TripPage(TripKey):
 def add_Trip():
     tempUser = Account.query.filter_by(id=flask.session['Googledata']['id']).first()
     form = MakeTripFormPOA()
-    # TODO: Make the above form autofill the car capacity with the user's data.
+    # TODO: Make the above form autofill the car capacity with the user's data. WAIT, WHAT DOES THIS MEAN? THAT'S NEVER REQUESTED IN THE FORM!(?)
     if request.method == 'POST':
-        # print(form.data)  # returns a dictionary with keys that are the fields in the table
+        # print(form.data)  # Returns a dictionary with keys that are the fields in the table.
         if form.validate() == False:
             flash('All fields are required.')
             return render_template('CreateTrip.html', form=form)
         else:
             model = TripModel(form.data, tempUser)
-            model.addModel()  # add trip to db
+            model.addModel() # add trip to db
             db.session.commit()
             flash('New entry was successfully posted')
-            return redirect(url_for('main.Main'))  # Im going to be honest this naming schema is terible
+            return redirect(url_for('main.Main')) # I'm going to be honest, this naming schema is terrible.
     elif request.method == 'GET':
         return render_template('CreateTrip.html', form=form)
 
@@ -77,7 +90,7 @@ def add_Trip():
 def add_Participant(FormKey):
     tempUser = Account.query.filter_by(id=flask.session['Googledata']['id']).first()
     tripname = Master.query.filter_by(id=FormKey).all()[0]
-    # Could be made more efficient by only querying for trip name
+    # Could be made more efficient by only querying for trip name.
     if tempUser.carCapacity != 0:
         form = AddToTripPOA()
         if request.method == 'GET':
@@ -89,6 +102,8 @@ def add_Participant(FormKey):
             else:
                 Participants.query.addParticipant(tempUser, form.data["Driver"], int(FormKey))
                 # TODO: Make sure you can only remove yourself from a trip.
+                # TODO: Should you be able to add yourself multiple times to a trip?
+                # ^^^ Wait! Do we want the coordinator to be able to boot people from trips? Shouldn't they retain the original menu format?
                 flash('New entry was successfully posted')
                 return redirect(url_for('main.TripPage', TripKey=str(FormKey)))
     else:
@@ -231,7 +246,7 @@ def editAccount():
                 # Fixed! Now account changes are permanent.  =)
                 print(Account.query.all())
                 print(Account.query.all()[0].accessData())
-                return "It worked, I think?" #render_template("main.Main")
+                return redirect(url_for('main.profile'))
         elif request.method == 'GET':
             return render_template("ModifyAccount.html", form=form)
 

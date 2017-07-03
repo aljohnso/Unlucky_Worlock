@@ -1,53 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {# https://css-tricks.com/css3-progress-bars/ #}
+    {# ^^^ Use this for animating the meterbars! #}
     <meta charset="UTF-8">
-    <title>add varible for trip name</title>
+    <title>{{TripMeta.Trip_Name}}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
+    {# Below is the user-made css #}
+    <link rel="stylesheet" type="text/css" href="/static/FormatTrip.css">
+{#  #}
+    <style>
+        .meterbar
+        {
+            height: 30px;  /* Can be anything. */
+            width: 120px; /* Can also be anything. */
+            position: relative;
+            background: #555;
+            -moz-border-radius: 25px;
+            -webkit-border-radius: 25px;
+            border-radius: 25px;
+            padding: 3px;
+            box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+        }
+        .meterbar > span
+        {
+            display: block;
+            height: 100%;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            background-color: rgb(43,194,83);
+            background-image: linear-gradient(90deg, rgb(43,194,83) 37%, rgb(84,240,84) 69%);
+            box-shadow:
+            inset 0 2px 9px  rgba(255,255,255,0.3),
+            inset 0 -2px 6px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        .cars > span
+        {
+          background-color: rgb(130,180,250);
+          background-image: linear-gradient(to bottom, rgb(130,180,250), rgb(120,220,240));
+        }
+        .people > span
+        {
+          background-color: #f1a165;
+          background-image: linear-gradient(to bottom, #f1a165, #f36d0a);
+        }
+        @keyframes expandWidth {
+           0% { width: 0; }
+           100% { width: auto; }
+        }
+    </style>
 </head>
 <body>
-<h2> {{TripMeta.Trip_Name}}</h2>
-<a class="btn" href= {{ url_for('main.add_Participant', FormKey = TripMeta.id ) }} >Add to Trip</a>
-<ul>
-    <li>Departure Date</li>
-    <li>{{ TripMeta.Departure_Date }}</li>
-    <li>Return Date</li>
-    <li>{{ TripMeta.Return_Date }}</li>
-    <li>Prticpants </li>
-    <li>{{ TripMeta.Participant_num }}</li>
-    <li>Particpants cap</li>
-    <li>{{ TripMeta.Participant_cap }}</li>
-    <li>Car Cap</li>
-    <li>{{ TripMeta.Car_Cap }} </li>
-    <li> Cars</li>
-    <li>{{ TripMeta.Car_Num}} </li>
-    <li><h4>Details</h4></li>
-    <li>{{ Tripinfo.Details}} </li>
-    <li>Cordinator Name </li>
-    <li>{{ Tripinfo.Coordinator_Name}} </li>
-    <li>Cordinator Email </li>
-    <li>{{ Tripinfo.Coordinator_Email}} </li>
-    <li>Cordinator Phone </li>
-    <li>{{ Tripinfo.Coordinator_Phone}} </li>
-    <li>Gear List</li>
-    <li>{{ Tripinfo.Gear_List}} </li>
-    <li>Trip Meeting Place </li>
-    <li>{{ Tripinfo.Trip_Meeting_Place}} </li>
-    <li>Total Cost </li>
-    <li>{{ Tripinfo.Total_Cost}} </li>
-    <li>Cost Breakdown </li>
-    <li>{{ Tripinfo.Cost_BreakDown}} </li>
-    <li>Substance free </li>
-    <li>{{ Tripinfo.Substance_Free}} </li>
-{#    <li>weather</li>#}
-{#    <li>{{ Tripinfo.Weather_Forecast}} </li>#}
-</ul>
-    <h3> Particpants</h3>
+<div class="container">
+<div class="col-md-2  toppad  pull-right col-md-offset-3 ">
+    <A href={{url_for('main.Main')}} >Return to trips page</A>
+</div>
+<h2 align="center">{{TripMeta.Trip_Name}}</h2>
+<br>
+{#    <div class="meterbar cars" style="{{ "width: " + "80" + "px;" }}">#}
+{#        <span style="{{ "width: " + "85" + "%;" }}"></span>#}
+{#    </div>#}
+{#    <div class="meterbar cars" style="{{ "width: " + "130" + "px;" }}">#}
+{#        <span style="{{ "width: " + "85" + "%;" }}"></span>#}
+{#    </div>#}
+    {# Do between 40 and 130 pixels (or something) for the bar, use some math and sigmoid functions! #}
+    <div style="float: left; width: 300px; padding-left: 100px;">
+        <h4>Trip Overview</h4>
+        This trip departs on {{ TripMeta.Departure_Date.month }}-{{ TripMeta.Departure_Date.day }}-{{ TripMeta.Departure_Date.year }} and returns on {{ TripMeta.Return_Date.month }}-{{ TripMeta.Return_Date.day }}-{{ TripMeta.Return_Date.year }}. Participants will meet at {{ Tripinfo.Trip_Meeting_Place}}.
+        <ul></ul>
+        Details:
+        <ul><li>{{ Tripinfo.Details}}</li></ul>
+        {% if Tripinfo.Substance_Free==1 %}
+            This trip is substance free.
+        {% else %}
+            This trip is not substance free.
+        {% endif %}
+    </div>
+    <div style="float: left; width: 300px; padding-left: 100px;">
+        <h4>Coordinator Info</h4>
+        Name: {{ Tripinfo.Coordinator_Name}}
+        <ul></ul>
+        Email: {{ Tripinfo.Coordinator_Email}}
+        <ul></ul>
+        Phone #: {{ Tripinfo.Coordinator_Phone}}
+        <ul></ul>
+        <br>
+        Gear List
+        <ul><li>{{ Tripinfo.Gear_List }}</li></ul>
+        Total Cost
+        <ul><li>{{ Tripinfo.Total_Cost}}</li></ul>
+        Cost Breakdown
+        <ul><li>{{ Tripinfo.Cost_BreakDown}}</li></ul>
+    </div>
+    <div style="float: left; width: 300px; padding-left: 100px;">
+    {# "Details" is big and looks like a break on the page. NOT RELEVANT ANYMORE #}
+        {{ TripMeta.Participant_num }}/{{ TripMeta.Participant_cap }} participants on this trip
+        <div class="meterbar people" style="{{ "width: " + "160" + "px;" }}">
+            <span style="{{ "width: " + participantRatio + "%;" }}"></span>
+        </div>
+        {{ TripMeta.Car_Num }}/{{ TripMeta.Car_Cap }} cars on this trip
+        <div class="meterbar cars" style="{{ "width: " + "160" + "px;" }}">
+            <span style="{{ "width: " + carRatio + "%;" }}"></span>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container">
+    <h3>Participants
+        <div style="float:right;">
+            <a class="btn btn-success" href= {{ url_for('main.add_Participant', FormKey = TripMeta.id ) }} >Join Trip</a>
+        </div>
+    </h3>
     <div class="row">
         <div class="panel panel-primary filterable">
             <table class="table">
@@ -56,10 +127,10 @@
                         <th>Name</th>
                         <th>Driver</th>
                         <th>Car Capacity</th>
-                        <th>remove from trip</th>
+                        <th>Remove from trip</th>
                     </tr>
                 </thead>
-                {% for TableRow in ParticpantInfo %}
+                {% for TableRow in ParticipantInfo %}
                 <tr>
                     <td> {{ TableRow.Participant }}</td>
                     {%  if TableRow.Driver=='True' or TableRow.Driver == 1 or TableRow == '1'%}
@@ -67,12 +138,72 @@
                     <td>{{ TableRow.Car_Capacity }}</td>
                     {% else %}
                     <td>No</td>
-                    <td>NA</td>
+                    <td>N/A</td>
                     {% endif %}
                     <td><a class="btn btn-danger" href={{ url_for('main.remove_particpant', id= TableRow.id ) }} role="button">X</a></td>
                 </tr>
                 {% endfor %}
                 </tbody>
             </table>
+        </div>
+    </div>
+</div>
 </body>
 </html>
+
+{#    <a class="btn" href= {{ url_for('main.add_Participant', FormKey = TripMeta.id ) }} >Add to Trip</a>#}
+{#<br>#}
+{#<table cellpadding="0" cellspacing="0" border="1" align="left">#}
+{#<tr>#}
+{#    <td>#}
+{#        {% for n in range(0,5) %}#}
+            {# Second number in range(0,X) is how many spaces away from left bound. #}
+{#            &nbsp#}
+{#        {% endfor %}#}
+{#    </td>#}
+{#    <td align="left" valign="top">#}
+{#        <ul>#}
+{#        <li>Departure Date</li>#}
+{#        <li>{{ TripMeta.Departure_Date }}</li>#}
+{#        <li>Return Date</li>#}
+{#        <li>{{ TripMeta.Return_Date }}</li>#}
+{#        <li>Participants </li>#}
+{#        <li>{{ TripMeta.Participant_num }}</li>#}
+{#        <li>Participants cap</li>#}
+{#        <li>{{ TripMeta.Participant_cap }}</li>#}
+{#        <li>Car Cap</li>#}
+{#        <li>{{ TripMeta.Car_Cap }} </li>#}
+{#        <li> Cars</li>#}
+{#        <li>{{ TripMeta.Car_Num}} </li>#}
+{#        </ul>#}
+{#    </td>#}
+{#    <td>#}
+{#        {% for n in range(0,10) %}#}
+            {# Second number in range(0,X) is how many spaces between columns. #}
+{#            &nbsp#}
+{#        {% endfor %}#}
+{#    </td>#}
+{#    <td align="left" valign="top">#}
+{#        <ul>#}
+{#        <li><h4>Details</h4></li>#}
+{#        <li>{{ Tripinfo.Details}} </li>#}
+{#        <li>Coordinator Name </li>#}
+{#        <li>{{ Tripinfo.Coordinator_Name}} </li>#}
+{#        <li>Coordinator Email </li>#}
+{#        <li>{{ Tripinfo.Coordinator_Email}} </li>#}
+{#        <li>Coordinator Phone </li>#}
+{#        <li>{{ Tripinfo.Coordinator_Phone}} </li>#}
+{#        <li>Gear List</li>#}
+{#        <li>{{ Tripinfo.Gear_List}} </li>#}
+{#        <li>Trip Meeting Place </li>#}
+{#        <li>{{ Tripinfo.Trip_Meeting_Place}} </li>#}
+{#        <li>Total Cost </li>#}
+{#        <li>{{ Tripinfo.Total_Cost}} </li>#}
+{#        <li>Cost Breakdown </li>#}
+{#        <li>{{ Tripinfo.Cost_BreakDown}} </li>#}
+{#        <li>Substance free </li>#}
+{#        <li>{{ Tripinfo.Substance_Free}} </li>#}
+{#        </ul>#}
+{#    </td>#}
+{#</tr>#}
+{#</table>#}
