@@ -60,8 +60,37 @@
 					.width(0)
 					.animate({
 						width: $(this).data("origWidth")
-					}, 1200);
+					}, 1200); /* <-- Duration of the animation */
 			});
+            $(".extender").each(function()
+            {
+                $(this).data("origWidth", $(this).width());
+                /*var check = $(this).data("running");*/
+                /*if ($(this).data("running")==false)
+                {
+                    $(this)
+                        .animate({
+                            width: 100
+                        }, 1200);
+                }
+                else
+                {
+                    $(this)
+                        .animate({
+                            width: 200
+                        }, 1200);
+                }*/
+            });
+            $(".extender").mouseenter(function()
+            {
+                $(this).stop();
+                $(this).animate({ width: 140 }, 600);
+            });
+            $(".extender").mouseleave(function()
+            {
+                $(this).stop();
+                $(this).animate({ width: 34 }, 600);
+            });
 		});
     </script>
     <style>
@@ -103,11 +132,16 @@
           background-color: #f1a165;
           background-image: linear-gradient(to bottom, #f1a165, #f36d0a);
         }
-        @keyframes expandWidth
+        a.extender
         {
-           0% { width: 0; }
-           100% { width: auto; }
+            position: relative;
+            /*width: 40px*/
         }
+{#        @keyframes expandWidth#}
+{#        {#}
+{#           0% { width: 0; }#}
+{#           100% { width: auto; }#}
+{#        }#}
         .trip-sidebar
         {
             /*height: 30px;*/  /* Can be anything. */
@@ -218,34 +252,50 @@
                     <tr>
                         <th width="375px">Name</th>
                         <th width="150px">Driver</th>
-                        <th width="300px">Car Capacity</th>
-                        <th>
+                        <th width="200px">Car Capacity</th>
+                        <th width="150px" style="padding-right: 0px; text-align: right;">
                             {% if onTrip %}
                             Options
                             {% endif %}
                         </th>
+                        <th style="padding-left: 0px; text-align: left;"></th>
                     </tr>
                 </thead>
                 {% for TableRow in ParticipantInfo %}
                 <tr>
                     <td height="40px"> {{ TableRow.Participant }}</td>
-                    {%  if TableRow.Driver=='True' or TableRow.Driver == 1 or TableRow == '1'%}
+                    {% if TableRow.Driver=='True' or TableRow.Driver == 1 or TableRow == '1'%}
                     <td>Yes</td>
                     <td>{{ TableRow.Car_Capacity }}</td>
                     {% else %}
                     <td>No</td>
                     <td>N/A</td>
                     {% endif %}
-                    <td>
-                        {% if onTrip %}
-                            <a href={{ "mailto:" + TableRow.Email }} data-original-title="Email this trip member" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary" data-placement="left"><i class="glyphicon glyphicon-envelope"></i></a>
-                        {% endif %}
-                        {# Only allow the following if they've consented, if you're the coordinator, and they're not you. #}
-                        {% if youAreCoordinator and TableRow.OpenLeader and userID != TableRow.accountID %}
-                            {# Make the tooltips go left if the button is on the left, and right if the button is on the right. Never cover up other buttons with a tooltip. #}
-                            <a href={{ url_for('main.swapCoordinators', oldLeaderID=userID, newLeaderID=TableRow.accountID, tripID=Tripinfo.Master_Key) }} data-original-title="Designate as new coordinator" data-toggle="tooltip" type="button" class="btn btn-sm btn-success" data-placement="right"><i class="glyphicon glyphicon-king"></i></a>
-                        {% endif %}
-                    </td>
+                    {% if onTrip %}
+                        {# https://css-tricks.com/snippets/svg/shape-morphing-icons-button-click/ #}
+                        {# ^^^ Use this to make these new stretchy buttons presentable. #}
+                        <td style="padding-right: 2px; text-align: right;">
+                            <a href={{ "mailto:" + TableRow.Email }} data-original-title="Email this trip member" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary extender" data-placement="left"><i class="glyphicon glyphicon-envelope"></i></a>
+                            <p style="margin-top:4px; margin-bottom:0px;"></p>
+                            <a data-original-title="View allergies and diet restrictions" data-toggle="tooltip" type="button" class="btn btn-sm btn-default extender" data-placement="left"><i class="glyphicon glyphicon-list-alt"></i></a>
+                        </td>
+                            {# Only allow the following if they've consented, if you're the coordinator, and they're not you. #}
+                            {# Make this button redirect you to a modal, with an "are you sure?" that appears before you actually throw away your coordinator status. #}
+                        <td style="padding-left: 2px; text-align: left;">
+                            {% if youAreCoordinator and TableRow.OpenLeader and userID != TableRow.accountID %}
+                                {# Make the tooltips go left if the button is on the left, and right if the button is on the right. Never cover up other buttons with a tooltip. #}
+                                <a href={{ url_for('main.swapCoordinators', oldLeaderID=userID, newLeaderID=TableRow.accountID, tripID=Tripinfo.Master_Key) }} data-original-title="Designate as new coordinator" data-toggle="tooltip" type="button" class="btn btn-sm btn-success extender" data-placement="right"><i class="glyphicon glyphicon-king"></i></a>
+                            {% else %}
+                                <a class="btn btn-sm btn-success disabled"><i class="glyphicon glyphicon-king"></i></a>
+                            {% endif %}
+                            <p style="margin-top:4px; margin-bottom:0px;"></p>
+                            <a data-original-title="Send message" data-toggle="tooltip" type="button" class="btn btn-sm btn-info extender" data-placement="right"><i class="glyphicon glyphicon-comment"></i></a>
+                            <-- WIP
+                        </td>
+                    {% else %}
+                        <td style="padding-right: 2px; text-align: right;"></td>
+                        <td style="padding-left: 2px; text-align: left;"></td>
+                    {% endif %}
                     {# <td><a class="btn btn-danger" href={{ url_for('main.removeParticipant', personID=TableRow.accountID, tripID=TableRow.Master_Key) }} role="button">X</a></td> #}
                 </tr>
                 {% endfor %}
