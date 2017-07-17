@@ -25,7 +25,7 @@ class Master(db.Model):
     Trip_Participants = db.relationship('Participants', backref = "Master", lazy='dynamic', cascade="all,delete")
     Trip_Trip = db.relationship('Trips', backref="Master", lazy='dynamic', cascade="all,delete")
 
-    def __init__(self, form, user):
+    def __init__(self, form):
         MasterDict = MasterConstructor(form).master
         self.Trip_Name = MasterDict['Trip_Name']
         self.Departure_Date = MasterDict['Departure_Date']
@@ -33,7 +33,7 @@ class Master(db.Model):
         self.Details_Short = MasterDict['Details']  # name changes here
         self.Post_Time = MasterDict['Post_Time']
         self.Participant_Num = MasterDict['Participant_num']
-        self.Participant_Cap = user.carCapacity  # name changes here
+        self.Participant_Cap = 0 #Used to be this --> user.carCapacity  # name changes here
         self.Trip_Location = MasterDict['Trip_Location']
         self.Car_Num = MasterDict['Car_Num']
         self.Car_Cap = MasterDict['Car_Cap']
@@ -54,9 +54,9 @@ class Trips(db.Model):
     Master_Relationship = db.relationship("Master", backref=db.backref("Trips", cascade="all,delete"))
 
     Details = db.Column(db.String(3000))
-    Coordinator_Name = db.Column(db.String(70))
-    Coordinator_Email = db.Column(db.String(120))
-    Coordinator_Phone = db.Column(db.Integer)
+    #Coordinator_Name = db.Column(db.String(70))
+    #Coordinator_Email = db.Column(db.String(120))
+    #Coordinator_Phone = db.Column(db.String(80))
     Gear_List = db.Column(db.String(3000))
     Trip_Meeting_Place = db.Column(db.String(120))
     Additional_Costs = db.Column(db.Integer)
@@ -65,13 +65,13 @@ class Trips(db.Model):
     Substance_Free = db.Column(db.Integer)
     Weather_Forecast = db.Column(db.String(30000)) # Definitely not an optimal way of doing this.
 
-    def __init__(self, form, Masterid, user):
+    def __init__(self, form, Masterid):
         TripDict = TripConstructor(form, Masterid).trip
-        tempData = user.accessData()
+        #tempData = user.accessData()
         self.Details = TripDict['Details']
-        self.Coordinator_Name = tempData["username"]
-        self.Coordinator_Email = tempData["email"]
-        self.Coordinator_Phone = tempData["phoneNumber"]
+        #self.Coordinator_Name = tempData["username"]
+        #self.Coordinator_Email = tempData["email"]
+        #self.Coordinator_Phone = tempData["phoneNumber"]
         self.Gear_List = TripDict['GearList']
         self.Trip_Meeting_Place = TripDict['Trip_Meeting_Place']
         self.Additional_Costs = TripDict['Additional_Cost']#Name changes
@@ -90,21 +90,27 @@ class Trips(db.Model):
 class Participants(db.Model):
     __tablename__ = "Participants"
     query_class = Participant_manipulation_query
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, unique=True, primary_key=True)
+    accountID = db.Column(db.String(80))
     Master_Key = db.Column(db.Integer, db.ForeignKey("Master.id", ondelete="CASCADE"))
     Master_Relationship = db.relationship("Master", backref=db.backref("Participants", cascade="all,delete"))
     Participant = db.Column(db.String(120))
-    Phone = db.Column(db.String(120))
     Email = db.Column(db.String(120))
+    Phone = db.Column(db.String(120))
     Driver = db.Column(db.Boolean)
+    Leader = db.Column(db.Boolean)
+    OpenLeader = db.Column(db.Boolean)
     Car_Capacity = db.Column(db.Integer)
 
-    def __init__(self, account, driver, carSeats, masterID):
+    def __init__(self, account, driver, carSeats, masterID, leader, openCoordinator):
         tempData = account.accessData()
-        self.Participant = tempData["username"] #ParticipantDict['Participant']
-        self.Phone = tempData["phoneNumber"] #ParticipantDict['Phone']
-        self.Email = tempData["email"] #ParticipantDict['Email']
+        self.accountID = tempData["googleNum"][:]
+        self.Participant = tempData["username"][:] #ParticipantDict['Participant']
+        self.Email = tempData["email"][:] #ParticipantDict['Email']
+        self.Phone = tempData["phoneNumber"][:] #ParticipantDict['Phone']
         self.Driver = driver #ParticipantDict['Driver']
+        self.Leader = leader
+        self.OpenLeader = openCoordinator
         self.Car_Capacity = carSeats #ParticipantDict['Car_Capacity']
         self.Master_Key = masterID
         assert self.Master_Key is not None
@@ -112,6 +118,16 @@ class Participants(db.Model):
 
     def __repr__(self):
         return '<Participant %r>' % self.Participant
+
+    def changeUserInfo(self, user):
+        self.Participant = user.username[:]
+        self.Email = user.email[:]
+        self.Phone = user.phoneNumber[:]
+
+    def editParticipantInfo(self, isDriver, carSeats, openCoordinator):
+        self.Driver = isDriver
+        self.Car_Capacity = carSeats
+        self.OpenLeader = openCoordinator
 
 class TripModel():
     """
@@ -122,13 +138,13 @@ class TripModel():
     we should get some wacky error message saying as much
     """
     def __init__(self, formData, user):
-        master = Master(formData, user)
+        master = Master(formData)
         db.session.add(master)
         db.session.flush()
         db.session.refresh(master)
         self.master = master
-        self.trip = Trips(formData, master.id, user)
-        self.leader = Participants(user, formData["Driver"], formData["Car_Capacity"], master.id)
+        self.trip = Trips(formData, master.id)
+        #self.leader = Participants(user, formData["Driver"], carSeats, master.id)
         assert self.master is not None
         assert self.trip is not None
         # assert self.leader is not None
@@ -140,8 +156,9 @@ class TripModel():
         is called to insure that it is added to the db
         """
         db.session.add(self.trip)
-        db.session.add(self.leader)
+        #db.session.add(self.leader)
         # db.session.add(self.master)  # not sure if this is needed
+
 
 class Account(db.Model):
     # Defines a variable with certain fixed parameters, much like one would in C#.
@@ -164,7 +181,7 @@ class Account(db.Model):
     allergies = db.Column(db.String(120))
     dietRestrictions = db.Column(db.String(120))
     studentIDNumber = db.Column(db.Integer)
-    phoneNumber = db.Column(db.Integer)
+    phoneNumber = db.Column(db.String(80))
     carCapacity = db.Column(db.Integer)
     locale = db.Column(db.String(80))
     # How to structure the h picture? What data type, and how do I use it?
@@ -198,15 +215,15 @@ class Account(db.Model):
         newNum = newNum.replace("-", "")
         newNum = newNum.replace(" ", "")
         if len(newNum)==10:
-            print(newNum[0:3] + "-" + newNum[3:6] + "-" + newNum[6:10])
+            #print(newNum[0:3] + "-" + newNum[3:6] + "-" + newNum[6:10])
             return newNum[0:3] + "-" + newNum[3:6] + "-" + newNum[6:10]
         else:
-            print(oldNum)
+            #print(oldNum)
             return oldNum
 
     def modifyAccount(self, rawData):
         data = json.loads(rawData)
-        print('Insert a thing here! Produce a spreadsheet already filled with the users information, then have it resubmit to this function.')
+        #print('Insert a thing here! Produce a spreadsheet already filled with the users information, then have it resubmit to this function.')
         self.username = str(data['username'][:])  # username
         self.email = str(data['email'][:])  # email # Not given, surprisingly? Ask Alasdair about this.
         self.firstName = str(data['firstName'][:])  # Given

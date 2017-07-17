@@ -8,8 +8,33 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 {#    <style src = "POACreateTripCSS.css"></style>#}
+    <script>
+    $(document).ready(function ()
+    {
+        $("#addTrip").click(function ()
+        {
+            console.log("clicked");
+            $.get('/addTrip')
+                .done(function (data)
+                {
+                    console.log(data);
+                    $('#message-model-content').html(data);
+                    $("#generalizedModal").modal("show");
+                });
+        })
+    })
+    </script>
 </head>
 <body>
+
+<div class="modal fade message-popup" id="generalizedModal" tabindex="-1" role="dialog" aria-labelledby="user1Message">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="message-model-content">
+            {# code gets inserted here #}
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div class="row">
         <h3> Trip List
@@ -62,7 +87,7 @@
                 {% endfor %}
                 </tbody>
             </table>
-            <a class="btn" href= {{ url_for('main.addTrip') }} >Add Trip</a>
+            <a class="btn" href="#" id="addTrip" >Add Trip</a>
         </div>
     </div>
 </div>

@@ -3,8 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script>
+        $(document).ready(function ()
+        {
+            $("#addParticipant").click(function ()
+            {
+                console.log("clicked");
+                $.get('/addParticipant/' + {{ TripMeta.id }})
+                .done(function(data)
+                {
+                    console.log(data);
+                    $('#message-model-content').html(data);
+                    $("#generalizedModal").modal("show");
+                });
+            })
+        </script>
 </head>
 <body>
 {# THIS STUFF IS HOW YOU DO INDIVIDUAL FORMATTING OF A FORM!!! #}
@@ -21,15 +37,6 @@
 {#     <div>{{ message }}</div>#}
 {#      {% endfor %}#}
 {#  {% for message in form.Details.errors %}#}
-{#     <div>{{ message }}</div>#}
-{#      {% endfor %}#}
-{#  {% for message in form.Coordinator_Name.errors %}#}
-{#     <div>{{ message }}</div>#}
-{#      {% endfor %}#}
-{#  {% for message in form.Coordinator_Email.errors %}#}
-{#     <div>{{ message }}</div>#}
-{#      {% endfor %}#}
-{#  {% for message in form.Coordinator_Phone.errors %}#}
 {#     <div>{{ message }}</div>#}
 {#      {% endfor %}#}
 {#  {% for message in form.GearList.errors %}#}
@@ -50,7 +57,8 @@
 {#   {% for message in form.Car_Capacity.errors %}#}
 {#     <div>{{ message }}</div>#}
 {#      {% endfor %}#}
-<form action= "{{ url_for('main.addTrip') }}" method="post">
+<div class="container">
+<form action= "{{ url_for('main.addTrip') }}" method="post" class="form-group">
 {#    {{ form.hidden_tag() }}<br>#}
 {##}
 {#      <div class="form-group">#}
@@ -95,6 +103,7 @@
     {{ wtf.quick_form(form) }}
 
 </form>
+</div>
 
 </body>
 </html>

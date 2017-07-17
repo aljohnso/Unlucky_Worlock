@@ -1,4 +1,4 @@
-from Forms.POAForms import MakeTripFormPOA, AddToTripPOA, CreateAccountForm, ModifyAccountForm
+from Forms.POAForms import MakeTripFormPOA, AddToTripPOA, EditTripMemberPOA, CreateAccountForm, ModifyAccountForm
 from flask import  request, redirect, url_for, \
      render_template, flash, Blueprint, session
 from DatabaseConnection.DataBaseSchema import db, \
@@ -46,13 +46,24 @@ def tripPage(TripKey):
     :param TripKey: The name of the trip
     :return: renders template of the selected trip with detailed information
     """
-    # TODO: MAKE YOUR METERBARS AND JOIN TRIP BUTTON IN A SIDEBAR TOGETHER! This would look really cool.
+    # FINISHED: MAKE YOUR METERBARS AND JOIN TRIP BUTTON IN A SIDEBAR TOGETHER! This would look really cool.
     meta = Master.query.filter_by(id=TripKey).first()  # Returns a 1 element list lets get the object from that
     tripDetails = Trips.query.filter_by(Master_Key=TripKey).first()
-    ParticipantInfo = Participants.query.filter_by(Master_Key=TripKey).all()
-    #print(tripDetails)
-    #print(meta)
-    #print(ParticipantInfo)
+    participantInfo = Participants.query.filter_by(Master_Key=TripKey).all()
+    coordinator = Participants.query.filter_by(Master_Key=TripKey, Leader=True).first()
+    if 'credentials' in flask.session and 'Googledata' in flask.session:
+        userID = flask.session['Googledata']['id'][:]
+    else:
+        userID = ''
+    onTrip = False
+    for those in participantInfo:
+        if those.accountID == userID:
+            onTrip = True
+    # Check whether the current user, if they're logged in, is a coordinator.
+    if coordinator.accountID == userID:
+        youAreCoordinator = True
+    else:
+        youAreCoordinator = False
     if int(round(meta.Participant_Cap))==0:
         participantRatio = "100"
     else:
@@ -69,10 +80,10 @@ def tripPage(TripKey):
         carRatio = "0"
     elif int(carRatio) > 100:
         carRatio = "100"
-    # TODO: Add a button at the top called "Leave Trip" which removes you from this trip if you are on it.
+    # FINISHED: Add a button at the top called "Leave Trip" which removes you from this trip if you are on it.
     # ^^^ Wait! Do we want the coordinator to be able to boot people from trips? Shouldn't they retain the original menu format?
     # ^^ ALASDAIR: NO WE DO NOT, THAT SHOULD BE A POWER RESERVED FOR ADMINISTRATORS.
-    return render_template("TripPage.html", Tripinfo=tripDetails, TripMeta=meta, ParticipantInfo=ParticipantInfo, participantRatio=participantRatio, carRatio=carRatio)
+    return render_template("TripPage.html", Tripinfo=tripDetails, TripMeta=meta, Coordinator=coordinator, ParticipantInfo=participantInfo, participantRatio=participantRatio, carRatio=carRatio, userID=userID, onTrip=onTrip, youAreCoordinator=youAreCoordinator)
 
 
 @main.route('/addTrip', methods=['POST','GET'])
@@ -89,15 +100,19 @@ def addTrip():
         # print(form.data)  # Returns a dictionary with keys that are the fields in the table.
         if form.validate() == False:
             flash('All fields are required.')
-            return render_template('CreateTrip.html', form=form)
+            return render_template('CreateTripModal.html', form=form)
         else:
+            newSeats = int(form.data["Car_Capacity"][:])
+            if form.data["Driver"] == False:
+                newSeats = 0
             model = TripModel(form.data, tempUser)
+            Participants.query.addParticipant(tempUser, form.data["Driver"], newSeats, model.master.id, True, False)
             model.addModel() # add trip to db
             db.session.commit()
             flash('New entry was successfully posted')
             return redirect(url_for('main.mainPage')) # I'm going to be honest, this naming schema is terrible. MATTHEW: FIXED SO IT'S NO LONGER TERRIBLE!
     elif request.method == 'GET':
-        return render_template('CreateTrip.html', form=form)
+        return render_template('CreateTripModal.html', form=form)
 
 
 @main.route('/addParticipant/<FormKey>',  methods=['POST','GET'])
@@ -114,40 +129,75 @@ def addParticipant(FormKey):
     # if tempUser.carCapacity != 0:
     form = AddToTripPOA(Driver=False, Car_Capacity=str(tempUser.carCapacity))
     if request.method == 'GET':
-        if tripInfo.Participant_Cap < tripInfo.Participant_Num + 1 and tripInfo.Car_Cap < tripInfo.Car_Num + 1:
+        if 0 != len(Participants.query.filter_by(Master_Key=FormKey).all()) and (tripInfo.Participant_Cap <= tripInfo.Participant_Num and tripInfo.Car_Cap <= tripInfo.Car_Num):
             # You cannot join the trip, no buts about it.
-            # TODO: FLASH A THING ON THE SCREEN
+            # FINISHED: FLASH A THING ON THE SCREEN
             # vvv Make this render a new modal-type template, just like you did earlier but with only a warning message saying the trip is full. DID IT, FINISHED!!!!
-            return render_template('FailToAddModal.html', tripInfo=tripInfo, message="Sorry, this trip is full.")
+            return render_template('DisplayMessageModal.html', message="Sorry, there's no room left on this trip.", title="Trip is Full")
             #redirect(url_for("main.tripPage", FormKey=str(FormKey)))
         else:
-            return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo)
+            return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, warning=False, errorMessage="")
     if request.method == 'POST':
         if form.validate() == False:
             flash('All fields are required.')
-            return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo)
+            return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, warning=False, errorMessage="")
         else:
-            # Congratulations! You submitted your form and all fields were filled out properly.
             newSeats = int(form.data["Car_Capacity"][:])
+            isDriver = form.data["Driver"]
+            # Makes the number of seats and driver status consistent.
             if form.data["Driver"] == False:
                 newSeats = 0
-            if int(tripInfo.Participant_Cap) + newSeats < int(tripInfo.Participant_Num) + 1 and int(tripInfo.Participant_Cap) < int(tripInfo.Participant_Num + 1):
+            if newSeats == 0:
+                isDriver = False
+            if isDriver and tripInfo.Car_Num + 1 > tripInfo.Car_Cap:
+                # The person is trying to be a driver when the trip already has maximum/over maximum cars.
+                return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, warning=True, errorMessage="There are already too many cars on this trip; you cannot be a driver if you want to join.")
+            if newSeats <= 0 and tripInfo.Participant_Num >= tripInfo.Participant_Cap:
+                # The person has zero newSeats and tries to join a trip with maximum/over maximum people
                 # You are forced to be a driver.
-                return render_template('FailToAddModal.html', tripInfo=tripInfo, message="Sorry, with those settings the trip is full.")
-            # THIS PART OF THE CODE IS COMPLETELY UNFINISHED!
+                # You can be a driver even on overloaded trips, as long as you have at least one car capacity. After all, you're not hurting anyone by taking up space, right?
+                return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, warning=True, errorMessage="Due to the current size of this trip, you must be a driver with at least one car capacity to join.")
+            # Congratulations! You submitted your form and all fields were filled out properly.
             # I DON'T THINK YOU NEED checkAddParticipant, YOU CAN JUST RUN YOUR CHECKS HERE AND IF THEY DON'T FIT THEN YOU CAN REJECT THE USER.
-            Participants.query.addParticipant(tempUser, form.data["Driver"], form.data["Car_Capacity"], int(FormKey))
-            # TODO: Make sure you can only remove yourself from a trip.
-            # TODO: Should you be able to add yourself multiple times to a trip?
-            # TODO: WHEN YOU EXIT A TRIP, YOU TAKE YOUR CAR WITH YOU! WILL/SHOULD THAT THROW PEOPLE OFF THE TRIP?!?
+            Participants.query.addParticipant(tempUser, isDriver, newSeats, int(FormKey), False, False)
+            # FINISHED: Make sure you can only remove yourself from a trip.
+            # Should you be able to add yourself multiple times to a trip?
+            # ^^ ALASDAIR: NO YOU SHOULD NOT.
             # ^^^ Wait! Do we want the coordinator to be able to boot people from trips? Shouldn't they retain the original menu format?
             # ^^ ALASDAIR: NO WE DO NOT, THAT SHOULD BE A POWER RESERVED FOR ADMINISTRATORS.
+            # WHEN YOU EXIT A TRIP, YOU TAKE YOUR CAR WITH YOU! WILL/SHOULD THAT THROW PEOPLE OFF THE TRIP?!?
+            # ^^ ALASDAIR: MAKE IT SO THAT IT PUTS UP A WARNING, AND PREVENTS NON-DRIVERS FROM JOINING. (if you're a driver and still can't push above the participant cap, that's okay because at least your're helping.)
             flash('New entry was successfully posted')
             return redirect(url_for('main.tripPage', TripKey=str(FormKey)))
     # else:
     # Participants.query.addParticipant(tempUser, False, int(FormKey))
     # flash('New entry was successfully posted')
     # return redirect(url_for('main.tripPage', TripKey=str(FormKey)))
+
+@main.route('/editParticipant/<FormKey>',  methods=['POST','GET'])
+@login_required
+def editParticipant(FormKey):
+    you = Participants.query.filter_by(accountID=flask.session['Googledata']['id'], Master_Key=FormKey).first()
+    tripInfo = Master.query.filter_by(id=FormKey).first()
+    form = EditTripMemberPOA(Driver_Box=you.Driver, CarCapacity_Box=str(you.Car_Capacity), PotentialLeader_Box=you.OpenLeader)
+    if request.method == 'GET':
+        return render_template('EditTripMemberModal.html', form=form, tripInfo=tripInfo, warning=False, errorMessage="")
+    if request.method == 'POST':
+        if form.validate() == False:
+            flash('All fields are required.')
+            return render_template('EditTripMemberModal.html', form=form, tripInfo=tripInfo, warning=False, errorMessage="")
+        else:
+            newSeats = int(form.data["CarCapacity_Box"][:])
+            isDriver = form.data["Driver_Box"]
+            # Makes the number of seats and driver status consistent.
+            if form.data["Driver_Box"] == False:
+                newSeats = 0
+            if newSeats == 0:
+                isDriver = False
+            # Congratulations! You submitted your form and all fields were filled out properly.
+            you.editParticipantInfo(isDriver, newSeats, form.data["PotentialLeader_Box"])
+            db.session.commit()
+            return redirect(url_for('main.tripPage', TripKey=str(FormKey)))
 
 @main.route('/checkAddParticipant/<FormKey>',  methods=['POST','GET'])
 @login_required
@@ -320,7 +370,11 @@ def editAccount():
                 # Do queries make copies of our users, or return the actual entries? (ask because of modifyAccount function)
                 # Why does it not recognize the existence of Googledata here? How did it work in createAccount?
                 packedInfo = json.dumps(userinfo)
-                Account.query.filter_by(id=flask.session['Googledata']['id']).first().modifyAccount(packedInfo)
+                selectedUser = Account.query.filter_by(id=flask.session['Googledata']['id']).first()
+                selectedUser.modifyAccount(packedInfo)
+                tripSelves = Participants.query.filter_by(accountID=flask.session['Googledata']['id']).all()
+                for those in tripSelves:
+                    those.changeUserInfo(selectedUser)
                 db.session.commit()
                 # Fixed! Now account changes are permanent.  =)
                 #print(Account.query.all())
@@ -348,18 +402,31 @@ def gCallback():
         flask.session['credentials'] = credentials.to_json() #we have authenticated the user
         return flask.redirect(flask.url_for('main.login')) #once authenticated return to main page
 
+@main.route('/cannotLeave')
+def cannotLeave():
+    return render_template('DisplayMessageModal.html', message="You are this trip's coordinator. You cannot leave until you have passed the role onto someone else.", title="Cannot Leave Trip")
 
+@main.route('/deleteParticipant/<personID>/<tripID>')
+def removeParticipant(personID, tripID):
+    Participants.query.removeParticipant(personID, tripID)
+    return redirect(url_for('main.tripPage', TripKey=tripID))
 
+@main.route('/swapCoordinators/<oldLeaderID>/<newLeaderID>/<tripID>')
+def swapCoordinators(oldLeaderID, newLeaderID, tripID):
+    oldLeader = Participants.query.filter_by(accountID=oldLeaderID, Master_Key=tripID).first()
+    newLeader = Participants.query.filter_by(accountID=newLeaderID, Master_Key=tripID).first()
+    oldLeader.Leader = False
+    oldLeader.OpenLeader = False
+    newLeader.Leader = True
+    newLeader.OpenLeader = False
+    return redirect(url_for('main.tripPage', TripKey=tripID))
 
-
-@main.route('/deleteParticipant/<theID>')
-def removeParticipant(theID):
-    tempParticipant = Participants.query.filter_by(id=int(theID))
-    tripKey = tempParticipant.first().Master_Key
-    tempMaster = Master.query.filter_by(id=int(tripKey)).first()
-    tempMaster.Participant_Num -= 1
-    if tempParticipant.first().Driver == 1:
-        tempMaster.Car_Num -= 1
-    tempParticipant.delete()
-    db.session.commit()
-    return redirect(url_for('main.tripPage', TripKey=tripKey))
+# tempParticipant = Participants.query.filter_by(id=int(theID))
+# tripKey = tempParticipant.first().Master_Key
+# tempMaster = Master.query.filter_by(id=int(tripKey)).first()
+# tempMaster.Participant_Num -= 1
+# if tempParticipant.first().Driver == 1:  # What is going on with this check? Isn't Driver a boolean?
+#     tempMaster.Car_Num -= 1
+# tempParticipant.delete()
+# db.session.commit()
+# return redirect(url_for('main.tripPage', TripKey=tripKey))

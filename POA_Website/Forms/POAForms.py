@@ -1,7 +1,9 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, SubmitField, DateField, BooleanField, SelectField, validators, DecimalField
-from wtforms.fields.html5 import EmailField
+from wtforms.fields.html5 import DateField
 
+# https://stackoverflow.com/questions/21815067/how-do-i-validate-wtforms-fields-against-one-another
+# ^^^ This could be useful later.
 
 # class SampleValid(object):
 #     def __init__(self, min=3, max=3, message=None):
@@ -99,6 +101,12 @@ class AddToTripPOA(FlaskForm):
     Driver = BooleanField("Driver")
     Car_Capacity = StringField("Car Capacity", [validators.DataRequired("Please put car capacity if you aren't driving for this trip put 0"), CheckDigit()])
     submit = SubmitField("Add to Trip")
+
+class EditTripMemberPOA(FlaskForm):
+    Driver_Box = BooleanField("Driver")
+    CarCapacity_Box = StringField("Car Capacity", [validators.DataRequired("Please put car capacity if you aren't driving for this trip put 0"), CheckDigit()])
+    PotentialLeader_Box = BooleanField("In the event of a change of coordinators, are you willing to coordinate this trip?")
+    submit = SubmitField("Confirm Changes")
 
 class CreateAccountForm(FlaskForm):
     #Higher order memes.

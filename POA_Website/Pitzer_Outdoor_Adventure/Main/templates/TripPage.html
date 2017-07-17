@@ -23,9 +23,33 @@
                 {
                     console.log(data);
                     $('#message-model-content').html(data);
-                    $("#addParticipantModal").modal("show");
+                    $("#generalizedModal").modal("show");
                 });
             })
+            $("#cannotLeave").click(function ()
+            {
+                console.log("clicked");
+                $.get('/cannotLeave')
+                .done(function(data)
+                {
+                    console.log(data);
+                    $('#message-model-content').html(data);
+                    $("#generalizedModal").modal("show");
+                });
+            })
+            $("#editParticipant").click(function ()
+            {
+                console.log("clicked");
+                $.get('/editParticipant/' + {{ TripMeta.id }})
+                .done(function(data)
+                {
+                    console.log(data);
+                    $('#message-model-content').html(data);
+                    $("#generalizedModal").modal("show");
+                    /* Use this for hiding the modal via code --> $("#generalizedModal").modal("hide");*/
+                });
+            })
+            $('[data-toggle="tooltip"]').tooltip();
         })
 		$(function()
         {
@@ -39,19 +63,7 @@
 					}, 1200);
 			});
 		});
-{#        function getModal()#}
-{#        {#}
-{#            console.log("clicked");#}
-{#            $.get('/addParticipant/' + {{ TripMeta.id }})#}
-{#            .done(function(data)#}
-{#            {#}
-{#                console.log(data);#}
-{#                $('#message-model-content').html(data);#}
-{#                $("#addParticipantModal").modal("show");#}
-{#            });#}
-{#        }#}
     </script>
-{#  #}
     <style>
         .meterbar
         {
@@ -96,11 +108,24 @@
            0% { width: 0; }
            100% { width: auto; }
         }
+        .trip-sidebar
+        {
+            /*height: 30px;*/  /* Can be anything. */
+            /*width: 120px;*/ /* Can also be anything, but will likely be overridden */
+            position: relative;
+            /* vvv From left to right. */
+            background: linear-gradient(90deg, rgb(143,224,255) 100%, rgb(245,250,255) 100%);
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+            padding: 10px 40px;
+            box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+        }
     </style>
 </head>
 <body>
 
-<div class="modal fade message-popup" id="addParticipantModal" tabindex="-1" role="dialog" aria-labelledby="user1Message">
+<div class="modal fade message-popup" id="generalizedModal" tabindex="-1" role="dialog" aria-labelledby="user1Message">
     <div class="modal-dialog" role="document">
         <div class="modal-content" id="message-model-content">
             {# code gets inserted here #}
@@ -135,11 +160,11 @@
     </div>
     <div style="float: left; width: 300px; padding-left: 100px;">
         <h4>Coordinator Info</h4>
-        Name: {{ Tripinfo.Coordinator_Name}}
+        Name: {{ Coordinator.Participant }}
         <ul></ul>
-        Email: {{ Tripinfo.Coordinator_Email}}
+        Email: {{ Coordinator.Email }}
         <ul></ul>
-        Phone #: {{ Tripinfo.Coordinator_Phone}}
+        Phone #: {{ Coordinator.Phone }}
         <ul></ul>
         <br>
         Gear List
@@ -149,47 +174,72 @@
         Cost Breakdown
         <ul><li>{{ Tripinfo.Cost_BreakDown}}</li></ul>
     </div>
-    <div style="float: left; width: 300px; padding-left: 100px;">
-    {# "Details" is big and looks like a break on the page. NOT RELEVANT ANYMORE #}
-        {{ TripMeta.Participant_Num }}/{{ TripMeta.Participant_Cap }} participants on this trip
-        <div class="meterbar people" style="{{ "width: " + "160" + "px;" }}">
-            <span style="{{ "width: " + participantRatio + "%;" }}"></span>
-        </div>
-        {{ TripMeta.Car_Num }}/{{ TripMeta.Car_Cap }} cars on this trip
-        <div class="meterbar cars" style="{{ "width: " + "160" + "px;" }}">
-            <span style="{{ "width: " + carRatio + "%;" }}"></span>
+    <div style="float: right; width: 250px;">
+        <div class="panel panel-info">
+            <div class="trip-sidebar">
+                <h4 align="center">Trip Capacity</h4>
+                Participants
+                <div class="meterbar people" style="{{ "width: " + "160" + "px;" }}" data-toggle="tooltip" data-original-title={{ TripMeta.Participant_Num }}/{{ TripMeta.Participant_Cap }} data-placement="left">
+                    <span style="{{ "width: " + participantRatio + "%;" }}"></span>
+                </div>
+                <br>
+                Number of Cars
+                <div class="meterbar cars" style="{{ "width: " + "160" + "px;" }}" data-toggle="tooltip" data-original-title={{ TripMeta.Car_Num }}/{{ TripMeta.Car_Cap }} data-placement="left">
+                    <span style="{{ "width: " + carRatio + "%;" }}"></span>
+                </div>
+                <br>
+                <h3 align="center">
+                    {% if userID=='' %}
+                        Log in to join this trip
+                    {% elif onTrip %}
+                        <a id="editParticipant" data-original-title="Edit your information" data-toggle="tooltip" type="button" class="btn btn-lg btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                        {% if youAreCoordinator %}
+                            <a id="cannotLeave" data-original-title="Leave this trip" data-toggle="tooltip" type="button" class="btn btn-lg btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                            {# Make a button that displays a modal, saying that the coordinator cannot leave the trip and must first pass on his/her duties. #}
+                        {% else %}
+                            <a href={{ url_for('main.removeParticipant', personID=userID, tripID=Tripinfo.Master_Key) }} data-original-title="Leave this trip" data-toggle="tooltip" type="button" class="btn btn-lg btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                        {% endif %}
+                    {% else %}
+                        <a type="button" class="btn btn-success" id="addParticipant">Join Trip</a>
+                    {% endif %}
+                </h3>
+                <br>
+            </div>
         </div>
     </div>
 </div>
 <br>
 <div class="container">
-    <h3>Participants
-        <div style="float:right;">
-            <a class="btn btn-success" id="addParticipant">Join Trip</a>
-        </div>
-    </h3>
+    <h3>Participants</h3>
     <div class="row">
         <div class="panel panel-primary filterable">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Driver</th>
-                        <th>Car Capacity</th>
-                        <th>Remove from trip</th>
+                        <th width="375px">Name</th>
+                        <th width="150px">Driver</th>
+                        <th width="300px">Car Capacity</th>
+                        <th>{# Options #}</th>
                     </tr>
                 </thead>
                 {% for TableRow in ParticipantInfo %}
                 <tr>
-                    <td> {{ TableRow.Participant }}</td>
+                    <td height="40px"> {{ TableRow.Participant }}</td>
                     {%  if TableRow.Driver=='True' or TableRow.Driver == 1 or TableRow == '1'%}
-                    <td> Yes</td>
+                    <td>Yes</td>
                     <td>{{ TableRow.Car_Capacity }}</td>
                     {% else %}
                     <td>No</td>
                     <td>N/A</td>
                     {% endif %}
-                    <td><a class="btn btn-danger" href={{ url_for('main.removeParticipant', theID=TableRow.id) }} role="button">X</a></td>
+                    {# Only allow the following if they've consented, if you're the coordinator, and they're not you. #}
+                    {% if youAreCoordinator and TableRow.OpenLeader and userID != TableRow.accountID %}
+                        {# Make the tooltips go left if the button is on the left, and right if the button is on the right. Never cover up other buttons with a tooltip. #}
+                        <td><a href={{ url_for('main.swapCoordinators', oldLeaderID=userID, newLeaderID=TableRow.accountID, tripID=Tripinfo.Master_Key) }} data-original-title="Designate as new coordinator" data-toggle="tooltip" type="button" class="btn btn-sm btn-success" data-placement="left"><i class="glyphicon glyphicon-king"></i></a></td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {# <td><a class="btn btn-danger" href={{ url_for('main.removeParticipant', personID=TableRow.accountID, tripID=TableRow.Master_Key) }} role="button">X</a></td> #}
                 </tr>
                 {% endfor %}
                 </tbody>
