@@ -24,6 +24,16 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
+@main.route('/popUpMessage/<title>/<message>', methods=['GET', 'POST'])
+def popUpMessage(title, message):
+    """
+    Displays a pop-up message.
+    :param title: 
+    :param message: 
+    :return: 
+    """
+    return render_template("DisplayMessageModal.html", message=message, title=title)
+
 @main.route('/', methods=['GET', 'POST'])
 def mainPage():
     """
@@ -419,6 +429,7 @@ def swapCoordinators(oldLeaderID, newLeaderID, tripID):
     oldLeader.OpenLeader = False
     newLeader.Leader = True
     newLeader.OpenLeader = False
+    db.session.commit()
     return redirect(url_for('main.tripPage', TripKey=tripID))
 
 # tempParticipant = Participants.query.filter_by(id=int(theID))

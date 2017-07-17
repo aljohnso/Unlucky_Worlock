@@ -15,12 +15,23 @@
         {
             console.log("clicked");
             $.get('/addTrip')
-                .done(function (data)
-                {
-                    console.log(data);
-                    $('#message-model-content').html(data);
-                    $("#generalizedModal").modal("show");
-                });
+            .done(function (data)
+            {
+                console.log(data);
+                $('#message-model-content').html(data);
+                $("#generalizedModal").modal("show");
+            });
+        })
+        $("#notLoggedIn").click(function ()
+        {
+            console.log("clicked");
+            $.get('/popUpMessage/' + 'Not Logged In' + "/" + "You must be logged in to add a new trip.")
+            .done(function (data)
+            {
+                console.log(data);
+                $('#message-model-content').html(data);
+                $("#generalizedModal").modal("show");
+            });
         })
     })
     </script>
@@ -83,11 +94,15 @@
                     <td> {{ TableRow.Trip_Location}}</td>
                 </tr>
                 {% else %}
-                    <li><em>Unbelievable.  No entries here so far</em></li>
+                    <li><em>Unbelievable. No entries here so far</em></li>
                 {% endfor %}
                 </tbody>
             </table>
-            <a class="btn" href="#" id="addTrip" >Add Trip</a>
+            {% if 'credentials' in session %}
+                <a class="btn" href="#" id="addTrip">Add Trip</a>
+            {% else %}
+                <a class="btn" href="#" id="notLoggedIn">Add Trip</a>
+            {% endif %}
         </div>
     </div>
 </div>
