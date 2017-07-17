@@ -219,7 +219,11 @@
                         <th width="375px">Name</th>
                         <th width="150px">Driver</th>
                         <th width="300px">Car Capacity</th>
-                        <th>{# Options #}</th>
+                        <th>
+                            {% if onTrip %}
+                            Options
+                            {% endif %}
+                        </th>
                     </tr>
                 </thead>
                 {% for TableRow in ParticipantInfo %}
@@ -232,13 +236,16 @@
                     <td>No</td>
                     <td>N/A</td>
                     {% endif %}
-                    {# Only allow the following if they've consented, if you're the coordinator, and they're not you. #}
-                    {% if youAreCoordinator and TableRow.OpenLeader and userID != TableRow.accountID %}
-                        {# Make the tooltips go left if the button is on the left, and right if the button is on the right. Never cover up other buttons with a tooltip. #}
-                        <td><a href={{ url_for('main.swapCoordinators', oldLeaderID=userID, newLeaderID=TableRow.accountID, tripID=Tripinfo.Master_Key) }} data-original-title="Designate as new coordinator" data-toggle="tooltip" type="button" class="btn btn-sm btn-success" data-placement="left"><i class="glyphicon glyphicon-king"></i></a></td>
-                    {% else %}
-                        <td></td>
-                    {% endif %}
+                    <td>
+                        {% if onTrip %}
+                            <a href={{ "mailto:" + TableRow.Email }} data-original-title="Email this trip member" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary" data-placement="left"><i class="glyphicon glyphicon-envelope"></i></a>
+                        {% endif %}
+                        {# Only allow the following if they've consented, if you're the coordinator, and they're not you. #}
+                        {% if youAreCoordinator and TableRow.OpenLeader and userID != TableRow.accountID %}
+                            {# Make the tooltips go left if the button is on the left, and right if the button is on the right. Never cover up other buttons with a tooltip. #}
+                            <a href={{ url_for('main.swapCoordinators', oldLeaderID=userID, newLeaderID=TableRow.accountID, tripID=Tripinfo.Master_Key) }} data-original-title="Designate as new coordinator" data-toggle="tooltip" type="button" class="btn btn-sm btn-success" data-placement="right"><i class="glyphicon glyphicon-king"></i></a>
+                        {% endif %}
+                    </td>
                     {# <td><a class="btn btn-danger" href={{ url_for('main.removeParticipant', personID=TableRow.accountID, tripID=TableRow.Master_Key) }} role="button">X</a></td> #}
                 </tr>
                 {% endfor %}
