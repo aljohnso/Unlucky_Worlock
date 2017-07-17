@@ -289,7 +289,11 @@
                                 <a class="btn btn-sm btn-success disabled"><i class="glyphicon glyphicon-king"></i></a>
                             {% endif %}
                             <p style="margin-top:4px; margin-bottom:0px;"></p>
-                            <a data-original-title="Send message" data-toggle="tooltip" type="button" class="btn btn-sm btn-info extender" data-placement="right"><i class="glyphicon glyphicon-comment"></i></a>
+                            {% if userID != TableRow.accountID %}
+                                <a data-original-title="Send message" data-toggle="tooltip" type="button" class="btn btn-sm btn-info extender" data-placement="right"><i class="glyphicon glyphicon-comment"></i></a>
+                            {% else %}
+                                <a class="btn btn-sm btn-info disabled"><i class="glyphicon glyphicon-comment"></i></a>
+                            {% endif %}
                             <-- WIP
                         </td>
                     {% else %}
