@@ -18,7 +18,7 @@
             $("#addParticipant").click(function ()
             {
                 console.log("clicked");
-                $.get('/addParticipant/' + {{ TripMeta.id }})
+                $.get('/api/addParticipant/' + {{ TripMeta.id }})
                 .done(function(data)
                 {
                     console.log(data);
@@ -29,7 +29,7 @@
             $("#cannotLeave").click(function ()
             {
                 console.log("clicked");
-                $.get('/cannotLeave')
+                $.get('/api/cannotLeave')
                 .done(function(data)
                 {
                     console.log(data);
@@ -40,7 +40,7 @@
             $("#editParticipant").click(function ()
             {
                 console.log("clicked");
-                $.get('/editParticipant/' + {{ TripMeta.id }})
+                $.get('/api/editParticipant/' + {{ TripMeta.id }})
                 .done(function(data)
                 {
                     console.log(data);
@@ -231,7 +231,7 @@
                             <a id="cannotLeave" data-original-title="Leave this trip" data-toggle="tooltip" type="button" class="btn btn-lg btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
                             {# Make a button that displays a modal, saying that the coordinator cannot leave the trip and must first pass on his/her duties. #}
                         {% else %}
-                            <a href={{ url_for('main.removeParticipant', personID=userID, tripID=Tripinfo.Master_Key) }} data-original-title="Leave this trip" data-toggle="tooltip" type="button" class="btn btn-lg btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                            <a href={{ url_for('api.removeParticipant', personID=userID, tripID=Tripinfo.Master_Key) }} data-original-title="Leave this trip" data-toggle="tooltip" type="button" class="btn btn-lg btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
                         {% endif %}
                     {% else %}
                         <a type="button" class="btn btn-success" id="addParticipant">Join Trip</a>
@@ -284,7 +284,7 @@
                         <td style="padding-left: 2px; text-align: left;">
                             {% if youAreCoordinator and TableRow.OpenLeader and userID != TableRow.accountID %}
                                 {# Make the tooltips go left if the button is on the left, and right if the button is on the right. Never cover up other buttons with a tooltip. #}
-                                <a href={{ url_for('main.swapCoordinators', oldLeaderID=userID, newLeaderID=TableRow.accountID, tripID=Tripinfo.Master_Key) }} data-original-title="Designate as new coordinator" data-toggle="tooltip" type="button" class="btn btn-sm btn-success extender" data-placement="right"><i class="glyphicon glyphicon-king"></i></a>
+                                <a href={{ url_for('api.swapCoordinators', oldLeaderID=userID, newLeaderID=TableRow.accountID, tripID=Tripinfo.Master_Key) }} data-original-title="Designate as new coordinator" data-toggle="tooltip" type="button" class="btn btn-sm btn-success extender" data-placement="right"><i class="glyphicon glyphicon-king"></i></a>
                             {% else %}
                                 <a class="btn btn-sm btn-success disabled"><i class="glyphicon glyphicon-king"></i></a>
                             {% endif %}

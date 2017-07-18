@@ -12,7 +12,7 @@
             $("#addParticipant").click(function ()
             {
                 console.log("clicked");
-                $.get('/addParticipant/' + {{ TripMeta.id }})
+                $.get('/api/addParticipant/' + {{ TripMeta.id }})
                 .done(function(data)
                 {
                     console.log(data);
@@ -58,7 +58,7 @@
 {#     <div>{{ message }}</div>#}
 {#      {% endfor %}#}
 <div class="container">
-<form action= "{{ url_for('main.addTrip') }}" method="post" class="form-group">
+<form action= "{{ url_for('api.addTrip') }}" method="post" class="form-group">
 {#    {{ form.hidden_tag() }}<br>#}
 {##}
 {#      <div class="form-group">#}

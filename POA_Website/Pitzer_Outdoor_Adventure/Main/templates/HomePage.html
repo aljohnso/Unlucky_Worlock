@@ -14,7 +14,7 @@
         $("#addTrip").click(function ()
         {
             console.log("clicked");
-            $.get('/addTrip')
+            $.get('/api/addTrip')
             .done(function (data)
             {
                 console.log(data);
@@ -25,7 +25,7 @@
         $("#notLoggedIn").click(function ()
         {
             console.log("clicked");
-            $.get('/popUpMessage/' + 'Not Logged In' + "/" + "You must be logged in to add a new trip.")
+            $.get('/api/popUpMessage/' + 'Not Logged In' + "/" + "You must be logged in to add a new trip.")
             .done(function (data)
             {
                 console.log(data);
