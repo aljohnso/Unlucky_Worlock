@@ -21,9 +21,11 @@ main = Blueprint('main', __name__, template_folder='templates')
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
+        print(flask.session)
+        print('credentials' not in flask.session or 'Googledata' not in flask.session)
         if 'credentials' not in flask.session or 'Googledata' not in flask.session:
             return redirect(url_for('main.login'))
-        elif None == Account.query.filter_by(id=flask.session['Googledata']['id']).first():
+        elif None == Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first():
             return redirect(url_for('main.login'))
         return f(*args, **kwargs)
 
@@ -128,7 +130,7 @@ def profile():
     # https://docs.python.org/2/library/datetime.html#module-datetime
     # https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior
     return render_template("ProfilePage.html",
-                           user=Account.query.filter_by(id=flask.session['Googledata']['id']).first(), time=tempTime)
+                           user=Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first(), time=tempTime)
 
 
 @main.route('/createAccount', methods=['POST', 'GET'])
@@ -140,7 +142,7 @@ def makeAccount():
     # Account.query.filter_by(id=flask.session['Googledata']['id']).first().googleNum
     if 'credentials' not in flask.session or 'Googledata' not in flask.session:
         return redirect(url_for('main.mainPage'))
-    if None != Account.query.filter_by(id=flask.session['Googledata']['id']).first():
+    if None != Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first():
         return redirect(url_for('main.mainPage'))
     else:
         form = CreateAccountForm(FirstName_Box=flask.session['Googledata']["given_name"][:],
@@ -168,11 +170,11 @@ def editAccount():
     :return: 
     """
     # print('made it to stage one')
-    if None == Account.query.filter_by(id=flask.session['Googledata']['id']).first(): # This may no longer be necessary since there is the login decorator
+    if None == Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first(): # This may no longer be necessary since there is the login decorator
         # print('took a wrong turn')
         return redirect(url_for('main.mainPage'))
     else:
-        currentData = Account.query.filter_by(id=flask.session['Googledata']['id']).first().accessData()
+        currentData = Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first().accessData()
         form = ModifyAccountForm(FirstName_Box=currentData['firstName'][:], LastName_Box=currentData['lastName'][:],
                                  Email_Box=currentData['email'][:], Age_Box=currentData['age'][:],
                                  Height_Box=currentData['height'][:],
@@ -186,7 +188,7 @@ def editAccount():
                 return render_template("ModifyAccount.html", form=form)
             else:
                 flash('Account was successfully modified')
-                selectedUser = Account.query.filter_by(id=flask.session['Googledata']['id']).first()
+                selectedUser = Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first()
                 selectedUser.modifyAccount(form.data, session)
                 tripSelves = Participants.query.filter_by(accountID=flask.session['Googledata']['id']).all()
                 for those in tripSelves:

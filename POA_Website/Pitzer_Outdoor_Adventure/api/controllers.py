@@ -30,7 +30,7 @@ def addTrip():
     Sends the user a form to fill out with trip information, then makes a new trip using that data.
     :return:
     """
-    tempUser = Account.query.filter_by(id=flask.session['Googledata']['id']).first()
+    tempUser = Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first()
     form = MakeTripFormPOA(Car_Capacity=str(tempUser.carCapacity))
     # FINISHED: Make the above form autofill the car capacity with the user's data. WAIT, WHAT DOES THIS MEAN? THAT'S NEVER REQUESTED IN THE FORM!(?)
     if request.method == 'POST':
@@ -61,7 +61,7 @@ def addParticipant(FormKey):
     :param FormKey:
     :return:
     """
-    tempUser = Account.query.filter_by(id=flask.session['Googledata']['id']).first()
+    tempUser = Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first()
     tripInfo = Master.query.filter_by(id=FormKey).first()
     # Could be made more efficient by only querying for trip name.
     # if tempUser.carCapacity != 0:
@@ -139,7 +139,7 @@ def checkAddParticipant(FormKey):
     :return:
     """
     tempTrip = Master.query.filter_by(id=FormKey).first()
-    tempUser = Account.query.filter_by(id=flask.session['Googledata']['id']).first()
+    tempUser = Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first()
     if tempTrip.Participant_Cap < tempTrip.Participant_Num + 1 and tempTrip.Car_Cap < tempTrip.Car_Num + 1:
         # You cannot join the trip, no buts about it.
         # TODO: FLASH A THING ON THE SCREEN

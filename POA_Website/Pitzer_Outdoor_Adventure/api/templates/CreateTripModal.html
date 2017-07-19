@@ -7,7 +7,7 @@
     <h5 class="modal-title">Create Trip</h5>
 </div>
 <div class="modal-body">
-    <form action= "{{ url_for('main.addTrip') }}" method="post">
+    <form action= "{{ url_for('api.addTrip') }}" method="post">
         {% import "bootstrap/wtf.html" as wtf %}
         {{ wtf.quick_form(form) }}
     </form>
