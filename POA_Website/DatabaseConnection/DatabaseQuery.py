@@ -77,3 +77,8 @@ class Participant_manipulation_query(BaseQuery):
 
 
 
+class Account_manipulation_query(BaseQuery):
+
+    def createAccount(self, formData, session):
+        Schema.db.session.add(Schema.Account(formData, session))
+        Schema.db.session.commit()

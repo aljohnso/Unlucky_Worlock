@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy, inspect
 
-from DatabaseConnection.DatabaseQuery import Master_db_query, Participant_manipulation_query
+from DatabaseConnection.DatabaseQuery import Master_db_query, Participant_manipulation_query, Account_manipulation_query
 from DatabaseConnection.DatabaseSubmissionConstructors import MasterConstructor, TripConstructor
 
 db = SQLAlchemy()
@@ -162,6 +162,7 @@ class TripModel():
 
 
 class Account(db.Model):
+    query_class = Account_manipulation_query
     # Defines a variable with certain fixed parameters, much like one would in C#.
     # Maybe look up a way to record how many objects are in your database?
     id = db.Column(db.Integer, primary_key=True)
@@ -255,6 +256,4 @@ class Account(db.Model):
         }
         return dataDict
 
-    def createAccount(self, formData, session):
-        db.session.add(Account(formData, session))
-        db.session.commit()
+
