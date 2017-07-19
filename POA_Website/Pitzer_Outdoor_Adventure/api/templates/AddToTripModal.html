@@ -10,7 +10,7 @@
     {% if warning %}
         {{ errorMessage }}
     {% endif %}
-    <form action= "{{ url_for('main.addParticipant', FormKey=tripInfo.id) }}" method="post" class="form-inline">
+    <form action= "{{ url_for('api.addParticipant', FormKey=tripInfo.id) }}" method="post" class="form-inline">
         {% import "bootstrap/wtf.html" as wtf %}
         {{ wtf.quick_form(form) }}
     </form>
