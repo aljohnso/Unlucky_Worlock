@@ -47,8 +47,7 @@ def addTrip():
             model.addModel()  # add trip to db
             db.session.commit()
             flash('New entry was successfully posted')
-            return redirect(url_for(
-                'main.mainPage'))  # I'm going to be honest, this naming schema is terrible. MATTHEW: FIXED SO IT'S NO LONGER TERRIBLE!
+            return redirect(url_for('main.mainPage'))  # I'm going to be honest, this naming schema is terrible. MATTHEW: FIXED SO IT'S NO LONGER TERRIBLE!
     elif request.method == 'GET':
         return render_template('CreateTripModal.html', form=form)
 
@@ -72,8 +71,7 @@ def addParticipant(FormKey):
             # You cannot join the trip, no buts about it.
             # FINISHED: FLASH A THING ON THE SCREEN
             # Make this render a new modal-type template, just like you did earlier but with only a warning message saying the trip is full. DID IT, FINISHED!!!!
-            return render_template('DisplayMessageModal.html', message="Sorry, there's no room left on this trip.",
-                                   title="Trip is Full")
+            return render_template('DisplayMessageModal.html', message="Sorry, there's no room left on this trip.", title="Trip is Full")
             # redirect(url_for("main.tripPage", FormKey=str(FormKey)))
         else:
             return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, warning=False, errorMessage="")
@@ -107,15 +105,13 @@ def addParticipant(FormKey):
 def editParticipant(FormKey):
     you = Participants.query.filter_by(accountID=flask.session['Googledata']['id'], Master_Key=FormKey).first()
     tripInfo = Master.query.filter_by(id=FormKey).first()
-    form = EditTripMemberPOA(Driver_Box=you.Driver, CarCapacity_Box=str(you.Car_Capacity),
-                             PotentialLeader_Box=you.OpenLeader)
+    form = EditTripMemberPOA(Driver_Box=you.Driver, CarCapacity_Box=str(you.Car_Capacity), PotentialLeader_Box=you.OpenLeader)
     if request.method == 'GET':
         return render_template('EditTripMemberModal.html', form=form, tripInfo=tripInfo, warning=False, errorMessage="")
     if request.method == 'POST':
         if form.validate() == False:
             flash('All fields are required.')
-            return render_template('EditTripMemberModal.html', form=form, tripInfo=tripInfo, warning=False,
-                                   errorMessage="")
+            return render_template('EditTripMemberModal.html', form=form, tripInfo=tripInfo, warning=False, errorMessage="")
         else:
             newSeats = int(form.data["CarCapacity_Box"][:])
             isDriver = form.data["Driver_Box"]
@@ -149,11 +145,18 @@ def checkAddParticipant(FormKey):
         return redirect(url_for("main.addParticipant", FormKey=str(FormKey)))
 
 
+@api.route('/tripDisplay')
+@login_required
+def tripDisplay():
+    listOfParticipants = Participants.query.filter_by(accountID=flask.session['Googledata']['id']).all()
+    listOfTrips = []
+    for those in listOfParticipants:
+        listOfTrips.append(Master.query.filter_by(id=those.Master_Key).first())
+    return render_template('DisplayTripsModal.html', listOfTrips=listOfTrips)
+
 @api.route('/cannotLeave')
 def cannotLeave():
-    return render_template('DisplayMessageModal.html',
-                           message="You are this trip's coordinator. You cannot leave until you have passed the role onto someone else.",
-                           title="Cannot Leave Trip")
+    return render_template('DisplayMessageModal.html', message="You are this trip's coordinator. You cannot leave until you have passed the role onto someone else.", title="Cannot Leave Trip")
 
 
 @api.route('/deleteParticipant/<personID>/<tripID>')

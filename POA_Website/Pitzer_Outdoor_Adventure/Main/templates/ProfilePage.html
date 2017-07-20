@@ -10,8 +10,31 @@
 {#    <style src = "POACreateTripCSS.css"></style>#}
     <script src="/static/UserProfile.js"></script>
     <link rel="stylesheet" href="/static/UserProfile.css">
+    <script>
+        $(document).ready(function ()
+        {
+            $("#tripDisplay").click(function ()
+            {
+                console.log("clicked");
+                $.get('/api/tripDisplay')
+                .done(function(data)
+                {
+                    console.log(data);
+                    $('#message-model-content').html(data);
+                    $("#generalizedModal").modal("show");
+                });
+            });
+        });
+    </script>
 </head>
 <body>
+<div class="modal fade message-popup" id="generalizedModal" tabindex="-1" role="dialog" aria-labelledby="user1Message">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="message-model-content">
+            {# code gets inserted here #}
+        </div>
+    </div>
+</div>
     <div class="container">
       <div class="row">
       <div class="col-md-5  toppad  pull-right col-md-offset-3 ">
@@ -71,7 +94,7 @@
                     </tbody>
                   </table>
 
-                  <a href="#" class="btn btn-primary">My Trips</a>
+                  <a id="tripDisplay" type="button" class="btn btn-primary">My Trips</a>
                   {# <a href="#" class="btn btn-primary">Something else maybe?</a> #}
                 </div>
               </div>
@@ -80,7 +103,7 @@
                 <a data-original-title="Send Feedback to Website Developers!" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
                 <a href={{ url_for('main.editAccount') }} data-original-title="Edit Profile" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
                 <span class="pull-right">
-                    <a href={{url_for('main.logout')}} data-original-title="Logout" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                    <a href={{ url_for('main.logout') }} data-original-title="Logout" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
                 </span>
             </div>
           </div>

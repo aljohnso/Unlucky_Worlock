@@ -21,14 +21,13 @@ main = Blueprint('main', __name__, template_folder='templates')
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        print(flask.session)
-        print('credentials' not in flask.session or 'Googledata' not in flask.session)
+        # print(flask.session)
+        # print('credentials' not in flask.session or 'Googledata' not in flask.session)
         if 'credentials' not in flask.session or 'Googledata' not in flask.session:
             return redirect(url_for('main.login'))
         elif None == Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first():
             return redirect(url_for('main.login'))
         return f(*args, **kwargs)
-
     return decorated_function
 
 
@@ -129,8 +128,7 @@ def profile():
     # print(tempTime.strftime('%B'))
     # https://docs.python.org/2/library/datetime.html#module-datetime
     # https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior
-    return render_template("ProfilePage.html",
-                           user=Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first(), time=tempTime)
+    return render_template("ProfilePage.html", user=Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first(), time=tempTime)
 
 
 @main.route('/createAccount', methods=['POST', 'GET'])
@@ -145,8 +143,7 @@ def makeAccount():
     if None != Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first():
         return redirect(url_for('main.mainPage'))
     else:
-        form = CreateAccountForm(FirstName_Box=flask.session['Googledata']["given_name"][:],
-                                 LastName_Box=flask.session['Googledata']["family_name"][:])
+        form = CreateAccountForm(FirstName_Box=flask.session['Googledata']["given_name"][:], LastName_Box=flask.session['Googledata']["family_name"][:])
         # TODO: Remove Googledata from session if you can, but doing this isn't that important.
         if request.method == 'POST':
             # print(form.data)  # returns a dictionary with keys that are the fields in the table
