@@ -115,7 +115,7 @@
         .extender span.lefttocenter
         {
             position: absolute;
-            text-align: center;
+{#            text-align: center;#}
             left: 0px;
             right: 0px;
             margin-left: auto;
@@ -127,7 +127,7 @@
         .extender span.centertoleft
         {
             position: absolute;
-            text-align: center;
+{#            text-align: center;#}
             left: 0px;
             right: 0px;
             margin-left: auto;
@@ -138,7 +138,7 @@
         .extender span.righttocenter
         {
             position: absolute;
-            text-align: center;
+{#            text-align: center;#}
             left: 0px;
             right: 0px;
             margin-left: auto;
@@ -149,7 +149,7 @@
         .extender span.centertoright
         {
             position: absolute;
-            text-align: center;
+{#            text-align: center;#}
             left: 0px;
             right: 0px;
             margin-left: auto;
@@ -157,9 +157,85 @@
             transition: transform 0.5s ease 0s;
             transform: translateX(0px);
         }
-        .extender:hover
+        .extender10:hover
         {
-            width: 140px; /* 140px */
+            width: 10px;
+        }
+        .extender20:hover
+        {
+            width: 20px;
+        }
+        .extender30:hover
+        {
+            width: 30px;
+        }
+        .extender40:hover
+        {
+            width: 40px;
+        }
+        .extender50:hover
+        {
+            width: 50px;
+        }
+        .extender60:hover
+        {
+            width: 60px;
+        }
+        .extender70:hover
+        {
+            width: 70px;
+        }
+        .extender80:hover
+        {
+            width: 80px;
+        }
+        .extender90:hover
+        {
+            width: 90px;
+        }
+        .extender100:hover
+        {
+            width: 100px;
+        }
+        .extender110:hover
+        {
+            width: 110px;
+        }
+        .extender120:hover
+        {
+            width: 120px;
+        }
+        .extender130:hover
+        {
+            width: 130px;
+        }
+        .extender140:hover
+        {
+            width: 140px;
+        }
+        .extender150:hover
+        {
+            width: 150px;
+        }
+        .extender160:hover
+        {
+            width: 160px;
+        }
+        .extender170:hover
+        {
+            width: 170px;
+        }
+        .extender180:hover
+        {
+            width: 180px;
+        }
+        .extender190:hover
+        {
+            width: 190px;
+        }
+        .extender200:hover
+        {
+            width: 200px;
         }
         .extender:hover span.lefttocenter
         {
@@ -247,8 +323,6 @@
         <ul><li>{{ Tripinfo.Total_Cost}}</li></ul>
         Cost Breakdown
         <ul><li>{{ Tripinfo.Cost_BreakDown}}</li></ul>
-        <div class="extender"><a type="button" class="btn btn-sm btn-default extender"><span class="centertoleft"><i class="glyphicon glyphicon-edit"></i></span><span class="righttocenter">Edit your information</span></a></div>
-{#        <a type="button" class="btn btn-sm btn-info" meme="lele">hoi</a>#}
     </div>
     <div style="float: right; width: 250px;">
         <div class="panel panel-info">
@@ -294,8 +368,8 @@
                     <tr>
                         <th width="375px">Name</th>
                         <th width="150px">Driver</th>
-                        <th width="200px">Car Capacity</th>
-                        <th width="150px" style="padding-right: 0px; text-align: right;">
+                        <th width="110px">Car Capacity</th>
+                        <th width="240px" style="padding-right: 0px; text-align: right;">
                             {% if onTrip %}
                             Options
                             {% endif %}
@@ -316,31 +390,30 @@
                     {% if onTrip %}
                         {# https://css-tricks.com/snippets/svg/shape-morphing-icons-button-click/ #}
                         {# ^^^ Use this to make these new stretchy buttons presentable. #}
-                        <td style="padding-right: 2px; text-align: right;">
-                            <div class="extender"><a href={{ "mailto:" + TableRow.Email }} type="button" class="btn btn-sm btn-primary extender"><span class="centertoleft"><i class="glyphicon glyphicon-envelope"></i></span><span class="righttocenter">Email this trip member</span></a></div>
-                            <p style="margin-top:4px; margin-bottom:0px;"></p>
-                            <a data-original-title="View allergies and diet restrictions" data-toggle="tooltip" type="button" class="btn btn-sm btn-default" data-placement="left"><i class="glyphicon glyphicon-list-alt"></i></a>
+                        <td style="padding-right: 2px;">
+                            <div style="float: right;" class="extender extender140"><a href={{ "mailto:" + TableRow.Email }} type="button" class="btn btn-sm btn-primary extender extender140"><span class="centertoleft"><i class="glyphicon glyphicon-envelope"></i></span><span class="righttocenter">Email this trip member</span></a></div>
+                            <p style="margin-top: 34px; margin-bottom: 0px;"></p>
+                            <div style="float: right;" class="extender extender200"><a type="button" class="btn btn-sm btn-default extender extender200"><span class="centertoleft"><i class="glyphicon glyphicon-list-alt"></i></span><span class="righttocenter">View allergies and diet restrictions</span></a></div>
                         </td>
                             {# Only allow the following if they've consented, if you're the coordinator, and they're not you. #}
                             {# Make this button redirect you to a modal, with an "are you sure?" that appears before you actually throw away your coordinator status. #}
-                        <td style="padding-left: 2px; text-align: left;">
+                        <td style="padding-left: 2px;">
                             {% if youAreCoordinator and TableRow.OpenLeader and userID != TableRow.accountID %}
                                 {# Make the tooltips go left if the button is on the left, and right if the button is on the right. Never cover up other buttons with a tooltip. #}
-                                <a href={{ url_for('api.swapCoordinators', oldLeaderID=userID, newLeaderID=TableRow.accountID, tripID=Tripinfo.Master_Key) }} data-original-title="Designate as new coordinator" data-toggle="tooltip" type="button" class="btn btn-sm btn-success extender" data-placement="right"><i class="glyphicon glyphicon-king"></i></a>
+                                <div style="float: left;" class="extender extender180"><a href={{ url_for('api.swapCoordinators', oldLeaderID=userID, newLeaderID=TableRow.accountID, tripID=Tripinfo.Master_Key) }} type="button" class="btn btn-sm btn-success extender extender180"><span class="centertoright"><i class="glyphicon glyphicon-king"></i></span><span class="lefttocenter">Designate as new coordinator</span></a></div>
                             {% else %}
-                                <a class="btn btn-sm btn-success disabled"><i class="glyphicon glyphicon-king"></i></a>
+                                <div style="float: left;"><a class="btn btn-sm btn-success disabled"><i class="glyphicon glyphicon-king"></i></a></div>
                             {% endif %}
-                            <p style="margin-top:4px; margin-bottom:0px;"></p>
+                            <p style="margin-top: 34px; margin-bottom: 0px;"></p>
                             {% if userID != TableRow.accountID %}
-                                <a data-original-title="Send message" data-toggle="tooltip" type="button" class="btn btn-sm btn-info" data-placement="right"><i class="glyphicon glyphicon-comment"></i></a>
+                                <div style="float: left;" class="extender extender100"><a type="button" class="btn btn-sm btn-info extender extender100"><span class="centertoright"><i class="glyphicon glyphicon-comment"></i></span><span class="lefttocenter">Send message</span></a></div>
                             {% else %}
                                 <a class="btn btn-sm btn-info disabled"><i class="glyphicon glyphicon-comment"></i></a>
                             {% endif %}
-                            <-- WIP
                         </td>
                     {% else %}
-                        <td style="padding-right: 2px; text-align: right;"></td>
-                        <td style="padding-left: 2px; text-align: left;"></td>
+                        <td style="padding-right: 2px; float: right;"></td>
+                        <td style="padding-left: 2px; float: left;"></td>
                     {% endif %}
                     {# <td><a class="btn btn-danger" href={{ url_for('main.removeParticipant', personID=TableRow.accountID, tripID=TableRow.Master_Key) }} role="button">X</a></td> #}
                 </tr>
@@ -445,3 +518,6 @@
 {#            });#}
 
 {# <a href={{ "mailto:" + TableRow.Email }} data-original-title="Email this trip member" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary" data-placement="left"><i class="glyphicon glyphicon-envelope"></i></a>#}
+{# <a data-original-title="View allergies and diet restrictions" data-toggle="tooltip" type="button" class="btn btn-sm btn-default" data-placement="left"><i class="glyphicon glyphicon-list-alt"></i></a>#}
+{# <a href={{ url_for('api.swapCoordinators', oldLeaderID=userID, newLeaderID=TableRow.accountID, tripID=Tripinfo.Master_Key) }} data-original-title="Designate as new coordinator" data-toggle="tooltip" type="button" class="btn btn-sm btn-success extender" data-placement="right"><i class="glyphicon glyphicon-king"></i></a>#}
+{# <a data-original-title="Send message" data-toggle="tooltip" type="button" class="btn btn-sm btn-info" data-placement="right"><i class="glyphicon glyphicon-comment"></i></a>#}
