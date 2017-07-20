@@ -25,7 +25,7 @@
                     $('#message-model-content').html(data);
                     $("#generalizedModal").modal("show");
                 });
-            })
+            });
             $("#cannotLeave").click(function ()
             {
                 console.log("clicked");
@@ -36,7 +36,7 @@
                     $('#message-model-content').html(data);
                     $("#generalizedModal").modal("show");
                 });
-            })
+            });
             $("#editParticipant").click(function ()
             {
                 console.log("clicked");
@@ -48,12 +48,8 @@
                     $("#generalizedModal").modal("show");
                     /* Use this for hiding the modal via code --> $("#generalizedModal").modal("hide");*/
                 });
-            })
-            $('[data-toggle="tooltip"]').tooltip();
-        })
-		$(function()
-        {
-			$(".meterbar > span").each(function()
+            });
+            $(".meterbar > span").each(function()
             {
 				$(this)
 					.data("origWidth", $(this).width())
@@ -62,36 +58,8 @@
 						width: $(this).data("origWidth")
 					}, 1200); /* <-- Duration of the animation */
 			});
-            $(".extender").each(function()
-            {
-                $(this).data("origWidth", $(this).width());
-                /*var check = $(this).data("running");*/
-                /*if ($(this).data("running")==false)
-                {
-                    $(this)
-                        .animate({
-                            width: 100
-                        }, 1200);
-                }
-                else
-                {
-                    $(this)
-                        .animate({
-                            width: 200
-                        }, 1200);
-                }*/
-            });
-            $(".extender").mouseenter(function()
-            {
-                $(this).stop();
-                $(this).animate({ width: 140 }, 600);
-            });
-            $(".extender").mouseleave(function()
-            {
-                $(this).stop();
-                $(this).animate({ width: 34 }, 600);
-            });
-		});
+            $('[data-toggle="tooltip"]').tooltip();
+        });
     </script>
     <style>
         .meterbar
@@ -106,7 +74,7 @@
             padding: 3px;
             box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
         }
-        .meterbar > span
+        .meterbar span
         {
             display: block;
             height: 100%;
@@ -122,20 +90,92 @@
             position: relative;
             overflow: hidden;
         }
-        .cars > span
+        .cars span
         {
           background-color: rgb(130,180,250);
           background-image: linear-gradient(to bottom, rgb(130,180,250), rgb(120,220,240));
         }
-        .people > span
+        .people span
         {
           background-color: #f1a165;
           background-image: linear-gradient(to bottom, #f1a165, #f36d0a);
         }
-        a.extender
+        .extender
         {
+            /* Opacity of 0 means that the object is invisible. */
+            /* Opacity of 1 means it is fully visible. */
             position: relative;
-            /*width: 40px*/
+            width: 34px; /* 34px */
+            height: 30px;
+            white-space: nowrap;
+            text-overflow: clip;
+            overflow: hidden;
+            transition: width 0.5s ease 0s;
+        }
+        .extender span.lefttocenter
+        {
+            position: absolute;
+            text-align: center;
+            left: 0px;
+            right: 0px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: transform 0.5s ease 0s;
+            transform: translateX(-250px);
+            /* All transitions should also have a webkit transition version, for cross compatibility. */
+        }
+        .extender span.centertoleft
+        {
+            position: absolute;
+            text-align: center;
+            left: 0px;
+            right: 0px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: transform 0.5s ease 0s;
+            transform: translateX(0px);
+        }
+        .extender span.righttocenter
+        {
+            position: absolute;
+            text-align: center;
+            left: 0px;
+            right: 0px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: transform 0.5s ease 0s;
+            transform: translateX(250px);
+        }
+        .extender span.centertoright
+        {
+            position: absolute;
+            text-align: center;
+            left: 0px;
+            right: 0px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: transform 0.5s ease 0s;
+            transform: translateX(0px);
+        }
+        .extender:hover
+        {
+            width: 140px; /* 140px */
+        }
+        .extender:hover span.lefttocenter
+        {
+            transform: translateX(0px);
+        }
+        .extender:hover span.centertoleft
+        {
+            transform: translateX(-250px);
+        }
+        .extender:hover span.righttocenter
+        {
+            transform: translateX(0px);
+        }
+        .extender:hover span.centertoright
+        {
+            transform: translateX(250px);
         }
 {#        @keyframes expandWidth#}
 {#        {#}
@@ -171,7 +211,7 @@
 <div class="col-md-2  toppad  pull-right col-md-offset-3 ">
     <A href={{url_for('main.mainPage')}} >Return to trips page</A>
 </div>
-<h2 align="center">{{TripMeta.Trip_Name}}</h2>
+<h2 align="center">{{ TripMeta.Trip_Name }}</h2>
 <br>
 {#    <div class="meterbar cars" style="{{ "width: " + "80" + "px;" }}">#}
 {#        <span style="{{ "width: " + "85" + "%;" }}"></span>#}
@@ -207,6 +247,8 @@
         <ul><li>{{ Tripinfo.Total_Cost}}</li></ul>
         Cost Breakdown
         <ul><li>{{ Tripinfo.Cost_BreakDown}}</li></ul>
+        <div class="extender"><a type="button" class="btn btn-sm btn-default extender"><span class="centertoleft"><i class="glyphicon glyphicon-edit"></i></span><span class="righttocenter">Edit your information</span></a></div>
+{#        <a type="button" class="btn btn-sm btn-info" meme="lele">hoi</a>#}
     </div>
     <div style="float: right; width: 250px;">
         <div class="panel panel-info">
@@ -275,9 +317,9 @@
                         {# https://css-tricks.com/snippets/svg/shape-morphing-icons-button-click/ #}
                         {# ^^^ Use this to make these new stretchy buttons presentable. #}
                         <td style="padding-right: 2px; text-align: right;">
-                            <a href={{ "mailto:" + TableRow.Email }} data-original-title="Email this trip member" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary extender" data-placement="left"><i class="glyphicon glyphicon-envelope"></i></a>
+                            <div class="extender"><a href={{ "mailto:" + TableRow.Email }} type="button" class="btn btn-sm btn-primary extender"><span class="centertoleft"><i class="glyphicon glyphicon-envelope"></i></span><span class="righttocenter">Email this trip member</span></a></div>
                             <p style="margin-top:4px; margin-bottom:0px;"></p>
-                            <a data-original-title="View allergies and diet restrictions" data-toggle="tooltip" type="button" class="btn btn-sm btn-default extender" data-placement="left"><i class="glyphicon glyphicon-list-alt"></i></a>
+                            <a data-original-title="View allergies and diet restrictions" data-toggle="tooltip" type="button" class="btn btn-sm btn-default" data-placement="left"><i class="glyphicon glyphicon-list-alt"></i></a>
                         </td>
                             {# Only allow the following if they've consented, if you're the coordinator, and they're not you. #}
                             {# Make this button redirect you to a modal, with an "are you sure?" that appears before you actually throw away your coordinator status. #}
@@ -290,7 +332,7 @@
                             {% endif %}
                             <p style="margin-top:4px; margin-bottom:0px;"></p>
                             {% if userID != TableRow.accountID %}
-                                <a data-original-title="Send message" data-toggle="tooltip" type="button" class="btn btn-sm btn-info extender" data-placement="right"><i class="glyphicon glyphicon-comment"></i></a>
+                                <a data-original-title="Send message" data-toggle="tooltip" type="button" class="btn btn-sm btn-info" data-placement="right"><i class="glyphicon glyphicon-comment"></i></a>
                             {% else %}
                                 <a class="btn btn-sm btn-info disabled"><i class="glyphicon glyphicon-comment"></i></a>
                             {% endif %}
@@ -367,3 +409,39 @@
 {#    </td>#}
 {#</tr>#}
 {#</table>#}
+
+{#		$(function()#}
+{#        {#}
+{#            $(".extender").each(function()#}
+{#            {#}
+{#                $(this).data("origWidth", $(this).width());#}
+{#                /*var check = $(this).data("running");*/#}
+{#                /*if ($(this).data("running")==false)#}
+{#                {#}
+{#                    $(this)#}
+{#                        .animate({#}
+{#                            width: 100#}
+{#                        }, 1200);#}
+{#                }#}
+{#                else#}
+{#                {#}
+{#                    $(this)#}
+{#                        .animate({#}
+{#                            width: 200#}
+{#                        }, 1200);#}
+{#                }*/#}
+{#            });#}
+{#		});#}
+
+{#            $(".extender").mouseenter(function ()#}
+{#            {#}
+{#                $(this).stop();#}
+{#                $(this).animate({ width: 140 }, 600, "swing");#}
+{#            });#}
+{#            $(".extender").mouseleave(function ()#}
+{#            {#}
+{#                $(this).stop();#}
+{#                $(this).animate({ width: 34 }, 600, "swing", function() { $(this).html("yoyoyo"); });#}
+{#            });#}
+
+{# <a href={{ "mailto:" + TableRow.Email }} data-original-title="Email this trip member" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary" data-placement="left"><i class="glyphicon glyphicon-envelope"></i></a>#}
