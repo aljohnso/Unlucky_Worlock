@@ -1,6 +1,10 @@
+secret/*
 
+<<<<<<< Updated upstream
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 /secret
+=======
+>>>>>>> Stashed changes

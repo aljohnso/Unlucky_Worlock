@@ -10,6 +10,7 @@ class BaseConfig(object):
         with open(filePath) as data_file:
             data = json.load(data_file)
         SQLALCHEMY_DATABASE_URI = data["SQLALCHEMY_DATABASE_URI"]
+        print(SQLALCHEMY_DATABASE_URI)
     except:
         print('WARNING LOCAL DB IN USE AAAAAAAAAĀ')
         SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.getcwd() + '/SQLAlchameyPOA.db'

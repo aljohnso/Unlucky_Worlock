@@ -3,12 +3,15 @@ from flask import request, redirect, url_for, render_template, flash, Blueprint
 from Tests.TestForms.SecondForms import CreateAccountForm
 from Tests.protyping.UserAccounts import db, Account, databaseName, currentPath, createAccount
 from Tests.protyping.testApp.DatabaseInterfacetest import DatabaseTest
+
 import json
+
+from flask_mail import Message, Mail
 
 main = Blueprint('main', __name__, template_folder='templates')
 
 dataBase = DatabaseTest()
-
+mail = Mail()
 @main.route('/', methods=['GET', 'POST'])
 def Main():
     # expected_master = {'Details': 'Turn up and climb', 'Departure_Date': datetime.date.today(),
@@ -75,6 +78,7 @@ def Main():
         return render_template("ModifyAccount.html", form=form)
 
 
+
 @main.route('/data')
 def postData():
     a = Account.query.all()
@@ -82,3 +86,17 @@ def postData():
     for obj in a:
         b += obj.firstName + " "
     return b
+
+    response = dataBase.addMaster(testInput)
+    return response[0].Trip_Name
+
+
+
+@main.route("/send")
+def index():
+    msg = Message("Hello",
+                  sender="from@example.com",
+                  recipients=["aljohnso@students.pitzer.edu"])
+    mail.send(msg)
+    return "sent"
+
