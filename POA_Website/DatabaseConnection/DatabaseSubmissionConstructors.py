@@ -22,9 +22,8 @@ class MasterConstructor:
         Master['Details'] = self.MakeShortDetails(str(form['Details']))
         Master['Post_Time'] = datetime.date.today()
         Master['Participant_num'] = 1
-        Master['Car_Capacity'] = form['Car_Capacity'] # add including driver note
         Master['Car_Cap'] = form['Car_Cap']
-        if form['Car_Capacity'] > 0:
+        if form['Driver']:
             Master['Car_Num'] = 1
         else:
             Master['Car_Num'] = 0
@@ -43,8 +42,7 @@ class MasterConstructor:
 
 
 class TripConstructor:
-    TRIPS_DB_ORDER = ['Details', 'Coordinator_Name', 'Coordinator_Email',
-                      'Coordinator_Phone', 'GearList', 'Trip_Meeting_Place',
+    TRIPS_DB_ORDER = ['Details', 'GearList', 'Trip_Meeting_Place',
                       'Additional_Cost', 'Cost_Breakdown']
 
     WUNDERGROUND_KEY = 'dd0fa4bc432d5dbd'
@@ -55,7 +53,7 @@ class TripConstructor:
         Will take in form and create a list that can be executed to put in database
         """
         self.trip = self.MakeTrip(form, master_key)
-        self.leader = ParticipantConstructor(form, master_key).participant
+        #self.leader = ParticipantConstructor(form, master_key).participant
 
     def MakeTrip(self, Form, master_key):
         """

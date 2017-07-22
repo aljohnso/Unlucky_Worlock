@@ -1,126 +1,217 @@
-from Forms.POAForms import MakeTripFormPOA, AddToTripPOA
-from flask import  request, redirect, url_for, \
-     render_template, flash,Blueprint
-from DatabaseConnection.DataBaseSchema import db, \
-    Master, Participants, TripModel, Trips
-import json, flask, httplib2
-import apiclient as google
-from oauth2client import client
 import os
+from datetime import datetime
+from functools import wraps
+
+import apiclient as google
+import flask
+import httplib2
+from flask import request, redirect, url_for, \
+    render_template, flash, Blueprint, session
+from oauth2client import client
+
+from DatabaseConnection.DataBaseSchema import db, \
+    Master, Participants, Trips, Account
+from Forms.POAForms import CreateAccountForm, ModifyAccountForm
+from Pitzer_Outdoor_Adventure.Main.controllerHelperMethods import calculateProgress_carRatio, \
+    calculateProgress_participantRatio
+
 main = Blueprint('main', __name__, template_folder='templates')
 
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        # print(flask.session)
+        # print('credentials' not in flask.session or 'Googledata' not in flask.session)
+        if 'credentials' not in flask.session or 'Googledata' not in flask.session:
+            return redirect(url_for('main.login'))
+        elif None == Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first():
+            return redirect(url_for('main.login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
 @main.route('/', methods=['GET', 'POST'])
-def Main():
+def mainPage():
+    """
+    The main page of the website.
+    :return: 
+    """
     masters = Master.query.checkTrip()
-    # print(masters[0].Car_Cap)
     return render_template("HomePage.html", entries=masters)
 
 
 @main.route("/trips/<int:TripKey>")
-def TripPage(TripKey):
+def tripPage(TripKey):
     """
+    Finds a specific trip and displays it on screen.
     :param TripKey: The name of the trip
     :return: renders template of the selected trip with detailed information
     """
-    meta = Master.query.filter_by(id=TripKey).first()  # returns a 1 element list lets get the object from that
+    # FINISHED: MAKE YOUR METERBARS AND JOIN TRIP BUTTON IN A SIDEBAR TOGETHER! This would look really cool.
+    meta = Master.query.filter_by(id=TripKey).first()  # Returns a 1 element list lets get the object from that
     tripDetails = Trips.query.filter_by(Master_Key=TripKey).first()
-    ParticpantInfo = Participants.query.filter_by(Master_Key=TripKey).all()
-    print(tripDetails)
-    print(meta)
-    print(ParticpantInfo)
-    return render_template("TripPage.html", Tripinfo=tripDetails, TripMeta=meta, ParticpantInfo=ParticpantInfo)
+    participantInfo = Participants.query.filter_by(Master_Key=TripKey).all()
+    coordinator = Participants.query.filter_by(Master_Key=TripKey, Leader=True).first()
+    if 'credentials' in flask.session and 'Googledata' in flask.session:
+        userID = flask.session['Googledata']['id'][:]
+    else:
+        userID = ''
+    onTrip = False
+    for those in participantInfo:
+        if those.accountID == userID:
+            onTrip = True
+    # Check whether the current user, if they're logged in, is a coordinator.
+    if coordinator.accountID == userID:
+        youAreCoordinator = True
+    else:
+        youAreCoordinator = False
 
+    # Bellow calculates how much of progress bar should be rendered for car and participant bars respectively
+    participantRatio = calculateProgress_participantRatio(meta)
+    carRatio = calculateProgress_carRatio(meta)
+    return render_template("TripPage.html", Tripinfo=tripDetails, TripMeta=meta, Coordinator=coordinator,
+                           ParticipantInfo=participantInfo, participantRatio=participantRatio, carRatio=carRatio,
+                           userID=userID, onTrip=onTrip, youAreCoordinator=youAreCoordinator)
 
-@main.route('/addTrip', methods=['POST','GET'])
-def add_Trip():
-    form = MakeTripFormPOA()
-    if request.method == 'POST':
-        # print(form.data)  # returns a dictonary with keys that are the feilds in the table
-        if form.validate() == False:
-            flash('All fields are required.')
-            return render_template('CreateTrip.html', form=form)
-        else:
-            model = TripModel(form.data)
-            model.addModel()  # add trip to db
-            db.session.commit()
-            flash('New entry was successfully posted')
-            return redirect(url_for('main.Main'))  # Im going to be honest this naming schema is terible
-    elif request.method == 'GET':
-        return render_template('CreateTrip.html', form=form)
-
-
-@main.route('/addParticipant/<FormKey>',  methods=['POST','GET'])
-def add_Participant(FormKey):
-    tripname = Master.query.filter_by(id=FormKey).all()[0]
-    # Could be made more efficent by only querying for trip name
-    form = AddToTripPOA()
-    if request.method == 'GET':
-        return render_template('Add_Particpant.html', form=form, tripname=tripname)
-    if request.method == 'POST':
-        if form.validate() == False:
-            flash('All fields are required.')
-            return render_template('Add_Particpant.html', form=form, tripname=tripname)
-        else:
-            particpant = Participants(form.data, int(FormKey))
-            db.session.add(particpant)
-            master = Master.query.filter_by(id = int(FormKey)).first()
-            master.Participant_num += 1
-            if particpant.Driver == 1:
-                master.Car_Num += 1
-            db.session.commit()
-            flash('New entry was successfully posted')
-            return redirect(url_for('main.TripPage', TripKey=str(FormKey)))
 
 @main.route('/login', methods=['POST', 'GET'])
 def login():
-    if 'credentials' not in flask.session:  # are they already authenticated if not go to authentication
+    """
+    Retrieves the user's data from Google through gCallback, then has the user either make an account or go to the main page.
+    :return: 
+    """
+    if 'credentials' not in flask.session:  # Are they already authenticated? If not, then go to authentication.
         return flask.redirect(flask.url_for('main.gCallback'))
     credentials = client.OAuth2Credentials.from_json(flask.session['credentials'])
-    if credentials.access_token_expired:  # if the acess token is expired ask them to reauthenticate
+    if credentials.access_token_expired:  # If the access token is expired, ask them to re-authenticate.
         return flask.redirect(flask.url_for('main.gCallback'))
-    else:  # if authenticated get user info
+    else:  # If authenticated, get user info.
         http_auth = credentials.authorize(httplib2.Http())
-        service = google.discovery.build('oauth2', 'v2', http_auth)  # we ask for there profile information
-        userinfo = service.userinfo().get().execute()  # execute requst
-        print(userinfo)
-        return json.dumps(userinfo)
+        service = google.discovery.build('oauth2', 'v2', http_auth)  # We ask for their profile information.
+        userinfo = service.userinfo().get().execute()  # Execute request.
+        # print(userinfo)
+
+        # populate form with google data
+        flask.session['Googledata'] = userinfo
+        # print(flask.session)
+        # return rendertemplate(create acoubt.html, form=form)
+        # Account.query.filter_by(id=flask.session['Googledata']['id']).first().googleNum
+        # if flask.session['Googledata']['id']==Account.query.filter_by(id=flask.session['Googledata']['id']).first().googleNum:
+        if None == Account.query.filter_by(id=flask.session['Googledata']['id']).first():
+            return redirect(url_for('main.makeAccount'))
+        else:
+            return redirect(url_for('main.mainPage'))
+
+
+@main.route('/logout', methods=['POST', 'GET'])
+@login_required
+def logout():
+    """
+    Dumps the user's Googledata and credentials.
+    :return: 
+    """
+    flask.session.pop('Googledata', None)
+    flask.session.pop('credentials', None)
+    return redirect(url_for('main.mainPage'))
+
+
+@main.route('/profile', methods=['POST', 'GET'])
+@login_required
+def profile():
+    """
+    Directs the user to their profile page, where their account information is displayed.
+    :return: 
+    """
+    # print(Account.query.filter_by(id=flask.session['Googledata']['id']).first().accessData()['picture'])
+    tempTime = datetime.today()
+    # print(tempTime.strftime('%B'))
+    # https://docs.python.org/2/library/datetime.html#module-datetime
+    # https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior
+    return render_template("ProfilePage.html", user=Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first(), time=tempTime)
+
+
+@main.route('/createAccount', methods=['POST', 'GET'])
+def makeAccount():
+    """
+    This constructs a new account from the user's information.
+    :return: 
+    """
+    # Account.query.filter_by(id=flask.session['Googledata']['id']).first().googleNum
+    if 'credentials' not in flask.session or 'Googledata' not in flask.session:
+        return redirect(url_for('main.mainPage'))
+    if None != Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first():
+        return redirect(url_for('main.mainPage'))
+    else:
+        form = CreateAccountForm(FirstName_Box=flask.session['Googledata']["given_name"][:], LastName_Box=flask.session['Googledata']["family_name"][:])
+        # TODO: Remove Googledata from session if you can, but doing this isn't that important.
+        if request.method == 'POST':
+            # print(form.data)  # returns a dictionary with keys that are the fields in the table
+            if form.validate_on_submit() == False:
+                flash('All fields are required.')
+                return render_template("NewAccount.html", form=form)
+            else:
+                Account.query.createAccount(formData=form.data, session=session)
+                print(Account.query.all())
+                print(Account.query.all()[0].accessData())
+                return redirect(url_for('main.mainPage'))
+        elif request.method == 'GET':
+            return render_template("NewAccount.html", form=form)
+
+
+@main.route('/editAccount', methods=['POST', 'GET'])
+@login_required
+def editAccount():
+    """
+    This edits the user's account information.
+    :return: 
+    """
+    # print('made it to stage one')
+    if None == Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first(): # This may no longer be necessary since there is the login decorator
+        # print('took a wrong turn')
+        return redirect(url_for('main.mainPage'))
+    else:
+        currentData = Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first().accessData()
+        form = ModifyAccountForm(FirstName_Box=currentData['firstName'][:], LastName_Box=currentData['lastName'][:],
+                                 Email_Box=currentData['email'][:], Age_Box=currentData['age'][:],
+                                 Height_Box=currentData['height'][:],
+                                 StudentIDNumber_Box=currentData['studentIDNumber'][:],
+                                 PhoneNumber_Box=currentData['phoneNumber'][:],
+                                 CarCapacity_Box=currentData['carCapacity'][:])
+        if request.method == 'POST':
+            # print(form.data)  # returns a dictionary with keys that are the fields in the table
+            if form.validate_on_submit() == False:
+                flash('All fields are required.')
+                return render_template("ModifyAccount.html", form=form)
+            else:
+                flash('Account was successfully modified')
+                selectedUser = Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first()
+                selectedUser.modifyAccount(form.data, session)
+                tripSelves = Participants.query.filter_by(accountID=flask.session['Googledata']['id']).all()
+                for those in tripSelves:
+                    those.changeUserInfo(selectedUser)
+                db.session.commit()
+                return redirect(url_for('main.profile'))
+        elif request.method == 'GET':
+            return render_template("ModifyAccount.html", form=form)
 
 
 @main.route('/gCallback')
 def gCallback():
     """
-    This handels authentication not quite sure how but it does
+    This handles authentication. Granted, we're not quite sure how... but it does.
     :return:
     """
-    secret = os.path.join(main.root_path[:-29], 'secret/client_secret.json')#access the secret file
-    #the -29 changes path yo POA Website rather than the path to Main
+    secret = os.path.join(main.root_path[:-29], 'secret/client_secret.json')  # access the secret file
+    # the -29 changes path to POA Website rather than the path to mainPage
     flow = client.flow_from_clientsecrets(secret, scope='https://www.googleapis.com/auth/userinfo.profile',
                                           redirect_uri=flask.url_for('main.gCallback', _external=True))
-     # ,include_granted_scopes=True)
+    # ,include_granted_scopes=True)
     if 'code' not in flask.request.args:
-        auth_uri = flow.step1_get_authorize_url()#sends request to google which redircects user to sign in
+        auth_uri = flow.step1_get_authorize_url()  # sends request to google which redirects user to sign in
         return flask.redirect(auth_uri)
     else:
-        auth_code = flask.request.args.get('code')#we have recived a token form a user
-        credentials = flow.step2_exchange(auth_code)#authenticate that token with google
-        flask.session['credentials'] = credentials.to_json()#we have authenticated the user
-        return flask.redirect(flask.url_for('main.login'))#once authenticated return to main page
-
-
-
-
-
-@main.route('/deleteParicipant/<id>')
-def remove_particpant(id):
-    paricipant = Participants.query.filter_by(id=int(id))
-    tripKey = paricipant.all()[0].Master_Key
-    master = Master.query.filter_by(id=int(tripKey )).first()
-    master.Participant_num -= 1
-    if paricipant.first().Driver == 1:
-        master.Car_Num -= 1
-    paricipant.delete()
-    db.session.commit()
-    return redirect(url_for('main.TripPage', TripKey=tripKey))
-
-
+        auth_code = flask.request.args.get('code')  # we have received a token form a user
+        credentials = flow.step2_exchange(auth_code)  # authenticate that token with google
+        flask.session['credentials'] = credentials.to_json()  # we have authenticated the user
+        return flask.redirect(flask.url_for('main.login'))  # once authenticated return to main page

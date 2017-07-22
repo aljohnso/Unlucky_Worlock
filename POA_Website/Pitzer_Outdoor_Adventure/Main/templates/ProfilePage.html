@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Pitzer Outdoor Adventures</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+{#    <style src = "POACreateTripCSS.css"></style>#}
+    <script src="/static/UserProfile.js"></script>
+    <link rel="stylesheet" href="/static/UserProfile.css">
+    <script>
+        $(document).ready(function ()
+        {
+            $("#tripDisplay").click(function ()
+            {
+                console.log("clicked");
+                $.get('/api/tripDisplay')
+                .done(function(data)
+                {
+                    console.log(data);
+                    $('#message-model-content').html(data);
+                    $("#generalizedModal").modal("show");
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="modal fade message-popup" id="generalizedModal" tabindex="-1" role="dialog" aria-labelledby="user1Message">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="message-model-content">
+            {# code gets inserted here #}
+        </div>
+    </div>
+</div>
+    <div class="container">
+      <div class="row">
+      <div class="col-md-5  toppad  pull-right col-md-offset-3 ">
+           <A href={{url_for('main.mainPage')}} >Return to trips page</A>
+
+        {# <A href={{url_for('main.logout')}} >Logout</A> #}
+          {# Distance these two buttons from each other, so that "Logout" is plastered to the right! #}
+       <br>
+    {# <p class=" text-info">May 05,2014,03:00 pm </p> #}
+    <p class=" text-info">{{ time.strftime('%B') }} {{ time.day }}, {{ time.year }}, {{ time.strftime('%I') }}:{{ time.strftime('%M') }} {{ time.strftime('%p').lower() }}</p>
+          {# Make the above time real! FINISHED #}
+      </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{ user.accessData()['username'] }}</h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src={{ user.accessData()['picture'] }} class="img-circle img-responsive"> </div>
+
+                <div class=" col-md-9 col-lg-9 ">
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>Student ID #</td>
+                        <td>{{ user.accessData()['studentIDNumber'] }}</td>
+                      </tr>
+                      {# <tr> #}
+                      <tr>
+                        <td>Age</td>
+                        <td>{{ user.accessData()['age'] }}</td>
+                      </tr>
+                      <tr>
+                        <td>Height</td>
+                        <td>{{ user.accessData()['height'] }} inches</td>
+                      </tr>
+                      <tr>
+                        <td>Diet Restrictions</td>
+                        <td>{{ user.accessData()['dietRestrictions'] }}</td>
+                      </tr>
+                      <tr>
+                        <td>Allergies</td>
+                        <td>{{ user.accessData()['allergies'] }}</td>
+                      </tr>
+                      <tr>
+                        <td>Car Capacity</td>
+                        <td>{{ user.accessData()['carCapacity'] }}</td>
+                      </tr>
+                      <tr>
+                        <td>Email</td>
+                        <td><a href="{{ "mailto:" + user.accessData()['email'] }}">{{ user.accessData()['email'] }}</a></td>
+                      </tr>
+                        <td>Phone Number</td>
+                        <td>{{ user.accessData()['phoneNumber'] }}<br><br>{# 555-4567-890(Mobile) #}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <a id="tripDisplay" type="button" class="btn btn-primary">My Trips</a>
+                  {# <a href="#" class="btn btn-primary">Something else maybe?</a> #}
+                </div>
+              </div>
+            </div>
+              <div class="panel-footer">
+                <a data-original-title="Send Feedback to Website Developers!" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
+                <a href={{ url_for('main.editAccount') }} data-original-title="Edit Profile" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                <span class="pull-right">
+                    <a href={{ url_for('main.logout') }} data-original-title="Logout" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>

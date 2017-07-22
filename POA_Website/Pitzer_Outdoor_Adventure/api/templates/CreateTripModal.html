@@ -1,0 +1,56 @@
+{# https://stackoverflow.com/questions/21032759/bootstrap-3-2-column-form-layout #}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h5 class="modal-title">Create Trip</h5>
+</div>
+<div class="modal-body">
+    <form action= "{{ url_for('api.addTrip') }}" method="post">
+        {% import "bootstrap/wtf.html" as wtf %}
+        {{ wtf.quick_form(form) }}
+    </form>
+</div>
+
+    {#      <div class="form-group">#}
+    {#    <label for="exampleInputEmail1"></label>#}
+    {#    </div>#}
+
+{#    <div class="form-group">#}
+{#        <div class="col">#}
+{#            {{ form.hidden_tag() }}<h1></h1>#}
+{##}
+{#            {{ form.Trip_Name.label }}#}
+{#            {{form.Trip_Name}}<h1></h1>#}
+    {#            <div class="row">#}
+{#            {{ form.Departure_Date.label }}#}
+        {#    TODO:add that date formating is year-mounth-day#}
+{#            {{ form.Departure_Date }}<h1></h1>#}
+{#            {{ form.Return_Date.label }}#}
+{#            {{ form.Return_Date }}<h1></h1>#}
+{#            {{ form.Trip_Location.label }}#}
+{#            {{ form.Trip_Location }}<h1></h1>#}
+{#            {{ form.Trip_State.label }}#}
+{#            {{ form.Trip_State }}#}
+{#            {{form.Details.label }}#}
+{#            {{form.Details }}#}
+{#        </div>#}
+{#        <div class="col">#}
+{#            {{ form.GearList.label }}<br>#}
+{#            {{ form.GearList }}#}
+{#            {{ form.Trip_Meeting_Place.label }}<br>#}
+{#            {{ form.Trip_Meeting_Place }}#}
+{#            {{ form.Additional_Cost.label }}<br>#}
+{#            {{ form.Additional_Cost }}#}
+{#            {{ form.Cost_Breakdown.label }}<br>#}
+{#            {{ form.Cost_Breakdown }}#}
+{#            {{ form.Car_Cap.label}}#}
+{#            {{ form.Car_Cap }}#}
+{#            {{ form.Car_Capacity.label }}#}
+{#            {{ form.Car_Capacity }}#}
+{#            {{ form.Substance_Free.label }}#}
+{#            {{ form.Substance_Free }}#}
+{#            {{ form.submit }}#}
+{#        </div>#}
+{#    </div>#}

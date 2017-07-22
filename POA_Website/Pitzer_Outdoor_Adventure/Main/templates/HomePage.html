@@ -8,9 +8,61 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 {#    <style src = "POACreateTripCSS.css"></style>#}
+    <script>
+    $(document).ready(function ()
+    {
+        $("#addTrip").click(function ()
+        {
+            console.log("clicked");
+            $.get('/api/addTrip')
+            .done(function (data)
+            {
+                console.log(data);
+                $('#message-model-content').html(data);
+                $("#generalizedModal").modal("show");
+            });
+        })
+        $("#notLoggedIn").click(function ()
+        {
+            console.log("clicked");
+            $.get('/api/popUpMessage/' + 'Not Logged In' + "/" + "You must be logged in to add a new trip.")
+            .done(function (data)
+            {
+                console.log(data);
+                $('#message-model-content').html(data);
+                $("#generalizedModal").modal("show");
+            });
+        })
+    })
+    </script>
 </head>
 <body>
-<h3> Trip List</h3>
+
+<div class="modal fade message-popup" id="generalizedModal" tabindex="-1" role="dialog" aria-labelledby="user1Message">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="message-model-content">
+            {# code gets inserted here #}
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <h3> Trip List
+            <div class='pull-right'>
+                {% if 'credentials' in session %}
+                    <a class="btn btn-primary" href={{url_for('main.profile')}} role="button">
+                    Account Info
+                    </a>
+                {% else %}
+                    <a class="btn btn-primary" href={{url_for('main.login')}} role="button">
+                    Login
+                    </a>
+                {% endif %}
+            </div>
+        </h3>
+    </div>
+
     <div class="row">
         <div class="panel panel-primary filterable">
             <table class="table">
@@ -30,24 +82,29 @@
                 <tbody class="entries">
                 {% for TableRow in entries %}
                 <tr>
-                    <td > <a href={{ url_for('main.TripPage', TripKey = TableRow.id)}}>{{ TableRow.Trip_Name}}</a></td>
+                    <td > <a href={{ url_for('main.tripPage', TripKey = TableRow.id)}}>{{ TableRow.Trip_Name}}</a></td>
                     <td> {{ TableRow.Details_Short }}</td>
                     <td> {{ TableRow.Departure_Date }}</td>
                     <td> {{ TableRow.Return_Date }}</td>
-                    <td> {{ TableRow.Participant_num }}</td>
-                    <td> {{ TableRow.Participant_cap}}</td>
+                    <td> {{ TableRow.Participant_Num }}</td>
+                    <td> {{ TableRow.Participant_Cap}}</td>
 {#                    <td>Why would it work?</td>#}
                     <td> {{ TableRow.Car_Num}}</td>
                     <td> {{ TableRow.Car_Cap}}</td>
                     <td> {{ TableRow.Trip_Location}}</td>
                 </tr>
                 {% else %}
-                    <li><em>Unbelievable.  No entries here so far</em></li>
+                    <li><em>Unbelievable. No entries here so far</em></li>
                 {% endfor %}
                 </tbody>
             </table>
-            <a class="btn" href= {{ url_for('main.add_Trip') }} >Add Trip</a>
+            {% if 'credentials' in session %}
+                <a class="btn" href="#" id="addTrip">Add Trip</a>
+            {% else %}
+                <a class="btn" href="#" id="notLoggedIn">Add Trip</a>
+            {% endif %}
         </div>
     </div>
+</div>
 </body>
 </html>

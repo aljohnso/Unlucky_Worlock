@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Account</title>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body>
+{# Variables:
+Meme
+second meme
+#}
+{#    {% import "bootstrap/wtf.html" as wtf %}#}
+{#    {{ wtf.quick_form(form) }}#}
+    <h1>Create New Account</h1>
+    Hi
+    <form action= "{{ url_for('main.Main') }}" method="post">
+        {#  <form> #}
+        {% import "bootstrap/wtf.html" as wtf %}
+        {{ wtf.quick_form(form) }}
+    </form>
+{#    {% for those in name %}#}
+{#        <br>#}
+{#        {{ those }}#}
+{#    {% endfor %}#}
+</body>
+</html>

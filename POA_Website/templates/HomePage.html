@@ -28,7 +28,7 @@
                 <tbody class="entries">
                 {% for TableRow in entries %}
                 <tr>
-                    <td > <a href={{ url_for('Main') + 'trips/' + TableRow[0]}}>{{ TableRow[1]}}</a></td>
+                    <td > <a href={{ url_for('mainPage') + 'trips/' + TableRow[0]}}>{{ TableRow[1]}}</a></td>
                     <td> {{ TableRow[4] }}</td>
                     <td> {{ TableRow[2] }}</td>
                     <td> {{ TableRow[3] }}</td>
@@ -41,7 +41,7 @@
                 {% endfor %}
                 </tbody>
             </table>
-            <a class="btn" href= {{ url_for('add_Trip') }} >Add Trip</a>
+            <a class="btn" href= {{ url_for('addTrip') }} >Add Trip</a>
         </div>
     </div>
 </body>
