@@ -82,8 +82,10 @@ class MakeTripFormPOA(FlaskForm):
     GearList = StringField("Gear List", [validators.DataRequired("Please enter gear list if none enter none")])
     Trip_Meeting_Place =StringField("Trip Meeting Place", [validators.DataRequired("Please enter meeting place")])
     Additional_Cost = StringField("Additional Cost Estimate", [validators.DataRequired("Please enter a Number If your cost is 0 enter 0")])
+    # Total cost is the amount of money that an individual on this trip will have to pay (like how much they'll likely spend on food, accommodations, etc).
     # Total cost will be computed using additional cost and the cost estiment from the trip location feild hopefully
     Cost_Breakdown = StringField('cost break down', [validators.DataRequired("Please enter What you will be spending money on if cost is zero enter NA")])
+    # ^^^ Cost breakdown is an explanation of where each of the costs for the trip (that each individual will have to pay) come from.
     Car_Cap = IntegerField("Max number of cars on trip", [validators.DataRequired("Please enter Max num of Cars on trip")])
     Substance_Free = BooleanField("Substance Free")
     Driver = BooleanField("Driver")

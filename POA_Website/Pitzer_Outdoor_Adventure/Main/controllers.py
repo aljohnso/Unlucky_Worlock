@@ -152,8 +152,8 @@ def makeAccount():
                 return render_template("NewAccount.html", form=form)
             else:
                 Account.query.createAccount(formData=form.data, session=session)
-                print(Account.query.all())
-                print(Account.query.all()[0].accessData())
+                # print(Account.query.all())
+                # print(Account.query.all()[0].accessData())
                 return redirect(url_for('main.mainPage'))
         elif request.method == 'GET':
             return render_template("NewAccount.html", form=form)

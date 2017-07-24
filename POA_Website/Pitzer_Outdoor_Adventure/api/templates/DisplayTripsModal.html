@@ -7,9 +7,11 @@
     <h4 class="modal-title" align="center">List of Trips</h4>
 </div>
 <div class="modal-body">
-    <h5>You need to display a calendar here!</h5>
-    <h5>Days with trips should be highlighted, and selecting those days should open up a menu
-    about the trip, with a button taking you to the trip page.</h5>
-    https://bootsnipp.com/snippets/featured/calendar-design
-    {{ listOfTrips }}
+{#    <h5>You need to display a calendar here!</h5>#}
+{#    <h5>Days with trips should be highlighted, and selecting those days should open up a menu#}
+{#    about the trip, with a button taking you to the trip page.</h5>#}
+{#    https://bootsnipp.com/snippets/featured/calendar-design#}
+    {% for those in listOfTrips %}
+        <a href="{{ url_for('main.tripPage', TripKey = those.id) }}" type="button" class="btn btn-primary">{{ those.Trip_Name }}</a>
+    {% endfor %}
 </div>
