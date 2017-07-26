@@ -1,3 +1,6 @@
+
+this is the easy way: https://github.com/tiangolo/uwsgi-nginx-flask-docker
+THis is the hard way:
 This guide represents about 40 hours of labor involving me learning the basics of Apache and mod-wsgi. I am forever grateful to all the sources on the Internet that made this possible without which I could not have done this. I will link to them at the bottom of this documents.
 
 Lets start off with a basic 'hello world' config which will be based mostly off of.
