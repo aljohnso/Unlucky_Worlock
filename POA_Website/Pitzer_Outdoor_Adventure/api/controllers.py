@@ -111,6 +111,7 @@ def editParticipant(FormKey):
     if request.method == 'POST':
         if form.validate() == False:
             flash('All fields are required.')
+            print("terrible things are afoot")
             return render_template('EditTripMemberModal.html', form=form, tripInfo=tripInfo, warning=False, errorMessage="")
         else:
             newSeats = int(form.data["CarCapacity_Box"][:])
