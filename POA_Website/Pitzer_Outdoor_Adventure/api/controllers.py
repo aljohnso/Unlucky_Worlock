@@ -37,6 +37,7 @@ def addTrip():
         # print(form.data)  # Returns a dictionary with keys that are the fields in the table.
         if form.validate() == False:
             flash('All fields are required.')
+            # return redirect(url_for('main.mainPage', autoModal=""))
             return render_template('CreateTripModal.html', form=form)
         else:
             newSeats = int(form.data["Car_Capacity"][:])
@@ -74,11 +75,11 @@ def addParticipant(FormKey):
             return render_template('DisplayMessageModal.html', message="Sorry, there's no room left on this trip.", title="Trip is Full")
             # redirect(url_for("main.tripPage", FormKey=str(FormKey)))
         else:
-            return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, warning=False, errorMessage="")
+            return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, errorMessage="")
     if request.method == 'POST':
         if form.validate() == False:
             flash('All fields are required.')
-            return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, warning=False, errorMessage="")
+            return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, errorMessage="")
         else:
             newSeats = int(form.data["Car_Capacity"][:])
             isDriver = form.data["Driver"]
@@ -89,15 +90,13 @@ def addParticipant(FormKey):
                 isDriver = False
             if isDriver and tripInfo.Car_Num + 1 > tripInfo.Car_Cap:
                 # The person is trying to be a driver when the trip already has maximum/over maximum cars.
-                return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, warning=True,
-                                       errorMessage="There are already too many cars on this trip; you cannot be a driver if you want to join.")
+                return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, errorMessage="There are already too many cars on this trip; you cannot be a driver if you want to join.")
             if newSeats <= 0 and tripInfo.Participant_Num >= tripInfo.Participant_Cap:
                 # The person has zero newSeats and tries to join a trip with maximum/over maximum people
-                return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, warning=True,
-                                       errorMessage="Due to the current size of this trip, you must be a driver with at least one car capacity to join.")
+                return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, errorMessage="Due to the current size of this trip, you must be a driver with at least one car capacity to join.")
             Participants.query.addParticipant(tempUser, isDriver, newSeats, int(FormKey), False, False)
             flash('New entry was successfully posted')
-            return redirect(url_for('main.tripPage', TripKey=str(FormKey)))
+            return redirect(url_for('main.tripPage', TripKey=str(FormKey), autoModal="#"))
 
 
 @api.route('/editParticipant/<FormKey>', methods=['POST', 'GET'])
@@ -107,12 +106,14 @@ def editParticipant(FormKey):
     tripInfo = Master.query.filter_by(id=FormKey).first()
     form = EditTripMemberPOA(Driver_Box=you.Driver, CarCapacity_Box=str(you.Car_Capacity), PotentialLeader_Box=you.OpenLeader)
     if request.method == 'GET':
-        return render_template('EditTripMemberModal.html', form=form, tripInfo=tripInfo, warning=False, errorMessage="")
+        # return redirect(url_for('main.tripPage', TripKey=str(FormKey), autoModal="#"))
+        return render_template('EditTripMemberModal.html', form=form, tripInfo=tripInfo, errorMessage="")
     if request.method == 'POST':
         if form.validate() == False:
             flash('All fields are required.')
             print("terrible things are afoot")
-            return render_template('EditTripMemberModal.html', form=form, tripInfo=tripInfo, warning=False, errorMessage="")
+            return redirect(url_for('main.tripPage', TripKey=str(FormKey), autoModal="editParticipant"))
+            # return render_template('EditTripMemberModal.html', form=form, tripInfo=tripInfo, errorMessage="")
         else:
             newSeats = int(form.data["CarCapacity_Box"][:])
             isDriver = form.data["Driver_Box"]
@@ -124,7 +125,7 @@ def editParticipant(FormKey):
             # Congratulations! You submitted your form and all fields were filled out properly.
             you.editParticipantInfo(isDriver, newSeats, form.data["PotentialLeader_Box"])
             db.session.commit()
-            return redirect(url_for('main.tripPage', TripKey=str(FormKey)))
+            return redirect(url_for('main.tripPage', TripKey=str(FormKey), autoModal="#"))
 
 
 @api.route('/checkAddParticipant/<FormKey>', methods=['POST', 'GET'])
@@ -135,12 +136,13 @@ def checkAddParticipant(FormKey):
     :param FormKey:
     :return:
     """
+    print("You shouldn't even be here!")
     tempTrip = Master.query.filter_by(id=FormKey).first()
     tempUser = Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first()
     if tempTrip.Participant_Cap < tempTrip.Participant_Num + 1 and tempTrip.Car_Cap < tempTrip.Car_Num + 1:
         # You cannot join the trip, no buts about it.
         # TODO: FLASH A THING ON THE SCREEN
-        return redirect(url_for("main.tripPage", FormKey=str(FormKey)))
+        return redirect(url_for("main.tripPage", FormKey=str(FormKey), autoModal="#"))
     else:
         # You can join, no problem!
         return redirect(url_for("main.addParticipant", FormKey=str(FormKey)))
@@ -163,10 +165,10 @@ def cannotLeave():
 @api.route('/deleteParticipant/<personID>/<tripID>')
 def removeParticipant(personID, tripID):
     Participants.query.removeParticipant(personID, tripID)
-    return redirect(url_for('main.tripPage', TripKey=tripID))
+    return redirect(url_for('main.tripPage', TripKey=tripID, autoModal="#"))
 
 
 @api.route('/swapCoordinators/<oldLeaderID>/<newLeaderID>/<tripID>')
 def swapCoordinators(oldLeaderID, newLeaderID, tripID):
     Participants.query.swapCordinator(oldLeaderID, newLeaderID, tripID)
-    return redirect(url_for('main.tripPage', TripKey=tripID))
+    return redirect(url_for('main.tripPage', TripKey=tripID, autoModal="#"))

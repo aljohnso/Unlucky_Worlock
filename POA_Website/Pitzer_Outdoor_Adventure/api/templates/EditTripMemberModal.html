@@ -7,7 +7,7 @@
     <h5 class="modal-title">{{ tripInfo.Trip_Name }}</h5>
 </div>
 <div class="modal-body">
-    {% if warning %}
+    {% if errorMessage!="" %}
         {{ errorMessage }}
     {% endif %}
     <form action= "{{ url_for('api.editParticipant', FormKey=tripInfo.id) }}" method="post">

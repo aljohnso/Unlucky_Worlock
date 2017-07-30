@@ -15,6 +15,17 @@
     <script>
         $(document).ready(function ()
         {
+            {% if autoModal != "#" %}
+                {% if autoModal == "editParticipant" %}
+                    $.get('/api/editParticipant/' + {{ TripMeta.id }})
+                    .done(function(data)
+                    {
+                        console.log(data);
+                        $('#message-model-content').html(data);
+                        $("#generalizedModal").modal("show");
+                    });
+                {% endif %}
+            {% endif %}
             $("#addParticipant").click(function ()
             {
                 console.log("clicked");

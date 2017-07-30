@@ -41,13 +41,14 @@ def mainPage():
     return render_template("HomePage.html", entries=masters)
 
 
-@main.route("/trips/<int:TripKey>")
-def tripPage(TripKey):
+@main.route("/trips/<int:TripKey>/<autoModal>")
+def tripPage(TripKey, autoModal):
     """
     Finds a specific trip and displays it on screen.
     :param TripKey: The name of the trip
     :return: renders template of the selected trip with detailed information
     """
+    print(autoModal)
     # FINISHED: MAKE YOUR METERBARS AND JOIN TRIP BUTTON IN A SIDEBAR TOGETHER! This would look really cool.
     meta = Master.query.filter_by(id=TripKey).first()  # Returns a 1 element list lets get the object from that
     tripDetails = Trips.query.filter_by(Master_Key=TripKey).first()
@@ -67,12 +68,12 @@ def tripPage(TripKey):
     else:
         youAreCoordinator = False
 
-    # Bellow calculates how much of progress bar should be rendered for car and participant bars respectively
+    # Below calculates how much of progress bar should be rendered for car and participant bars respectively
     participantRatio = calculateProgress_participantRatio(meta)
     carRatio = calculateProgress_carRatio(meta)
     return render_template("TripPage.html", Tripinfo=tripDetails, TripMeta=meta, Coordinator=coordinator,
                            ParticipantInfo=participantInfo, participantRatio=participantRatio, carRatio=carRatio,
-                           userID=userID, onTrip=onTrip, youAreCoordinator=youAreCoordinator)
+                           userID=userID, onTrip=onTrip, youAreCoordinator=youAreCoordinator, autoModal=autoModal)
 
 
 @main.route('/login', methods=['POST', 'GET'])

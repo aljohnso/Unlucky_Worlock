@@ -10,7 +10,7 @@
     <form action= "{{ url_for('api.addTrip') }}" method="post">
         {% import "bootstrap/wtf.html" as wtf %}
         {{ wtf.quick_form(form) }}
-        <button data-dismiss="modal">{{ form.submit }}</button>
+{#        <button data-dismiss="modal">{{ form.submit }}</button>#}
     </form>
 </div>
 

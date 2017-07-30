@@ -82,7 +82,7 @@
                 <tbody class="entries">
                 {% for TableRow in entries %}
                 <tr>
-                    <td > <a href={{ url_for('main.tripPage', TripKey = TableRow.id)}}>{{ TableRow.Trip_Name}}</a></td>
+                    <td > <a href={{ url_for('main.tripPage', TripKey = TableRow.id, autoModal = "#")}}>{{ TableRow.Trip_Name}}</a></td>
                     <td> {{ TableRow.Details_Short }}</td>
                     <td> {{ TableRow.Departure_Date }}</td>
                     <td> {{ TableRow.Return_Date }}</td>

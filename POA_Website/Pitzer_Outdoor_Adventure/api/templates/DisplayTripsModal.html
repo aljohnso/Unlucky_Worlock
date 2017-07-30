@@ -12,7 +12,7 @@
 {#    about the trip, with a button taking you to the trip page.</h5>#}
 {#    https://bootsnipp.com/snippets/featured/calendar-design#}
     {% for those in listOfTrips %}
-        <a href="{{ url_for('main.tripPage', TripKey = those.id) }}" type="button" class="btn btn-primary">{{ those.Trip_Name }}</a>
+        <a href="{{ url_for('main.tripPage', TripKey = those.id, autoModal="#") }}" type="button" class="btn btn-primary">{{ those.Trip_Name }}</a>
     {% endfor %}
 {#    <a href="{{ url_for('api.cannotLeave') }}">Test</a>#}
 </div>
