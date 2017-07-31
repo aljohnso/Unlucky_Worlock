@@ -8,8 +8,10 @@ from DatabaseConnection.DataBaseSchema import db, \
     Master, Participants, TripModel, Account
 from Forms.POAForms import MakeTripFormPOA, AddToTripPOA, EditTripMemberPOA
 from Pitzer_Outdoor_Adventure.Main.controllers import login_required
+from flask_mail import Message, Mail
 
 api = Blueprint('api', __name__, template_folder='templates')
+mail = Mail()
 
 
 @api.route('/popUpMessage/<title>/<message>', methods=['GET', 'POST'])
@@ -179,3 +181,12 @@ def removeParticipant(personID, tripID):
 def swapCoordinators(oldLeaderID, newLeaderID, tripID):
     Participants.query.swapCordinator(oldLeaderID, newLeaderID, tripID)
     return redirect(url_for('main.tripPage', TripKey=tripID))
+
+#UPPERBOUND
+@api.route("/send")
+def index():
+    # msg = mail.send_message("Hello", sender="pzgearcloset@gmail.com", recipients=["mvonallm@students.pitzer.edu"])
+    msg = Message("Hello", sender="pzgearcloset@gmail.com", recipients=["mvonallm@students.pitzer.edu"])
+    mail.send_message(msg)
+    return "sent"
+#LOWERBOUND
