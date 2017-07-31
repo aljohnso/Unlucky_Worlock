@@ -1,4 +1,4 @@
-{# https://v4-alpha.getbootstrap.com/components/modal/#how-it-works #}
+{# https://mrl33h.de/post/21 #}
 <script>
     $(document).ready(function ()
     {
@@ -14,7 +14,7 @@
                 if (data==="Successful")
                 {
                     $("#generalizedModal").modal("hide");
-                    $(location).attr('href', "{{ url_for('main.tripPage', TripKey = tripInfo.id, autoModal = "#")}}" );
+                    $(location).attr('href', "{{ url_for('main.tripPage', TripKey = tripInfo.id) }}" );
 {#                    location.reload();#}
                 }
                 else
@@ -34,9 +34,6 @@
     <h5 class="modal-title">{{ tripInfo.Trip_Name }}</h5>
 </div>
 <div class="modal-body">
-    {% if errorMessage!="" %}
-        {{ errorMessage }}
-    {% endif %}
     <form id="openForm" action= "{{ url_for('api.editParticipant', FormKey=tripInfo.id) }}" method="post">
         {% import "bootstrap/wtf.html" as wtf %}
         {{ wtf.quick_form(form) }}

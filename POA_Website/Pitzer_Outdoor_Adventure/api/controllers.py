@@ -48,7 +48,8 @@ def addTrip():
             model.addModel()  # add trip to db
             db.session.commit()
             flash('New entry was successfully posted')
-            return redirect(url_for('main.mainPage'))  # I'm going to be honest, this naming schema is terrible. MATTHEW: FIXED SO IT'S NO LONGER TERRIBLE!
+            return "Successful"
+            # return redirect(url_for('main.mainPage'))  # I'm going to be honest, this naming schema is terrible. MATTHEW: FIXED SO IT'S NO LONGER TERRIBLE!
     elif request.method == 'GET':
         return render_template('CreateTripModal.html', form=form)
 
@@ -96,7 +97,8 @@ def addParticipant(FormKey):
                 return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, errorMessage="Due to the current size of this trip, you must be a driver with at least one car capacity to join.")
             Participants.query.addParticipant(tempUser, isDriver, newSeats, int(FormKey), False, False)
             flash('New entry was successfully posted')
-            return redirect(url_for('main.tripPage', TripKey=str(FormKey), autoModal="#"))
+            return "Successful"
+            # return redirect(url_for('main.tripPage', TripKey=str(FormKey)))
 
 
 @api.route('/editParticipant/<FormKey>', methods=['POST', 'GET'])
@@ -107,16 +109,16 @@ def editParticipant(FormKey):
     form = EditTripMemberPOA(Driver_Box=you.Driver, CarCapacity_Box=str(you.Car_Capacity), PotentialLeader_Box=you.OpenLeader)
     if request.method == 'GET':
         # return redirect(url_for('main.tripPage', TripKey=str(FormKey), autoModal="#"))
-        return render_template('EditTripMemberModal.html', form=form, tripInfo=tripInfo, errorMessage="")
+        return render_template('EditTripMemberModal.html', form=form, tripInfo=tripInfo)
     if request.method == 'POST':
         if form.validate() == False:
             flash('All fields are required.')
-            print("terrible things are afoot")
+            # print("terrible things are afoot")
             # print(render_template('EditTripMemberModal.html', form=form, tripInfo=tripInfo, errorMessage=""))
             # print("Below is the redirect")
             # print(redirect(url_for('main.tripPage', TripKey=str(FormKey), autoModal="#")))
             # return redirect(url_for('main.tripPage', TripKey=str(FormKey), autoModal="editParticipant"))
-            return render_template('EditTripMemberModal.html', form=form, tripInfo=tripInfo, errorMessage="")
+            return render_template('EditTripMemberModal.html', form=form, tripInfo=tripInfo)
         else:
             newSeats = int(form.data["CarCapacity_Box"][:])
             isDriver = form.data["Driver_Box"]
@@ -147,7 +149,7 @@ def checkAddParticipant(FormKey):
     if tempTrip.Participant_Cap < tempTrip.Participant_Num + 1 and tempTrip.Car_Cap < tempTrip.Car_Num + 1:
         # You cannot join the trip, no buts about it.
         # TODO: FLASH A THING ON THE SCREEN
-        return redirect(url_for("main.tripPage", FormKey=str(FormKey), autoModal="#"))
+        return redirect(url_for("main.tripPage", FormKey=str(FormKey)))
     else:
         # You can join, no problem!
         return redirect(url_for("main.addParticipant", FormKey=str(FormKey)))
@@ -170,10 +172,10 @@ def cannotLeave():
 @api.route('/deleteParticipant/<personID>/<tripID>')
 def removeParticipant(personID, tripID):
     Participants.query.removeParticipant(personID, tripID)
-    return redirect(url_for('main.tripPage', TripKey=tripID, autoModal="#"))
+    return redirect(url_for('main.tripPage', TripKey=tripID))
 
 
 @api.route('/swapCoordinators/<oldLeaderID>/<newLeaderID>/<tripID>')
 def swapCoordinators(oldLeaderID, newLeaderID, tripID):
     Participants.query.swapCordinator(oldLeaderID, newLeaderID, tripID)
-    return redirect(url_for('main.tripPage', TripKey=tripID, autoModal="#"))
+    return redirect(url_for('main.tripPage', TripKey=tripID))

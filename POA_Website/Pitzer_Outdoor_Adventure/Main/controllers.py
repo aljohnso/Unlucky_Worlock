@@ -41,14 +41,13 @@ def mainPage():
     return render_template("HomePage.html", entries=masters)
 
 
-@main.route("/trips/<int:TripKey>/<autoModal>")
-def tripPage(TripKey, autoModal):
+@main.route("/trips/<int:TripKey>")
+def tripPage(TripKey):
     """
     Finds a specific trip and displays it on screen.
     :param TripKey: The name of the trip
     :return: renders template of the selected trip with detailed information
     """
-    print(autoModal)
     # FINISHED: MAKE YOUR METERBARS AND JOIN TRIP BUTTON IN A SIDEBAR TOGETHER! This would look really cool.
     meta = Master.query.filter_by(id=TripKey).first()  # Returns a 1 element list lets get the object from that
     tripDetails = Trips.query.filter_by(Master_Key=TripKey).first()
