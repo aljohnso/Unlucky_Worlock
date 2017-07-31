@@ -73,7 +73,7 @@ def tripPage(TripKey, autoModal):
     carRatio = calculateProgress_carRatio(meta)
     return render_template("TripPage.html", Tripinfo=tripDetails, TripMeta=meta, Coordinator=coordinator,
                            ParticipantInfo=participantInfo, participantRatio=participantRatio, carRatio=carRatio,
-                           userID=userID, onTrip=onTrip, youAreCoordinator=youAreCoordinator, autoModal=autoModal)
+                           userID=userID, onTrip=onTrip, youAreCoordinator=youAreCoordinator)
 
 
 @main.route('/login', methods=['POST', 'GET'])

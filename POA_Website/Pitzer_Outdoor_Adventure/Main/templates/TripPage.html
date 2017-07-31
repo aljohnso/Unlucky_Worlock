@@ -15,17 +15,17 @@
     <script>
         $(document).ready(function ()
         {
-            {% if autoModal != "#" %}
-                {% if autoModal == "editParticipant" %}
-                    $.get('/api/editParticipant/' + {{ TripMeta.id }})
-                    .done(function(data)
-                    {
-                        console.log(data);
-                        $('#message-model-content').html(data);
-                        $("#generalizedModal").modal("show");
-                    });
-                {% endif %}
-            {% endif %}
+{#            {% if autoModal != "#" %}#}
+{#                {% if autoModal == "editParticipant" %}#}
+{#                    $.get('/api/editParticipant/' + {{ TripMeta.id }})#}
+{#                    .done(function(data)#}
+{#                    {#}
+{#                        console.log(data);#}
+{#                        $('#message-model-content').html(data);#}
+{#                        $("#generalizedModal").modal("show");#}
+{#                    });#}
+{#                {% endif %}#}
+{#            {% endif %}#}
             $("#addParticipant").click(function ()
             {
                 console.log("clicked");
@@ -60,6 +60,18 @@
                     /* Use this for hiding the modal via code --> $("#generalizedModal").modal("hide");*/
                 });
             });
+{#            $('#submit').click(function(event)#}
+{#            {#}
+{#                event.preventDefault();#}
+{#                $("#generalizedModal").modal("hide");#}
+{#                $.post('/api/editParticipant/' + {{ TripMeta.id }})#}
+{#                .done(function(data)#}
+{#                {#}
+{#                    console.log(data);#}
+{#                    $('#message-model-content').html(data);#}
+{#                    $("#generalizedModal").modal("show");#}
+{#                });#}
+{#            });#}
             $(".meterbar > span").each(function ()
             {
 				$(this)
@@ -300,7 +312,7 @@
 
 <div class="container">
 <div class="col-md-2  toppad  pull-right col-md-offset-3 ">
-    <A href={{url_for('main.mainPage')}} >Return to trips page</A>
+    <a href={{url_for('main.mainPage')}} >Return to trips page</a>
 </div>
 <h2 align="center">{{ TripMeta.Trip_Name }}</h2>
 <br>

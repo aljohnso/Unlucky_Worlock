@@ -112,8 +112,11 @@ def editParticipant(FormKey):
         if form.validate() == False:
             flash('All fields are required.')
             print("terrible things are afoot")
-            return redirect(url_for('main.tripPage', TripKey=str(FormKey), autoModal="editParticipant"))
-            # return render_template('EditTripMemberModal.html', form=form, tripInfo=tripInfo, errorMessage="")
+            # print(render_template('EditTripMemberModal.html', form=form, tripInfo=tripInfo, errorMessage=""))
+            # print("Below is the redirect")
+            # print(redirect(url_for('main.tripPage', TripKey=str(FormKey), autoModal="#")))
+            # return redirect(url_for('main.tripPage', TripKey=str(FormKey), autoModal="editParticipant"))
+            return render_template('EditTripMemberModal.html', form=form, tripInfo=tripInfo, errorMessage="")
         else:
             newSeats = int(form.data["CarCapacity_Box"][:])
             isDriver = form.data["Driver_Box"]
@@ -125,7 +128,9 @@ def editParticipant(FormKey):
             # Congratulations! You submitted your form and all fields were filled out properly.
             you.editParticipantInfo(isDriver, newSeats, form.data["PotentialLeader_Box"])
             db.session.commit()
-            return redirect(url_for('main.tripPage', TripKey=str(FormKey), autoModal="#"))
+            print("things worked!")
+            return "Successful"
+            # return redirect(url_for('main.tripPage', TripKey=str(FormKey), autoModal="#"))
 
 
 @api.route('/checkAddParticipant/<FormKey>', methods=['POST', 'GET'])
