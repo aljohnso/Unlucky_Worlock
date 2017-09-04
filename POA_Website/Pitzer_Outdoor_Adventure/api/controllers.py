@@ -186,7 +186,7 @@ def swapCoordinators(oldLeaderID, newLeaderID, tripID):
 @api.route("/send")
 def index():
     # msg = mail.send_message("Hello", sender="pzgearcloset@gmail.com", recipients=["mvonallm@students.pitzer.edu"])
-    msg = Message("Hello", sender="pzgearcloset@gmail.com", recipients=["mvonallm@students.pitzer.edu"])
-    mail.send_message(msg)
+    msg = Message(subject="Hello", body="Hey there man what's up.", sender="pzgearcloset@gmail.com", recipients=["mvonallm@students.pitzer.edu"])
+    mail.send(msg)
     return "sent"
 #LOWERBOUND
