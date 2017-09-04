@@ -22,6 +22,23 @@
         });
     });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.7.2/parsley.min.js">
+</script>
+<script type="text/javascript">
+    $(function ()
+    {
+        $('#openForm').parsley().on('field:validated', function()
+        {
+            var ok = $('.parsley-error').length === 0;
+            $('.bs-callout-info').toggleClass('hidden', !ok);
+            $('.bs-callout-warning').toggleClass('hidden', ok);
+        })
+        .on('form:submit', function()
+        {
+            return false; // Don't submit form for this demo
+        });
+    });
+</script>
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -29,50 +46,57 @@
     <h5 class="modal-title">Create Trip</h5>
 </div>
 <div class="modal-body">
+{#    {% with messages = get_flashed_messages(with_categories=true) %}#}
+{#        <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->#}
+{#        {% if messages %}#}
+{#            {% for category, message in messages %}#}
+{#                <div class="alert alert-{{ category }} alert-dismissible" role="alert">#}
+{#                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>#}
+{#                    <!-- <strong>Title</strong> --> {{ message }}#}
+{#                </div>#}
+{#            {% endfor %}#}
+{#        {% endif %}#}
+{#    {% endwith %}#}
+    <div class="bs-callout bs-callout-warning hidden">
+        <h4>Oh snap!</h4>
+        <p>This form seems to be invalid :(</p>
+    </div>
     <form id="openForm" action= "{{ url_for('api.addTrip') }}" method="post">
-        {% import "bootstrap/wtf.html" as wtf %}
-        {{ wtf.quick_form(form) }}
+        <div class="form-group">
+            {{ form.hidden_tag() }}<h1></h1>
+            {{ form.Trip_Name.label }}
+            {{form.Trip_Name}}<h1></h1>
+            {{ form.Departure_Date.label }}
+            TODO:add that date formatting is year-month-day
+            {{ form.Departure_Date }}<h1></h1>
+            {{ form.Return_Date.label }}
+            {{ form.Return_Date }}<h1></h1>
+            {{ form.Trip_Location.label }}
+            {{ form.Trip_Location }}<h1></h1>
+            {{ form.Trip_State.label }}
+            {{ form.Trip_State }}
+            {{form.Details.label }}
+            {{form.Details }}
+            {{ form.GearList.label }}<br>
+            {{ form.GearList }}
+            {{ form.Trip_Meeting_Place.label }}<br>
+            {{ form.Trip_Meeting_Place }}
+            {{ form.Additional_Cost.label }}<br>
+            {{ form.Additional_Cost }}
+            {{ form.Cost_Breakdown.label }}<br>
+            {{ form.Cost_Breakdown }}
+            {{ form.Car_Cap.label}}
+            {{ form.Car_Cap }}
+            {{ form.Car_Capacity.label }}
+            {{ form.Car_Capacity }}
+            {{ form.Substance_Free.label }}
+            {{ form.Substance_Free }}
+            {{ form.Driver.label }}
+            {{ form.Driver }}
+            {{ form.submit }}
+        </div>
     </form>
 </div>
 
-    {#      <div class="form-group">#}
-    {#    <label for="exampleInputEmail1"></label>#}
-    {#    </div>#}
-
-{#    <div class="form-group">#}
-{#        <div class="col">#}
-{#            {{ form.hidden_tag() }}<h1></h1>#}
-{##}
-{#            {{ form.Trip_Name.label }}#}
-{#            {{form.Trip_Name}}<h1></h1>#}
-    {#            <div class="row">#}
-{#            {{ form.Departure_Date.label }}#}
-        {#    TODO:add that date formating is year-mounth-day#}
-{#            {{ form.Departure_Date }}<h1></h1>#}
-{#            {{ form.Return_Date.label }}#}
-{#            {{ form.Return_Date }}<h1></h1>#}
-{#            {{ form.Trip_Location.label }}#}
-{#            {{ form.Trip_Location }}<h1></h1>#}
-{#            {{ form.Trip_State.label }}#}
-{#            {{ form.Trip_State }}#}
-{#            {{form.Details.label }}#}
-{#            {{form.Details }}#}
-{#        </div>#}
-{#        <div class="col">#}
-{#            {{ form.GearList.label }}<br>#}
-{#            {{ form.GearList }}#}
-{#            {{ form.Trip_Meeting_Place.label }}<br>#}
-{#            {{ form.Trip_Meeting_Place }}#}
-{#            {{ form.Additional_Cost.label }}<br>#}
-{#            {{ form.Additional_Cost }}#}
-{#            {{ form.Cost_Breakdown.label }}<br>#}
-{#            {{ form.Cost_Breakdown }}#}
-{#            {{ form.Car_Cap.label}}#}
-{#            {{ form.Car_Cap }}#}
-{#            {{ form.Car_Capacity.label }}#}
-{#            {{ form.Car_Capacity }}#}
-{#            {{ form.Substance_Free.label }}#}
-{#            {{ form.Substance_Free }}#}
-{#            {{ form.submit }}#}
-{#        </div>#}
-{#    </div>#}
+{#        {% import "bootstrap/wtf.html" as wtf %}#}
+{#        {{ wtf.quick_form(form) }}#}

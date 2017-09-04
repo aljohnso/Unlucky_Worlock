@@ -38,6 +38,12 @@ def addTrip():
     if request.method == 'POST':
         # print(form.data)  # Returns a dictionary with keys that are the fields in the table.
         if form.validate() == False:
+            # for field, errors in form.errors.items():
+            #     for error in errors:
+            #         flash(u"Error in the %s field - %s" % (
+            #             getattr(form, field).label.text,
+            #             error
+            #         ))
             flash('All fields are required.')
             # return redirect(url_for('main.mainPage', autoModal=""))
             return render_template('CreateTripModal.html', form=form)
