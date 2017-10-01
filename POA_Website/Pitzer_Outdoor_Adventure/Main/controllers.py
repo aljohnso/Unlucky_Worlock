@@ -38,7 +38,9 @@ def mainPage():
     :return: 
     """
     masters = Master.query.checkTrip()
-    return render_template("HomePage.html", entries=masters)
+    formatMaster = [masters[x:x+3] for x in range(0, len(masters), 3)]
+    print(formatMaster)
+    return render_template("test.html", entries=formatMaster)
 
 
 @main.route("/trips/<int:TripKey>")
