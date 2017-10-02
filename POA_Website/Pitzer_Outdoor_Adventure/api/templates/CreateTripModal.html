@@ -1,41 +1,35 @@
 {# https://stackoverflow.com/questions/21032759/bootstrap-3-2-column-form-layout #}
+{#<script>#}
+{#    $(document).ready(function ()#}
+{#    {#}
+{#        $('#submit').click(function(event)#}
+{#        {#}
+{#            event.preventDefault();#}
+{#            $.post('/api/addTrip', data=$('#openForm').serialize())#}
+{#            .done(function(data)#}
+{#            {#}
+{#                console.log(data);#}
+{#                if (data==="Successful")#}
+{#                {#}
+{#                    $("#generalizedModal").modal("hide");#}
+{#                    $(location).attr('href', "{{ url_for('main.mainPage') }}" );#}
+{#                }#}
+{#                else#}
+{#                {#}
+{#                    $('#message-model-content').html(data);#}
+{#                }#}
+{#            });#}
+{#        });#}
+{#    });#}
+{#</script>#}
 <script>
     $(document).ready(function ()
     {
-        $('#submit').click(function(event)
+        $('[data-toggle="tooltip"]').tooltip();
+        $("#addRow").click(function ()
         {
-            event.preventDefault();
-            $.post('/api/addTrip', data=$('#openForm').serialize())
-            .done(function(data)
-            {
-                console.log(data);
-                if (data==="Successful")
-                {
-                    $("#generalizedModal").modal("hide");
-                    $(location).attr('href', "{{ url_for('main.mainPage') }}" );
-                }
-                else
-                {
-                    $('#message-model-content').html(data);
-                }
-            });
-        });
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.7.2/parsley.min.js">
-</script>
-<script type="text/javascript">
-    $(function ()
-    {
-        $('#openForm').parsley().on('field:validated', function()
-        {
-            var ok = $('.parsley-error').length === 0;
-            $('.bs-callout-info').toggleClass('hidden', !ok);
-            $('.bs-callout-warning').toggleClass('hidden', ok);
-        })
-        .on('form:submit', function()
-        {
-            return false; // Don't submit form for this demo
+            console.log("yay im workin");
+            $("#additionalCostBreakdownDiv").append($(".cost"));
         });
     });
 </script>
@@ -46,6 +40,135 @@
     <h5 class="modal-title">Create Trip</h5>
 </div>
 <div class="modal-body">
+    <div class="bs-callout bs-callout-warning hidden">
+    <h4>Oh snap!</h4>
+    <p>This form seems to be invalid :(</p>
+</div>
+
+<div class="bs-callout bs-callout-info hidden">
+    <h4>Yay!</h4>
+    <p>Everything seems to be ok :)</p>
+</div>
+
+<form id="openForm" data-parsley-validate="">
+    <label for="tripName">Trip Name</label>
+    <input name="tripName" class="form-control" required="" type="text">
+
+    <label for="departureDate">Departure Date</label>
+    <input name="departureDate" class="form-control" required="" type="text">
+
+    <label for="returnDate">Return Date</label>
+    <input name="returnDate" class="form-control" required="" type="text">
+
+    <label for="tripLocation">Trip Location</label>
+    <input name="tripLocation" class="form-control" required="" type="text">
+
+    <label for="tripState">Trip State</label>
+    <input name="tripState" class="form-control" required="" type="text" data-toggle="tooltip" data-original-title="In what state is your destination?" data-placement="left" >
+
+    <label for="details">Details</label>
+    <textarea name="details" class="form-control" required="" type="text"></textarea>
+
+    <label for="gearList">Gear List</label>
+    <textarea name="gearList" class="form-control" required="" type="text"></textarea>
+
+    <label for="meetingPlace">Trip Meeting Place</label>
+    <input name="meetingPlace" class="form-control" required="" type="text">
+
+    <label for="additionalCostBreakdown">Additional Cost Breakdown</label>
+    <div id="additionalCostBreakdownDiv" class="form-inline">
+        <input name="additionalCostBreakdown" class="form-control cost" required="" type="text" placeholder="Name of Expense">
+        <input name="additionalCostBreakdown" class="form-control cost" required="" type="text" placeholder="Cost">
+    </div>
+    <p></p>
+    <a id="addRow" class="btn btn-m btn-primary"><span class="glyphicon glyphicon-plus"></span></a>
+    <p></p>
+
+    <label for="maxCars">Maximum Cars</label>
+    <input name="maxCars" class="form-control" required="" type="text">
+
+    <label for="substanceFree">Substance-Free</label>
+    <input name="substanceFree" class="form-control" type="checkbox">
+
+    <label for="driver">Driver</label>
+    <input name="driver" class="form-control" type="checkbox">
+
+    <label for="carCapacity">Car Capacity</label>
+    <input name="carCapacity" class="form-control" required="" type="text">
+
+{#    <label for="fullname">Full Name * :</label>#}
+{#    <input name="fullname" class="form-control" required="" type="text">#}
+{##}
+{#    <label for="email">Email * :</label>#}
+{#    <input name="email" class="form-control" required="" type="email" data-parsley-trigger="change">#}
+{##}
+{#    <label for="gender">Gender *:</label>#}
+{#    <p>#}
+{#        M: <input name="gender" id="genderM" required="" type="radio" value="M">#}
+{#        F: <input name="gender" id="genderF" type="radio" value="F">#}
+{#    </p>#}
+{##}
+{#    <label for="hobbies">Hobbies (Optional, but 2 minimum):</label>#}
+{#    <p>#}
+{#        Skiing <input name="hobbies[]" id="hobby1" type="checkbox" value="ski" data-parsley-mincheck="2"><br>#}
+{#        Running <input name="hobbies[]" id="hobby2" type="checkbox" value="run"><br>#}
+{#        Eating <input name="hobbies[]" id="hobby3" type="checkbox" value="eat"><br>#}
+{#        Sleeping <input name="hobbies[]" id="hobby4" type="checkbox" value="sleep"><br>#}
+{#        Reading <input name="hobbies[]" id="hobby5" type="checkbox" value="read"><br>#}
+{#        Coding <input name="hobbies[]" id="hobby6" type="checkbox" value="code"><br>#}
+{#    </p>#}
+{##}
+{#    <p>#}
+{#    <label for="heard">Heard about us via *:</label>#}
+{#    <select id="heard" required="">#}
+{#        <option value="">Choose..</option>#}
+{#        <option value="press">Press</option>#}
+{#        <option value="net">Internet</option>#}
+{#        <option value="mouth">Word of mouth</option>#}
+{#        <option value="other">Other..</option>#}
+{#    </select>#}
+{#    </p>#}
+{##}
+{#    <p>#}
+{#    <label for="message">Message (20 chars min, 100 max) :</label>#}
+{#    <textarea name="message" class="form-control" id="message" data-parsley-trigger="keyup" data-parsley-validation-threshold="10" data-parsley-minlength-message="Come on! You need to enter at least a 20 character comment.." data-parsley-maxlength="100" data-parsley-minlength="20"></textarea>#}
+{#    </p>#}
+
+    <br>
+    <input class="btn btn-default" type="submit" value="Create Trip">
+
+{#    <p><small>* Please, note that this demo form is not a perfect example of UX-awareness. The aim here is to show a quick overview of parsley-API and Parsley customizable behavior.</small></p>#}
+</form>
+<script type="text/javascript">
+    $(function () {
+      $('#openForm').parsley().on('field:validated', function()
+      {
+          var ok = $('.parsley-error').length === 0;
+          $('.bs-callout-info').toggleClass('hidden', !ok);
+          $('.bs-callout-warning').toggleClass('hidden', ok);
+      })
+      .on('form:submit', function()
+      {
+{#          $.ajax({#}
+{#              type: "POST",#}
+{#              url: "/api/addTrip",#}
+{#              data: $('#demo-form').serialize(),#}
+{#              success: function()#}
+{#              {#}
+{#                  console.log("Success!");#}
+{#              }#}
+{#          });#}
+		    $.post("api/addTrip", $("#openForm").serialize());
+          console.log($('#openForm').serialize());
+          return false; // Don't submit form for this demo
+      });
+    });
+</script>
+
+{#        {% import "bootstrap/wtf.html" as wtf %}#}
+{#        {{ wtf.quick_form(form) }}#}
+
+
 {#    {% with messages = get_flashed_messages(with_categories=true) %}#}
 {#        <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->#}
 {#        {% if messages %}#}
@@ -57,46 +180,43 @@
 {#            {% endfor %}#}
 {#        {% endif %}#}
 {#    {% endwith %}#}
-    <div class="bs-callout bs-callout-warning hidden">
-        <h4>Oh snap!</h4>
-        <p>This form seems to be invalid :(</p>
-    </div>
-    <form id="openForm" action= "{{ url_for('api.addTrip') }}" method="post">
-        <div class="form-group">
-            {{ form.hidden_tag() }}<h1></h1>
-            {{ form.Trip_Name.label }}
-            {{form.Trip_Name}}<h1></h1>
-            {{ form.Departure_Date.label }}
-            TODO:add that date formatting is year-month-day
-            {{ form.Departure_Date }}<h1></h1>
-            {{ form.Return_Date.label }}
-            {{ form.Return_Date }}<h1></h1>
-            {{ form.Trip_Location.label }}
-            {{ form.Trip_Location }}<h1></h1>
-            {{ form.Trip_State.label }}
-            {{ form.Trip_State }}
-            {{form.Details.label }}
-            {{form.Details }}
-            {{ form.GearList.label }}<br>
-            {{ form.GearList }}
-            {{ form.Trip_Meeting_Place.label }}<br>
-            {{ form.Trip_Meeting_Place }}
-            {{ form.Additional_Cost.label }}<br>
-            {{ form.Additional_Cost }}
-            {{ form.Cost_Breakdown.label }}<br>
-            {{ form.Cost_Breakdown }}
-            {{ form.Car_Cap.label}}
-            {{ form.Car_Cap }}
-            {{ form.Car_Capacity.label }}
-            {{ form.Car_Capacity }}
-            {{ form.Substance_Free.label }}
-            {{ form.Substance_Free }}
-            {{ form.Driver.label }}
-            {{ form.Driver }}
-            {{ form.submit }}
-        </div>
-    </form>
-</div>
 
-{#        {% import "bootstrap/wtf.html" as wtf %}#}
-{#        {{ wtf.quick_form(form) }}#}
+{#    <div class="bs-callout bs-callout-warning hidden">#}
+{#        <h4>Oh snap!</h4>#}
+{#        <p>This form seems to be invalid :(</p>#}
+{#    </div>#}
+{#    <form id="openForm" action= "{{ url_for('api.addTrip') }}" method="post">#}
+{#        <div class="form-group">#}
+{#            {{ form.hidden_tag() }}<h1></h1>#}
+{#            {{ form.Trip_Name.label }}#}
+{#            {{form.Trip_Name}}<h1></h1>#}
+{#            {{ form.Departure_Date.label }}#}
+{#            TODO:add that date formatting is year-month-day#}
+{#            {{ form.Departure_Date }}<h1></h1>#}
+{#            {{ form.Return_Date.label }}#}
+{#            {{ form.Return_Date }}<h1></h1>#}
+{#            {{ form.Trip_Location.label }}#}
+{#            {{ form.Trip_Location }}<h1></h1>#}
+{#            {{ form.Trip_State.label }}#}
+{#            {{ form.Trip_State }}#}
+{#            {{form.Details.label }}#}
+{#            {{form.Details }}#}
+{#            {{ form.GearList.label }}<br>#}
+{#            {{ form.GearList }}#}
+{#            {{ form.Trip_Meeting_Place.label }}<br>#}
+{#            {{ form.Trip_Meeting_Place }}#}
+{#            {{ form.Additional_Cost.label }}<br>#}
+{#            {{ form.Additional_Cost }}#}
+{#            {{ form.Cost_Breakdown.label }}<br>#}
+{#            {{ form.Cost_Breakdown }}#}
+{#            {{ form.Car_Cap.label}}#}
+{#            {{ form.Car_Cap }}#}
+{#            {{ form.Car_Capacity.label }}#}
+{#            {{ form.Car_Capacity }}#}
+{#            {{ form.Substance_Free.label }}#}
+{#            {{ form.Substance_Free }}#}
+{#            {{ form.Driver.label }}#}
+{#            {{ form.Driver }}#}
+{#            {{ form.submit }}#}
+{#        </div>#}
+{#    </form>#}

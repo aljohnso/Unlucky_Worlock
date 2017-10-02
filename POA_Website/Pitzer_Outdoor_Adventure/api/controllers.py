@@ -2,7 +2,7 @@
 # from Tests.TestForms.SecondForms import CreateAccountForm
 import flask
 from flask import request, redirect, url_for, \
-    render_template, flash, Blueprint
+    render_template, flash, Blueprint, jsonify
 
 from DatabaseConnection.DataBaseSchema import db, \
     Master, Participants, TripModel, Account
@@ -36,27 +36,29 @@ def addTrip():
     form = MakeTripFormPOA(Car_Capacity=str(tempUser.carCapacity))
     # FINISHED: Make the above form autofill the car capacity with the user's data. WAIT, WHAT DOES THIS MEAN? THAT'S NEVER REQUESTED IN THE FORM!(?)
     if request.method == 'POST':
+        print(request.form)
+        return jsonify(status="success", code=200)
         # print(form.data)  # Returns a dictionary with keys that are the fields in the table.
-        if form.validate() == False:
-            # for field, errors in form.errors.items():
-            #     for error in errors:
-            #         flash(u"Error in the %s field - %s" % (
-            #             getattr(form, field).label.text,
-            #             error
-            #         ))
-            flash('All fields are required.')
-            # return redirect(url_for('main.mainPage', autoModal=""))
-            return render_template('CreateTripModal.html', form=form)
-        else:
-            newSeats = int(form.data["Car_Capacity"][:])
-            if form.data["Driver"] == False:
-                newSeats = 0
-            model = TripModel(form.data, tempUser)
-            Participants.query.addParticipant(tempUser, form.data["Driver"], newSeats, model.master.id, True, False)
-            model.addModel()  # add trip to db
-            db.session.commit()
-            flash('New entry was successfully posted')
-            return "Successful"
+        # if form.validate() == False:
+        #     # for field, errors in form.errors.items():
+        #     #     for error in errors:
+        #     #         flash(u"Error in the %s field - %s" % (
+        #     #             getattr(form, field).label.text,
+        #     #             error
+        #     #         ))
+        #     flash('All fields are required.')
+        #     # return redirect(url_for('main.mainPage', autoModal=""))
+        #     return render_template('CreateTripModal.html', form=form)
+        # else:
+        #     newSeats = int(form.data["Car_Capacity"][:])
+        #     if form.data["Driver"] == False:
+        #         newSeats = 0
+        #     model = TripModel(form.data, tempUser)
+        #     Participants.query.addParticipant(tempUser, form.data["Driver"], newSeats, model.master.id, True, False)
+        #     model.addModel()  # add trip to db
+        #     db.session.commit()
+        #     flash('New entry was successfully posted')
+        #     return "Successful"
             # return redirect(url_for('main.mainPage'))  # I'm going to be honest, this naming schema is terrible. MATTHEW: FIXED SO IT'S NO LONGER TERRIBLE!
     elif request.method == 'GET':
         return render_template('CreateTripModal.html', form=form)
