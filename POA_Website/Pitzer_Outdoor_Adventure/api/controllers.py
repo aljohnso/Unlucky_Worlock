@@ -1,6 +1,6 @@
 # from Tests.protyping.UserAccounts import db, Account, databaseName, currentPath, createAccount
 # from Tests.TestForms.SecondForms import CreateAccountForm
-import flask
+import flask, datetime
 from flask import request, redirect, url_for, \
     render_template, flash, Blueprint, jsonify
 
@@ -33,12 +33,25 @@ def addTrip():
     :return:
     """
     tempUser = Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first()
-    form = MakeTripFormPOA(Car_Capacity=str(tempUser.carCapacity))
+    #form = MakeTripFormPOA(Car_Capacity=str(tempUser.carCapacity))
     # FINISHED: Make the above form autofill the car capacity with the user's data. WAIT, WHAT DOES THIS MEAN? THAT'S NEVER REQUESTED IN THE FORM!(?)
     if request.method == 'POST':
-        print(request.form)
-        return jsonify(status="success", code=200)
-        # print(form.data)  # Returns a dictionary with keys that are the fields in the table.
+        #print(request.form)
+        #print(request.form.to_dict()["meetingPlace"])
+        data = request.form.to_dict()
+        if "driver" in data:
+            data["driver"] = True
+        else:
+            data["driver"] = False
+        if "substanceFree" in data:
+            data["substanceFree"] = True
+        else:
+            data["substanceFree"] = False
+        data["departureDate"] = datetime.datetime.strptime(data["departureDate"], "%Y-%m-%d").date()
+        data["returnDate"] = datetime.datetime.strptime(data["returnDate"], "%Y-%m-%d").date()
+        print(data)
+        #return jsonify(status="success", code=200)
+        #print(form.data)  # Returns a dictionary with keys that are the fields in the table.
         # if form.validate() == False:
         #     # for field, errors in form.errors.items():
         #     #     for error in errors:
@@ -49,19 +62,20 @@ def addTrip():
         #     flash('All fields are required.')
         #     # return redirect(url_for('main.mainPage', autoModal=""))
         #     return render_template('CreateTripModal.html', form=form)
-        # else:
-        #     newSeats = int(form.data["Car_Capacity"][:])
-        #     if form.data["Driver"] == False:
-        #         newSeats = 0
-        #     model = TripModel(form.data, tempUser)
-        #     Participants.query.addParticipant(tempUser, form.data["Driver"], newSeats, model.master.id, True, False)
-        #     model.addModel()  # add trip to db
-        #     db.session.commit()
-        #     flash('New entry was successfully posted')
-        #     return "Successful"
-            # return redirect(url_for('main.mainPage'))  # I'm going to be honest, this naming schema is terrible. MATTHEW: FIXED SO IT'S NO LONGER TERRIBLE!
+        newSeats = int(data["carCapacity"][:])
+        if data["driver"] == False:
+            newSeats = 0
+        # change TripModel to use new syntax.
+        model = TripModel(data, tempUser)
+        Participants.query.addParticipant(tempUser, data["driver"], newSeats, model.master.id, True, False)
+        model.addModel()  # add trip to db
+        db.session.commit()
+        flash('New entry was successfully posted')
+        #return "Successful"
+        return jsonify(status="success", code=200)
+        #return redirect(url_for('main.mainPage'))  # I'm going to be honest, this naming schema is terrible. MATTHEW: FIXED SO IT'S NO LONGER TERRIBLE!
     elif request.method == 'GET':
-        return render_template('CreateTripModal.html', form=form)
+        return render_template('CreateTripModal.html')
 
 
 @api.route('/addParticipant/<FormKey>', methods=['POST', 'GET'])

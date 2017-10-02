@@ -55,10 +55,10 @@
     <input name="tripName" class="form-control" required="" type="text">
 
     <label for="departureDate">Departure Date</label>
-    <input name="departureDate" class="form-control" required="" type="text">
+    <input name="departureDate" class="form-control" required="" type="date">
 
     <label for="returnDate">Return Date</label>
-    <input name="returnDate" class="form-control" required="" type="text">
+    <input name="returnDate" class="form-control" required="" type="date">
 
     <label for="tripLocation">Trip Location</label>
     <input name="tripLocation" class="form-control" required="" type="text">
@@ -75,10 +75,10 @@
     <label for="meetingPlace">Trip Meeting Place</label>
     <input name="meetingPlace" class="form-control" required="" type="text">
 
-    <label for="additionalCostBreakdown">Additional Cost Breakdown</label>
+    <label for="costName">Additional Cost Breakdown</label>
     <div id="additionalCostBreakdownDiv" class="form-inline">
-        <input name="additionalCostBreakdown" class="form-control cost" required="" type="text" placeholder="Name of Expense">
-        <input name="additionalCostBreakdown" class="form-control cost" required="" type="text" placeholder="Cost">
+        <input name="costName" class="form-control cost" required="" type="text" placeholder="Name of Expense">
+        <input name="costMagnitude" class="form-control cost" required="" type="text" placeholder="Cost">
     </div>
     <p></p>
     <a id="addRow" class="btn btn-m btn-primary"><span class="glyphicon glyphicon-plus"></span></a>
@@ -87,11 +87,14 @@
     <label for="maxCars">Maximum Cars</label>
     <input name="maxCars" class="form-control" required="" type="text">
 
+    <p></p>
+    <input name="substanceFree" class="form-check-input" type="checkbox">
     <label for="substanceFree">Substance-Free</label>
-    <input name="substanceFree" class="form-control" type="checkbox">
+    <p></p>
 
+    <input name="driver" class="form-check-input" type="checkbox">
     <label for="driver">Driver</label>
-    <input name="driver" class="form-control" type="checkbox">
+    <p></p>
 
     <label for="carCapacity">Car Capacity</label>
     <input name="carCapacity" class="form-control" required="" type="text">
@@ -160,6 +163,7 @@
 {#          });#}
 		    $.post("api/addTrip", $("#openForm").serialize());
           console.log($('#openForm').serialize());
+          $(location).attr('href', "{{ url_for('main.mainPage') }}" );
           return false; // Don't submit form for this demo
       });
     });
