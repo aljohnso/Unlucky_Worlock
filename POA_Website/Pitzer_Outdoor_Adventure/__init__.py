@@ -1,14 +1,15 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
-
+import os
 from Config.config import configure_app
 from DatabaseConnection.DataBaseSchema import db
 from Pitzer_Outdoor_Adventure.Main.controllers import main
 from Pitzer_Outdoor_Adventure.api.controllers import api
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder=os.getcwd() + "/Piter_Outdoor_Adventure/static")
 configure_app(app, 'default')#set app congif here
 print("app config set")
+print(app.config)
 Bootstrap(app)
 db.init_app(app)
 #with app.app_context():
