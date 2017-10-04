@@ -6,4 +6,5 @@ COPY ./POA_Website /app
 RUN pip install -U pip
 RUN pip install -r /tmp/requirements.txt
 
-ENV STATIC_PATH /app/Pitzer_Outdoor_Adventure/static
+ENV STATIC_PATH /app/POA_Website/Pitzer_Outdoor_Adventure/static
+ENV STATIC_URL /static
