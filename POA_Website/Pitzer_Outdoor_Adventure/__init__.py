@@ -6,8 +6,6 @@ from DatabaseConnection.DataBaseSchema import db
 from Pitzer_Outdoor_Adventure.Main.controllers import main
 from Pitzer_Outdoor_Adventure.api.controllers import api
 
-
-print(os.listdir(os.getcwd()))
 app = Flask(__name__)
 configure_app(app, 'default')#set app congif here
 Bootstrap(app)
