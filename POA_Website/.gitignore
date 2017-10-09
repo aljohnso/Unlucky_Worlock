@@ -1,10 +1,16 @@
 secret/*
 
-<<<<<<< Updated upstream
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 /secret
-=======
->>>>>>> Stashed changes
+*.pyc
+/.idea
+
+Pitzer_Outdoor_Adventure/Admin/templates/
+Pitzer_Outdoor_Adventure/api/__pycache__/
+Tests/TestForms/__pycache__/
+Tests/__pycache__/
+Tests/protyping/__pycache__/
+Tests/protyping/testApp/__pycache__/
