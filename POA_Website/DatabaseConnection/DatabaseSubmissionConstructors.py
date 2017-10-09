@@ -68,14 +68,16 @@ class TripConstructor:
         Trip["GearList"] = Form["gearList"]
         Trip["Trip_Meeting_Place"] = Form["meetingPlace"]
         # TODO: Bring the additional cost and cost breakdown entries into the 21st century.
-        Trip["Additional_Cost"] = Form["costMagnitude"]
-        Trip["Cost_Breakdown"] = Form["costMagnitude"]
-        distance = self.getDistance(locationData)
-        total_Cost = distance*.17*2 + int(Form['costMagnitude'])
+        Trip["Costs"] = Form["costDict"]
+        Trip["Costs"]["POAGasCost"] = self.getDistance(locationData) * 0.17 * 2
+        # Trip["Additional_Cost"] = Form["costMagnitude"]
+        # Trip["Cost_Breakdown"] = Form["costMagnitude"]
+        # distance = self.getDistance(locationData)
+        # total_Cost = distance*.17*2 + int(Form['costMagnitude'])
         Trip["Substance_Free"] = Form["substanceFree"]
         # TODO: make these into lists or something, current code should break. People's arms. Arms will be broken.
-        Trip['Additional_Cost'] = int(Form['costMagnitude'])
-        Trip["Total_Cost"] = total_Cost
+        # Trip['Additional_Cost'] = int(Form['costMagnitude'])
+        # Trip["Total_Cost"] = total_Cost
         Trip["Weather_Forcast"] = str(self.getWeather(locationData))
         Trip["Master_Key"] = master_key
         # print(Trip)

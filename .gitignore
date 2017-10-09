@@ -18,3 +18,4 @@ POA_Website/.idea/dataSources.local.xml
 POA_Website/.idea/misc.xml
 
 .idea/
+*.pyc

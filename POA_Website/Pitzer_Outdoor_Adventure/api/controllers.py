@@ -1,6 +1,6 @@
 # from Tests.protyping.UserAccounts import db, Account, databaseName, currentPath, createAccount
 # from Tests.TestForms.SecondForms import CreateAccountForm
-import flask, datetime
+import flask, datetime, re, copy
 from flask import request, redirect, url_for, \
     render_template, flash, Blueprint, jsonify
 
@@ -38,6 +38,7 @@ def addTrip():
     if request.method == 'POST':
         #print(request.form)
         #print(request.form.to_dict()["meetingPlace"])
+        # Gathers the input from the form and stores it in a dictionary.
         data = request.form.to_dict()
         if "driver" in data:
             data["driver"] = True
@@ -49,6 +50,15 @@ def addTrip():
             data["substanceFree"] = False
         data["departureDate"] = datetime.datetime.strptime(data["departureDate"], "%Y-%m-%d").date()
         data["returnDate"] = datetime.datetime.strptime(data["returnDate"], "%Y-%m-%d").date()
+        costDict = {}
+        tempKeys = copy.deepcopy(list(data.keys()))
+        for entry in tempKeys:
+            match = re.search("costName.*", entry)
+            if match:
+                costDict[data[entry]] = data["costMagnitude" + entry[8:]]
+                data.pop(entry, None)
+                data.pop("costMagnitude" + entry[8:], None)
+        data["costDict"] = costDict
         print(data)
         #return jsonify(status="success", code=200)
         #print(form.data)  # Returns a dictionary with keys that are the fields in the table.
