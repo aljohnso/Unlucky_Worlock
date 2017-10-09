@@ -129,6 +129,13 @@ class Participants(db.Model):
         self.Driver = isDriver
         self.Car_Capacity = carSeats
         self.OpenLeader = openCoordinator
+        master = Master.query.filter_by(id=self.Master_Key).first()
+        driverList = Participants.query.filter_by(Master_Key=self.Master_Key, Driver=True).all()
+        master.Car_Num = len(driverList)
+        sumCapacity = 0
+        for people in driverList:
+            sumCapacity += people.Car_Capacity
+        master.Participant_Cap = sumCapacity
 
 class TripModel():
     """

@@ -8,6 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 {#    <style src = "POACreateTripCSS.css"></style>#}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.7.2/parsley.min.js"></script>
     <script>
     $(document).ready(function ()
     {
@@ -82,7 +83,7 @@
                 <tbody class="entries">
                 {% for TableRow in entries %}
                 <tr>
-                    <td > <a href={{ url_for('main.tripPage', TripKey = TableRow.id)}}>{{ TableRow.Trip_Name}}</a></td>
+                    <td > <a href={{ url_for('main.tripPage', TripKey = TableRow.id) }}>{{ TableRow.Trip_Name}}</a></td>
                     <td> {{ TableRow.Details_Short }}</td>
                     <td> {{ TableRow.Departure_Date }}</td>
                     <td> {{ TableRow.Return_Date }}</td>
