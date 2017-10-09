@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
-
+import os
 from Config.config import configure_app
 from DatabaseConnection.DataBaseSchema import db
 from Pitzer_Outdoor_Adventure.Main.controllers import main
@@ -10,7 +10,6 @@ from flask_mail import Mail
 
 app = Flask(__name__)
 configure_app(app, 'default')#set app congif here
-print("app config set")
 Bootstrap(app)
 db.init_app(app)
 #with app.app_context():

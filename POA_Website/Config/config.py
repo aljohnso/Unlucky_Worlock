@@ -6,7 +6,7 @@ class BaseConfig(object):
     # sqlite :memory: identifier is the default if no filepath is present
     try:
         #Here We attempt to load from the AWS RDS DB
-        filePath = os.getcwd() + "/secret/databaseURI.json"
+        filePath = os.getcwd() + "/secret/databaseURI.json break this code"
         with open(filePath) as data_file:
             data = json.load(data_file)
         SQLALCHEMY_DATABASE_URI = data["SQLALCHEMY_DATABASE_URI"]
