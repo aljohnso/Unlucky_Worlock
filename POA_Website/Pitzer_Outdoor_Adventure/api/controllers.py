@@ -1,15 +1,17 @@
 # from Tests.protyping.UserAccounts import db, Account, databaseName, currentPath, createAccount
 # from Tests.TestForms.SecondForms import CreateAccountForm
-import flask
+import flask, datetime, re, copy
 from flask import request, redirect, url_for, \
-    render_template, flash, Blueprint
+    render_template, flash, Blueprint, jsonify
 
 from DatabaseConnection.DataBaseSchema import db, \
     Master, Participants, TripModel, Account
 from Forms.POAForms import MakeTripFormPOA, AddToTripPOA, EditTripMemberPOA
 from Pitzer_Outdoor_Adventure.Main.controllers import login_required
+from flask_mail import Message, Mail
 
 api = Blueprint('api', __name__, template_folder='templates')
+mail = Mail()
 
 
 @api.route('/popUpMessage/<title>/<message>', methods=['GET', 'POST'])
@@ -31,25 +33,59 @@ def addTrip():
     :return:
     """
     tempUser = Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first()
-    form = MakeTripFormPOA(Car_Capacity=str(tempUser.carCapacity))
+    #form = MakeTripFormPOA(Car_Capacity=str(tempUser.carCapacity))
     # FINISHED: Make the above form autofill the car capacity with the user's data. WAIT, WHAT DOES THIS MEAN? THAT'S NEVER REQUESTED IN THE FORM!(?)
     if request.method == 'POST':
-        # print(form.data)  # Returns a dictionary with keys that are the fields in the table.
-        if form.validate() == False:
-            flash('All fields are required.')
-            return render_template('CreateTripModal.html', form=form)
+        #print(request.form)
+        #print(request.form.to_dict()["meetingPlace"])
+        # Gathers the input from the form and stores it in a dictionary.
+        data = request.form.to_dict()
+        if "driver" in data:
+            data["driver"] = True
         else:
-            newSeats = int(form.data["Car_Capacity"][:])
-            if form.data["Driver"] == False:
-                newSeats = 0
-            model = TripModel(form.data, tempUser)
-            Participants.query.addParticipant(tempUser, form.data["Driver"], newSeats, model.master.id, True, False)
-            model.addModel()  # add trip to db
-            db.session.commit()
-            flash('New entry was successfully posted')
-            return redirect(url_for('main.mainPage'))  # I'm going to be honest, this naming schema is terrible. MATTHEW: FIXED SO IT'S NO LONGER TERRIBLE!
+            data["driver"] = False
+        if "substanceFree" in data:
+            data["substanceFree"] = True
+        else:
+            data["substanceFree"] = False
+        data["departureDate"] = datetime.datetime.strptime(data["departureDate"], "%Y-%m-%d").date()
+        data["returnDate"] = datetime.datetime.strptime(data["returnDate"], "%Y-%m-%d").date()
+        costDict = {}
+        tempKeys = copy.deepcopy(list(data.keys()))
+        for entry in tempKeys:
+            match = re.search("costName.*", entry)
+            if match:
+                costDict[data[entry]] = data["costMagnitude" + entry[8:]]
+                data.pop(entry, None)
+                data.pop("costMagnitude" + entry[8:], None)
+        data["costDict"] = costDict
+        print(data)
+        #return jsonify(status="success", code=200)
+        #print(form.data)  # Returns a dictionary with keys that are the fields in the table.
+        # if form.validate() == False:
+        #     # for field, errors in form.errors.items():
+        #     #     for error in errors:
+        #     #         flash(u"Error in the %s field - %s" % (
+        #     #             getattr(form, field).label.text,
+        #     #             error
+        #     #         ))
+        #     flash('All fields are required.')
+        #     # return redirect(url_for('main.mainPage', autoModal=""))
+        #     return render_template('CreateTripModal.html', form=form)
+        newSeats = int(data["carCapacity"][:])
+        if data["driver"] == False:
+            newSeats = 0
+        # change TripModel to use new syntax.
+        model = TripModel(data, tempUser)
+        Participants.query.addParticipant(tempUser, data["driver"], newSeats, model.master.id, True, False)
+        model.addModel()  # add trip to db
+        db.session.commit()
+        flash('New entry was successfully posted')
+        #return "Successful"
+        return jsonify(status="success", code=200)
+        #return redirect(url_for('main.mainPage'))  # I'm going to be honest, this naming schema is terrible. MATTHEW: FIXED SO IT'S NO LONGER TERRIBLE!
     elif request.method == 'GET':
-        return render_template('CreateTripModal.html', form=form)
+        return render_template('CreateTripModal.html')
 
 
 @api.route('/addParticipant/<FormKey>', methods=['POST', 'GET'])
@@ -74,11 +110,11 @@ def addParticipant(FormKey):
             return render_template('DisplayMessageModal.html', message="Sorry, there's no room left on this trip.", title="Trip is Full")
             # redirect(url_for("main.tripPage", FormKey=str(FormKey)))
         else:
-            return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, warning=False, errorMessage="")
+            return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, errorMessage="")
     if request.method == 'POST':
         if form.validate() == False:
             flash('All fields are required.')
-            return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, warning=False, errorMessage="")
+            return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, errorMessage="")
         else:
             newSeats = int(form.data["Car_Capacity"][:])
             isDriver = form.data["Driver"]
@@ -89,15 +125,14 @@ def addParticipant(FormKey):
                 isDriver = False
             if isDriver and tripInfo.Car_Num + 1 > tripInfo.Car_Cap:
                 # The person is trying to be a driver when the trip already has maximum/over maximum cars.
-                return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, warning=True,
-                                       errorMessage="There are already too many cars on this trip; you cannot be a driver if you want to join.")
+                return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, errorMessage="There are already too many cars on this trip; you cannot be a driver if you want to join.")
             if newSeats <= 0 and tripInfo.Participant_Num >= tripInfo.Participant_Cap:
                 # The person has zero newSeats and tries to join a trip with maximum/over maximum people
-                return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, warning=True,
-                                       errorMessage="Due to the current size of this trip, you must be a driver with at least one car capacity to join.")
+                return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, errorMessage="Due to the current size of this trip, you must be a driver with at least one car capacity to join.")
             Participants.query.addParticipant(tempUser, isDriver, newSeats, int(FormKey), False, False)
             flash('New entry was successfully posted')
-            return redirect(url_for('main.tripPage', TripKey=str(FormKey)))
+            return "Successful"
+            # return redirect(url_for('main.tripPage', TripKey=str(FormKey)))
 
 
 @api.route('/editParticipant/<FormKey>', methods=['POST', 'GET'])
@@ -107,11 +142,17 @@ def editParticipant(FormKey):
     tripInfo = Master.query.filter_by(id=FormKey).first()
     form = EditTripMemberPOA(Driver_Box=you.Driver, CarCapacity_Box=str(you.Car_Capacity), PotentialLeader_Box=you.OpenLeader)
     if request.method == 'GET':
-        return render_template('EditTripMemberModal.html', form=form, tripInfo=tripInfo, warning=False, errorMessage="")
+        # return redirect(url_for('main.tripPage', TripKey=str(FormKey), autoModal="#"))
+        return render_template('EditTripMemberModal.html', form=form, tripInfo=tripInfo)
     if request.method == 'POST':
         if form.validate() == False:
             flash('All fields are required.')
-            return render_template('EditTripMemberModal.html', form=form, tripInfo=tripInfo, warning=False, errorMessage="")
+            # print("terrible things are afoot")
+            # print(render_template('EditTripMemberModal.html', form=form, tripInfo=tripInfo, errorMessage=""))
+            # print("Below is the redirect")
+            # print(redirect(url_for('main.tripPage', TripKey=str(FormKey), autoModal="#")))
+            # return redirect(url_for('main.tripPage', TripKey=str(FormKey), autoModal="editParticipant"))
+            return render_template('EditTripMemberModal.html', form=form, tripInfo=tripInfo)
         else:
             newSeats = int(form.data["CarCapacity_Box"][:])
             isDriver = form.data["Driver_Box"]
@@ -123,7 +164,9 @@ def editParticipant(FormKey):
             # Congratulations! You submitted your form and all fields were filled out properly.
             you.editParticipantInfo(isDriver, newSeats, form.data["PotentialLeader_Box"])
             db.session.commit()
-            return redirect(url_for('main.tripPage', TripKey=str(FormKey)))
+            print("things worked!")
+            return "Successful"
+            # return redirect(url_for('main.tripPage', TripKey=str(FormKey), autoModal="#"))
 
 
 @api.route('/checkAddParticipant/<FormKey>', methods=['POST', 'GET'])
@@ -134,6 +177,7 @@ def checkAddParticipant(FormKey):
     :param FormKey:
     :return:
     """
+    print("You shouldn't even be here!")
     tempTrip = Master.query.filter_by(id=FormKey).first()
     tempUser = Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first()
     if tempTrip.Participant_Cap < tempTrip.Participant_Num + 1 and tempTrip.Car_Cap < tempTrip.Car_Num + 1:
@@ -169,3 +213,12 @@ def removeParticipant(personID, tripID):
 def swapCoordinators(oldLeaderID, newLeaderID, tripID):
     Participants.query.swapCordinator(oldLeaderID, newLeaderID, tripID)
     return redirect(url_for('main.tripPage', TripKey=tripID))
+
+#UPPERBOUND
+@api.route("/send")
+def index():
+    # msg = mail.send_message("Hello", sender="pzgearcloset@gmail.com", recipients=["mvonallm@students.pitzer.edu"])
+    msg = Message(subject="Hello", body="Hey there man what's up.", sender="pzgearcloset@gmail.com", recipients=["mvonallm@students.pitzer.edu"])
+    mail.send(msg)
+    return "sent"
+#LOWERBOUND

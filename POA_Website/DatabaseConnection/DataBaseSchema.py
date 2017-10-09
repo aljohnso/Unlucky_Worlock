@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy, inspect
-
+import json
 from DatabaseConnection.DatabaseQuery import Master_db_query, Participant_manipulation_query, Account_manipulation_query
 from DatabaseConnection.DatabaseSubmissionConstructors import MasterConstructor, TripConstructor
 
@@ -60,9 +60,10 @@ class Trips(db.Model):
     #Coordinator_Phone = db.Column(db.String(80))
     Gear_List = db.Column(db.String(3000))
     Trip_Meeting_Place = db.Column(db.String(120))
-    Additional_Costs = db.Column(db.Integer)
-    Total_Cost = db.Column(db.Integer)
-    Cost_BreakDown = db.Column(db.String(3000))
+    # Additional_Costs = db.Column(db.Integer)
+    # Total_Cost = db.Column(db.Integer)
+    # Cost_BreakDown = db.Column(db.String(3000))
+    Costs = db.Column(db.String(3000))
     Substance_Free = db.Column(db.Integer)
     Weather_Forecast = db.Column(db.String(30000)) # Definitely not an optimal way of doing this.
 
@@ -75,9 +76,10 @@ class Trips(db.Model):
         #self.Coordinator_Phone = tempData["phoneNumber"]
         self.Gear_List = TripDict['GearList']
         self.Trip_Meeting_Place = TripDict['Trip_Meeting_Place']
-        self.Additional_Costs = TripDict['Additional_Cost']#Name changes
-        self.Total_Cost = TripDict["Total_Cost"]
-        self.Cost_BreakDown = TripDict['Cost_Breakdown']#name Changes
+        # self.Additional_Costs = TripDict['Additional_Cost']#Name changes
+        # self.Total_Cost = TripDict["Total_Cost"]
+        # self.Cost_BreakDown = TripDict['Cost_Breakdown']#name Changes
+        self.Costs = json.dumps(TripDict["Costs"])
         self.Substance_Free = TripDict["Substance_Free"]
         self.Weather_Forecast = TripDict["Weather_Forcast"]#name change
         self.Master_Key = TripDict['Master_Key']
@@ -129,6 +131,13 @@ class Participants(db.Model):
         self.Driver = isDriver
         self.Car_Capacity = carSeats
         self.OpenLeader = openCoordinator
+        master = Master.query.filter_by(id=self.Master_Key).first()
+        driverList = Participants.query.filter_by(Master_Key=self.Master_Key, Driver=True).all()
+        master.Car_Num = len(driverList)
+        sumCapacity = 0
+        for people in driverList:
+            sumCapacity += people.Car_Capacity
+        master.Participant_Cap = sumCapacity
 
 class TripModel():
     """

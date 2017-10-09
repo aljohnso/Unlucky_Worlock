@@ -1,5 +1,32 @@
-{# https://v4-alpha.getbootstrap.com/components/modal/#how-it-works #}
-
+{# https://mrl33h.de/post/21 #}
+<script>
+    $(document).ready(function ()
+    {
+        $('#submit').click(function(event)
+        {
+            event.preventDefault();
+{#            $("#generalizedModal").modal("hide");#}
+    {#        location.reload();#}
+            $.post('/api/editParticipant/' + {{ tripInfo.id }}, data=$('#openForm').serialize())
+            .done(function(data)
+            {
+                console.log(data);
+                if (data==="Successful")
+                {
+                    $("#generalizedModal").modal("hide");
+                    $(location).attr('href', "{{ url_for('main.tripPage', TripKey = tripInfo.id) }}" );
+{#                    location.reload();#}
+                }
+                else
+                {
+                    $('#message-model-content').html(data);
+                }
+{#                $("#generalizedModal").modal("show");#}
+                /* Use this for hiding the modal via code --> $("#generalizedModal").modal("hide");*/
+            });
+        });
+    });
+</script>
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -7,10 +34,7 @@
     <h5 class="modal-title">{{ tripInfo.Trip_Name }}</h5>
 </div>
 <div class="modal-body">
-    {% if warning %}
-        {{ errorMessage }}
-    {% endif %}
-    <form action= "{{ url_for('api.editParticipant', FormKey=tripInfo.id) }}" method="post">
+    <form id="openForm" action= "{{ url_for('api.editParticipant', FormKey=tripInfo.id) }}" method="post">
         {% import "bootstrap/wtf.html" as wtf %}
         {{ wtf.quick_form(form) }}
     </form>
