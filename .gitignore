@@ -15,3 +15,5 @@ POA_Website/.idea/misc.xml
 *.pyc
 /secret
 
+
+*.pyc
