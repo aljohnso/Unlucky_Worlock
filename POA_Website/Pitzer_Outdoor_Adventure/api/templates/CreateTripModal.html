@@ -48,7 +48,7 @@
 {#    <p>Everything seems to be ok :)</p>#}
 {#</div>#}
 
-<form id="openForm" data-parsley-validate="" >
+<form id="openForm" data-parsley-validate="" data-parsley-ui-enabled="false">
     <label for="tripName">Trip Name</label>
     <input name="tripName" class="form-control" required="" type="text" data-toggle="tooltip" data-original-title="Give your trip a name." data-placement="left">
 
@@ -103,7 +103,7 @@
     </div>
     <p></p>
     <label for="carCapacity">Car Capacity</label>
-    <input name="carCapacity" class="form-control" required="" type="text" data-toggle="tooltip" data-original-title="How many people, including yourself, can your car hold?" data-placement="left">
+    <input name="carCapacity" class="form-control" required="" type="text" value="{{ yourCarCapacity }}" data-toggle="tooltip" data-original-title="How many people, including yourself, can your car hold?" data-placement="left">
 
 
     <br>

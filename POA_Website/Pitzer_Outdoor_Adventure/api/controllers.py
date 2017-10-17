@@ -68,7 +68,7 @@ def addTrip():
         flash('New entry was successfully posted')
         return jsonify(status="success", code=200)
     elif request.method == 'GET':
-        return render_template('CreateTripModal.html')
+        return render_template('CreateTripModal.html', yourCarCapacity=tempUser.carCapacity)
 
 
 @api.route('/addParticipant/<FormKey>', methods=['POST', 'GET'])
