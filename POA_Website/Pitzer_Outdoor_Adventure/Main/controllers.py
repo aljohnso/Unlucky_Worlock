@@ -40,7 +40,7 @@ def mainPage():
     masters = Master.query.checkTrip()
     formatMaster = [masters[x:x+3] for x in range(0, len(masters), 3)]
     print(formatMaster)
-    return render_template("test.html", entries=formatMaster)
+    return render_template("HomePage.html", entries=formatMaster)
 
 
 @main.route("/trips/<int:TripKey>")

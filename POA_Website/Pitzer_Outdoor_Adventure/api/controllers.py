@@ -33,11 +33,8 @@ def addTrip():
     :return:
     """
     tempUser = Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first()
-    #form = MakeTripFormPOA(Car_Capacity=str(tempUser.carCapacity))
     # FINISHED: Make the above form autofill the car capacity with the user's data. WAIT, WHAT DOES THIS MEAN? THAT'S NEVER REQUESTED IN THE FORM!(?)
     if request.method == 'POST':
-        #print(request.form)
-        #print(request.form.to_dict()["meetingPlace"])
         # Gathers the input from the form and stores it in a dictionary.
         data = request.form.to_dict()
         if "driver" in data:
@@ -60,18 +57,6 @@ def addTrip():
                 data.pop("costMagnitude" + entry[8:], None)
         data["costDict"] = costDict
         print(data)
-        #return jsonify(status="success", code=200)
-        #print(form.data)  # Returns a dictionary with keys that are the fields in the table.
-        # if form.validate() == False:
-        #     # for field, errors in form.errors.items():
-        #     #     for error in errors:
-        #     #         flash(u"Error in the %s field - %s" % (
-        #     #             getattr(form, field).label.text,
-        #     #             error
-        #     #         ))
-        #     flash('All fields are required.')
-        #     # return redirect(url_for('main.mainPage', autoModal=""))
-        #     return render_template('CreateTripModal.html', form=form)
         newSeats = int(data["carCapacity"][:])
         if data["driver"] == False:
             newSeats = 0
@@ -81,9 +66,7 @@ def addTrip():
         model.addModel()  # add trip to db
         db.session.commit()
         flash('New entry was successfully posted')
-        #return "Successful"
         return jsonify(status="success", code=200)
-        #return redirect(url_for('main.mainPage'))  # I'm going to be honest, this naming schema is terrible. MATTHEW: FIXED SO IT'S NO LONGER TERRIBLE!
     elif request.method == 'GET':
         return render_template('CreateTripModal.html')
 

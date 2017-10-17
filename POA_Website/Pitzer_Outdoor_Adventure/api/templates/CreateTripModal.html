@@ -1,29 +1,8 @@
-{# https://stackoverflow.com/questions/21032759/bootstrap-3-2-column-form-layout #}
-{#<script>#}
-{#    $(document).ready(function ()#}
-{#    {#}
-{#        $('#submit').click(function(event)#}
-{#        {#}
-{#            event.preventDefault();#}
-{#            $.post('/api/addTrip', data=$('#openForm').serialize())#}
-{#            .done(function(data)#}
-{#            {#}
-{#                console.log(data);#}
-{#                if (data==="Successful")#}
-{#                {#}
-{#                    $("#generalizedModal").modal("hide");#}
-{#                    $(location).attr('href', "{{ url_for('main.mainPage') }}" );#}
-{#                }#}
-{#                else#}
-{#                {#}
-{#                    $('#message-model-content').html(data);#}
-{#                }#}
-{#            });#}
-{#        });#}
-{#    });#}
-{#</script>#}
-{#{% set newCost = "<input name=\"costName1\" class=\"form-control\" required=\"\" type=\"text\" placeholder=\"Name of Expense\"> <input name=\"costMagnitude1\" class=\"form-control\" required=\"\" type=\"text\" placeholder=\"Cost\"> <p></p>" %}#}
-{#{% set counter = [1] %}#}
+{#<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">#}
+{#<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="all">#}
+{#<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet" media="all">#}
+
+
 <script>
     $(document).ready(function ()
     {
@@ -53,23 +32,23 @@
     });
 </script>
 <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
     <h5 class="modal-title">Create Trip</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
 </div>
 <div class="modal-body">
-    <div class="bs-callout bs-callout-warning hidden">
-    <h4>Oh snap!</h4>
-    <p>This form seems to be invalid :(</p>
-</div>
+{#    <div class="bs-callout bs-callout-warning hidden">#}
+{#    <h4>Oh snap!</h4>#}
+{#    <p>This form seems to be invalid :(</p>#}
+{#</div>#}
+{##}
+{#<div class="bs-callout bs-callout-info hidden">#}
+{#    <h4>Yay!</h4>#}
+{#    <p>Everything seems to be ok :)</p>#}
+{#</div>#}
 
-<div class="bs-callout bs-callout-info hidden">
-    <h4>Yay!</h4>
-    <p>Everything seems to be ok :)</p>
-</div>
-
-<form id="openForm" data-parsley-validate="">
+<form id="openForm" data-parsley-validate="" >
     <label for="tripName">Trip Name</label>
     <input name="tripName" class="form-control" required="" type="text" data-toggle="tooltip" data-original-title="Give your trip a name." data-placement="left">
 
@@ -100,68 +79,38 @@
         <input id="costMagnitude1" name="costMagnitude1" class="form-control" required="" type="text" placeholder="Cost">
         <p id="para1"></p>
     </div>
-    <a id="addRow" class="btn btn-m btn-primary" data-toggle="tooltip" data-original-title="Add an additional expense you expect to incur on this trip." data-placement="left"><span class="glyphicon glyphicon-plus"></span></a>
-    <a id="deleteRow" class="btn btn-m btn-warning" data-toggle="tooltip" data-original-title="Remove one expense from the table." data-placement="right"><span class="glyphicon glyphicon-minus"></span></a>
+    <p></p>
+    <a role="button" id="addRow" class="btn btn-sm btn-primary" data-toggle="tooltip" data-original-title="Add an additional expense you expect to incur on this trip." data-placement="left"><i class="fa fa-plus" aria-hidden="true"></i></a>
+    <a role="button" id="deleteRow" class="btn btn-sm btn-warning" data-toggle="tooltip" data-original-title="Remove one expense from the table." data-placement="right"><i class="fa fa-minus fa-fw" aria-hidden="true"></i></a>
     <p></p>
 
     <label for="maxCars">Maximum Cars</label>
     <input name="maxCars" class="form-control" required="" type="text" data-toggle="tooltip" data-original-title="How many cars, in total, are allowed on this trip?" data-placement="left">
-
-    <p></p>
-    <input name="substanceFree" class="form-check-input" type="checkbox">
-    <label for="substanceFree" data-toggle="tooltip" data-original-title="Is this trip substance-free?" data-placement="right">Substance-Free</label>
     <p></p>
 
-    <input name="driver" class="form-check-input" type="checkbox">
-    <label for="driver" data-toggle="tooltip" data-original-title="Are you, personally, a driver for this trip?" data-placement="right">Driver</label>
+    <div class="form-check">
+        <label class="form-check-label" data-toggle="tooltip" data-original-title="Is this trip substance-free?" data-placement="right">
+            <input name="substanceFree" class="form-check-input" type="checkbox">
+            Substance-Free
+        </label>
+    </div>
     <p></p>
-
+    <div class="form-check">
+        <label class="form-check-label" data-toggle="tooltip" data-original-title="Are you, personally, a driver for this trip?" data-placement="right">
+            <input name="driver" class="form-check-input" type="checkbox">
+            Driver
+        </label>
+    </div>
+    <p></p>
     <label for="carCapacity">Car Capacity</label>
     <input name="carCapacity" class="form-control" required="" type="text" data-toggle="tooltip" data-original-title="How many people, including yourself, can your car hold?" data-placement="left">
 
-{#    <label for="fullname">Full Name * :</label>#}
-{#    <input name="fullname" class="form-control" required="" type="text">#}
-{##}
-{#    <label for="email">Email * :</label>#}
-{#    <input name="email" class="form-control" required="" type="email" data-parsley-trigger="change">#}
-{##}
-{#    <label for="gender">Gender *:</label>#}
-{#    <p>#}
-{#        M: <input name="gender" id="genderM" required="" type="radio" value="M">#}
-{#        F: <input name="gender" id="genderF" type="radio" value="F">#}
-{#    </p>#}
-{##}
-{#    <label for="hobbies">Hobbies (Optional, but 2 minimum):</label>#}
-{#    <p>#}
-{#        Skiing <input name="hobbies[]" id="hobby1" type="checkbox" value="ski" data-parsley-mincheck="2"><br>#}
-{#        Running <input name="hobbies[]" id="hobby2" type="checkbox" value="run"><br>#}
-{#        Eating <input name="hobbies[]" id="hobby3" type="checkbox" value="eat"><br>#}
-{#        Sleeping <input name="hobbies[]" id="hobby4" type="checkbox" value="sleep"><br>#}
-{#        Reading <input name="hobbies[]" id="hobby5" type="checkbox" value="read"><br>#}
-{#        Coding <input name="hobbies[]" id="hobby6" type="checkbox" value="code"><br>#}
-{#    </p>#}
-{##}
-{#    <p>#}
-{#    <label for="heard">Heard about us via *:</label>#}
-{#    <select id="heard" required="">#}
-{#        <option value="">Choose..</option>#}
-{#        <option value="press">Press</option>#}
-{#        <option value="net">Internet</option>#}
-{#        <option value="mouth">Word of mouth</option>#}
-{#        <option value="other">Other..</option>#}
-{#    </select>#}
-{#    </p>#}
-{##}
-{#    <p>#}
-{#    <label for="message">Message (20 chars min, 100 max) :</label>#}
-{#    <textarea name="message" class="form-control" id="message" data-parsley-trigger="keyup" data-parsley-validation-threshold="10" data-parsley-minlength-message="Come on! You need to enter at least a 20 character comment.." data-parsley-maxlength="100" data-parsley-minlength="20"></textarea>#}
-{#    </p>#}
 
     <br>
     <input class="btn btn-default" type="submit" value="Create Trip">
 
-{#    <p><small>* Please, note that this demo form is not a perfect example of UX-awareness. The aim here is to show a quick overview of parsley-API and Parsley customizable behavior.</small></p>#}
 </form>
+</div>
 <script type="text/javascript">
     $(function () {
       $('#openForm').parsley().on('field:validated', function()
@@ -190,59 +139,3 @@
       });
     });
 </script>
-
-{#        {% import "bootstrap/wtf.html" as wtf %}#}
-{#        {{ wtf.quick_form(form) }}#}
-
-
-{#    {% with messages = get_flashed_messages(with_categories=true) %}#}
-{#        <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->#}
-{#        {% if messages %}#}
-{#            {% for category, message in messages %}#}
-{#                <div class="alert alert-{{ category }} alert-dismissible" role="alert">#}
-{#                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>#}
-{#                    <!-- <strong>Title</strong> --> {{ message }}#}
-{#                </div>#}
-{#            {% endfor %}#}
-{#        {% endif %}#}
-{#    {% endwith %}#}
-
-{#    <div class="bs-callout bs-callout-warning hidden">#}
-{#        <h4>Oh snap!</h4>#}
-{#        <p>This form seems to be invalid :(</p>#}
-{#    </div>#}
-{#    <form id="openForm" action= "{{ url_for('api.addTrip') }}" method="post">#}
-{#        <div class="form-group">#}
-{#            {{ form.hidden_tag() }}<h1></h1>#}
-{#            {{ form.Trip_Name.label }}#}
-{#            {{form.Trip_Name}}<h1></h1>#}
-{#            {{ form.Departure_Date.label }}#}
-{#            TODO:add that date formatting is year-month-day#}
-{#            {{ form.Departure_Date }}<h1></h1>#}
-{#            {{ form.Return_Date.label }}#}
-{#            {{ form.Return_Date }}<h1></h1>#}
-{#            {{ form.Trip_Location.label }}#}
-{#            {{ form.Trip_Location }}<h1></h1>#}
-{#            {{ form.Trip_State.label }}#}
-{#            {{ form.Trip_State }}#}
-{#            {{form.Details.label }}#}
-{#            {{form.Details }}#}
-{#            {{ form.GearList.label }}<br>#}
-{#            {{ form.GearList }}#}
-{#            {{ form.Trip_Meeting_Place.label }}<br>#}
-{#            {{ form.Trip_Meeting_Place }}#}
-{#            {{ form.Additional_Cost.label }}<br>#}
-{#            {{ form.Additional_Cost }}#}
-{#            {{ form.Cost_Breakdown.label }}<br>#}
-{#            {{ form.Cost_Breakdown }}#}
-{#            {{ form.Car_Cap.label}}#}
-{#            {{ form.Car_Cap }}#}
-{#            {{ form.Car_Capacity.label }}#}
-{#            {{ form.Car_Capacity }}#}
-{#            {{ form.Substance_Free.label }}#}
-{#            {{ form.Substance_Free }}#}
-{#            {{ form.Driver.label }}#}
-{#            {{ form.Driver }}#}
-{#            {{ form.submit }}#}
-{#        </div>#}
-{#    </form>#}
