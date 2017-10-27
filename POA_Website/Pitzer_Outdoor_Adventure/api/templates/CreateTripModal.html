@@ -2,41 +2,42 @@
 {#<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="all">#}
 {#<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet" media="all">#}
 
-
-<script>
-    $(document).ready(function ()
-    {
-        var counter = 1;
-        $('[data-toggle="tooltip"]').tooltip();
-        $("#addRow").click(function ()
-        {
-            counter++;
-            var newCost = "<input id=\"costName" + counter + "\" name=\"costName" + counter + "\" class=\"form-control\" required=\"\" type=\"text\" placeholder=\"Name of Expense\"> <input id=\"costMagnitude" + counter + "\" name=\"costMagnitude" + counter + "\" class=\"form-control\" required=\"\" type=\"text\" placeholder=\"Cost\" data-parsley-type=\"number\"> <p id=para" + counter + "></p>";
+{##}
+{#<script>#}
+{#    $(document).ready(function ()#}
+{#    {#}
+{#        var counter = 1;#}
+{#        $('[data-toggle="tooltip"]').tooltip();#}
+{#        $("#addRow").click(function ()#}
+{#        {#}
+{#            counter++;#}
+{#            var newCost = "<input id=\"costName" + counter + "\" name=\"costName" + counter + "\" class=\"form-control\" required=\"\" type=\"text\" placeholder=\"Name of Expense\"> <input id=\"costMagnitude" + counter + "\" name=\"costMagnitude" + counter + "\" class=\"form-control\" required=\"\" type=\"text\" placeholder=\"Cost\" data-parsley-type=\"number\"> <p id=para" + counter + "></p>";#}
 {#            {% set counter = counter + 1 %}#}
 {#            {% if counter.append(counter.pop() + 1) %}{% endif %}#}
-            console.log("yay im workin");
-            //$("#additionalCostBreakdownDiv").append($(".cost"));
-            $("#additionalCostBreakdownDiv").append(newCost);
-        });
-        $("#deleteRow").click(function ()
-        {
-            console.log("yay im workin");
-            if (counter > 0)
-            {
-                $("#costName" + counter).remove();
-                $("#costMagnitude" + counter).remove();
-                $("#para" + counter).remove();
-                counter--;
-            }
-        });
-    });
-</script>
+{#            console.log("yay im workin");#}
+{#            //$("#additionalCostBreakdownDiv").append($(".cost"));#}
+{#            $("#additionalCostBreakdownDiv").append(newCost);#}
+{#        });#}
+{#        $("#deleteRow").click(function ()#}
+{#        {#}
+{#            console.log("yay im workin");#}
+{#            if (counter > 0)#}
+{#            {#}
+{#                $("#costName" + counter).remove();#}
+{#                $("#costMagnitude" + counter).remove();#}
+{#                $("#para" + counter).remove();#}
+{#                counter--;#}
+{#            }#}
+{#        });#}
+{#    });#}
+{#</script>#}
 {#<style>#}
 {#    .tooltip.left#}
 {#    {#}
 {#        margin-left: -10px;#}
 {#    }#}
 {#</style>#}
+<script src="static/createTripModal.js"></script>
 <div class="modal-header">
     <h5 class="modal-title">Create Trip</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -174,42 +175,42 @@
 
 </form>
 </div>
-<script type="text/javascript">
-    $(function ()
-    {
-        $('#openForm').parsley().on('field:validated', function()
-        {
-            var ok = $('.parsley-error').length === 0;
-            //$('.bs-callout-info').toggleClass('hidden', !ok);
-            //$('.bs-callout-warning').toggleClass('hidden', ok);
-        })
-        .on('form:submit', function()
-        {
-		    $.post("api/addTrip", $("#openForm").serialize());
-            console.log($('#openForm').serialize());
-            console.log("it worked!!!! the demo was a lie");
-            $(location).reload();
-            //$(location).attr('href', "{{ url_for('main.mainPage') }}" );
-            return false; // Don't submit form for this demo
-        });
-    });
-
-    window.Parsley.on('field:error', function (fieldInstance)
-    {
-        fieldInstance.$element.popover(
-        {
-            trigger: 'manual',
-            container: 'body',
-            placement: 'right',
-            content: function ()
-            {
-                return fieldInstance.getErrorsMessages().join(';');
-            }
-        }).popover('show');
-    });
-
-    window.Parsley.on('field:success', function (fieldInstance)
-    {
-        fieldInstance.$element.popover('destroy');
-    });
-</script>
+{#<script type="text/javascript">#}
+{#    $(function ()#}
+{#    {#}
+{#        $('#openForm').parsley().on('field:validated', function()#}
+{#        {#}
+{#            var ok = $('.parsley-error').length === 0;#}
+{#            //$('.bs-callout-info').toggleClass('hidden', !ok);#}
+{#            //$('.bs-callout-warning').toggleClass('hidden', ok);#}
+{#        })#}
+{#        .on('form:submit', function()#}
+{#        {#}
+{#		    $.post("api/addTrip", $("#openForm").serialize());#}
+{#            console.log($('#openForm').serialize());#}
+{#            console.log("it worked!!!! the demo was a lie");#}
+{#            $(location).reload();#}
+{#            //$(location).attr('href', "{{ url_for('main.mainPage') }}" );#}
+{#            return false; // Don't submit form for this demo#}
+{#        });#}
+{#    });#}
+{##}
+{#    window.Parsley.on('field:error', function (fieldInstance)#}
+{#    {#}
+{#        fieldInstance.$element.popover(#}
+{#        {#}
+{#            trigger: 'manual',#}
+{#            container: 'body',#}
+{#            placement: 'right',#}
+{#            content: function ()#}
+{#            {#}
+{#                return fieldInstance.getErrorsMessages().join(';');#}
+{#            }#}
+{#        }).popover('show');#}
+{#    });#}
+{##}
+{#    window.Parsley.on('field:success', function (fieldInstance)#}
+{#    {#}
+{#        fieldInstance.$element.popover('destroy');#}
+{#    });#}
+{#</script>#}

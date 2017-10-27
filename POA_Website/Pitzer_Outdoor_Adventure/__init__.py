@@ -5,6 +5,7 @@ from Config.config import configure_app
 from DatabaseConnection.DataBaseSchema import db
 from Pitzer_Outdoor_Adventure.Main.controllers import main
 from Pitzer_Outdoor_Adventure.api.controllers import api, mail
+from Pitzer_Outdoor_Adventure.admin.controllers import admin
 
 from flask_mail import Mail
 
@@ -34,4 +35,5 @@ mail.init_app(app)
 
 app.register_blueprint(main)
 app.register_blueprint(api, url_prefix="/api")
+app.register_blueprint(admin, url_prefix="/admin")
 print(app.url_map)

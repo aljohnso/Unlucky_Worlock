@@ -205,3 +205,8 @@ def index():
     mail.send(msg)
     return "sent"
 #LOWERBOUND
+
+@api.route("/getUsers")
+def getUsers():
+    userList = Account.query.all()
+    return jsonify(data=[i.serializeUser for i in userList])

@@ -36,17 +36,26 @@
     </div>
 </div>
     <div class="container">
-      <div class="row">
-      <div class="col-md-5  toppad  pull-right col-md-offset-3 ">
+        <div class="row">
+            <div class="col-md-1 toppad pull-left col-md-offset-3">
+                <a href="admin/commandCenter" type="button" class="btn btn-primary">Admin Options</a>
+            </div>
+            <div class="col-md-5 toppad pull-right col-md-offset-3 ">
            <A href={{url_for('main.mainPage')}} >Return to trips page</A>
 
         {# <A href={{url_for('main.logout')}} >Logout</A> #}
           {# Distance these two buttons from each other, so that "Logout" is plastered to the right! #}
-       <br>
+{#       <br>#}
+            </div>
+            <div class="col-md-5 pull-right col-md-offset-3 ">
+
     {# <p class=" text-info">May 05,2014,03:00 pm </p> #}
     <p class=" text-info">{{ time.strftime('%B') }} {{ time.day }}, {{ time.year }}, {{ time.strftime('%I') }}:{{ time.strftime('%M') }} {{ time.strftime('%p').lower() }}</p>
           {# Make the above time real! FINISHED #}
       </div>
+        </div>
+      <div class="row">
+
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
           <div class="panel panel-info">
             <div class="panel-heading">

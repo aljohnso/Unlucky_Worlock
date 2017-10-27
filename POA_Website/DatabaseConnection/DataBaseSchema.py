@@ -176,6 +176,8 @@ class Account(db.Model):
     # Maybe look up a way to record how many objects are in your database?
     id = db.Column(db.Integer, primary_key=True)
     googleNum = db.Column(db.String(80), unique=True)
+    # admin=0 is not an admin, admin=1 is an admin, admin=2 is a master admin.
+    admin = db.Column(db.Integer)
     picture = db.Column(db.String(200))
     #newVar = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80)) #, unique=True)
@@ -199,6 +201,9 @@ class Account(db.Model):
     # In total, there are 11 variables so far per account.
 
     def __init__(self, formData, session):
+        self.admin = 0
+        if (Account.query.first() == None):
+            self.admin = 1
         self.googleNum = str(session['Googledata']['id'][:]) # Given
         self.picture = str(session['Googledata']['picture'][:])
         self.username = str(formData['FirstName_Box'][:] + ' ' + formData['LastName_Box'][:]) #username
@@ -249,6 +254,7 @@ class Account(db.Model):
     def accessData(self):
         dataDict = {
             'googleNum' : str(self.googleNum)[:],
+            'admin' : str(self.admin)[:],
             'picture' : str(self.picture)[:],
             'username' : str(self.username)[:],
             'email' : str(self.email)[:],
@@ -264,5 +270,7 @@ class Account(db.Model):
             'locale': str(self.locale)[:]
         }
         return dataDict
-
+    @property
+    def serializeUser(self):
+        return self.accessData()
 
