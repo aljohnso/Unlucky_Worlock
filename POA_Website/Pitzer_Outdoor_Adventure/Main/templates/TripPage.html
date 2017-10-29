@@ -366,18 +366,22 @@
                 </div>
                 <br>
                 <h3 align="center">
-                    {% if userID=='' %}
-                        Log in to join this trip
-                    {% elif onTrip %}
-                        <a id="editParticipant" data-original-title="Edit your information" data-toggle="tooltip" type="button" class="btn btn-lg btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
-                        {% if youAreCoordinator %}
-                            <a id="cannotLeave" data-original-title="Leave this trip" data-toggle="tooltip" type="button" class="btn btn-lg btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
-                            {# Make a button that displays a modal, saying that the coordinator cannot leave the trip and must first pass on his/her duties. #}
-                        {% else %}
-                            <a href={{ url_for('api.removeParticipant', personID=userID, tripID=Tripinfo.Master_Key) }} data-original-title="Leave this trip" data-toggle="tooltip" type="button" class="btn btn-lg btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
-                        {% endif %}
+                    {% if tripInfo.Frozen %}
+                        <a data-toggle="tooltip" data-original-title="TODO, INSERT TIME UNTIL TRIP ENDS HERE" data-placement="bottom">Trip is frozen</a>
                     {% else %}
-                        <a type="button" class="btn btn-success" id="addParticipant">Join Trip</a>
+                        {% if userID=='' %}
+                            Log in to join this trip
+                        {% elif onTrip %}
+                            <a id="editParticipant" data-original-title="Edit your information" data-toggle="tooltip" type="button" class="btn btn-lg btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                            {% if youAreCoordinator %}
+                                <a id="cannotLeave" data-original-title="Leave this trip" data-toggle="tooltip" type="button" class="btn btn-lg btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                                {# Make a button that displays a modal, saying that the coordinator cannot leave the trip and must first pass on his/her duties. #}
+                            {% else %}
+                                <a href={{ url_for('api.removeParticipant', personID=userID, tripID=Tripinfo.Master_Key) }} data-original-title="Leave this trip" data-toggle="tooltip" type="button" class="btn btn-lg btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                            {% endif %}
+                        {% else %}
+                            <a type="button" class="btn btn-success" id="addParticipant">Join Trip</a>
+                        {% endif %}
                     {% endif %}
                 </h3>
                 <br>
@@ -425,7 +429,7 @@
                             {# Only allow the following if they've consented, if you're the coordinator, and they're not you. #}
                             {# Make this button redirect you to a modal, with an "are you sure?" that appears before you actually throw away your coordinator status. #}
                         <td style="padding-left: 2px;">
-                            {% if youAreCoordinator and TableRow.OpenLeader and userID != TableRow.accountID %}
+                            {% if youAreCoordinator and TableRow.OpenLeader and userID != TableRow.accountID and tripInfo.Frozen == False %}
                                 {# Make the tooltips go left if the button is on the left, and right if the button is on the right. Never cover up other buttons with a tooltip. #}
                                 <div style="float: left;" class="extender extender180"><a href={{ url_for('api.swapCoordinators', oldLeaderID=userID, newLeaderID=TableRow.accountID, tripID=Tripinfo.Master_Key) }} type="button" class="btn btn-sm btn-success extender extender180"><span class="centertoright"><i class="glyphicon glyphicon-king"></i></span><span class="lefttocenter">Designate as new coordinator</span></a></div>
                             {% else %}

@@ -13,6 +13,7 @@ class Master(db.Model):
     __tablename__ = "Master"
     query_class = Master_db_query
     id = db.Column(db.Integer, primary_key=True, nullable=False, unique=True)
+    Frozen = db.Column(db.Boolean)
     Trip_Name = db.Column(db.String(100))
     Departure_Date = db.Column(db.Date)
     Return_Date = db.Column(db.Date)
@@ -28,6 +29,7 @@ class Master(db.Model):
 
     def __init__(self, form):
         MasterDict = MasterConstructor(form).master
+        self.Frozen = False
         self.Trip_Name = MasterDict['Trip_Name']
         self.Departure_Date = MasterDict['Departure_Date']
         self.Return_Date = MasterDict['Return_Date']
@@ -273,4 +275,3 @@ class Account(db.Model):
     @property
     def serializeUser(self):
         return self.accessData()
-

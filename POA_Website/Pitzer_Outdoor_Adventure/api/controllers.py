@@ -9,6 +9,7 @@ from DatabaseConnection.DataBaseSchema import db, \
 from Forms.POAForms import MakeTripFormPOA, AddToTripPOA, EditTripMemberPOA
 from Pitzer_Outdoor_Adventure.Main.controllers import login_required
 from flask_mail import Message, Mail
+from Pitzer_Outdoor_Adventure.admin.controllers import admin_required
 
 api = Blueprint('api', __name__, template_folder='templates')
 mail = Mail()
@@ -79,8 +80,8 @@ def addParticipant(FormKey):
     :param FormKey:
     :return:
     """
-    tempUser = Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first()
     tripInfo = Master.query.filter_by(id=FormKey).first()
+    tempUser = Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first()
     # Could be made more efficient by only querying for trip name.
     # if tempUser.carCapacity != 0:
     form = AddToTripPOA(Driver=False, Car_Capacity=str(tempUser.carCapacity))
@@ -117,12 +118,11 @@ def addParticipant(FormKey):
             return "Successful"
             # return redirect(url_for('main.tripPage', TripKey=str(FormKey)))
 
-
 @api.route('/editParticipant/<FormKey>', methods=['POST', 'GET'])
 @login_required
 def editParticipant(FormKey):
-    you = Participants.query.filter_by(accountID=flask.session['Googledata']['id'], Master_Key=FormKey).first()
     tripInfo = Master.query.filter_by(id=FormKey).first()
+    you = Participants.query.filter_by(accountID=flask.session['Googledata']['id'], Master_Key=FormKey).first()
     form = EditTripMemberPOA(Driver_Box=you.Driver, CarCapacity_Box=str(you.Car_Capacity), PotentialLeader_Box=you.OpenLeader)
     if request.method == 'GET':
         # return redirect(url_for('main.tripPage', TripKey=str(FormKey), autoModal="#"))
@@ -151,7 +151,6 @@ def editParticipant(FormKey):
             return "Successful"
             # return redirect(url_for('main.tripPage', TripKey=str(FormKey), autoModal="#"))
 
-
 @api.route('/checkAddParticipant/<FormKey>', methods=['POST', 'GET'])
 @login_required
 def checkAddParticipant(FormKey):
@@ -161,6 +160,7 @@ def checkAddParticipant(FormKey):
     :return:
     """
     print("You shouldn't even be here!")
+    # This whole thing is dead code.
     tempTrip = Master.query.filter_by(id=FormKey).first()
     tempUser = Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first()
     if tempTrip.Participant_Cap < tempTrip.Participant_Num + 1 and tempTrip.Car_Cap < tempTrip.Car_Num + 1:
@@ -188,6 +188,7 @@ def cannotLeave():
 
 @api.route('/deleteParticipant/<personID>/<tripID>')
 def removeParticipant(personID, tripID):
+    # Beware possible nefarious individuals typing in this URL to remove others from a trip.
     Participants.query.removeParticipant(personID, tripID)
     return redirect(url_for('main.tripPage', TripKey=tripID))
 
@@ -210,3 +211,80 @@ def index():
 def getUsers():
     userList = Account.query.all()
     return jsonify(data=[i.serializeUser for i in userList])
+
+@api.route("/makeAdmin/<userNum>")
+@login_required
+@admin_required
+def makeAdmin(userNum):
+    # userNum is the Account's ID number, not the googleNum.
+    tempUser = Account.query.filter_by(id=int(userNum)).first()
+    tempUser.admin = 1
+    db.session.commit()
+    return jsonify(status="success")
+
+@api.route('/addParticipant/<FormKey>/<userNum>', methods=['POST', 'GET'])
+@login_required
+@admin_required
+def adminAddParticipant(FormKey, userNum):
+    """
+    Adds a participant to a trip.
+    :param FormKey:
+    :param userNum:
+    :return:
+    """
+    tempUser = Account.query.filter_by(id=userNum).first()
+    tripInfo = Master.query.filter_by(id=FormKey).first()
+    form = AddToTripPOA(Driver=False, Car_Capacity=str(tempUser.carCapacity))
+    if request.method == 'GET':
+        return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, errorMessage="")
+    if request.method == 'POST':
+        if form.validate() == False:
+            flash('All fields are required.')
+            return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, errorMessage="")
+        else:
+            # Right now admins can force-add people, even if a trip is full on either cars OR people.
+            # You might want to make some edge cases in the trip code to handle these possible exceptions elegantly/
+            newSeats = int(form.data["Car_Capacity"][:])
+            isDriver = form.data["Driver"]
+            # Makes the number of seats and driver status consistent.
+            if form.data["Driver"] == False:
+                newSeats = 0
+            if newSeats == 0:
+                isDriver = False
+            Participants.query.addParticipant(tempUser, isDriver, newSeats, int(FormKey), False, False)
+            flash('New entry was successfully posted')
+            return "Successful"
+
+@api.route("/deleteTrip/<tripID>")
+@login_required
+def deleteTrip(tripID):
+    tempUser = Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first()
+    tempTrip = Master.query.filter_by(id=tripID).first()
+    tempParticipants = Participants.query.filter_by(Master_Key=tripID).first()
+    if tempUser.admin == 1 or tempUser.admin == 2 or (tempTrip.Participant_Num == 1 and tempParticipants.accountID == flask.session['Googledata']['id']):
+        # Check to see if either the user has the admin privileges to delete a trip,
+        # or that they are the last person on a trip when it is deleted.
+        tempTrip.delete()
+        db.session.commit()
+    else:
+        return render_template('DisplayMessageModal.html',
+                               message="You the last person on this trip. You must have admin privileges to perform this action.",
+                               title="Cannot Delete Trip")
+
+@api.route("/freezeTrip/<tripID>")
+@login_required
+@admin_required
+def freezeTrip(tripID):
+    tempTrip = Master.query.filter_by(id=tripID).first()
+    tempTrip.Frozen = True
+    db.session.commit()
+    return jsonify(status="success")
+
+@api.route("/thawTrip/<tripID>")
+@login_required
+@admin_required
+def thawTrip(tripID):
+    tempTrip = Master.query.filter_by(id=tripID).first()
+    tempTrip.Frozen = False
+    db.session.commit()
+    return jsonify(status="success")

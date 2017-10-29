@@ -40,16 +40,18 @@ function getModal(id)
 {
     console.log(id);
     $.get('/api/getClientsCheckedoutItems/' + id)
-    .done(function(data) {
-            $('#message-model-content').html(data["html"]);
-            setDropDown(data["data"]);
-            $('#user1Message').modal('show');
-            $('#checkIn').on('click', function () {
+    .done(function(data)
+    {
+        $('#message-model-content').html(data["html"]);
+        setDropDown(data["data"]);
+        $('#user1Message').modal('show');
+        $('#checkIn').on('click', function ()
+        {
             var checkbox = $(".itemCheckBox input:checkbox");
             sendData(checkbox, data["ClientID"]);
             $('#user1Message').modal('toggle');
-            })
-          });
+        })
+    });
 }
 
 
