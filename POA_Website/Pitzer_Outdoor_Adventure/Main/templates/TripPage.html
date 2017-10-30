@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {# https://css-tricks.com/css3-progress-bars/ #}
-    {# ^^^ Use this for animating the meterbars! #}
-    <meta charset="UTF-8">
-    <title>{{TripMeta.Trip_Name}}</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    {# Below is the user-made css #}
+{% extends "Base.html" %}
+
+{% block head %}
     <link rel="stylesheet" type="text/css" href="/static/FormatTrip.css">
     <script>
         $(document).ready(function ()
@@ -85,202 +75,6 @@
         });
     </script>
     <style>
-        .meterbar
-        {
-            height: 30px;  /* Can be anything. */
-            width: 120px; /* Can also be anything, but will likely be overridden */
-            position: relative;
-            background: #555;
-            -moz-border-radius: 25px;
-            -webkit-border-radius: 25px;
-            border-radius: 25px;
-            padding: 3px;
-            box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
-        }
-        .meterbar span
-        {
-            display: block;
-            height: 100%;
-            border-top-right-radius: 20px;
-            border-bottom-right-radius: 20px;
-            border-top-left-radius: 20px;
-            border-bottom-left-radius: 20px;
-            background-color: rgb(43,194,83);
-            background-image: linear-gradient(90deg, rgb(43,194,83) 37%, rgb(84,240,84) 69%);
-            box-shadow:
-            inset 0 2px 9px  rgba(255,255,255,0.3),
-            inset 0 -2px 6px rgba(0,0,0,0.4);
-            position: relative;
-            overflow: hidden;
-        }
-        .cars span
-        {
-          background-color: rgb(130,180,250);
-          background-image: linear-gradient(to bottom, rgb(130,180,250), rgb(120,220,240));
-        }
-        .people span
-        {
-          background-color: #f1a165;
-          background-image: linear-gradient(to bottom, #f1a165, #f36d0a);
-        }
-        .extender
-        {
-            /* Opacity of 0 means that the object is invisible. */
-            /* Opacity of 1 means it is fully visible. */
-            position: relative;
-            width: 34px; /* 34px */
-            height: 30px;
-            white-space: nowrap;
-            text-overflow: clip;
-            overflow: hidden;
-            transition: width 0.5s ease 0s;
-        }
-        .extender span.lefttocenter
-        {
-            position: absolute;
-{#            text-align: center;#}
-            left: 0px;
-            right: 0px;
-            margin-left: auto;
-            margin-right: auto;
-            transition: transform 0.5s ease 0s;
-            transform: translateX(-250px);
-            /* All transitions should also have a webkit transition version, for cross compatibility. */
-        }
-        .extender span.centertoleft
-        {
-            position: absolute;
-{#            text-align: center;#}
-            left: 0px;
-            right: 0px;
-            margin-left: auto;
-            margin-right: auto;
-            transition: transform 0.5s ease 0s;
-            transform: translateX(0px);
-        }
-        .extender span.righttocenter
-        {
-            position: absolute;
-{#            text-align: center;#}
-            left: 0px;
-            right: 0px;
-            margin-left: auto;
-            margin-right: auto;
-            transition: transform 0.5s ease 0s;
-            transform: translateX(250px);
-        }
-        .extender span.centertoright
-        {
-            position: absolute;
-{#            text-align: center;#}
-            left: 0px;
-            right: 0px;
-            margin-left: auto;
-            margin-right: auto;
-            transition: transform 0.5s ease 0s;
-            transform: translateX(0px);
-        }
-        .extender10:hover
-        {
-            width: 10px;
-        }
-        .extender20:hover
-        {
-            width: 20px;
-        }
-        .extender30:hover
-        {
-            width: 30px;
-        }
-        .extender40:hover
-        {
-            width: 40px;
-        }
-        .extender50:hover
-        {
-            width: 50px;
-        }
-        .extender60:hover
-        {
-            width: 60px;
-        }
-        .extender70:hover
-        {
-            width: 70px;
-        }
-        .extender80:hover
-        {
-            width: 80px;
-        }
-        .extender90:hover
-        {
-            width: 90px;
-        }
-        .extender100:hover
-        {
-            width: 100px;
-        }
-        .extender110:hover
-        {
-            width: 110px;
-        }
-        .extender120:hover
-        {
-            width: 120px;
-        }
-        .extender130:hover
-        {
-            width: 130px;
-        }
-        .extender140:hover
-        {
-            width: 140px;
-        }
-        .extender150:hover
-        {
-            width: 150px;
-        }
-        .extender160:hover
-        {
-            width: 160px;
-        }
-        .extender170:hover
-        {
-            width: 170px;
-        }
-        .extender180:hover
-        {
-            width: 180px;
-        }
-        .extender190:hover
-        {
-            width: 190px;
-        }
-        .extender200:hover
-        {
-            width: 200px;
-        }
-        .extender:hover span.lefttocenter
-        {
-            transform: translateX(0px);
-        }
-        .extender:hover span.centertoleft
-        {
-            transform: translateX(-250px);
-        }
-        .extender:hover span.righttocenter
-        {
-            transform: translateX(0px);
-        }
-        .extender:hover span.centertoright
-        {
-            transform: translateX(250px);
-        }
-{#        @keyframes expandWidth#}
-{#        {#}
-{#           0% { width: 0; }#}
-{#           100% { width: auto; }#}
-{#        }#}
         .trip-sidebar
         {
             /*height: 30px;*/  /* Can be anything. */
@@ -299,31 +93,17 @@
             box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
         }
     </style>
-</head>
-<body>
+{%  endblock %}
 
-<div class="modal fade message-popup" id="generalizedModal" tabindex="-1" role="dialog" aria-labelledby="user1Message">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" id="message-model-content">
-            {# code gets inserted here #}
-        </div>
-    </div>
-</div>
-
+{% block body %}
 <div class="container">
-<div class="col-md-2  toppad  pull-right col-md-offset-3 ">
-    <a href={{url_for('main.mainPage')}} >Return to trips page</a>
-</div>
-<h2 align="center">{{ TripMeta.Trip_Name }}</h2>
+<div clas="row">
 <br>
-{#    <div class="meterbar cars" style="{{ "width: " + "80" + "px;" }}">#}
-{#        <span style="{{ "width: " + "85" + "%;" }}"></span>#}
-{#    </div>#}
-{#    <div class="meterbar cars" style="{{ "width: " + "130" + "px;" }}">#}
-{#        <span style="{{ "width: " + "85" + "%;" }}"></span>#}
-{#    </div>#}
+ <h2 align="center">{{ TripMeta.Trip_Name }}</h2>
+    <div class="row align-items-start">
+
     {# Do between 40 and 130 pixels (or something) for the bar, use some math and sigmoid functions! #}
-    <div style="float: left; width: 300px; padding-left: 100px;">
+    <div class="col">
         <h4>Trip Overview</h4>
         This trip departs on {{ TripMeta.Departure_Date.month }}-{{ TripMeta.Departure_Date.day }}-{{ TripMeta.Departure_Date.year }} and returns on {{ TripMeta.Return_Date.month }}-{{ TripMeta.Return_Date.day }}-{{ TripMeta.Return_Date.year }}. Participants will meet at {{ Tripinfo.Trip_Meeting_Place}}.
         <ul></ul>
@@ -335,7 +115,7 @@
             This trip is not substance free.
         {% endif %}
     </div>
-    <div style="float: left; width: 300px; padding-left: 100px;">
+    <div class="col">
         <h4>Coordinator Info</h4>
         Name: {{ Coordinator.Participant }}
         <ul></ul>
@@ -351,7 +131,7 @@
         Cost Breakdown
         <ul><li>{{ Tripinfo.Cost_BreakDown}}</li></ul>
     </div>
-    <div style="float: right; width: 250px;">
+    <div class="col">
         <div class="panel panel-info">
             <div class="trip-sidebar">
                 <h4 align="center">Trip Capacity</h4>
@@ -362,19 +142,19 @@
                 <br>
                 Number of Cars
                 <div class="meterbar cars" style="{{ "width: " + "160" + "px;" }}" data-toggle="tooltip" data-original-title={{ TripMeta.Car_Num }}/{{ TripMeta.Car_Cap }} data-placement="left">
-                    <span style="{{ "width: " + carRatio + "%;" }}"></span>
+                    <span style="   {{ "width: " + carRatio + "%;" }}"></span>
                 </div>
                 <br>
                 <h3 align="center">
                     {% if userID=='' %}
                         Log in to join this trip
                     {% elif onTrip %}
-                        <a id="editParticipant" data-original-title="Edit your information" data-toggle="tooltip" type="button" class="btn btn-lg btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                        <a id="editParticipant" data-original-title="Edit your information" data-toggle="tooltip" role="button" class="btn btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true" style="color: white"></i></a>
                         {% if youAreCoordinator %}
-                            <a id="cannotLeave" data-original-title="Leave this trip" data-toggle="tooltip" type="button" class="btn btn-lg btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                            <a id="cannotLeave" data-original-title="Leave this trip" data-toggle="tooltip" role="button" class="btn btn btn-danger"><i class="fa fa-times" aria-hidden="true" style="color: white"></i></a>
                             {# Make a button that displays a modal, saying that the coordinator cannot leave the trip and must first pass on his/her duties. #}
                         {% else %}
-                            <a href={{ url_for('api.removeParticipant', personID=userID, tripID=Tripinfo.Master_Key) }} data-original-title="Leave this trip" data-toggle="tooltip" type="button" class="btn btn-lg btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                            <a href={{ url_for('api.removeParticipant', personID=userID, tripID=Tripinfo.Master_Key) }} data-original-title="Leave this trip" data-toggle="tooltip" role="button" class="btn btn-lg btn-danger"><i class="fa fa-times" aria-hidden="true" style="color: white"></i></a>
                         {% endif %}
                     {% else %}
                         <a type="button" class="btn btn-success" id="addParticipant">Join Trip</a>
@@ -384,11 +164,11 @@
             </div>
         </div>
     </div>
+    </div>
 </div>
-<br>
-<div class="container">
     <h3>Participants</h3>
-    <div class="row">
+<div class="row">
+
         <div class="panel panel-primary filterable">
             <table class="table">
                 <thead>
@@ -415,34 +195,33 @@
                     <td>N/A</td>
                     {% endif %}
                     {% if onTrip %}
-                        {# https://css-tricks.com/snippets/svg/shape-morphing-icons-button-click/ #}
-                        {# ^^^ Use this to make these new stretchy buttons presentable. #}
+{#                         https://css-tricks.com/snippets/svg/shape-morphing-icons-button-click/#}
+{#                         ^^^ Use this to make these new stretchy buttons presentable.#}
                         <td style="padding-right: 2px;">
-                            <div style="float: right;" class="extender extender140"><a href={{ "mailto:" + TableRow.Email }} type="button" class="btn btn-sm btn-primary extender extender140"><span class="centertoleft"><i class="glyphicon glyphicon-envelope"></i></span><span class="righttocenter">Email this trip member</span></a></div>
+                            <div style="float: right;" class="extender extender160"><a href={{ "mailto:" + TableRow.Email }} role="button" class="btn btn-sm btn-primary extender extender160"><span class="centertoleft"><i class="fa fa-envelope-o" aria-hidden="true"></i></span><span class="righttocenter">Email this trip member</span></a></div>
                             <p style="margin-top: 34px; margin-bottom: 0px;"></p>
-                            <div style="float: right;" class="extender extender200"><a type="button" class="btn btn-sm btn-default extender extender200"><span class="centertoleft"><i class="glyphicon glyphicon-list-alt"></i></span><span class="righttocenter">View allergies and diet restrictions</span></a></div>
+                            <div style="float: right;" class="extender extender200"><a role="button" class="btn btn-sm btn-default extender extender200"><span class="centertoleft"><i class="fa fa-list" aria-hidden="true"></i></span><span class="righttocenter">View allergies and diet restrictions</span></a></div>
                         </td>
-                            {# Only allow the following if they've consented, if you're the coordinator, and they're not you. #}
-                            {# Make this button redirect you to a modal, with an "are you sure?" that appears before you actually throw away your coordinator status. #}
+{#                             Only allow the following if they've consented, if you're the coordinator, and they're not you.#}
+{#                             Make this button redirect you to a modal, with an "are you sure?" that appears before you actually throw away your coordinator status.#}
                         <td style="padding-left: 2px;">
                             {% if youAreCoordinator and TableRow.OpenLeader and userID != TableRow.accountID %}
-                                {# Make the tooltips go left if the button is on the left, and right if the button is on the right. Never cover up other buttons with a tooltip. #}
+{#                                 Make the tooltips go left if the button is on the left, and right if the button is on the right. Never cover up other buttons with a tooltip.#}
                                 <div style="float: left;" class="extender extender180"><a href={{ url_for('api.swapCoordinators', oldLeaderID=userID, newLeaderID=TableRow.accountID, tripID=Tripinfo.Master_Key) }} type="button" class="btn btn-sm btn-success extender extender180"><span class="centertoright"><i class="glyphicon glyphicon-king"></i></span><span class="lefttocenter">Designate as new coordinator</span></a></div>
                             {% else %}
-                                <div style="float: left;"><a class="btn btn-sm btn-success disabled"><i class="glyphicon glyphicon-king"></i></a></div>
+                                <div style="float: left;"><a class="btn btn-sm btn-success disabled"><i class="fa fa-star-o" aria-hidden="true"></i></a></div>
                             {% endif %}
                             <p style="margin-top: 34px; margin-bottom: 0px;"></p>
                             {% if userID != TableRow.accountID %}
-                                <div style="float: left;" class="extender extender100"><a type="button" class="btn btn-sm btn-info extender extender100"><span class="centertoright"><i class="glyphicon glyphicon-comment"></i></span><span class="lefttocenter">Send message</span></a></div>
+                                <div style="float: left;" class="extender extender100"><a role="button" class="btn btn-sm btn-info extender extender100"><span class="centertoright"><i class="fa fa-address-book-o" aria-hidden="true"></i></i></span><span class="lefttocenter">Send message</span></a></div>
                             {% else %}
-                                <a class="btn btn-sm btn-info disabled"><i class="glyphicon glyphicon-comment"></i></a>
+                                <a class="btn btn-sm btn-info disabled"><i class="fa fa-address-book-o" aria-hidden="true"></i></a>
                             {% endif %}
                         </td>
                     {% else %}
                         <td style="padding-right: 2px; float: right;"></td>
                         <td style="padding-left: 2px; float: left;"></td>
                     {% endif %}
-                    {# <td><a class="btn btn-danger" href={{ url_for('main.removeParticipant', personID=TableRow.accountID, tripID=TableRow.Master_Key) }} role="button">X</a></td> #}
                 </tr>
                 {% endfor %}
                 </tbody>
@@ -450,101 +229,4 @@
         </div>
     </div>
 </div>
-</body>
-</html>
-
-{#    <a class="btn" href= {{ url_for('main.addParticipant', FormKey = TripMeta.id ) }} >Add to Trip</a>#}
-{#<br>#}
-{#<table cellpadding="0" cellspacing="0" border="1" align="left">#}
-{#<tr>#}
-{#    <td>#}
-{#        {% for n in range(0,5) %}#}
-            {# Second number in range(0,X) is how many spaces away from left bound. #}
-{#            &nbsp#}
-{#        {% endfor %}#}
-{#    </td>#}
-{#    <td align="left" valign="top">#}
-{#        <ul>#}
-{#        <li>Departure Date</li>#}
-{#        <li>{{ TripMeta.Departure_Date }}</li>#}
-{#        <li>Return Date</li>#}
-{#        <li>{{ TripMeta.Return_Date }}</li>#}
-{#        <li>Participants </li>#}
-{#        <li>{{ TripMeta.Participant_num }}</li>#}
-{#        <li>Participants cap</li>#}
-{#        <li>{{ TripMeta.Participant_cap }}</li>#}
-{#        <li>Car Cap</li>#}
-{#        <li>{{ TripMeta.Car_Cap }} </li>#}
-{#        <li> Cars</li>#}
-{#        <li>{{ TripMeta.Car_Num}} </li>#}
-{#        </ul>#}
-{#    </td>#}
-{#    <td>#}
-{#        {% for n in range(0,10) %}#}
-            {# Second number in range(0,X) is how many spaces between columns. #}
-{#            &nbsp#}
-{#        {% endfor %}#}
-{#    </td>#}
-{#    <td align="left" valign="top">#}
-{#        <ul>#}
-{#        <li><h4>Details</h4></li>#}
-{#        <li>{{ Tripinfo.Details}} </li>#}
-{#        <li>Coordinator Name </li>#}
-{#        <li>{{ Tripinfo.Coordinator_Name}} </li>#}
-{#        <li>Coordinator Email </li>#}
-{#        <li>{{ Tripinfo.Coordinator_Email}} </li>#}
-{#        <li>Coordinator Phone </li>#}
-{#        <li>{{ Tripinfo.Coordinator_Phone}} </li>#}
-{#        <li>Gear List</li>#}
-{#        <li>{{ Tripinfo.Gear_List}} </li>#}
-{#        <li>Trip Meeting Place </li>#}
-{#        <li>{{ Tripinfo.Trip_Meeting_Place}} </li>#}
-{#        <li>Total Cost </li>#}
-{#        <li>{{ Tripinfo.Total_Cost}} </li>#}
-{#        <li>Cost Breakdown </li>#}
-{#        <li>{{ Tripinfo.Cost_BreakDown}} </li>#}
-{#        <li>Substance free </li>#}
-{#        <li>{{ Tripinfo.Substance_Free}} </li>#}
-{#        </ul>#}
-{#    </td>#}
-{#</tr>#}
-{#</table>#}
-
-{#		$(function()#}
-{#        {#}
-{#            $(".extender").each(function()#}
-{#            {#}
-{#                $(this).data("origWidth", $(this).width());#}
-{#                /*var check = $(this).data("running");*/#}
-{#                /*if ($(this).data("running")==false)#}
-{#                {#}
-{#                    $(this)#}
-{#                        .animate({#}
-{#                            width: 100#}
-{#                        }, 1200);#}
-{#                }#}
-{#                else#}
-{#                {#}
-{#                    $(this)#}
-{#                        .animate({#}
-{#                            width: 200#}
-{#                        }, 1200);#}
-{#                }*/#}
-{#            });#}
-{#		});#}
-
-{#            $(".extender").mouseenter(function ()#}
-{#            {#}
-{#                $(this).stop();#}
-{#                $(this).animate({ width: 140 }, 600, "swing");#}
-{#            });#}
-{#            $(".extender").mouseleave(function ()#}
-{#            {#}
-{#                $(this).stop();#}
-{#                $(this).animate({ width: 34 }, 600, "swing", function() { $(this).html("yoyoyo"); });#}
-{#            });#}
-
-{# <a href={{ "mailto:" + TableRow.Email }} data-original-title="Email this trip member" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary" data-placement="left"><i class="glyphicon glyphicon-envelope"></i></a>#}
-{# <a data-original-title="View allergies and diet restrictions" data-toggle="tooltip" type="button" class="btn btn-sm btn-default" data-placement="left"><i class="glyphicon glyphicon-list-alt"></i></a>#}
-{# <a href={{ url_for('api.swapCoordinators', oldLeaderID=userID, newLeaderID=TableRow.accountID, tripID=Tripinfo.Master_Key) }} data-original-title="Designate as new coordinator" data-toggle="tooltip" type="button" class="btn btn-sm btn-success extender" data-placement="right"><i class="glyphicon glyphicon-king"></i></a>#}
-{# <a data-original-title="Send message" data-toggle="tooltip" type="button" class="btn btn-sm btn-info" data-placement="right"><i class="glyphicon glyphicon-comment"></i></a>#}
+{% endblock %}

@@ -21,8 +21,6 @@ main = Blueprint('main', __name__, template_folder='templates')
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        # print(flask.session)
-        # print('credentials' not in flask.session or 'Googledata' not in flask.session)
         if 'credentials' not in flask.session or 'Googledata' not in flask.session:
             return redirect(url_for('main.login'))
         elif None == Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first():
@@ -139,7 +137,6 @@ def makeAccount():
     This constructs a new account from the user's information.
     :return: 
     """
-    # Account.query.filter_by(id=flask.session['Googledata']['id']).first().googleNum
     if 'credentials' not in flask.session or 'Googledata' not in flask.session:
         return redirect(url_for('main.mainPage'))
     if None != Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first():
@@ -148,14 +145,10 @@ def makeAccount():
         form = CreateAccountForm(FirstName_Box=flask.session['Googledata']["given_name"][:], LastName_Box=flask.session['Googledata']["family_name"][:])
         # TODO: Remove Googledata from session if you can, but doing this isn't that important.
         if request.method == 'POST':
-            # print(form.data)  # returns a dictionary with keys that are the fields in the table
             if form.validate_on_submit() == False:
-                flash('All fields are required.')
                 return render_template("NewAccount.html", form=form)
             else:
                 Account.query.createAccount(formData=form.data, session=session)
-                # print(Account.query.all())
-                # print(Account.query.all()[0].accessData())
                 return redirect(url_for('main.mainPage'))
         elif request.method == 'GET':
             return render_template("NewAccount.html", form=form)
