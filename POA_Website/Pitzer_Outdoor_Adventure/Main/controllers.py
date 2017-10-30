@@ -28,7 +28,6 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-
 @main.route('/', methods=['GET', 'POST'])
 def mainPage():
     """
