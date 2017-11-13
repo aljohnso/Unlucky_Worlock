@@ -25,17 +25,19 @@ function CreateTable(tableID)
         "columns": [
             {
                 "data": "username"
-            },
-            {
-                "data": "age"
             }
+            // ,
+            // {
+            //     "data": "accountButtons"
+            // }
         ]
     });
-    // $("#" + tableID + " tbody").on('click', 'tr', function()
-    // {
-    //     getModal(table.row(this).data().id);
-    // });
-    }
+    $("#" + tableID + " tbody").on('click', 'tr', function()
+    {
+        console.log(table.row(this).data().id);
+        getModal(table.row(this).data().id);
+    });
+}
 function getModal(id)
 {
     console.log(id);
@@ -43,14 +45,14 @@ function getModal(id)
     .done(function(data)
     {
         $('#message-model-content').html(data["html"]);
-        setDropDown(data["data"]);
+       // setDropDown(data["data"]);
         $('#user1Message').modal('show');
-        $('#checkIn').on('click', function ()
-        {
-            var checkbox = $(".itemCheckBox input:checkbox");
-            sendData(checkbox, data["ClientID"]);
-            $('#user1Message').modal('toggle');
-        })
+        // $('#checkIn').on('click', function ()
+        // {
+        //     var checkbox = $(".itemCheckBox input:checkbox");
+        //     sendData(checkbox, data["ClientID"]);
+        //     $('#user1Message').modal('toggle');
+        // })
     });
 }
 

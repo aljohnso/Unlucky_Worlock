@@ -268,7 +268,7 @@ def deleteTrip(tripID):
         db.session.commit()
     else:
         return render_template('DisplayMessageModal.html',
-                               message="You the last person on this trip. You must have admin privileges to perform this action.",
+                               message="You are not the last person on this trip. You must have admin privileges to perform this action.",
                                title="Cannot Delete Trip")
 
 @api.route("/freezeTrip/<tripID>")
