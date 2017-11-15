@@ -159,4 +159,21 @@
     $('#generalizedModal').on('hidden.bs.modal', function (e) {
         $('.popover').popover('hide');
 })
+
+    //currently not in use needs work to figure out how
+    //to get it so that we check the date is current
+    //and that the dates are sequential
+window.Parsley
+      .addValidator('dateCurrent', {
+        requirementType: 'date',
+        checkDate: function(value) {
+          var now = new Date();
+            var date = new Date(value);
+            return date > now;
+        },
+        messages: {
+          en: 'This date is not past the current date'
+        }
+      });
+
 </script>

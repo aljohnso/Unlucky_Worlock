@@ -5,17 +5,6 @@
     <script>
         $(document).ready(function ()
         {
-{#            {% if autoModal != "#" %}#}
-{#                {% if autoModal == "editParticipant" %}#}
-{#                    $.get('/api/editParticipant/' + {{ TripMeta.id }})#}
-{#                    .done(function(data)#}
-{#                    {#}
-{#                        console.log(data);#}
-{#                        $('#message-model-content').html(data);#}
-{#                        $("#generalizedModal").modal("show");#}
-{#                    });#}
-{#                {% endif %}#}
-{#            {% endif %}#}
             $("#addParticipant").click(function ()
             {
                 console.log("clicked");
@@ -50,18 +39,6 @@
                     /* Use this for hiding the modal via code --> $("#generalizedModal").modal("hide");*/
                 });
             });
-{#            $('#submit').click(function(event)#}
-{#            {#}
-{#                event.preventDefault();#}
-{#                $("#generalizedModal").modal("hide");#}
-{#                $.post('/api/editParticipant/' + {{ TripMeta.id }})#}
-{#                .done(function(data)#}
-{#                {#}
-{#                    console.log(data);#}
-{#                    $('#message-model-content').html(data);#}
-{#                    $("#generalizedModal").modal("show");#}
-{#                });#}
-{#            });#}
             $(".meterbar > span").each(function ()
             {
 				$(this)
@@ -104,7 +81,9 @@
 
     {# Do between 40 and 130 pixels (or something) for the bar, use some math and sigmoid functions! #}
     <div class="col">
-        <h4>Trip Overview</h4>
+    <div class="card">
+    <h3 class="card-header">Trip Overview</h3>
+      <div class="card-block">
         This trip departs on {{ TripMeta.Departure_Date.month }}-{{ TripMeta.Departure_Date.day }}-{{ TripMeta.Departure_Date.year }} and returns on {{ TripMeta.Return_Date.month }}-{{ TripMeta.Return_Date.day }}-{{ TripMeta.Return_Date.year }}. Participants will meet at {{ Tripinfo.Trip_Meeting_Place}}.
         <ul></ul>
         Details:
@@ -114,27 +93,49 @@
         {% else %}
             This trip is not substance free.
         {% endif %}
+{#        Gear List#}
+{#        <ul><li>{{ Tripinfo.Gear_List }}</li></ul>#}
+{#        Total Cost#}
+{#        <ul><li>{{ Tripinfo.Total_Cost}}</li></ul>#}
+{#        Cost Breakdown#}
+{#        <ul><li>{{ Tripinfo.Cost_BreakDown}}</li></ul>#}
+
+      </div>
+    </div>
+
     </div>
     <div class="col">
-        <h4>Coordinator Info</h4>
-        Name: {{ Coordinator.Participant }}
-        <ul></ul>
-        Email: {{ Coordinator.Email }}
-        <ul></ul>
-        Phone #: {{ Coordinator.Phone }}
-        <ul></ul>
-        <br>
-        Gear List
-        <ul><li>{{ Tripinfo.Gear_List }}</li></ul>
-        Total Cost
-        <ul><li>{{ Tripinfo.Total_Cost}}</li></ul>
-        Cost Breakdown
-        <ul><li>{{ Tripinfo.Cost_BreakDown}}</li></ul>
+        <div class="card">
+                    <h3 class="card-header">Coordinator Info</h3>
+      <div class="card-block">
+
+        <p class="card-text">The coordinator is the person to contact with any questions about this trip</p>
+          <table class="table table-hover">
+          <tbody>
+            <tr>
+              <th scope="row">Name:</th>
+              <td>{{ Coordinator.Participant }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Phone:</th>
+              <td>{{ Coordinator.Phone }}</td>
+
+            </tr>
+            <tr>
+              <th scope="row">Email:</th>
+              <td>{{ Coordinator.Email }}</td>
+            </tr>
+    </tbody>
+  </table>
+      </div>
+    </div>
+
     </div>
     <div class="col">
-        <div class="panel panel-info">
-            <div class="trip-sidebar">
-                <h4 align="center">Trip Capacity</h4>
+    <div class="card trip-sidebar">
+      <div class="card-block">
+         <h4 align="center" class="card-title">Trip Capacity</h4>
+
                 Participants
                 <div class="meterbar people" style="{{ "width: " + "160" + "px;" }}" data-toggle="tooltip" data-original-title={{ TripMeta.Participant_Num }}/{{ TripMeta.Participant_Cap }} data-placement="left">
                     <span style="{{ "width: " + participantRatio + "%;" }}"></span>
@@ -146,24 +147,15 @@
                 </div>
                 <br>
                 <h3 align="center">
-                    {% if userID=='' %}
-                        Log in to join this trip
-                    {% elif onTrip %}
-                        <a id="editParticipant" data-original-title="Edit your information" data-toggle="tooltip" role="button" class="btn btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true" style="color: white"></i></a>
-                        {% if youAreCoordinator %}
-                            <a id="cannotLeave" data-original-title="Leave this trip" data-toggle="tooltip" role="button" class="btn btn btn-danger"><i class="fa fa-times" aria-hidden="true" style="color: white"></i></a>
-                            {# Make a button that displays a modal, saying that the coordinator cannot leave the trip and must first pass on his/her duties. #}
-                        {% else %}
-                            <a href={{ url_for('api.removeParticipant', personID=userID, tripID=Tripinfo.Master_Key) }} data-original-title="Leave this trip" data-toggle="tooltip" role="button" class="btn btn-lg btn-danger"><i class="fa fa-times" aria-hidden="true" style="color: white"></i></a>
-                    {% if tripInfo.Frozen %}
+                    {% if Tripinfo.Frozen %}
                         <a data-toggle="tooltip" data-original-title="TODO, INSERT TIME UNTIL TRIP ENDS HERE" data-placement="bottom">Trip is frozen</a>
                     {% else %}
                         {% if userID=='' %}
                             Log in to join this trip
                         {% elif onTrip %}
-                            <a id="editParticipant" data-original-title="Edit your information" data-toggle="tooltip" type="button" class="btn btn-lg btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                        <a id="editParticipant" data-original-title="Edit your information" data-toggle="tooltip" role="button" class="btn btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true" style="color: white"></i></a>
                             {% if youAreCoordinator %}
-                                <a id="cannotLeave" data-original-title="Leave this trip" data-toggle="tooltip" type="button" class="btn btn-lg btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                            <a id="cannotLeave" data-original-title="Leave this trip" data-toggle="tooltip" role="button" class="btn btn btn-danger"><i class="fa fa-times" aria-hidden="true" style="color: white"></i></a>
                                 {# Make a button that displays a modal, saying that the coordinator cannot leave the trip and must first pass on his/her duties. #}
                             {% else %}
                                 <a href={{ url_for('api.removeParticipant', personID=userID, tripID=Tripinfo.Master_Key) }} data-original-title="Leave this trip" data-toggle="tooltip" type="button" class="btn btn-lg btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
@@ -174,13 +166,14 @@
                     {% endif %}
                 </h3>
                 <br>
-            </div>
-        </div>
+      </div>
+    </div>
     </div>
     </div>
 </div>
     <h3>Participants</h3>
 <div class="row">
+    <div class="col">
 
         <div class="panel panel-primary filterable">
             <table class="table">
@@ -220,17 +213,18 @@
                         <td style="padding-left: 2px;">
                             {% if youAreCoordinator and TableRow.OpenLeader and userID != TableRow.accountID %}
 {#                                 Make the tooltips go left if the button is on the left, and right if the button is on the right. Never cover up other buttons with a tooltip.#}
-                            {% if youAreCoordinator and TableRow.OpenLeader and userID != TableRow.accountID and tripInfo.Frozen == False %}
-                                {# Make the tooltips go left if the button is on the left, and right if the button is on the right. Never cover up other buttons with a tooltip. #}
-                                <div style="float: left;" class="extender extender180"><a href={{ url_for('api.swapCoordinators', oldLeaderID=userID, newLeaderID=TableRow.accountID, tripID=Tripinfo.Master_Key) }} type="button" class="btn btn-sm btn-success extender extender180"><span class="centertoright"><i class="glyphicon glyphicon-king"></i></span><span class="lefttocenter">Designate as new coordinator</span></a></div>
-                            {% else %}
-                                <div style="float: left;"><a class="btn btn-sm btn-success disabled"><i class="fa fa-star-o" aria-hidden="true"></i></a></div>
-                            {% endif %}
-                            <p style="margin-top: 34px; margin-bottom: 0px;"></p>
-                            {% if userID != TableRow.accountID %}
-                                <div style="float: left;" class="extender extender100"><a role="button" class="btn btn-sm btn-info extender extender100"><span class="centertoright"><i class="fa fa-address-book-o" aria-hidden="true"></i></i></span><span class="lefttocenter">Send message</span></a></div>
-                            {% else %}
-                                <a class="btn btn-sm btn-info disabled"><i class="fa fa-address-book-o" aria-hidden="true"></i></a>
+                                {% if youAreCoordinator and TableRow.OpenLeader and userID != TableRow.accountID and tripInfo.Frozen == False %}
+                                    {# Make the tooltips go left if the button is on the left, and right if the button is on the right. Never cover up other buttons with a tooltip. #}
+                                    <div style="float: left;" class="extender extender180"><a href={{ url_for('api.swapCoordinators', oldLeaderID=userID, newLeaderID=TableRow.accountID, tripID=Tripinfo.Master_Key) }} type="button" class="btn btn-sm btn-success extender extender180"><span class="centertoright"><i class="glyphicon glyphicon-king"></i></span><span class="lefttocenter">Designate as new coordinator</span></a></div>
+                                {% else %}
+                                    <div style="float: left;"><a class="btn btn-sm btn-success disabled"><i class="fa fa-star-o" aria-hidden="true"></i></a></div>
+                                {% endif %}
+                                <p style="margin-top: 34px; margin-bottom: 0px;"></p>
+                                {% if userID != TableRow.accountID %}
+                                    <div style="float: left;" class="extender extender100"><a role="button" class="btn btn-sm btn-info extender extender100"><span class="centertoright"><i class="fa fa-address-book-o" aria-hidden="true"></i></i></span><span class="lefttocenter">Send message</span></a></div>
+                                {% else %}
+                                    <a class="btn btn-sm btn-info disabled"><i class="fa fa-address-book-o" aria-hidden="true"></i></a>
+                                {% endif %}
                             {% endif %}
                         </td>
                     {% else %}
@@ -243,5 +237,6 @@
             </table>
         </div>
     </div>
+</div>
 </div>
 {% endblock %}
