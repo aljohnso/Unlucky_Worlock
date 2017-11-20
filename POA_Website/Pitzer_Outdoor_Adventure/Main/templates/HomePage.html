@@ -6,19 +6,7 @@
     <script src="static/homePage.js"></script>
 {% endblock %}
 
-<div class="img-wrapper">
-    <img class="img-fluid" src="/static/Car.jpg">
-    <div class="img-overlay">
-      <div class="container">
-            <div class="row">
-                <div class="slide-text slide_style_left">
-                    <h1 data-animation="animated zoomInRight">Pitzer Outdoor Adventures</h1>
-                    <p data-animation="animated fadeInLeft">The mountains are calling and I must go</p>
-                    {% if 'credentials' in session %}
-                        <a href="#" class="btn btn-primary" id="addTrip" data-animation="animated fadeInRight">Lead a trip...</a>
-                    {% else %}
-                    <a href="#" class="btn btn-primary" id="notLoggedIn" data-animation="animated fadeInRight">Lead a trip...</a>
-                    {% endif %}
+
 {% block body %}
     <div class="img-wrapper">
             <img class="img-fluid" src="static/Car.jpg">
@@ -71,4 +59,3 @@
 
     </div>
 {% endblock %}
-</html>
