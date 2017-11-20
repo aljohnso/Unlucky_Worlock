@@ -25,32 +25,34 @@ function CreateTable(tableID)
         "columns": [
             {
                 "data": "username"
-            },
-            {
-                "data": "age"
             }
+            // ,
+            // {
+            //     "data": "accountButtons"
+            // }
         ]
     });
-    // $("#" + tableID + " tbody").on('click', 'tr', function()
-    // {
-    //     getModal(table.row(this).data().id);
-    // });
-    }
+    $("#" + tableID + " tbody").on('click', 'tr', function()
+    {
+        console.log(table.row(this).data().id);
+        getModal(table.row(this).data().id);
+    });
+}
 function getModal(id)
 {
     console.log(id);
-    $.get('/api/getClientsCheckedoutItems/' + id)
+    $.get('/api/adminDialogue/' + id)
     .done(function(data)
     {
-        $('#message-model-content').html(data["html"]);
-        setDropDown(data["data"]);
-        $('#user1Message').modal('show');
-        $('#checkIn').on('click', function ()
-        {
-            var checkbox = $(".itemCheckBox input:checkbox");
-            sendData(checkbox, data["ClientID"]);
-            $('#user1Message').modal('toggle');
-        })
+        $('#message-model-content').html(data);
+       // setDropDown(data["data"]);
+        $('#generalizedModal').modal('show');
+        // $('#checkIn').on('click', function ()
+        // {
+        //     var checkbox = $(".itemCheckBox input:checkbox");
+        //     sendData(checkbox, data["ClientID"]);
+        //     $('#user1Message').modal('toggle');
+        // })
     });
 }
 

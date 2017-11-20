@@ -1,0 +1,41 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" align="center"><i>Admin Dialogue</i></h4>
+</div>
+<div class="modal-body">
+    {# Add the ability to make this person and admin here vvv.#}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Trip Name</th>
+                <th scope="col">On trip?</th>
+                <th scope="col">Car Capacity</th>
+                {# Do the trip locking elsewhere. #}
+            </tr>
+        </thead>
+        <tbody>
+            {% for trip in trips %}
+                <tr>
+                    <td>{{ trip.Trip_Name }}</td>
+                    <td>
+                        <input type="checkbox" class="form-check-input">
+                    </td>
+                    <td>
+                        <select multiple class="form-control">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                        </select>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>>
+    </table>
+</div>

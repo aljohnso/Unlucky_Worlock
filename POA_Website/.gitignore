@@ -8,7 +8,6 @@ secret/*
 *.pyc
 /.idea
 
-Pitzer_Outdoor_Adventure/admin/templates/
 Pitzer_Outdoor_Adventure/api/__pycache__/
 Tests/TestForms/__pycache__/
 Tests/__pycache__/
