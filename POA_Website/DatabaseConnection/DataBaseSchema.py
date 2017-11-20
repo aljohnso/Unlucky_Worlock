@@ -274,4 +274,7 @@ class Account(db.Model):
         return dataDict
     @property
     def serializeUser(self):
-        return self.accessData()
+        out = self.accessData()
+        out['username'] = "<span class='itemName'"+ " id="+str(self.id) +"><a  href='#'>" + self.username + "</a></span>"#create tag for later use as jquery identifyer
+        out["id"] = self.id
+        return out

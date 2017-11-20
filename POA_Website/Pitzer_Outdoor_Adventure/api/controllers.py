@@ -268,7 +268,7 @@ def deleteTrip(tripID):
         db.session.commit()
     else:
         return render_template('DisplayMessageModal.html',
-                               message="You the last person on this trip. You must have admin privileges to perform this action.",
+                               message="You are not the last person on this trip. You must have admin privileges to perform this action.",
                                title="Cannot Delete Trip")
 
 @api.route("/freezeTrip/<tripID>")
@@ -288,3 +288,16 @@ def thawTrip(tripID):
     tempTrip.Frozen = False
     db.session.commit()
     return jsonify(status="success")
+
+@api.route("/adminDialogue/<accountID>")
+@login_required
+@admin_required
+def adminDialogue(accountID):
+    tempParticipants = Participants.query.filter_by(accountID=accountID).all()
+    tempTrips = []
+    for people in tempParticipants:
+        tempTrips.append(people.Master_Key)
+    trips = Master.query.all()
+    return render_template("AdminDialogueModal.html", trips=trips)
+
+
