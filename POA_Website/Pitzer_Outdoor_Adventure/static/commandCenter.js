@@ -41,12 +41,12 @@ function CreateTable(tableID)
 function getModal(id)
 {
     console.log(id);
-    $.get('/api/getClientsCheckedoutItems/' + id)
+    $.get('/api/adminDialogue/' + id)
     .done(function(data)
     {
-        $('#message-model-content').html(data["html"]);
+        $('#message-model-content').html(data);
        // setDropDown(data["data"]);
-        $('#user1Message').modal('show');
+        $('#generalizedModal').modal('show');
         // $('#checkIn').on('click', function ()
         // {
         //     var checkbox = $(".itemCheckBox input:checkbox");

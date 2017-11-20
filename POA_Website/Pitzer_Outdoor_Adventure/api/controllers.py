@@ -288,3 +288,16 @@ def thawTrip(tripID):
     tempTrip.Frozen = False
     db.session.commit()
     return jsonify(status="success")
+
+@api.route("/adminDialogue/<accountID>")
+@login_required
+@admin_required
+def adminDialogue(accountID):
+    tempParticipants = Participants.query.filter_by(accountID=accountID).all()
+    tempTrips = []
+    for people in tempParticipants:
+        tempTrips.append(people.Master_Key)
+    trips = Master.query.all()
+    return render_template("AdminDialogueModal.html", trips=trips)
+
+
