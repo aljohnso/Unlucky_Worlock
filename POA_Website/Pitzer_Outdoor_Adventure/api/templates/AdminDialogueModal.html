@@ -5,6 +5,7 @@
     <h4 class="modal-title" align="center"><i>Admin Dialogue</i></h4>
 </div>
 <div class="modal-body">
+    <a class="userID" id={{ accountID }}></a>
     {# Add the ability to make this person and admin here vvv.#}
     <table class="table">
         <thead>
@@ -20,10 +21,10 @@
                 <tr>
                     <td>{{ trip.Trip_Name }}</td>
                     <td>
-                        <input type="checkbox" class="form-check-input">
+                        <input id={{ trip.id|string + "OnTrip" }} type="checkbox" class="form-check-input">
                     </td>
                     <td>
-                        <select multiple class="form-control">
+                        <select id={{ trip.id|string + "CarCapacity" }} multiple class="form-control">
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -38,4 +39,5 @@
             {% endfor %}
         </tbody>>
     </table>
+    <a id="submitBtn" type="button" class="btn btn-lg btn-default">Submit</a>
 </div>

@@ -298,6 +298,6 @@ def adminDialogue(accountID):
     for people in tempParticipants:
         tempTrips.append(people.Master_Key)
     trips = Master.query.all()
-    return render_template("AdminDialogueModal.html", trips=trips)
+    return render_template("AdminDialogueModal.html", trips=trips, accountID=accountID)
 
 

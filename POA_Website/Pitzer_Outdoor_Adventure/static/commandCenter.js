@@ -47,6 +47,12 @@ function getModal(id)
         $('#message-model-content').html(data);
        // setDropDown(data["data"]);
         $('#generalizedModal').modal('show');
+        console.log($(".form-check-input"));
+        $("#submitBtn").on("click", function ()
+        {
+            var trips = $(".form-check-input");
+            parseTrips(trips);
+        });
         // $('#checkIn').on('click', function ()
         // {
         //     var checkbox = $(".itemCheckBox input:checkbox");
@@ -56,6 +62,22 @@ function getModal(id)
     });
 }
 
+function parseTrips(trips)
+{
+    // Parses the trips.
+    for (var index in trips)
+    {
+        if (trips[index].checked)
+        {
+            var trip=trips[index];
+            console.log(trip.id);
+            var id = trip.id.slice(0, -6);
+            console.log(id);
+            var carCapacity = $("#" + id + "CarCapacity")[0].value;
+            console.log(carCapacity);
+        }
+    }
+}
 
 // function setDropDown(data){
 //     for (var key in data){
