@@ -84,22 +84,14 @@
     <div class="card">
     <h3 class="card-header">Trip Overview</h3>
       <div class="card-block">
-        This trip departs on {{ TripMeta.Departure_Date.month }}-{{ TripMeta.Departure_Date.day }}-{{ TripMeta.Departure_Date.year }} and returns on {{ TripMeta.Return_Date.month }}-{{ TripMeta.Return_Date.day }}-{{ TripMeta.Return_Date.year }}. Participants will meet at {{ Tripinfo.Trip_Meeting_Place}}.
+          <p>This trip departs on {{ TripMeta.Departure_Date.month }}-{{ TripMeta.Departure_Date.day }}-{{ TripMeta.Departure_Date.year }} and returns on {{ TripMeta.Return_Date.month }}-{{ TripMeta.Return_Date.day }}-{{ TripMeta.Return_Date.year }}.</p>
+          <p>Participants will meet at {{ Tripinfo.Trip_Meeting_Place}}.</p>
         <ul></ul>
-        Details:
-        <ul><li>{{ Tripinfo.Details}}</li></ul>
         {% if Tripinfo.Substance_Free==1 %}
-            This trip is substance free.
+            <p>This trip is substance free.</p>
         {% else %}
-            This trip is not substance free.
+            <p> This trip is not substance free.</p>
         {% endif %}
-{#        Gear List#}
-{#        <ul><li>{{ Tripinfo.Gear_List }}</li></ul>#}
-{#        Total Cost#}
-{#        <ul><li>{{ Tripinfo.Total_Cost}}</li></ul>#}
-{#        Cost Breakdown#}
-{#        <ul><li>{{ Tripinfo.Cost_BreakDown}}</li></ul>#}
-
       </div>
     </div>
 
@@ -171,6 +163,28 @@
     </div>
     </div>
 </div>
+<br>
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <h3>Trip Info</h3>
+            </div>
+            <div class="card-block">
+                <h4 class="card-title">Details:</h4>
+                <p class="card-text">{{ Tripinfo.Details}}</p>
+                <h4 class="card-title">Gear List:</h4>
+                <p class="card-text">{{ Tripinfo.Gear_List }}</p>
+{#                <h4 class="card-title">Total Cost</h4>#}
+{#                <p class="card-text">{{ Tripinfo.Total_Cost}}</p>#}
+{#                <h4 class="card-title">Cost Breakdown</h4>#}
+{#                <p class="card-text">{{ Tripinfo.Cost_BreakDown}}</p>#}
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+
     <h3>Participants</h3>
 <div class="row">
     <div class="col">
