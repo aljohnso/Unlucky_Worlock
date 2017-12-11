@@ -52,6 +52,7 @@ function getModal(id)
         {
             var trips = $(".form-check-input");
             sendData(trips);
+            $('#generalizedModal').modal('hide');
         });
         // $('#checkIn').on('click', function ()
         // {
