@@ -5,7 +5,7 @@
     <h4 class="modal-title" align="center"><i>Admin Dialogue</i></h4>
 </div>
 <div class="modal-body">
-    <a class="userID" id={{ accountID }}></a>
+    <a class="userID" id={{ userID }}></a>
     {# Add the ability to make this person and admin here vvv.#}
     <table class="table">
         <thead>
@@ -19,20 +19,23 @@
         <tbody>
             {% for trip in trips %}
                 <tr>
-                    <td>{{ trip.Trip_Name }}</td>
+                    <td>{{ trip["trip"].Trip_Name }}</td>
                     <td>
-                        <input id={{ trip.id|string + "OnTrip" }} type="checkbox" class="form-check-input">
+                        {% if trip["onTheTrip"] %}
+                            <input id={{ trip["trip"].id|string + "OnTrip" }} type="checkbox" class="form-check-input" checked>
+                        {% else %}
+                            <input id={{ trip["trip"].id|string + "OnTrip" }} type="checkbox" class="form-check-input">
+                        {% endif %}
                     </td>
                     <td>
-                        <select id={{ trip.id|string + "CarCapacity" }} multiple class="form-control">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
+                        <select id={{ trip["trip"].id|string + "CarCapacity" }} multiple class="form-control">
+                            {% for iterator in range(0, 9) %}
+                                {% if trip["onTheTrip"] and trip["numSeats"] == iterator %}
+                                    <option selected value="{{ iterator }}">{{ iterator }}</option>
+                                {% else %}
+                                    <option value="{{ iterator }}">{{ iterator }}</option>
+                                {% endif %}
+                            {% endfor %}
                         </select>
                     </td>
                 </tr>

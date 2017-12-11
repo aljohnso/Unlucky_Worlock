@@ -13,7 +13,7 @@ $(document).ready(function ()
 
 
 /**
- * Parama tableID: the id of the table we which to create
+ * Params tableID: the id of the table we which to create
  * returns: creates a table with modals yay
  */
 function CreateTable(tableID)
@@ -40,7 +40,7 @@ function CreateTable(tableID)
 }
 function getModal(id)
 {
-    console.log(id);
+    //console.log(id);
     $.get('/api/adminDialogue/' + id)
     .done(function(data)
     {
@@ -51,7 +51,7 @@ function getModal(id)
         $("#submitBtn").on("click", function ()
         {
             var trips = $(".form-check-input");
-            parseTrips(trips);
+            sendData(trips);
         });
         // $('#checkIn').on('click', function ()
         // {
@@ -64,19 +64,74 @@ function getModal(id)
 
 function parseTrips(trips)
 {
+    out = [];
     // Parses the trips.
-    for (var index in trips)
+    // var myStringArray = ["Hello","World"];
+    // var arrayLength = myStringArray.length;
+    // for (var i = 0; i < arrayLength; i++)
+    // {
+    //     alert(myStringArray[i]);
+    //     //Do something
+    // }
+    for (var index = 0; index < trips.length; index++)
     {
+        //console.log(index);
         if (trips[index].checked)
         {
-            var trip=trips[index];
-            console.log(trip.id);
+            var userID = $(".userID")[0].id;
+            //console.log(userID);
+            var trip = trips[index];
+            //console.log(trip.id);
             var id = trip.id.slice(0, -6);
-            console.log(id);
+            //console.log(id);
             var carCapacity = $("#" + id + "CarCapacity")[0].value;
-            console.log(carCapacity);
+            //console.log(carCapacity);
+            var update = {};
+            update["tripID"] = parseInt(id);
+            if (carCapacity == "")
+            {
+                update["carCapacity"] = 0;
+            }
+            else
+            {
+                update["carCapacity"] = parseInt(carCapacity);
+            }
+            update["userID"] = parseInt(userID);
+            update["add"] = true;
+            out.push(update);
         }
+        else
+        {
+            var userID = $(".userID")[0].id;
+            var trip = trips[index];
+            var id = trip.id.slice(0, -6);
+            var update = {};
+            update["tripID"] = parseInt(id);
+            update["carCapacity"] = 0;
+            update["userID"] = parseInt(userID);
+            update["add"] = false;
+            out.push(update);
+        }
+
     }
+    console.log(out);
+    return JSON.stringify(out);
+}
+
+function sendData(trips)
+{
+    $.ajax
+    ({
+        type: "POST",
+        url: "/api/updateUser",
+        data: parseTrips(trips),
+        success: function()
+        {
+          console.log("success");
+        },
+        dataType: "json",
+        contentType: "json/application"
+    });
 }
 
 // function setDropDown(data){

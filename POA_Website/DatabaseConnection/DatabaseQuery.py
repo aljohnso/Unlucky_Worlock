@@ -17,8 +17,25 @@ class Master_db_query(BaseQuery):
             for trip in expiredTrips:
                 Schema.db.session.delete(trip)#delete every trip and there childeren
             Schema.db.session.commit()#commit changes
-
             return Schema.Master.query.all()
+    def updateUser(self, update):
+        # ourTrip = Schema.Master.query.filter_by(id=update["tripID"]).first()
+        ourAccount = Schema.Account.query.filter_by(id=update["userID"]).first()
+        ourParticipant = Schema.Participants.query.filter_by(Master_Key=update["tripID"], accountID=ourAccount.googleNum).first()
+        if bool(update["add"]):
+            if ourParticipant is None:
+                Schema.Participants.query.addParticipant(tempUser=ourAccount, isDriver=(int(update["carCapacity"]) > 0), carSeats=int(update["carCapacity"]), masterID=update["tripID"], isLeader=False, isOpenLeader=False)
+            else:
+                if int(update["carCapacity"]) > 0:
+                    ourParticipant.Driver = True
+                    ourParticipant.Car_Capacity = int(update["carCapacity"])
+                else:
+                    ourParticipant.Driver = False
+                    ourParticipant.Car_Capacity = 0
+        else:
+            if ourParticipant is not None:
+                Schema.Participants.query.removeParticipant(personID=ourAccount.googleNum, tripID=update["tripID"])
+        Schema.db.session.commit()
 
 class Participant_manipulation_query(BaseQuery):
     def addParticipant(self, tempUser, isDriver, carSeats, masterID, isLeader, isOpenLeader):

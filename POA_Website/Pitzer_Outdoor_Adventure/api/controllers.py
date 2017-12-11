@@ -289,15 +289,43 @@ def thawTrip(tripID):
     db.session.commit()
     return jsonify(status="success")
 
-@api.route("/adminDialogue/<accountID>")
+@api.route("/adminDialogue/<userID>")
 @login_required
 @admin_required
-def adminDialogue(accountID):
-    tempParticipants = Participants.query.filter_by(accountID=accountID).all()
-    tempTrips = []
-    for people in tempParticipants:
-        tempTrips.append(people.Master_Key)
+def adminDialogue(userID):
+    # tempParticipants = Participants.query.filter_by(id=userID).all()
+    # tempTrips = []
+    # for people in tempParticipants:
+    #     tempTrips.append(people.Master_Key)
+    accountID = Account.query.filter_by(id=userID).first().googleNum
     trips = Master.query.all()
-    return render_template("AdminDialogueModal.html", trips=trips, accountID=accountID)
+    tempTwins = {}
+    coupledTrips = []
+    # print(Participants.query.all())
+    for item in trips:
+        tempTwins["trip"] = item
+        # print("ID: " + str(item.id))
+        # print(Participants.query.filter_by(id=userID, Master_Key=item.id).first())
+        # print(bool(Participants.query.filter_by(id=userID, Master_Key=item.id).first() is not None))
+        ourParticipant = Participants.query.filter_by(accountID=accountID, Master_Key=item.id).first()
+        # print(ourParticipant)
+        tempTwins["onTheTrip"] = bool(ourParticipant is not None)
+        # print(tempTwins["onTheTrip"])
+        if tempTwins["onTheTrip"]:
+            tempTwins["numSeats"] = ourParticipant.Car_Capacity
+        else:
+            tempTwins["numSeats"] = 0
+        coupledTrips.append(copy.deepcopy(tempTwins))
+    #print(coupledTrips)
+    return render_template("AdminDialogueModal.html", trips=coupledTrips, userID=userID)
 
+@api.route("/updateUser", methods=['POST', 'GET'])
+@login_required
+@admin_required
+def updateUser():
+    response = request.get_json(force=True)
+    for item in response:
+        Master.query.updateUser(item)
+    # print(response)
+    return jsonify(result="success")
 
