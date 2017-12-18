@@ -29,7 +29,7 @@
 </div>
 
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler navbar-toggler-right" role="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <a class="navbar-brand" href={{url_for('main.mainPage')}}>Pitzer Outdoor Adventure</a>
@@ -47,7 +47,7 @@
       </li>
     </ul>
     {% if 'credentials' in session %}
-        <a class="btn btn-primary" href={{url_for('main.logout')}} role="button">
+        <a class="btn btn-primary" href={{url_for('main.profile')}} role="button">
         Logout
         </a>
         {% else %}
