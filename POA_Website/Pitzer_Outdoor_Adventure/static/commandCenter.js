@@ -65,7 +65,10 @@ function getModal(id)
 
 function parseTrips(trips)
 {
-    out = [];
+    out = {};
+    out["tripsOut"] = [];
+    out["adminOut"] = false;
+    console.log(out);
     // Parses the trips.
     // var myStringArray = ["Hello","World"];
     // var arrayLength = myStringArray.length;
@@ -74,7 +77,11 @@ function parseTrips(trips)
     //     alert(myStringArray[i]);
     //     //Do something
     // }
-    for (var index = 0; index < trips.length; index++)
+    if (trips[0].checked)
+    {
+        out["adminOut"] = true;
+    }
+    for (var index = 1; index < trips.length; index++)
     {
         //console.log(index);
         if (trips[index].checked)
@@ -99,7 +106,7 @@ function parseTrips(trips)
             }
             update["userID"] = parseInt(userID);
             update["add"] = true;
-            out.push(update);
+            out["tripsOut"].push(update);
         }
         else
         {
@@ -111,9 +118,8 @@ function parseTrips(trips)
             update["carCapacity"] = 0;
             update["userID"] = parseInt(userID);
             update["add"] = false;
-            out.push(update);
+            out["tripsOut"].push(update);
         }
-
     }
     console.log(out);
     return JSON.stringify(out);

@@ -45,6 +45,8 @@ class Participant_manipulation_query(BaseQuery):
         # TODO: THE BELOW TODO IS REALLY IMPORTANT, because you have so many stupid arguments in this function that
         # TODO: cont. ... COULD BE BETTER ADDRESSED IN CONTROLLERS' addParticipant!!!
         # TODO: Write a function to do all this stuff in the else case that uses the decorated login protector.
+        if Schema.Participants.query.filter_by(Master_Key=masterID, Leader=True).first() is None:
+            isLeader = True
         participant = Schema.Participants(tempUser, isDriver, carSeats, masterID, isLeader, isOpenLeader)
         Schema.db.session.add(participant)
         Schema.db.session.commit()
@@ -63,10 +65,20 @@ class Participant_manipulation_query(BaseQuery):
 
     def removeParticipant(self, personID, tripID):
         tempParticipant = Schema.Participants.query.filter_by(accountID=personID, Master_Key=tripID)
+        leaderGone = tempParticipant.first().Leader
         #print(tempParticipant.first().Master_Key)
         # tripKey = tempParticipant.first().Master_Key
         tempMaster = Schema.Master.query.filter_by(id=tripID).first()
         tempParticipant.delete()
+        # print("Person got deleted.")
+        otherParticipant = Schema.Participants.query.filter_by(Master_Key=tripID).first()
+        nominatedLeader = Schema.Participants.query.filter_by(Master_Key=tripID, OpenLeader=True).first()
+        if nominatedLeader is not None and leaderGone:
+            nominatedLeader.Leader = True
+            # print("Made a nominated person the leader.")
+        elif otherParticipant is not None and leaderGone:
+            otherParticipant.Leader = True
+            # print("Made a non-nominated person the leader.")
         Schema.db.session.commit()
         tempMaster.Participant_Num = len(Schema.Participants.query.filter_by(Master_Key=tripID).all())
         driverList = Schema.Participants.query.filter_by(Master_Key=tripID, Driver=True).all()

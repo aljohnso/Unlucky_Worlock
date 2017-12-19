@@ -324,6 +324,7 @@ def adminDialogue(userID):
 @admin_required
 def updateUser():
     response = request.get_json(force=True)
+    print(response)
     for item in response:
         Master.query.updateUser(item)
     # print(response)
