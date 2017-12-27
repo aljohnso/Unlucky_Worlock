@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 from functools import wraps
-
+import json
 import apiclient as google
 import flask
 import httplib2
@@ -52,6 +52,9 @@ def tripPage(TripKey):
     tripDetails = Trips.query.filter_by(Master_Key=TripKey).first()
     participantInfo = Participants.query.filter_by(Master_Key=TripKey).all()
     coordinator = Participants.query.filter_by(Master_Key=TripKey, Leader=True).first()
+    costs = json.loads(tripDetails.Costs)#  converts string to dict
+    costs.pop("POAGasCost", None)#  removes POAGasCost from dict
+    print(costs)
     if 'credentials' in flask.session and 'Googledata' in flask.session:
         userID = flask.session['Googledata']['id'][:]
     else:
@@ -71,7 +74,7 @@ def tripPage(TripKey):
     carRatio = calculateProgress_carRatio(meta)
     return render_template("TripPage.html", Tripinfo=tripDetails, TripMeta=meta, Coordinator=coordinator,
                            ParticipantInfo=participantInfo, participantRatio=participantRatio, carRatio=carRatio,
-                           userID=userID, onTrip=onTrip, youAreCoordinator=youAreCoordinator)
+                           userID=userID, onTrip=onTrip, youAreCoordinator=youAreCoordinator,costs=costs)
 
 
 @main.route('/login', methods=['POST', 'GET'])

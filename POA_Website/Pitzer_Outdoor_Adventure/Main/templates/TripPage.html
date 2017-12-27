@@ -92,6 +92,7 @@
         {% else %}
             <p> This trip is not substance free.</p>
         {% endif %}
+        <p>POA will fund {{ TripMeta.Car_Cap }} car's for this trip</p>
       </div>
     </div>
 
@@ -139,7 +140,7 @@
                 </div>
                 <br>
                 <h3 align="center">
-                    {% if Tripinfo.Frozen %}
+                    {% if TripMeta.Frozen %}
                         <a data-toggle="tooltip" data-original-title="TODO, INSERT TIME UNTIL TRIP ENDS HERE" data-placement="bottom">Trip is frozen</a>
                     {% else %}
                         {% if userID=='' %}
@@ -182,7 +183,57 @@
             </div>
         </div>
     </div>
+
+    <div class="col">
+
+         <div class="card">
+            <div class="card-header">
+                <h3>Participation Costs</h3>
+            </div>
+            <div class="card-block">
+                  <table class="table table-hover">
+                    <thead>
+                        <th>Expenditure</th>
+                        <th>Ammount</th>
+                    </thead>
+                      <tbody>
+                        {% if not costs%}
+                        <tr>
+                          <td scope="row">None</td>
+                          <td>NA</td>
+                        </tr>
+                        {% else %}
+                            {% for key, value in costs.items() %}
+                                <tr>
+                                  <td scope="row">{{ key }}</td>
+                                  <td>{{ value }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                  </table>
+{#                {% if not costs%}#}
+{#                        <h4 class="card-title">Expenditure:</h4>#}
+{#                        <p class="card-text">None</p>#}
+{#                        <h4 class="card-title">Amount:</h4>#}
+{#                        <p class="card-text">NA</p>#}
+{#                {% else %}#}
+{#                        <h4 class="card-title">Expenditure:</h4>#}
+{#                        {}#}
+{#                        <p class="card-text">None</p>#}
+{#                        <h4 class="card-title">Amount:</h4>#}
+{#                        <p class="card-text">NA</p>#}
+{#                {% endif %}#}
+{#                <h4 class="card-title">Total Cost</h4>#}
+{#                <p class="card-text">{{ Tripinfo.Total_Cost}}</p>#}
+{#                <h4 class="card-title">Cost Breakdown</h4>#}
+{#                <p class="card-text">{{ Tripinfo.Cost_BreakDown}}</p>#}
+            </div>
+        </div>
+    </div>
 </div>
+
+
 <br>
 
     <h3>Participants</h3>
@@ -227,7 +278,7 @@
                         <td style="padding-left: 2px;">
                             {% if youAreCoordinator and TableRow.OpenLeader and userID != TableRow.accountID %}
 {#                                 Make the tooltips go left if the button is on the left, and right if the button is on the right. Never cover up other buttons with a tooltip.#}
-                                {% if youAreCoordinator and TableRow.OpenLeader and userID != TableRow.accountID and tripInfo.Frozen == False %}
+                                {% if youAreCoordinator and TableRow.OpenLeader and userID != TableRow.accountID and TripMeta.Frozen == False %}
                                     {# Make the tooltips go left if the button is on the left, and right if the button is on the right. Never cover up other buttons with a tooltip. #}
                                     <div style="float: left;" class="extender extender180"><a href={{ url_for('api.swapCoordinators', oldLeaderID=userID, newLeaderID=TableRow.accountID, tripID=Tripinfo.Master_Key) }} type="button" class="btn btn-sm btn-success extender extender180"><span class="centertoright"><i class="glyphicon glyphicon-king"></i></span><span class="lefttocenter">Designate as new coordinator</span></a></div>
                                 {% else %}
