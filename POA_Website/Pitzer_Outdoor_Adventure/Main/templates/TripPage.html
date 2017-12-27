@@ -151,10 +151,10 @@
                             <a id="cannotLeave" data-original-title="Leave this trip" data-toggle="tooltip" role="button" class="btn btn btn-danger"><i class="fa fa-times" aria-hidden="true" style="color: white"></i></a>
                                 {# Make a button that displays a modal, saying that the coordinator cannot leave the trip and must first pass on his/her duties. #}
                             {% else %}
-                                <a href={{ url_for('api.removeParticipant', personID=userID, tripID=Tripinfo.Master_Key) }} data-original-title="Leave this trip" data-toggle="tooltip" type="button" class="btn btn-lg btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                                <a href={{ url_for('api.removeParticipant', personID=userID, tripID=Tripinfo.Master_Key) }} data-original-title="Leave this trip" data-toggle="tooltip" role="button" class="btn  btn-danger"><i class="fa fa-times"></i></a>
                             {% endif %}
                         {% else %}
-                            <a type="button" class="btn btn-success" id="addParticipant">Join Trip</a>
+                            <a role="button" class="btn btn-primary" id="addParticipant" style="color: white">Join Trip</a>
                         {% endif %}
                     {% endif %}
                 </h3>
@@ -212,22 +212,6 @@
                         {% endif %}
                     </tbody>
                   </table>
-{#                {% if not costs%}#}
-{#                        <h4 class="card-title">Expenditure:</h4>#}
-{#                        <p class="card-text">None</p>#}
-{#                        <h4 class="card-title">Amount:</h4>#}
-{#                        <p class="card-text">NA</p>#}
-{#                {% else %}#}
-{#                        <h4 class="card-title">Expenditure:</h4>#}
-{#                        {}#}
-{#                        <p class="card-text">None</p>#}
-{#                        <h4 class="card-title">Amount:</h4>#}
-{#                        <p class="card-text">NA</p>#}
-{#                {% endif %}#}
-{#                <h4 class="card-title">Total Cost</h4>#}
-{#                <p class="card-text">{{ Tripinfo.Total_Cost}}</p>#}
-{#                <h4 class="card-title">Cost Breakdown</h4>#}
-{#                <p class="card-text">{{ Tripinfo.Cost_BreakDown}}</p>#}
             </div>
         </div>
     </div>
@@ -280,7 +264,7 @@
 {#                                 Make the tooltips go left if the button is on the left, and right if the button is on the right. Never cover up other buttons with a tooltip.#}
                                 {% if youAreCoordinator and TableRow.OpenLeader and userID != TableRow.accountID and TripMeta.Frozen == False %}
                                     {# Make the tooltips go left if the button is on the left, and right if the button is on the right. Never cover up other buttons with a tooltip. #}
-                                    <div style="float: left;" class="extender extender180"><a href={{ url_for('api.swapCoordinators', oldLeaderID=userID, newLeaderID=TableRow.accountID, tripID=Tripinfo.Master_Key) }} type="button" class="btn btn-sm btn-success extender extender180"><span class="centertoright"><i class="glyphicon glyphicon-king"></i></span><span class="lefttocenter">Designate as new coordinator</span></a></div>
+                                    <div style="float: left;" class="extender extender180"><a href={{ url_for('api.swapCoordinators', oldLeaderID=userID, newLeaderID=TableRow.accountID, tripID=Tripinfo.Master_Key) }} role="button" class="btn btn-sm btn-success extender extender180"><span class="centertoright"><i class="glyphicon glyphicon-king"></i></span><span class="lefttocenter">Designate as new coordinator</span></a></div>
                                 {% else %}
                                     <div style="float: left;"><a class="btn btn-sm btn-success disabled"><i class="fa fa-star-o" aria-hidden="true"></i></a></div>
                                 {% endif %}
