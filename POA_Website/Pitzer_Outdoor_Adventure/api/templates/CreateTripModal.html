@@ -149,8 +149,8 @@
         .on('form:submit', function()
         {
 		    $.post("api/addTrip", $("#openForm").serialize());
-            console.log($('#openForm').serialize());
-            console.log("it worked!!!! the demo was a lie");
+            //console.log($('#openForm').serialize());
+            //console.log("it worked!!!! the demo was a lie");
             location.reload();
             //$(location).attr('href', "{{ url_for('main.mainPage') }}" );
             return false; // Don't submit form for this demo

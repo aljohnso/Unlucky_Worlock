@@ -12,7 +12,7 @@
         });
         $("#deleteRow").click(function ()
         {
-            console.log("yay im workin");
+            //console.log("yay im workin");
             if (counter > 0)
             {
                 $("#costName" + counter).remove();

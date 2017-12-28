@@ -300,4 +300,11 @@ def adminDialogue(accountID):
     trips = Master.query.all()
     return render_template("AdminDialogueModal.html", trips=trips)
 
+@api.route("/updateUser", methods=['POST', 'GET'])
+@login_required
+def updateUser():
+    response = request.get_json(force=True)
+    print(response)
+    return jsonify(status="success")
+
 

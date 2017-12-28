@@ -2,24 +2,66 @@
  * Created by alasdairjohnson on 12/27/17.
  */
 
-
+/**
+ * EditAccount
+ * sets up buttons to be able to update account without
+ * page relode
+ * this acomplished with buttons
+ * editAccount- transforms td to input feilds and shows the savechanges buttons
+ * saveChanges- saves the changes with ajax call to server from input feilds
+ */
 function editAccount(){
-    $( "#editAccount" ).click(function() {
-        $("#saveChanges").show();
-        var userInfo = $(".UserInfo");
-        userInfo.each(function () {
-            var $this = $(this);
+    $( "#editAccount" ).click(function(){
+        createInputFeilds()
+    }
+
+    );
+    $("#saveChanges").click(function () {
+        var fields = $(".userEditInput");//gets input feilds
+        sendData(fields, $(".userID")[0].id);
+        }
+    );
+}
+
+function createInputFeilds(){
+     $("#saveChanges").show();//shows the save changes button
+        var userInfo = $(".UserInfo");//gets all the td feilds of this class
+        userInfo.each(function () {//iterates through each feild
+            var $this = $(this);//online code not sure why this is nesasary
+
+            console.log($this);
             var $input = $('<input>', {
             value: $this.text(),
             type: 'text',
-            class: "form-control"
-        }).appendTo( $this.empty() );
-        console.log(this.innerHTML);
+            class: "form-control userEditInput",
+            id: this.id + "input"
+
+        });//constructs the replacment for the td feild
+        // $input.Parsley
+        $input.appendTo( $this.empty() );//replaces the feild
+        // console.log(this.innerHTML);
         });
         console.log(userInfo);
-
-
-  // $( this ).replaceWith( "<div>" + $( this ).text() + "</div>" );
-});
 }
 
+function getFeilds(feilds, clientID){
+    update = {"googleNum":clientID};//return object
+    feilds.each(function(){
+        update[this.id] = this.value;
+    });//iterate through the feilds to build object to send to server
+    console.log(update);
+    return JSON.stringify(update);
+}
+
+function sendData(feilds, clientID){
+    $.ajax({
+      type: "POST",
+      url: "/api/updateUser",
+      data: getFeilds(feilds, clientID),
+      success: function() {
+                console.log("success");
+            },
+      dataType: "json",
+      contentType: "json/application"
+    });
+}
