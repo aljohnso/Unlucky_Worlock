@@ -81,3 +81,11 @@ class Account_manipulation_query(BaseQuery):
     def createAccount(self, formData, session):
         Schema.db.session.add(Schema.Account(formData, session))
         Schema.db.session.commit()
+
+    def updateAccount(self, update, user):
+        user.height = update['heightinput']
+        user.email = update['emailinput']
+        user.studentIDNumber = update['studentIDinput']
+        user.age = update["ageinput"]
+        user.phoneNumber = update['phoneNumerinput']
+        Schema.db.session.commit()

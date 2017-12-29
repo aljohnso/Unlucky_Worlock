@@ -29,7 +29,7 @@ function createInputFeilds(){
         userInfo.each(function () {//iterates through each feild
             var $this = $(this);//online code not sure why this is nesasary
 
-            console.log($this);
+            //console.log($this);
             var $input = $('<input>', {
             value: $this.text(),
             type: 'text',
@@ -41,7 +41,7 @@ function createInputFeilds(){
         $input.appendTo( $this.empty() );//replaces the feild
         // console.log(this.innerHTML);
         });
-        console.log(userInfo);
+       // console.log(userInfo);
 }
 
 function getFeilds(feilds, clientID){
@@ -49,8 +49,22 @@ function getFeilds(feilds, clientID){
     feilds.each(function(){
         update[this.id] = this.value;
     });//iterate through the feilds to build object to send to server
-    console.log(update);
+    //console.log(update);
     return JSON.stringify(update);
+}
+
+/**
+ * will update client table to reflect new values sent from server
+ * @param user
+ */
+function updateClient(user){
+    $(".userEditInput").hide();//hide input feilds
+    $("#studentID").text(user["studentIDNumber"]);
+    $("#email").text(user["email"]);
+    $("#phoneNumer").text(user["phoneNumber"]);
+    $("#age").text(user["age"]);
+    $("#carCapacity").text(user["carCapacity"]);
+    $("#height").text(user["height"])
 }
 
 function sendData(feilds, clientID){
@@ -58,8 +72,10 @@ function sendData(feilds, clientID){
       type: "POST",
       url: "/api/updateUser",
       data: getFeilds(feilds, clientID),
-      success: function() {
-                console.log("success");
+      success: function(response) {
+                user = response["user"];
+                updateClient(user);
+                $("#saveChanges").hide();
             },
       dataType: "json",
       contentType: "json/application"

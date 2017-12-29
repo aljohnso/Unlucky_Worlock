@@ -304,7 +304,9 @@ def adminDialogue(accountID):
 @login_required
 def updateUser():
     response = request.get_json(force=True)
-    print(response)
-    return jsonify(status="success")
+    user = Account.query.filter_by(googleNum=response["googleNum"]).first()
+    Account.query.updateAccount(response, user)
+    db.session.commit()
+    return jsonify(status="success", user=Account.query.filter_by(googleNum=response["googleNum"]).first().accessData())
 
 
