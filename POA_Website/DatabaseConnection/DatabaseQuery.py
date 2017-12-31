@@ -18,9 +18,10 @@ class Master_db_query(BaseQuery):
                 Schema.db.session.delete(trip)#delete every trip and there childeren
             Schema.db.session.commit()#commit changes
             return Schema.Master.query.all()
-    def updateUser(self, update):
+    def updateUser(self, update, isAdminNow):
         # ourTrip = Schema.Master.query.filter_by(id=update["tripID"]).first()
-        ourAccount = Schema.Account.query.filter_by(id=update["userID"]).first()
+        print(update)
+        ourAccount = Schema.Account.query.filter_by(id=int(update["userID"])).first()
         ourParticipant = Schema.Participants.query.filter_by(Master_Key=update["tripID"], accountID=ourAccount.googleNum).first()
         if bool(update["add"]):
             if ourParticipant is None:
@@ -35,6 +36,10 @@ class Master_db_query(BaseQuery):
         else:
             if ourParticipant is not None:
                 Schema.Participants.query.removeParticipant(personID=ourAccount.googleNum, tripID=update["tripID"])
+        if isAdminNow:
+            ourAccount.admin = 1
+        else:
+            ourAccount.admin = 0
         Schema.db.session.commit()
 
 class Participant_manipulation_query(BaseQuery):

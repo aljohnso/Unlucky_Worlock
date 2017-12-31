@@ -31,5 +31,6 @@ def commandCenter():
     Shows the options available to an admin.
     :return:
     """
-    listOfUsers = Account.query.all()
-    return render_template("CommandCenter.html", listOfUsers=listOfUsers)
+    #listOfUsers = Account.query.all()
+    #listOfTrips = Master.query.all()
+    return render_template("CommandCenter.html")

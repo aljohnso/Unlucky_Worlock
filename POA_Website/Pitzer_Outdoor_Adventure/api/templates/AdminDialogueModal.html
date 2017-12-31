@@ -8,8 +8,12 @@
     <a class="userID" id={{ userID }}></a>
     <div class="form-check">
         <label class="form-check-label">
-            <input type="checkbox" class="form-check-input">
-            Check me out
+            {% if isAdmin == 1 %}
+                <input type="checkbox" class="form-check-input" checked>
+            {% else %}
+                <input type="checkbox" class="form-check-input">
+            {% endif %}
+            Make this user an admin
         </label>
     </div>
     <p></p>
@@ -49,5 +53,5 @@
             {% endfor %}
         </tbody>
     </table>
-    <a id="submitBtn" type="button" class="btn btn-lg btn-default">Submit</a>
+    <a id="submitBtn" role="button" class="btn btn-lg btn-default">Submit</a>
 </div>

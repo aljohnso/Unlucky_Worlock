@@ -1,10 +1,10 @@
 /**
- * Created by matth_000 on 10/26/2017.
+ * Created by matth_000 on 12/30/2017.
  */
 $(document).ready(function ()
 {
   //table
-    CreateTable("userTable");
+    CreateTripTable("tripsTable");
     // $("#AddClient").bind('click', function(){
     //     makeClientAddPop();
     // });
@@ -16,15 +16,15 @@ $(document).ready(function ()
  * Params tableID: the id of the table we which to create
  * returns: creates a table with modals yay
  */
-function CreateTable(tableID)
+function CreateTripTable(tableID)
 {
     var table = $("#" + tableID).DataTable({ //targets table and creates table
         "ajax": {
-            "url": "/api/getUsers"
+            "url": "/api/getTrips"
         },
         "columns": [
             {
-                "data": "username"
+                "data": "trip"
             }
             // ,
             // {
@@ -35,10 +35,10 @@ function CreateTable(tableID)
     $("#" + tableID + " tbody").on('click', 'tr', function()
     {
         console.log(table.row(this).data().id);
-        getModal(table.row(this).data().id);
+        getTripModal(table.row(this).data().id);
     });
 }
-function getModal(id)
+function getTripModal(id)
 {
     //console.log(id);
     $.get('/api/adminDialogue/' + id)
@@ -51,7 +51,7 @@ function getModal(id)
         $("#submitBtn").on("click", function ()
         {
             var trips = $(".form-check-input");
-            sendData(trips);
+            sendTripData(trips);
             $('#generalizedModal').modal('hide');
         });
         // $('#checkIn').on('click', function ()
@@ -63,7 +63,7 @@ function getModal(id)
     });
 }
 
-function parseTrips(trips)
+/*function parseTrips(trips)
 {
     out = {};
     out["tripsOut"] = [];
@@ -125,7 +125,7 @@ function parseTrips(trips)
     return JSON.stringify(out);
 }
 
-function sendData(trips)
+function sendTripData(trips)
 {
     $.ajax
     ({
@@ -139,7 +139,7 @@ function sendData(trips)
         dataType: "json",
         contentType: "json/application"
     });
-}
+}*/
 
 // function setDropDown(data){
 //     for (var key in data){

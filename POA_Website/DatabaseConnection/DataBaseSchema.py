@@ -45,6 +45,29 @@ class Master(db.Model):
     def __repr__(self):
         return '<Trip %r> ' + str(self.Trip_Name) + str(self.Details_Short)
 
+    def accessData(self):
+        dataDict = {
+            "Frozen" : self.Frozen,
+            "Trip_Name" : self.Trip_Name,
+            "Departure_Date" : self.Departure_Date,
+            "Return_Date" : self.Return_Date,
+            "Details_Short" : self.Details_Short,
+            "Post_Time" : self.Post_Time,
+            "Participant_Num" : self.Participant_Num,
+            "Participant_Cap" : self.Participant_Cap,
+            "Trip_Location" : self.Trip_Location,
+            "Car_Num" : self.Car_Num,
+            "Car_Cap" : self.Car_Cap
+        }
+        return dataDict
+
+    @property
+    def serializeTrip(self):
+        out = self.accessData()
+        out['trip'] = "<span class='itemName'" + " id=" + str(self.id) + "><a  href='#'>" + self.Trip_Name + "</a></span>"#create tag for later use as jquery identifyer
+        out["id"] = self.id
+        return out
+
 
 class Trips(db.Model):
     """
@@ -275,6 +298,6 @@ class Account(db.Model):
     @property
     def serializeUser(self):
         out = self.accessData()
-        out['username'] = "<span class='itemName'"+ " id="+str(self.id) +"><a  href='#'>" + self.username + "</a></span>"#create tag for later use as jquery identifyer
+        out['username'] = "<span class='itemName'" + " id=" + str(self.id) + "><a  href='#'>" + self.username + "</a></span>"#create tag for later use as jquery identifyer
         out["id"] = self.id
         return out
