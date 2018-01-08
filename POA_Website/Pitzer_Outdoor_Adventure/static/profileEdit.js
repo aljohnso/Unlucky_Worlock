@@ -12,16 +12,18 @@
  */
 function editAccount(){
     $( "#editAccount" ).click(function(){
+        $( "#editAccount" ).hide();
         createInputFeilds()
-    }
-
-    );
+    });
     $("#saveChanges").click(function () {
+        $( "#editAccount" ).show();
+        $('.userEditInput').tooltip('dispose');//hide any potential errors
         var fields = $(".userEditInput");//gets input feilds
         sendData(fields, $(".userID")[0].id);
         }
     );
 }
+
 
 function createInputFeilds(){
      $("#saveChanges").show();//shows the save changes button
@@ -37,7 +39,7 @@ function createInputFeilds(){
             id: this.id + "input"
 
         });//constructs the replacment for the td feild
-        // $input.Parsley
+        $input.attr("data-parsley-type","integer");
         $input.appendTo( $this.empty() );//replaces the feild
         // console.log(this.innerHTML);
         });
@@ -73,11 +75,61 @@ function sendData(feilds, clientID){
       url: "/api/updateUser",
       data: getFeilds(feilds, clientID),
       success: function(response) {
+                console.log(response);
+                if (response["status"]==="error"){
+                    parseErrors(response["errors"]);
+                }
+                else{
                 user = response["user"];
                 updateClient(user);
                 $("#saveChanges").hide();
+                }
+
             },
       dataType: "json",
       contentType: "json/application"
     });
 }
+
+function parseErrors(errors){
+    for (var errorID in errors) {
+        if (errors.hasOwnProperty(errorID)) {
+            var errorText = errors[errorID];
+            console.log(errorID + " -> " + errors[errorID]);
+            $("#" + errorID).tooltip(
+            {
+                trigger : "manual",
+                placement: 'bottom',
+                title: errorText
+            }).tooltip('show');
+        }
+    }
+}
+
+//Parsley Validation
+
+// $(function ()
+//     {
+//         $('#userEditInput').parsley().on('field:error', function (fieldInstance)
+//          {
+//             fieldInstance.$element.popover(
+//             {
+//                 trigger: 'manual',
+//                 container: 'body',
+//                 placement: 'right',
+//                 content: function ()
+//                 {
+//                     return fieldInstance.getErrorsMessages().join(';');
+//                 }
+//             }).popover('show');
+//         })
+//         .on('field:success', function (fieldInstance)
+//         {
+//             fieldInstance.$element.popover('dispose');
+//          });
+//     });
+
+
+    //currently not in use needs work to figure out how
+    //to get it so that we check the date is current
+    //and that the dates are sequential

@@ -1,4 +1,4 @@
-import datetime
+import datetime, re
 
 from flask_sqlalchemy import BaseQuery
 
@@ -83,9 +83,22 @@ class Account_manipulation_query(BaseQuery):
         Schema.db.session.commit()
 
     def updateAccount(self, update, user):
-        user.height = update['heightinput']
-        user.email = update['emailinput']
-        user.studentIDNumber = update['studentIDinput']
-        user.age = update["ageinput"]
-        user.phoneNumber = update['phoneNumerinput']
-        Schema.db.session.commit()
+        out = {}
+        if not update['heightinput'].isdigit():
+            out['heightinput'] = "Height must be an number in inches, no units"
+        if not update['studentIDinput'].isdigit():
+            out['studentIDinput'] = "Student ID must be a number"
+        if not update["ageinput"].isdigit():
+            out["ageinput"] = "Age must be a number"
+        if not re.match("(\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]??\d{4}|\d{3}[-\.\s]??\d{4})", update['phoneNumerinput']):
+            out['phoneNumerinput'] = "Phone number must be of form 000-000-0000"
+        if not re.match("[^@]+@[^@]+\.[^@]+", update['emailinput']):
+            out['emailinput'] = "We do not recognize this as a valid email address"
+        else:
+            user.height = update['heightinput']
+            user.email = update['emailinput']
+            user.studentIDNumber = update['studentIDinput']
+            user.age = update["ageinput"]
+            user.phoneNumber = update['phoneNumerinput']
+            Schema.db.session.commit()
+        return out
