@@ -1,24 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Dynatable/0.3.1/jquery.dynatable.min.js"></script>-->
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dynatable/0.3.1/jquery.dynatable.min.css">-->
-    <!--&lt;!&ndash;<script src="static/jquery.dynatable.js"></script>&ndash;&gt;-->
-    <!--<styles src="static/jquery.dynatable.css"></styles>-->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
-    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="/static/commandCenter.js"></script>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <title>Admin Options</title>
-</head>
-<body>
+{% extends "Base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+{#    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">#}
+{#    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>#}
+    <script src="/static/commandCenterTrips.js"></script>
+    <script src="/static/commandCenterUsers.js"></script>
+{% endblock %}
+
+{% block body %}
 <div class="modal fade message-popup" id="generalizedModal" tabindex="-1" role="dialog" aria-labelledby="user1Message">
     <div class="modal-dialog" role="document">
         <div class="modal-content" id="message-model-content">
-{#             code gets inserted here#}
+            {# code gets inserted here #}
         </div>
     </div>
 </div>
@@ -28,12 +24,21 @@
             Username
         </th>
 {#        <th>#}
-{#            accountButtons#}
+{#            Hi there#}
 {#        </th>#}
     </thead>
     <tbody>
 {#        #}
     </tbody>
 </table>
-</body>
-</html>
+<table id="tripsTable">
+    <thead>
+        <th>
+            Trip
+        </th>
+    </thead>
+    <tbody>
+{#        #}
+    </tbody>
+</table>
+{% endblock %}

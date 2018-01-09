@@ -212,6 +212,11 @@ def getUsers():
     userList = Account.query.all()
     return jsonify(data=[i.serializeUser for i in userList])
 
+@api.route("/getTrips")
+def getTrips():
+    tripList = Master.query.all()
+    return jsonify(data=[i.serializeTrip for i in tripList])
+
 @api.route("/makeAdmin/<userNum>")
 @login_required
 @admin_required
@@ -264,6 +269,7 @@ def deleteTrip(tripID):
     if tempUser.admin == 1 or tempUser.admin == 2 or (tempTrip.Participant_Num == 1 and tempParticipants.accountID == flask.session['Googledata']['id']):
         # Check to see if either the user has the admin privileges to delete a trip,
         # or that they are the last person on a trip when it is deleted.
+        # tempTrip.delete() destroys participants too. (90% sure)
         tempTrip.delete()
         db.session.commit()
     else:
@@ -289,16 +295,35 @@ def thawTrip(tripID):
     db.session.commit()
     return jsonify(status="success")
 
-@api.route("/adminDialogue/<accountID>")
+@api.route("/adminDialogue/<userID>")
 @login_required
 @admin_required
-def adminDialogue(accountID):
-    tempParticipants = Participants.query.filter_by(accountID=accountID).all()
-    tempTrips = []
-    for people in tempParticipants:
-        tempTrips.append(people.Master_Key)
+def adminDialogue(userID):
+    # tempParticipants = Participants.query.filter_by(id=userID).all()
+    # tempTrips = []
+    # for people in tempParticipants:
+    #     tempTrips.append(people.Master_Key)
+    ourAccount = Account.query.filter_by(id=userID).first()
     trips = Master.query.all()
-    return render_template("AdminDialogueModal.html", trips=trips)
+    tempTwins = {}
+    coupledTrips = []
+    # print(Participants.query.all())
+    for item in trips:
+        tempTwins["trip"] = item
+        # print("ID: " + str(item.id))
+        # print(Participants.query.filter_by(id=userID, Master_Key=item.id).first())
+        # print(bool(Participants.query.filter_by(id=userID, Master_Key=item.id).first() is not None))
+        ourParticipant = Participants.query.filter_by(accountID=ourAccount.googleNum, Master_Key=item.id).first()
+        # print(ourParticipant)
+        tempTwins["onTheTrip"] = bool(ourParticipant is not None)
+        # print(tempTwins["onTheTrip"])
+        if tempTwins["onTheTrip"]:
+            tempTwins["numSeats"] = ourParticipant.Car_Capacity
+        else:
+            tempTwins["numSeats"] = 0
+        coupledTrips.append(copy.deepcopy(tempTwins))
+    #print(coupledTrips)
+    return render_template("AdminDialogueModal.html", trips=coupledTrips, userID=userID, isAdmin=ourAccount.admin)
 
 @api.route("/updateUser", methods=['POST', 'GET'])
 @login_required
@@ -314,3 +339,13 @@ def updateUser():
         return jsonify(status="success", user=Account.query.filter_by(googleNum=response["googleNum"]).first().accessData(), errors={})
 
 
+@api.route("/updateUser", methods=['POST', 'GET'])
+@login_required
+@admin_required
+def updateUser():
+    response = request.get_json(force=True)
+    print(response)
+    for item in response["tripsOut"]:
+        Master.query.updateUser(item, response["adminOut"])
+    # print(response)
+    return jsonify(result="success")
