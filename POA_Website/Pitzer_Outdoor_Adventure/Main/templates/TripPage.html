@@ -1,6 +1,8 @@
 {% extends "Base.html" %}
 
 {% block head %}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/timecircles/1.5.3/TimeCircles.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/timecircles/1.5.3/TimeCircles.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/FormatTrip.css">
     <script>
         $(document).ready(function ()
@@ -49,7 +51,9 @@
 					}, 1200); /* <-- Duration of the animation */
 			});
             $('[data-toggle="tooltip"]').tooltip();
+             $(".example").TimeCircles();
         });
+
     </script>
     <style>
         .trip-sidebar
@@ -84,22 +88,15 @@
     <div class="card">
     <h3 class="card-header">Trip Overview</h3>
       <div class="card-block">
-        This trip departs on {{ TripMeta.Departure_Date.month }}-{{ TripMeta.Departure_Date.day }}-{{ TripMeta.Departure_Date.year }} and returns on {{ TripMeta.Return_Date.month }}-{{ TripMeta.Return_Date.day }}-{{ TripMeta.Return_Date.year }}. Participants will meet at {{ Tripinfo.Trip_Meeting_Place}}.
+          <p>This trip departs on {{ TripMeta.Departure_Date.month }}-{{ TripMeta.Departure_Date.day }}-{{ TripMeta.Departure_Date.year }} and returns on {{ TripMeta.Return_Date.month }}-{{ TripMeta.Return_Date.day }}-{{ TripMeta.Return_Date.year }}.</p>
+          <p>Participants will meet at {{ Tripinfo.Trip_Meeting_Place}}.</p>
         <ul></ul>
-        Details:
-        <ul><li>{{ Tripinfo.Details}}</li></ul>
         {% if Tripinfo.Substance_Free==1 %}
-            This trip is substance free.
+            <p>This trip is substance free.</p>
         {% else %}
-            This trip is not substance free.
+            <p> This trip is not substance free.</p>
         {% endif %}
-{#        Gear List#}
-{#        <ul><li>{{ Tripinfo.Gear_List }}</li></ul>#}
-{#        Total Cost#}
-{#        <ul><li>{{ Tripinfo.Total_Cost}}</li></ul>#}
-{#        Cost Breakdown#}
-{#        <ul><li>{{ Tripinfo.Cost_BreakDown}}</li></ul>#}
-
+        <p>POA will fund {{ TripMeta.Car_Cap }} car's for this trip</p>
       </div>
     </div>
 
@@ -147,8 +144,9 @@
                 </div>
                 <br>
                 <h3 align="center">
-                    {% if Tripinfo.Frozen %}
+                    {% if TripMeta.Frozen %}
                         <a data-toggle="tooltip" data-original-title="TODO, INSERT TIME UNTIL TRIP ENDS HERE" data-placement="bottom">Trip is frozen</a>
+                        <div class="example" data-timer="900"></div>
                     {% else %}
                         {% if userID=='' %}
                             Log in to join this trip
@@ -158,10 +156,10 @@
                             <a id="cannotLeave" data-original-title="Leave this trip" data-toggle="tooltip" role="button" class="btn btn btn-danger"><i class="fa fa-times" aria-hidden="true" style="color: white"></i></a>
                                 {# Make a button that displays a modal, saying that the coordinator cannot leave the trip and must first pass on his/her duties. #}
                             {% else %}
-                                <a href={{ url_for('api.removeParticipant', personID=userID, tripID=Tripinfo.Master_Key) }} data-original-title="Leave this trip" data-toggle="tooltip" type="button" class="btn btn-lg btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                                <a href={{ url_for('api.removeParticipant', personID=userID, tripID=Tripinfo.Master_Key)}} data-original-title="Leave this trip" data-toggle="tooltip" role="button" class="btn  btn-danger"><i class="fa fa-times"></i></a>
                             {% endif %}
                         {% else %}
-                            <a type="button" class="btn btn-success" id="addParticipant">Join Trip</a>
+                            <a role="button" class="btn btn-primary" id="addParticipant" style="color: white">Join Trip</a>
                         {% endif %}
                     {% endif %}
                 </h3>
@@ -171,6 +169,62 @@
     </div>
     </div>
 </div>
+<br>
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <h3>Trip Info</h3>
+            </div>
+            <div class="card-block">
+                <h4 class="card-title">Details:</h4>
+                <p class="card-text">{{ Tripinfo.Details}}</p>
+                <h4 class="card-title">Gear List:</h4>
+                <p class="card-text">{{ Tripinfo.Gear_List }}</p>
+{#                <h4 class="card-title">Total Cost</h4>#}
+{#                <p class="card-text">{{ Tripinfo.Total_Cost}}</p>#}
+{#                <h4 class="card-title">Cost Breakdown</h4>#}
+{#                <p class="card-text">{{ Tripinfo.Cost_BreakDown}}</p>#}
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+
+         <div class="card">
+            <div class="card-header">
+                <h3>Participation Costs</h3>
+            </div>
+            <div class="card-block">
+                  <table class="table table-hover">
+                    <thead>
+                        <th>Expenditure</th>
+                        <th>Ammount</th>
+                    </thead>
+                      <tbody>
+                        {% if not costs%}
+                        <tr>
+                          <td scope="row">None</td>
+                          <td>NA</td>
+                        </tr>
+                        {% else %}
+                            {% for key, value in costs.items() %}
+                                <tr>
+                                  <td scope="row">{{ key }}</td>
+                                  <td>{{ value }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br>
+
     <h3>Participants</h3>
 <div class="row">
     <div class="col">
@@ -213,15 +267,15 @@
                         <td style="padding-left: 2px;">
                             {% if youAreCoordinator and TableRow.OpenLeader and userID != TableRow.accountID %}
 {#                                 Make the tooltips go left if the button is on the left, and right if the button is on the right. Never cover up other buttons with a tooltip.#}
-                                {% if youAreCoordinator and TableRow.OpenLeader and userID != TableRow.accountID and tripInfo.Frozen == False %}
+                                {% if youAreCoordinator and TableRow.OpenLeader and userID != TableRow.accountID and TripMeta.Frozen == False %}
                                     {# Make the tooltips go left if the button is on the left, and right if the button is on the right. Never cover up other buttons with a tooltip. #}
-                                    <div style="float: left;" class="extender extender180"><a href={{ url_for('api.swapCoordinators', oldLeaderID=userID, newLeaderID=TableRow.accountID, tripID=Tripinfo.Master_Key) }} type="button" class="btn btn-sm btn-success extender extender180"><span class="centertoright"><i class="glyphicon glyphicon-king"></i></span><span class="lefttocenter">Designate as new coordinator</span></a></div>
+                                    <div style="float: left;" class="extender extender180"><a href={{ url_for('api.swapCoordinators', oldLeaderID=userID, newLeaderID=TableRow.accountID, tripID=Tripinfo.Master_Key) }} role="button" class="btn btn-sm btn-success extender extender180"><span class="centertoright"><i class="glyphicon glyphicon-king"></i></span><span class="lefttocenter">Designate as new coordinator</span></a></div>
                                 {% else %}
                                     <div style="float: left;"><a class="btn btn-sm btn-success disabled"><i class="fa fa-star-o" aria-hidden="true"></i></a></div>
                                 {% endif %}
                                 <p style="margin-top: 34px; margin-bottom: 0px;"></p>
                                 {% if userID != TableRow.accountID %}
-                                    <div style="float: left;" class="extender extender100"><a role="button" class="btn btn-sm btn-info extender extender100"><span class="centertoright"><i class="fa fa-address-book-o" aria-hidden="true"></i></i></span><span class="lefttocenter">Send message</span></a></div>
+                                    <div style="float: left;" class="extender extender100"><a role="button" class="btn btn-sm btn-info extender extender100"><span class="centertoright"><i class="fa fa-address-book-o" aria-hidden="true"></i></span><span class="lefttocenter">Send message</span></a></div>
                                 {% else %}
                                     <a class="btn btn-sm btn-info disabled"><i class="fa fa-address-book-o" aria-hidden="true"></i></a>
                                 {% endif %}
@@ -239,4 +293,5 @@
     </div>
 </div>
 </div>
+
 {% endblock %}

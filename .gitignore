@@ -23,3 +23,7 @@ POA_Website/.idea/misc.xml
 *.pyc
 
 POA_Website/SQLAlchameyPOA.db
+
+*.pyc
+
+*.db

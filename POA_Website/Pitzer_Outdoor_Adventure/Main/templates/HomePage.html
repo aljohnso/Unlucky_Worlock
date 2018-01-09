@@ -6,19 +6,7 @@
     <script src="static/homePage.js"></script>
 {% endblock %}
 
-<div class="img-wrapper">
-    <img class="img-fluid" src="/static/Car.jpg">
-    <div class="img-overlay">
-      <div class="container">
-            <div class="row">
-                <div class="slide-text slide_style_left">
-                    <h1 data-animation="animated zoomInRight">Pitzer Outdoor Adventures</h1>
-                    <p data-animation="animated fadeInLeft">The mountains are calling and I must go</p>
-                    {% if 'credentials' in session %}
-                        <a href="#" class="btn btn-primary" id="addTrip" data-animation="animated fadeInRight">Lead a trip...</a>
-                    {% else %}
-                    <a href="#" class="btn btn-primary" id="notLoggedIn" data-animation="animated fadeInRight">Lead a trip...</a>
-                    {% endif %}
+
 {% block body %}
     <div class="img-wrapper">
             <img class="img-fluid" src="static/Car.jpg">
@@ -40,29 +28,34 @@
     </div>
     <div class="container">
         <div class="row">
-            <h2>So what is Pitzer Outdoor Adventures?</h2>
-            <p>
-                We are a organization dedicated to providing a safe inclusive space for
-                students of all backgrounds and identities to gain access to the outdoors.
-            </p>
-            <p>
-                Bellow you will see a list of the trips that are going out in the future
-            </p>
+            <div class="col">
+                <h2>So what is Pitzer Outdoor Adventures?</h2>
+                <p>
+                    We are a organization dedicated to providing a safe inclusive space for
+                    students of all backgrounds and identities to gain access to the outdoors.
+                </p>
+                <p>
+                    Bellow you will see a list of the trips that are going out in the future
+                </p>
+            </div>
         </div>
         {% for Row in entries %}
         <div class="row" >
+
         <a name="trips"></a>
             <div class="card-deck">
             {% for card in Row %}
+                 <div class="col">
             <div  class="card">
                 <div class="card-block">
                     <div class="card-body">
-                  <h4 class="card-title"><a href={{ url_for('main.tripPage', TripKey = card.id)}}>{{ card.Trip_Name}}</a></h4>
-                  <p class="card-text"> Details: {{ card.Details_Short  }}</p>
-                  <p class="card-text">Departure Date: {{  card.Return_Date }}</p>
-                  <p class="card-text"><small class="text-muted">Number of spaces left: {{  card.Participant_Cap - card.Participant_Num }}</small></p>
+                          <h4 class="card-title"><a href={{ url_for('main.tripPage', TripKey = card.id)}}>{{ card.Trip_Name}}</a></h4>
+                          <p class="card-text"> Details: {{ card.Details_Short  }}</p>
+                          <p class="card-text">Departure Date: {{  card.Return_Date }}</p>
+                          <p class="card-text"><small class="text-muted">Number of spaces left: {{  card.Participant_Cap - card.Participant_Num }}</small></p>
+                        </div>
                     </div>
-                    </div>
+            </div>
           </div>
             {% endfor %}
             </div>
@@ -71,3 +64,4 @@
 
     </div>
 {% endblock %}
+

@@ -327,11 +327,24 @@ def adminDialogue(userID):
 
 @api.route("/updateUser", methods=['POST', 'GET'])
 @login_required
+def updateUser():
+    response = request.get_json(force=True)
+    print(response)
+    user = Account.query.filter_by(googleNum=response["googleNum"]).first()
+    error = Account.query.updateAccount(response, user) # updates account and checks for type errors
+    db.session.commit()
+    if error:
+        return jsonify(status="error", user=Account.query.filter_by(googleNum=response["googleNum"]).first().accessData(), errors=error)
+    else:
+        return jsonify(status="success", user=Account.query.filter_by(googleNum=response["googleNum"]).first().accessData(), errors={})
+
+
+@api.route("/updateUser", methods=['POST', 'GET'])
+@login_required
 @admin_required
 def updateUser():
     response = request.get_json(force=True)
     print(response)
-    print("HI")
     for item in response["tripsOut"]:
         Master.query.updateUser(item, response["adminOut"])
     # print(response)

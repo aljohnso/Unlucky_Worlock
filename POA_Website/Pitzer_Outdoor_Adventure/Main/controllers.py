@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 from functools import wraps
-
+import json
 import apiclient as google
 import flask
 import httplib2
@@ -52,6 +52,9 @@ def tripPage(TripKey):
     tripDetails = Trips.query.filter_by(Master_Key=TripKey).first()
     participantInfo = Participants.query.filter_by(Master_Key=TripKey).all()
     coordinator = Participants.query.filter_by(Master_Key=TripKey, Leader=True).first()
+    costs = json.loads(tripDetails.Costs)#  converts string to dict
+    costs.pop("POAGasCost", None)#  removes POAGasCost from dict
+    print(costs)
     if 'credentials' in flask.session and 'Googledata' in flask.session:
         userID = flask.session['Googledata']['id'][:]
     else:
@@ -71,7 +74,7 @@ def tripPage(TripKey):
     carRatio = calculateProgress_carRatio(meta)
     return render_template("TripPage.html", Tripinfo=tripDetails, TripMeta=meta, Coordinator=coordinator,
                            ParticipantInfo=participantInfo, participantRatio=participantRatio, carRatio=carRatio,
-                           userID=userID, onTrip=onTrip, youAreCoordinator=youAreCoordinator)
+                           userID=userID, onTrip=onTrip, youAreCoordinator=youAreCoordinator,costs=costs)
 
 
 @main.route('/login', methods=['POST', 'GET'])
@@ -151,43 +154,6 @@ def makeAccount():
                 return redirect(url_for('main.mainPage'))
         elif request.method == 'GET':
             return render_template("NewAccount.html", form=form)
-
-
-@main.route('/editAccount', methods=['POST', 'GET'])
-@login_required
-def editAccount():
-    """
-    This edits the user's account information.
-    :return: 
-    """
-    # print('made it to stage one')
-    if None == Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first(): # This may no longer be necessary since there is the login decorator
-        # print('took a wrong turn')
-        return redirect(url_for('main.mainPage'))
-    else:
-        currentData = Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first().accessData()
-        form = ModifyAccountForm(FirstName_Box=currentData['firstName'][:], LastName_Box=currentData['lastName'][:],
-                                 Email_Box=currentData['email'][:], Age_Box=currentData['age'][:],
-                                 Height_Box=currentData['height'][:],
-                                 StudentIDNumber_Box=currentData['studentIDNumber'][:],
-                                 PhoneNumber_Box=currentData['phoneNumber'][:],
-                                 CarCapacity_Box=currentData['carCapacity'][:])
-        if request.method == 'POST':
-            # print(form.data)  # returns a dictionary with keys that are the fields in the table
-            if form.validate_on_submit() == False:
-                flash('All fields are required.')
-                return render_template("ModifyAccount.html", form=form)
-            else:
-                flash('Account was successfully modified')
-                selectedUser = Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first()
-                selectedUser.modifyAccount(form.data, session)
-                tripSelves = Participants.query.filter_by(accountID=flask.session['Googledata']['id']).all()
-                for those in tripSelves:
-                    those.changeUserInfo(selectedUser)
-                db.session.commit()
-                return redirect(url_for('main.profile'))
-        elif request.method == 'GET':
-            return render_template("ModifyAccount.html", form=form)
 
 
 @main.route('/gCallback')
