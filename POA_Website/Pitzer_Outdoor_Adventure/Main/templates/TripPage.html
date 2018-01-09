@@ -1,6 +1,8 @@
 {% extends "Base.html" %}
 
 {% block head %}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/timecircles/1.5.3/TimeCircles.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/timecircles/1.5.3/TimeCircles.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/FormatTrip.css">
     <script>
         $(document).ready(function ()
@@ -49,7 +51,9 @@
 					}, 1200); /* <-- Duration of the animation */
 			});
             $('[data-toggle="tooltip"]').tooltip();
+             $(".example").TimeCircles();
         });
+
     </script>
     <style>
         .trip-sidebar
@@ -142,6 +146,7 @@
                 <h3 align="center">
                     {% if TripMeta.Frozen %}
                         <a data-toggle="tooltip" data-original-title="TODO, INSERT TIME UNTIL TRIP ENDS HERE" data-placement="bottom">Trip is frozen</a>
+                        <div class="example" data-timer="900"></div>
                     {% else %}
                         {% if userID=='' %}
                             Log in to join this trip
@@ -151,7 +156,7 @@
                             <a id="cannotLeave" data-original-title="Leave this trip" data-toggle="tooltip" role="button" class="btn btn btn-danger"><i class="fa fa-times" aria-hidden="true" style="color: white"></i></a>
                                 {# Make a button that displays a modal, saying that the coordinator cannot leave the trip and must first pass on his/her duties. #}
                             {% else %}
-                                <a href={{ url_for('api.removeParticipant', personID=userID, tripID=Tripinfo.Master_Key) }} data-original-title="Leave this trip" data-toggle="tooltip" role="button" class="btn  btn-danger"><i class="fa fa-times"></i></a>
+                                <a href={{ url_for('api.removeParticipant', personID=userID, tripID=Tripinfo.Master_Key)}} data-original-title="Leave this trip" data-toggle="tooltip" role="button" class="btn  btn-danger"><i class="fa fa-times"></i></a>
                             {% endif %}
                         {% else %}
                             <a role="button" class="btn btn-primary" id="addParticipant" style="color: white">Join Trip</a>
@@ -270,7 +275,7 @@
                                 {% endif %}
                                 <p style="margin-top: 34px; margin-bottom: 0px;"></p>
                                 {% if userID != TableRow.accountID %}
-                                    <div style="float: left;" class="extender extender100"><a role="button" class="btn btn-sm btn-info extender extender100"><span class="centertoright"><i class="fa fa-address-book-o" aria-hidden="true"></i></i></span><span class="lefttocenter">Send message</span></a></div>
+                                    <div style="float: left;" class="extender extender100"><a role="button" class="btn btn-sm btn-info extender extender100"><span class="centertoright"><i class="fa fa-address-book-o" aria-hidden="true"></i></span><span class="lefttocenter">Send message</span></a></div>
                                 {% else %}
                                     <a class="btn btn-sm btn-info disabled"><i class="fa fa-address-book-o" aria-hidden="true"></i></a>
                                 {% endif %}
@@ -288,4 +293,5 @@
     </div>
 </div>
 </div>
+
 {% endblock %}

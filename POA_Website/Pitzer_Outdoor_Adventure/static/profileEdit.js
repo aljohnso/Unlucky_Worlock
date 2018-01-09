@@ -106,30 +106,4 @@ function parseErrors(errors){
     }
 }
 
-//Parsley Validation
 
-// $(function ()
-//     {
-//         $('#userEditInput').parsley().on('field:error', function (fieldInstance)
-//          {
-//             fieldInstance.$element.popover(
-//             {
-//                 trigger: 'manual',
-//                 container: 'body',
-//                 placement: 'right',
-//                 content: function ()
-//                 {
-//                     return fieldInstance.getErrorsMessages().join(';');
-//                 }
-//             }).popover('show');
-//         })
-//         .on('field:success', function (fieldInstance)
-//         {
-//             fieldInstance.$element.popover('dispose');
-//          });
-//     });
-
-
-    //currently not in use needs work to figure out how
-    //to get it so that we check the date is current
-    //and that the dates are sequential

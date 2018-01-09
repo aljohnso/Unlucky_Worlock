@@ -156,43 +156,6 @@ def makeAccount():
             return render_template("NewAccount.html", form=form)
 
 
-# @main.route('/editAccount', methods=['POST', 'GET'])
-# @login_required
-# def editAccount():
-#     """
-#     This edits the user's account information.
-#     :return:
-#     """
-#     # print('made it to stage one')
-#     if None == Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first(): # This may no longer be necessary since there is the login decorator
-#         # print('took a wrong turn')
-#         return redirect(url_for('main.mainPage'))
-#     else:
-#         currentData = Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first().accessData()
-#         form = ModifyAccountForm(FirstName_Box=currentData['firstName'][:], LastName_Box=currentData['lastName'][:],
-#                                  Email_Box=currentData['email'][:], Age_Box=currentData['age'][:],
-#                                  Height_Box=currentData['height'][:],
-#                                  StudentIDNumber_Box=currentData['studentIDNumber'][:],
-#                                  PhoneNumber_Box=currentData['phoneNumber'][:],
-#                                  CarCapacity_Box=currentData['carCapacity'][:])
-#         if request.method == 'POST':
-#             # print(form.data)  # returns a dictionary with keys that are the fields in the table
-#             if form.validate_on_submit() == False:
-#                 flash('All fields are required.')
-#                 return render_template("ModifyAccount.html", form=form)
-#             else:
-#                 flash('Account was successfully modified')
-#                 selectedUser = Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first()
-#                 selectedUser.modifyAccount(form.data, session)
-#                 tripSelves = Participants.query.filter_by(accountID=flask.session['Googledata']['id']).all()
-#                 for those in tripSelves:
-#                     those.changeUserInfo(selectedUser)
-#                 db.session.commit()
-#                 return redirect(url_for('main.profile'))
-#         elif request.method == 'GET':
-#             return render_template("ModifyAccount.html", form=form)
-
-
 @main.route('/gCallback')
 def gCallback():
     """
