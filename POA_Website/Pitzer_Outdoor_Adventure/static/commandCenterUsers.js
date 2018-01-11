@@ -25,6 +25,15 @@ function CreateUserTable(tableID)
         "columns": [
             {
                 "data": "username"
+            },
+            {
+               "data": "studentIDNumber"
+            },
+            {
+                "data": "phoneNumber"
+            },
+            {
+                "data": "email"
             }
             // ,
             // {
@@ -45,7 +54,6 @@ function getUserModal(id)
     .done(function(data)
     {
         $('#message-model-content').html(data);
-       // setDropDown(data["data"]);
         $('#generalizedModal').modal('show');
         console.log($(".form-check-input"));
         $("#submitBtn").on("click", function ()
@@ -54,12 +62,6 @@ function getUserModal(id)
             sendData(trips);
             $('#generalizedModal').modal('hide');
         });
-        // $('#checkIn').on('click', function ()
-        // {
-        //     var checkbox = $(".itemCheckBox input:checkbox");
-        //     sendData(checkbox, data["ClientID"]);
-        //     $('#user1Message').modal('toggle');
-        // })
     });
 }
 

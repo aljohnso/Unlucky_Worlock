@@ -128,7 +128,7 @@ class Account_manipulation_query(BaseQuery):
             out['phoneNumerinput'] = "Phone number must be of form 000-000-0000"
         if not re.match("[^@]+@[^@]+\.[^@]+", update['emailinput']):
             out['emailinput'] = "We do not recognize this as a valid email address"
-        else:
+        if not out:
             user.height = update['heightinput']
             user.email = update['emailinput']
             user.studentIDNumber = update['studentIDinput']

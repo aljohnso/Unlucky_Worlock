@@ -298,6 +298,6 @@ class Account(db.Model):
     @property
     def serializeUser(self):
         out = self.accessData()
-        out['username'] = "<span class='itemName'" + " id=" + str(self.id) + "><a  href='#'>" + self.username + "</a></span>"#create tag for later use as jquery identifyer
+        out['username'] = "<span class='itemName' " + "id=" + str(self.id) + "><a  data-toggle='modal' >" + self.username + "</a></span>"#create tag for later use as jquery identifyer
         out["id"] = self.id
         return out

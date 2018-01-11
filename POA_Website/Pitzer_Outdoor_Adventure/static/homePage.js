@@ -6,13 +6,12 @@
         $("#addTrip").click(function ()
         {
             console.log("clicked");
-            $.get('/api/addTrip').done(function (data)
-            {
-                console.log(data);
+            $.get('/api/addTrip', function (data) {
+                                console.log(data);
                 $('#message-model-content').html(data);
                 $("#generalizedModal").modal("show");
             });
-        })
+        });
         $("#notLoggedIn").click(function ()
         {
             console.log("clicked");

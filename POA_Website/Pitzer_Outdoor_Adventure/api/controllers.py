@@ -325,9 +325,9 @@ def adminDialogue(userID):
     #print(coupledTrips)
     return render_template("AdminDialogueModal.html", trips=coupledTrips, userID=userID, isAdmin=ourAccount.admin)
 
-@api.route("/updateUser", methods=['POST', 'GET'])
+@api.route("/updateUserAccount", methods=['POST', 'GET'])
 @login_required
-def updateUser():
+def updateUserAccount():
     response = request.get_json(force=True)
     print(response)
     user = Account.query.filter_by(googleNum=response["googleNum"]).first()
