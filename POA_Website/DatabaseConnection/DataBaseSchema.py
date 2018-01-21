@@ -23,6 +23,7 @@ class Master(db.Model):
     Participant_Cap = db.Column(db.Integer)
     Car_Num = db.Column(db.Integer)
     Car_Cap = db.Column(db.Integer)
+    timeTillUnfreeze = db.Column(db.Integer)
     Trip_Location = db.Column(db.String(100))
     Trip_Participants = db.relationship('Participants', backref = "Master", lazy='dynamic', cascade="all,delete")
     Trip_Trip = db.relationship('Trips', backref="Master", lazy='dynamic', cascade="all,delete")
@@ -30,6 +31,7 @@ class Master(db.Model):
     def __init__(self, form):
         MasterDict = MasterConstructor(form).master
         self.Frozen = False
+        self.timeTillUnfreeze = 900
         self.Trip_Name = MasterDict['Trip_Name']
         self.Departure_Date = MasterDict['Departure_Date']
         self.Return_Date = MasterDict['Return_Date']
