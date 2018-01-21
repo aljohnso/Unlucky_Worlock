@@ -25,6 +25,21 @@ function CreateTripTable(tableID)
         "columns": [
             {
                 "data": "trip"
+            },
+            {
+               "data": "Participant_Cap"
+            },
+            {
+                "data": "Participant_Num"
+            },
+            {
+               "data": "Car_Cap"
+            },
+            {
+                "data": "Car_Num"
+            },
+            {
+                "data": "Departure_Date"
             }
             // ,
             // {

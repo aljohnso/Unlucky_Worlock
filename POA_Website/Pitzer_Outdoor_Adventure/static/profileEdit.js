@@ -16,7 +16,7 @@ function editAccount(){
         createInputFeilds()
     });
     $("#saveChanges").click(function () {
-        $( "#editAccount" ).show();
+
         $('.userEditInput').tooltip('dispose');//hide any potential errors
         var fields = $(".userEditInput");//gets input feilds
         sendData(fields, $(".userID")[0].id);
@@ -72,14 +72,14 @@ function updateClient(user){
 function sendData(feilds, clientID){
     $.ajax({
       type: "POST",
-      url: "/api/updateUser",
+      url: "/api/updateUserAccount",
       data: getFeilds(feilds, clientID),
       success: function(response) {
-                console.log(response);
                 if (response["status"]==="error"){
                     parseErrors(response["errors"]);
                 }
                 else{
+                $( "#editAccount" ).show();
                 user = response["user"];
                 updateClient(user);
                 $("#saveChanges").hide();
