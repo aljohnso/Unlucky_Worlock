@@ -5,7 +5,7 @@ from flask import request, redirect, url_for, \
     render_template, flash, Blueprint, jsonify
 
 from DatabaseConnection.DataBaseSchema import db, \
-    Master, Participants, TripModel, Account
+    Master, Trips, Participants, TripModel, Account
 from Forms.POAForms import MakeTripFormPOA, AddToTripPOA, EditTripMemberPOA
 from Pitzer_Outdoor_Adventure.Main.controllers import login_required
 from flask_mail import Message, Mail
@@ -295,10 +295,10 @@ def thawTrip(tripID):
     db.session.commit()
     return jsonify(status="success")
 
-@api.route("/adminDialogue/<userID>")
+@api.route("/adminDialogueUser/<userID>")
 @login_required
 @admin_required
-def adminDialogue(userID):
+def adminDialogueUser(userID):
     # tempParticipants = Participants.query.filter_by(id=userID).all()
     # tempTrips = []
     # for people in tempParticipants:
@@ -323,7 +323,22 @@ def adminDialogue(userID):
             tempTwins["numSeats"] = 0
         coupledTrips.append(copy.deepcopy(tempTwins))
     #print(coupledTrips)
-    return render_template("AdminDialogueModal.html", trips=coupledTrips, userID=userID, isAdmin=ourAccount.admin)
+    return render_template("AdminDialogueUserModal.html", trips=coupledTrips, userID=userID, isAdmin=ourAccount.admin)
+
+@api.route("/adminDialogueTrip/<tripID>", methods=['POST', 'GET'])
+@login_required
+@admin_required
+def adminDialogueTrip(tripID):
+    # Hello world.
+    # Received a JSON, which becoemes a dictionary. Has keys in it telling whether we want to delete this
+    # trip, to freeze this trip, how long we want to freeze it for, and how to change max cars,
+    # max participants, and whether the trip is substance-free.
+    if request.method == 'GET':
+        master = Master.query.filter_by(id=tripID).first()
+        trip = Trips.query.filter_by(id=tripID).first()
+        return render_template("AdminDialogueTripModal.html", trip=trip, master=master)
+    elif request.method == 'POST':
+        return "Success! Neato."
 
 @api.route("/updateUserAccount", methods=['POST', 'GET'])
 @login_required

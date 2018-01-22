@@ -5,9 +5,6 @@ $(document).ready(function ()
 {
   //table
     CreateTripTable("tripsTable");
-    // $("#AddClient").bind('click', function(){
-    //     makeClientAddPop();
-    // });
 });
 
 
@@ -56,17 +53,21 @@ function CreateTripTable(tableID)
 function getTripModal(id)
 {
     //console.log(id);
-    $.get('/api/adminDialogue/' + id)
+    $.get('/api/adminDialogueTrip/' + id)
     .done(function(data)
     {
         $('#message-model-content').html(data);
        // setDropDown(data["data"]);
         $('#generalizedModal').modal('show');
-        console.log($(".form-check-input"));
-        $("#submitBtn").on("click", function ()
+        // console.log($(".form-check-input"));
+
+
+        $("#submitBtnTrip").on("click", function ()
         {
-            var trips = $(".form-check-input");
-            sendTripData(trips);
+            // console.log($("#tripform"));
+            var form = $("#tripform")[0];
+            // var form = $("#tripform");
+            parseTripForm(form);
             $('#generalizedModal').modal('hide');
         });
         // $('#checkIn').on('click', function ()
@@ -76,6 +77,11 @@ function getTripModal(id)
         //     $('#user1Message').modal('toggle');
         // })
     });
+}
+
+function parseTripForm(form)
+{
+    console.log(form["substancefree"]);
 }
 
 /*function parseTrips(trips)
