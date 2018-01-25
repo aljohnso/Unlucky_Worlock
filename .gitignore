@@ -14,16 +14,5 @@ POA_Website/.idea/misc.xml
 .idea/
 *.pyc
 /secret
-
-
 *.pyc
-
-*.pyc
-
-*.pyc
-
-POA_Website/SQLAlchameyPOA.db
-
-*.pyc
-
 *.db
