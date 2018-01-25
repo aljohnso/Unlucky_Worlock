@@ -1,56 +1,179 @@
-{# https://stackoverflow.com/questions/21032759/bootstrap-3-2-column-form-layout #}
-
+<script src="static/createTripModal.js"></script>
 <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
     <h5 class="modal-title">Create Trip</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
 </div>
 <div class="modal-body">
-    <form action= "{{ url_for('api.addTrip') }}" method="post">
-        {% import "bootstrap/wtf.html" as wtf %}
-        {{ wtf.quick_form(form) }}
-    </form>
+
+<form id="openForm" data-parsley-validate="" data-parsley-ui-enabled="true" data-parsley-errors-messages-disabled="true">
+    <label for="tripName" data-toggle="tooltip" data-original-title="Give your trip a name." data-placement="left">Trip Name</label>
+    <input name="tripName" class="form-control" required="" type="text">
+
+    <label for="departureDate" data-toggle="tooltip" data-original-title="What date do you depart on this trip? (format is mm/dd/yyyy)" data-placement="left">Departure Date</label>
+    <input name="departureDate" class="form-control" required="" type="date">
+
+    <label for="returnDate" data-toggle="tooltip" data-original-title="What date do you return from this trip? (format is mm/dd/yyyy)" data-placement="left">Return Date</label>
+    <input name="returnDate" class="form-control" required="" type="date">
+
+    <label for="tripLocation" data-toggle="tooltip" data-original-title="Where are you going on this trip?" data-placement="left">Trip Location</label>
+    <input name="tripLocation" class="form-control" required="" type="text">
+
+    <div class="form-group">
+        <label for="tripState" data-toggle="tooltip" data-original-title="In what state is your destination?" data-placement="left">Trip State</label>
+        <select name="tripState" class="form-control" required="">
+            <option value="AL">Alabama</option>
+            <option value="AK">Alaska</option>
+            <option value="AZ">Arizona</option>
+            <option value="AR">Arkansas</option>
+            <option selected="selected" value="CA">California</option>
+            <option value="CO">Colorado</option>
+            <option value="CT">Connecticut</option>
+            <option value="DE">Delaware</option>
+            <option value="DC">District Of Columbia</option>
+            <option value="FL">Florida</option>
+            <option value="GA">Georgia</option>
+            <option value="HI">Hawaii</option>
+            <option value="ID">Idaho</option>
+            <option value="IL">Illinois</option>
+            <option value="IN">Indiana</option>
+            <option value="IA">Iowa</option>
+            <option value="KS">Kansas</option>
+            <option value="KY">Kentucky</option>
+            <option value="LA">Louisiana</option>
+            <option value="ME">Maine</option>
+            <option value="MD">Maryland</option>
+            <option value="MA">Massachusetts</option>
+            <option value="MI">Michigan</option>
+            <option value="MN">Minnesota</option>
+            <option value="MS">Mississippi</option>
+            <option value="MO">Missouri</option>
+            <option value="MT">Montana</option>
+            <option value="NE">Nebraska</option>
+            <option value="NV">Nevada</option>
+            <option value="NH">New Hampshire</option>
+            <option value="NJ">New Jersey</option>
+            <option value="NM">New Mexico</option>
+            <option value="NY">New York</option>
+            <option value="NC">North Carolina</option>
+            <option value="ND">North Dakota</option>
+            <option value="OH">Ohio</option>
+            <option value="OK">Oklahoma</option>
+            <option value="OR">Oregon</option>
+            <option value="PA">Pennsylvania</option>
+            <option value="RI">Rhode Island</option>
+            <option value="SC">South Carolina</option>
+            <option value="SD">South Dakota</option>
+            <option value="TN">Tennessee</option>
+            <option value="TX">Texas</option>
+            <option value="UT">Utah</option>
+            <option value="VT">Vermont</option>
+            <option value="VA">Virginia</option>
+            <option value="WA">Washington</option>
+            <option value="WV">West Virginia</option>
+            <option value="WI">Wisconsin</option>
+            <option value="WY">Wyoming</option>
+        </select>
+    </div>
+    <p></p>
+
+    <label for="details" data-toggle="tooltip" data-original-title="Provide a short description of what your trip is about." data-placement="left">Details</label>
+    <textarea name="details" class="form-control" required="" type="text"></textarea>
+
+    <label for="gearList" data-toggle="tooltip" data-original-title="What gear will you need for this trip?" data-placement="left">Gear List</label>
+    <textarea name="gearList" class="form-control" required="" type="text"></textarea>
+
+    <label for="meetingPlace" data-toggle="tooltip" data-original-title="Where do you and your fellow trip-goers want to meet up before departing?" data-placement="left">Trip Meeting Place</label>
+    <input name="meetingPlace" class="form-control" required="" type="text">
+
+    <label for="costName" data-toggle="tooltip" data-original-title="(Don't enter gas as an expense, we've computed that for you)" data-placement="left">Cost Breakdown</label>
+    <div id="additionalCostBreakdownDiv" class="form-inline">
+        <input id="costName1" name="costName1" class="form-control" required="" type="text" placeholder="Name of Expense">
+        <input id="costMagnitude1" name="costMagnitude1" class="form-control" required="" type="text" placeholder="Cost" data-parsley-type="number">
+        <p id="para1"></p>
+    </div>
+    <p></p>
+    <a role="button" id="addRow" class="btn btn-sm btn-primary" data-toggle="tooltip" data-original-title="Add an additional expense you expect to incur on this trip." data-placement="left"><i class="fa fa-plus" aria-hidden="true"></i></a>
+    <a role="button" id="deleteRow" class="btn btn-sm btn-warning" data-toggle="tooltip" data-original-title="Remove one expense from the table." data-placement="right"><i class="fa fa-minus fa-fw" aria-hidden="true"></i></a>
+    <p></p>
+
+    <label for="maxCars" data-toggle="tooltip" data-original-title="How many cars, in total, are allowed on this trip?" data-placement="left">Maximum Cars</label>
+    <input name="maxCars" class="form-control" required="" type="text" data-parsley-type="digits">
+    <p></p>
+
+    <div class="form-check">
+        <label class="form-check-label" data-toggle="tooltip" data-original-title="Is this trip substance-free?" data-placement="right">
+            <input name="substanceFree" class="form-check-input" type="checkbox">
+            Substance-Free
+        </label>
+    </div>
+    <p></p>
+    <div class="form-check">
+        <label class="form-check-label" data-toggle="tooltip" data-original-title="Are you, personally, a driver for this trip?" data-placement="right">
+            <input name="driver" class="form-check-input" type="checkbox">
+            Driver
+        </label>
+    </div>
+    <p></p>
+    <label for="carCapacity" data-toggle="tooltip" data-original-title="How many people, including yourself, can your car hold?" data-placement="left">Car Capacity</label>
+    <input name="carCapacity" class="form-control" required="" type="text" value="{{ yourCarCapacity }}">
+
+
+    <br>
+    <button type="submit" class="btn btn-primary" value="Create Trip">Submit</button>
+
+</form>
 </div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $('#openForm').parsley()
+        .on('field:error', function (fieldInstance)
+         {
+            fieldInstance.$element.popover(
+            {
+                trigger: 'manual',
+                container: 'body',
+                placement: 'right',
+                content: function ()
+                {
+                    return fieldInstance.getErrorsMessages().join(';');
+                }
+            }).popover('show');
+        })
+        .on('field:success', function (fieldInstance)
+        {
+            fieldInstance.$element.popover('dispose');
+         })
+        .on('form:submit', function()
+        {
+		    $.post("api/addTrip", $("#openForm").serialize());
+            //console.log($('#openForm').serialize());
+            //console.log("it worked!!!! the demo was a lie");
+            location.reload();
+            //$(location).attr('href', "{{ url_for('main.mainPage') }}" );
+            return false; // Don't submit form for this demo
+        });
+    });
+    $('#generalizedModal').on('hidden.bs.modal', function (e) {
+        $('.popover').popover('hide');
+})
 
-    {#      <div class="form-group">#}
-    {#    <label for="exampleInputEmail1"></label>#}
-    {#    </div>#}
+    //currently not in use needs work to figure out how
+    //to get it so that we check the date is current
+    //and that the dates are sequential
+window.Parsley
+      .addValidator('dateCurrent', {
+        requirementType: 'date',
+        checkDate: function(value) {
+          var now = new Date();
+            var date = new Date(value);
+            return date > now;
+        },
+        messages: {
+          en: 'This date is not past the current date'
+        }
+      });
 
-{#    <div class="form-group">#}
-{#        <div class="col">#}
-{#            {{ form.hidden_tag() }}<h1></h1>#}
-{##}
-{#            {{ form.Trip_Name.label }}#}
-{#            {{form.Trip_Name}}<h1></h1>#}
-    {#            <div class="row">#}
-{#            {{ form.Departure_Date.label }}#}
-        {#    TODO:add that date formating is year-mounth-day#}
-{#            {{ form.Departure_Date }}<h1></h1>#}
-{#            {{ form.Return_Date.label }}#}
-{#            {{ form.Return_Date }}<h1></h1>#}
-{#            {{ form.Trip_Location.label }}#}
-{#            {{ form.Trip_Location }}<h1></h1>#}
-{#            {{ form.Trip_State.label }}#}
-{#            {{ form.Trip_State }}#}
-{#            {{form.Details.label }}#}
-{#            {{form.Details }}#}
-{#        </div>#}
-{#        <div class="col">#}
-{#            {{ form.GearList.label }}<br>#}
-{#            {{ form.GearList }}#}
-{#            {{ form.Trip_Meeting_Place.label }}<br>#}
-{#            {{ form.Trip_Meeting_Place }}#}
-{#            {{ form.Additional_Cost.label }}<br>#}
-{#            {{ form.Additional_Cost }}#}
-{#            {{ form.Cost_Breakdown.label }}<br>#}
-{#            {{ form.Cost_Breakdown }}#}
-{#            {{ form.Car_Cap.label}}#}
-{#            {{ form.Car_Cap }}#}
-{#            {{ form.Car_Capacity.label }}#}
-{#            {{ form.Car_Capacity }}#}
-{#            {{ form.Substance_Free.label }}#}
-{#            {{ form.Substance_Free }}#}
-{#            {{ form.submit }}#}
-{#        </div>#}
-{#    </div>#}
+</script>

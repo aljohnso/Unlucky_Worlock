@@ -54,3 +54,199 @@ background-image: linear-gradient(to bottom, #f1a165, #f36d0a);
   padding: 10px 40px;
   box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
 }
+        .meterbar
+        {
+            height: 30px;  /* Can be anything. */
+            width: 120px; /* Can also be anything, but will likely be overridden */
+            position: relative;
+            background: #555;
+            -moz-border-radius: 25px;
+            -webkit-border-radius: 25px;
+            border-radius: 25px;
+            padding: 3px;
+            box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+        }
+        .meterbar span
+        {
+            display: block;
+            height: 100%;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            background-color: rgb(43,194,83);
+            background-image: linear-gradient(90deg, rgb(43,194,83) 37%, rgb(84,240,84) 69%);
+            box-shadow:
+            inset 0 2px 9px  rgba(255,255,255,0.3),
+            inset 0 -2px 6px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        .cars span
+        {
+          background-color: rgb(130,180,250);
+          background-image: linear-gradient(to bottom, rgb(130,180,250), rgb(120,220,240));
+        }
+        .people span
+        {
+          background-color: #f1a165;
+          background-image: linear-gradient(to bottom, #f1a165, #f36d0a);
+        }
+        .extender
+        {
+            /* Opacity of 0 means that the object is invisible. */
+            /* Opacity of 1 means it is fully visible. */
+            position: relative;
+            width: 34px; /* 34px */
+            height: 30px;
+            white-space: nowrap;
+            text-overflow: clip;
+            overflow: hidden;
+            transition: width 0.5s ease 0s;
+        }
+        .extender span.lefttocenter
+        {
+            position: absolute;
+/*{#            text-align: center;#}*/
+            left: 0px;
+            right: 0px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: transform 0.5s ease 0s;
+            transform: translateX(-250px);
+            /* All transitions should also have a webkit transition version, for cross compatibility. */
+        }
+        .extender span.centertoleft
+        {
+            position: absolute;
+/*{#            text-align: center;#}*/
+            left: 0px;
+            right: 0px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: transform 0.5s ease 0s;
+            transform: translateX(0px);
+        }
+        .extender span.righttocenter
+        {
+            position: absolute;
+/*{#            text-align: center;#}*/
+            left: 0px;
+            right: 0px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: transform 0.5s ease 0s;
+            transform: translateX(250px);
+        }
+        .extender span.centertoright
+        {
+            position: absolute;
+/*{#            text-align: center;#}*/
+            left: 0px;
+            right: 0px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: transform 0.5s ease 0s;
+            transform: translateX(0px);
+        }
+        .extender10:hover
+        {
+            width: 10px;
+        }
+        .extender20:hover
+        {
+            width: 20px;
+        }
+        .extender30:hover
+        {
+            width: 30px;
+        }
+        .extender40:hover
+        {
+            width: 40px;
+        }
+        .extender50:hover
+        {
+            width: 50px;
+        }
+        .extender60:hover
+        {
+            width: 60px;
+        }
+        .extender70:hover
+        {
+            width: 70px;
+        }
+        .extender80:hover
+        {
+            width: 80px;
+        }
+        .extender90:hover
+        {
+            width: 90px;
+        }
+        .extender100:hover
+        {
+            width: 100px;
+        }
+        .extender110:hover
+        {
+            width: 110px;
+        }
+        .extender120:hover
+        {
+            width: 120px;
+        }
+        .extender130:hover
+        {
+            width: 130px;
+        }
+        .extender140:hover
+        {
+            width: 140px;
+        }
+        .extender150:hover
+        {
+            width: 150px;
+        }
+        .extender160:hover
+        {
+            width: 160px;
+        }
+        .extender170:hover
+        {
+            width: 170px;
+        }
+        .extender180:hover
+        {
+            width: 180px;
+        }
+        .extender190:hover
+        {
+            width: 190px;
+        }
+        .extender200:hover
+        {
+            width: 200px;
+        }
+        .extender:hover span.lefttocenter
+        {
+            transform: translateX(0px);
+        }
+        .extender:hover span.centertoleft
+        {
+            transform: translateX(-250px);
+        }
+        .extender:hover span.righttocenter
+        {
+            transform: translateX(0px);
+        }
+        .extender:hover span.centertoright
+        {
+            transform: translateX(250px);
+        }
+/*{#        @keyframes expandWidth#}*/
+/*{#        {#}*/
+/*{#           0% { width: 0; }#}*/
+/*{#           100% { width: auto; }#}*/
+/*{#        }#}*/

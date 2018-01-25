@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 from functools import wraps
-
+import json
 import apiclient as google
 import flask
 import httplib2
@@ -21,15 +21,12 @@ main = Blueprint('main', __name__, template_folder='templates')
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        # print(flask.session)
-        # print('credentials' not in flask.session or 'Googledata' not in flask.session)
         if 'credentials' not in flask.session or 'Googledata' not in flask.session:
             return redirect(url_for('main.login'))
         elif None == Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first():
             return redirect(url_for('main.login'))
         return f(*args, **kwargs)
     return decorated_function
-
 
 @main.route('/', methods=['GET', 'POST'])
 def mainPage():
@@ -38,7 +35,9 @@ def mainPage():
     :return: 
     """
     masters = Master.query.checkTrip()
-    return render_template("HomePage.html", entries=masters)
+    formatMaster = [masters[x:x+3] for x in range(0, len(masters), 3)]
+    print(formatMaster)
+    return render_template("HomePage.html", entries=formatMaster)
 
 
 @main.route("/trips/<int:TripKey>")
@@ -53,6 +52,9 @@ def tripPage(TripKey):
     tripDetails = Trips.query.filter_by(Master_Key=TripKey).first()
     participantInfo = Participants.query.filter_by(Master_Key=TripKey).all()
     coordinator = Participants.query.filter_by(Master_Key=TripKey, Leader=True).first()
+    costs = json.loads(tripDetails.Costs)#  converts string to dict
+    costs.pop("POAGasCost", None)#  removes POAGasCost from dict
+    print(costs)
     if 'credentials' in flask.session and 'Googledata' in flask.session:
         userID = flask.session['Googledata']['id'][:]
     else:
@@ -67,12 +69,12 @@ def tripPage(TripKey):
     else:
         youAreCoordinator = False
 
-    # Bellow calculates how much of progress bar should be rendered for car and participant bars respectively
+    # Below calculates how much of progress bar should be rendered for car and participant bars respectively
     participantRatio = calculateProgress_participantRatio(meta)
     carRatio = calculateProgress_carRatio(meta)
     return render_template("TripPage.html", Tripinfo=tripDetails, TripMeta=meta, Coordinator=coordinator,
                            ParticipantInfo=participantInfo, participantRatio=participantRatio, carRatio=carRatio,
-                           userID=userID, onTrip=onTrip, youAreCoordinator=youAreCoordinator)
+                           userID=userID, onTrip=onTrip, youAreCoordinator=youAreCoordinator,costs=costs)
 
 
 @main.route('/login', methods=['POST', 'GET'])
@@ -137,7 +139,6 @@ def makeAccount():
     This constructs a new account from the user's information.
     :return: 
     """
-    # Account.query.filter_by(id=flask.session['Googledata']['id']).first().googleNum
     if 'credentials' not in flask.session or 'Googledata' not in flask.session:
         return redirect(url_for('main.mainPage'))
     if None != Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first():
@@ -146,54 +147,13 @@ def makeAccount():
         form = CreateAccountForm(FirstName_Box=flask.session['Googledata']["given_name"][:], LastName_Box=flask.session['Googledata']["family_name"][:])
         # TODO: Remove Googledata from session if you can, but doing this isn't that important.
         if request.method == 'POST':
-            # print(form.data)  # returns a dictionary with keys that are the fields in the table
             if form.validate_on_submit() == False:
-                flash('All fields are required.')
                 return render_template("NewAccount.html", form=form)
             else:
                 Account.query.createAccount(formData=form.data, session=session)
-                print(Account.query.all())
-                print(Account.query.all()[0].accessData())
                 return redirect(url_for('main.mainPage'))
         elif request.method == 'GET':
             return render_template("NewAccount.html", form=form)
-
-
-@main.route('/editAccount', methods=['POST', 'GET'])
-@login_required
-def editAccount():
-    """
-    This edits the user's account information.
-    :return: 
-    """
-    # print('made it to stage one')
-    if None == Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first(): # This may no longer be necessary since there is the login decorator
-        # print('took a wrong turn')
-        return redirect(url_for('main.mainPage'))
-    else:
-        currentData = Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first().accessData()
-        form = ModifyAccountForm(FirstName_Box=currentData['firstName'][:], LastName_Box=currentData['lastName'][:],
-                                 Email_Box=currentData['email'][:], Age_Box=currentData['age'][:],
-                                 Height_Box=currentData['height'][:],
-                                 StudentIDNumber_Box=currentData['studentIDNumber'][:],
-                                 PhoneNumber_Box=currentData['phoneNumber'][:],
-                                 CarCapacity_Box=currentData['carCapacity'][:])
-        if request.method == 'POST':
-            # print(form.data)  # returns a dictionary with keys that are the fields in the table
-            if form.validate_on_submit() == False:
-                flash('All fields are required.')
-                return render_template("ModifyAccount.html", form=form)
-            else:
-                flash('Account was successfully modified')
-                selectedUser = Account.query.filter_by(googleNum=flask.session['Googledata']['id']).first()
-                selectedUser.modifyAccount(form.data, session)
-                tripSelves = Participants.query.filter_by(accountID=flask.session['Googledata']['id']).all()
-                for those in tripSelves:
-                    those.changeUserInfo(selectedUser)
-                db.session.commit()
-                return redirect(url_for('main.profile'))
-        elif request.method == 'GET':
-            return render_template("ModifyAccount.html", form=form)
 
 
 @main.route('/gCallback')

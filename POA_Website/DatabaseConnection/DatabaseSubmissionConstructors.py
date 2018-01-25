@@ -1,8 +1,6 @@
 import datetime,requests, re
 
 class MasterConstructor:
-    MASTER_DB_ORDER = ['Trip_Name', 'Departure_Date', 'Return_Date']
-
     def __init__(self, form):
         """
         :param form:
@@ -16,14 +14,16 @@ class MasterConstructor:
         :return: Dictionary for creating Master row in table
         """
         Master = {} # consider using dict.values()
-        for index in MasterConstructor.MASTER_DB_ORDER:
-            Master[index] = form[index]
-        Master['Trip_Location'] = form['Trip_Location'] + ', ' + form['Trip_State']
-        Master['Details'] = self.MakeShortDetails(str(form['Details']))
+        # Master["timeTillUnfreeze"], Master["Frozen"] = self.FindNextWensdayMeeting(form["departureDate"], form["returnDate"])
+        Master["Trip_Name"] = form["tripName"]
+        Master["Departure_Date"] = form["departureDate"]
+        Master["Return_Date"] = form["returnDate"]
+        Master['Trip_Location'] = form['tripLocation'] + ', ' + form['tripState']
+        Master['Details'] = self.MakeShortDetails(str(form['details']))
         Master['Post_Time'] = datetime.date.today()
         Master['Participant_num'] = 1
-        Master['Car_Cap'] = form['Car_Cap']
-        if form['Driver']:
+        Master['Car_Cap'] = form['maxCars']
+        if form['driver']:
             Master['Car_Num'] = 1
         else:
             Master['Car_Num'] = 0
@@ -39,11 +39,29 @@ class MasterConstructor:
         else:
             return details
 
+    def FindNextWensdayMeeting(self, departureDate, returnDate, curentDate=datetime.datetime.today()):
+        """
+        :param departureDate: date trip leaves
+        :return: if the trip should be frozen or not and when it should be unfrozen.
+        This method makes the assumption that departureDate and returnDate are after one and other
+        as well as that they are relevant ie not making a trip back in the 90's
+        """
+        daysTillNextMeeting = 0  # number of days till the next wensday meeting
+        dateFrozenTill = datetime.datetime(year=departureDate.year, month=departureDate.month, day=departureDate.day, hour=22)
+        while dateFrozenTill.weekday() != 2: #3 = wenseday
+            dateFrozenTill += datetime.timedelta(days=1)
+            daysTillNextMeeting += 1
+        if dateFrozenTill >= returnDate:
+            frozen = False
+        else:
+            frozen = True
+        print(departureDate)
+        print(dateFrozenTill, frozen, daysTillNextMeeting)
+        return dateFrozenTill, frozen
+
 
 
 class TripConstructor:
-    TRIPS_DB_ORDER = ['Details', 'GearList', 'Trip_Meeting_Place',
-                      'Additional_Cost', 'Cost_Breakdown']
 
     WUNDERGROUND_KEY = 'dd0fa4bc432d5dbd'
 
@@ -61,15 +79,26 @@ class TripConstructor:
         :return: The List for creating row in trip table
         """
         Trip = {}
-        location = str(Form['Trip_Location'] + ',' + Form['Trip_State'])
+        location = str(Form['tripLocation'] + ',' + Form['tripState'])
         locationData = self.getGoogleMapsData(location)
-        for index in TripConstructor.TRIPS_DB_ORDER:
-            Trip[index] = Form[index]
-        distance = self.getDistance(locationData)
-        total_Cost = distance*.17*2 + int(Form['Additional_Cost'])
-        Trip["Substance_Free"] = int(Form["Substance_Free"])
-        Trip['Additional_Cost'] = int(Form['Additional_Cost'])
-        Trip["Total_Cost"] = total_Cost
+        #for index in TripConstructor.TRIPS_DB_ORDER:
+        #    Trip[index] = Form[index]
+        #TRIPS_DB_ORDER = ['Details', 'GearList', 'Trip_Meeting_Place',
+        #                  'Additional_Cost', 'Cost_Breakdown']
+        Trip["Details"] = Form["details"]
+        Trip["GearList"] = Form["gearList"]
+        Trip["Trip_Meeting_Place"] = Form["meetingPlace"]
+        # TODO: Bring the additional cost and cost breakdown entries into the 21st century.
+        Trip["Costs"] = Form["costDict"]
+        Trip["Costs"]["POAGasCost"] = self.getDistance(locationData) * 0.17 * 2
+        # Trip["Additional_Cost"] = Form["costMagnitude"]
+        # Trip["Cost_Breakdown"] = Form["costMagnitude"]
+        # distance = self.getDistance(locationData)
+        # total_Cost = distance*.17*2 + int(Form['costMagnitude'])
+        Trip["Substance_Free"] = Form["substanceFree"]
+        # TODO: make these into lists or something, current code should break. People's arms. Arms will be broken.
+        # Trip['Additional_Cost'] = int(Form['costMagnitude'])
+        # Trip["Total_Cost"] = total_Cost
         Trip["Weather_Forcast"] = str(self.getWeather(locationData))
         Trip["Master_Key"] = master_key
         # print(Trip)

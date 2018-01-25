@@ -1,0 +1,59 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" align="center"><i>Admin Dialogue</i></h4>
+</div>
+<div class="modal-body">
+    <a class="userID" id={{ userID }}></a>
+    <div class="form-check">
+        <label class="form-check-label">
+            {% if isAdmin == 1 %}
+                <input type="checkbox" class="form-check-input" checked>
+            {% else %}
+                <input type="checkbox" class="form-check-input">
+            {% endif %}
+            Make this user an admin
+        </label>
+    </div>
+    <p></p>
+    {# Add the ability to make this person and admin here vvv.#}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Trip Name</th>
+                <th scope="col">On trip?</th>
+                <th scope="col">Car Capacity</th>
+                {# Do the trip locking elsewhere. #}
+            </tr>
+        </thead>
+        <tbody>
+            {% for trip in trips %}
+                <tr>
+                    <td>{{ trip["trip"].Trip_Name }}</td>
+                    <td>
+                        {% if trip["onTheTrip"] %}
+                            <input id={{ trip["trip"].id|string + "OnTrip" }} type="checkbox" class="form-check-input" checked>
+                        {% else %}
+                            <input id={{ trip["trip"].id|string + "OnTrip" }} type="checkbox" class="form-check-input">
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class ="form-group">
+                            <select id={{ trip["trip"].id|string + "CarCapacity" }} class="form-control">
+                                {% for iterator in range(0, 9) %}
+                                    {% if trip["onTheTrip"] and trip["numSeats"] == iterator %}
+                                        <option selected value="{{ iterator }}">{{ iterator }}</option>
+                                    {% else %}
+                                        <option value="{{ iterator }}">{{ iterator }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button id="submitBtn"  type="button" class="btn btn-primary">Submit</button>
+</div>

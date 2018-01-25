@@ -1,110 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Pitzer Outdoor Adventures</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-{#    <style src = "POACreateTripCSS.css"></style>#}
-    <script>
-    $(document).ready(function ()
-    {
-        $("#addTrip").click(function ()
-        {
-            console.log("clicked");
-            $.get('/api/addTrip')
-            .done(function (data)
-            {
-                console.log(data);
-                $('#message-model-content').html(data);
-                $("#generalizedModal").modal("show");
-            });
-        })
-        $("#notLoggedIn").click(function ()
-        {
-            console.log("clicked");
-            $.get('/api/popUpMessage/' + 'Not Logged In' + "/" + "You must be logged in to add a new trip.")
-            .done(function (data)
-            {
-                console.log(data);
-                $('#message-model-content').html(data);
-                $("#generalizedModal").modal("show");
-            });
-        })
-    })
-    </script>
-</head>
-<body>
+{% extends "Base.html" %}
 
-<div class="modal fade message-popup" id="generalizedModal" tabindex="-1" role="dialog" aria-labelledby="user1Message">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" id="message-model-content">
-            {# code gets inserted here #}
-        </div>
-    </div>
-</div>
+{% block head %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.8.0/parsley.min.js"></script>
+    <link href="static/homePage.css" rel="stylesheet">
+    <script src="static/homePage.js"></script>
+{% endblock %}
 
-<div class="container">
-    <div class="row">
-        <h3> Trip List
-            <div class='pull-right'>
-                {% if 'credentials' in session %}
-                    <a class="btn btn-primary" href={{url_for('main.profile')}} role="button">
-                    Account Info
-                    </a>
-                {% else %}
-                    <a class="btn btn-primary" href={{url_for('main.login')}} role="button">
-                    Login
-                    </a>
-                {% endif %}
+
+{% block body %}
+    <div class="img-wrapper">
+            <img class="img-fluid" src="static/Car.jpg">
+            <div class="img-overlay">
+              <div class="container">
+                    <div class="row">
+                        <div class="slide-text slide_style_left">
+                            <h1 data-animation="animated zoomInRight">Pitzer Outdoor Adventures</h1>
+                            <p data-animation="animated fadeInLeft">The mountains are calling and I must go</p>
+                            {% if 'credentials' in session %}
+                                <a href="#" class="btn btn-primary" id="addTrip" data-animation="animated fadeInRight">Lead a trip...</a>
+                            {% else %}
+                            <a href="#" class="btn btn-primary" id="notLoggedIn" data-animation="animated fadeInRight">Lead a trip...</a>
+                            {% endif %}
+                    </div>
+                </div>
             </div>
-        </h3>
-    </div>
-
-    <div class="row">
-        <div class="panel panel-primary filterable">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Trip Name</th>
-                        <th>Details</th>
-                        <th>Departure Date</th>
-                        <th>Return Date</th>
-                        <th>Participants</th>
-                        <th>Participant Cap</th>
-                        <th>Cars</th> {#  anyone have a better name #}
-                        <th>Car Cap</th>
-                        <th>Trip Location</th>
-                    </tr>
-                </thead>
-                <tbody class="entries">
-                {% for TableRow in entries %}
-                <tr>
-                    <td > <a href={{ url_for('main.tripPage', TripKey = TableRow.id)}}>{{ TableRow.Trip_Name}}</a></td>
-                    <td> {{ TableRow.Details_Short }}</td>
-                    <td> {{ TableRow.Departure_Date }}</td>
-                    <td> {{ TableRow.Return_Date }}</td>
-                    <td> {{ TableRow.Participant_Num }}</td>
-                    <td> {{ TableRow.Participant_Cap}}</td>
-{#                    <td>Why would it work?</td>#}
-                    <td> {{ TableRow.Car_Num}}</td>
-                    <td> {{ TableRow.Car_Cap}}</td>
-                    <td> {{ TableRow.Trip_Location}}</td>
-                </tr>
-                {% else %}
-                    <li><em>Unbelievable. No entries here so far</em></li>
-                {% endfor %}
-                </tbody>
-            </table>
-            {% if 'credentials' in session %}
-                <a class="btn" href="#" id="addTrip">Add Trip</a>
-            {% else %}
-                <a class="btn" href="#" id="notLoggedIn">Add Trip</a>
-            {% endif %}
         </div>
     </div>
-</div>
-</body>
-</html>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>So what is Pitzer Outdoor Adventures?</h2>
+                <p>
+                    We are a organization dedicated to providing a safe inclusive space for
+                    students of all backgrounds and identities to gain access to the outdoors.
+                </p>
+                <p>
+                    Bellow you will see a list of the trips that are going out in the future
+                </p>
+            </div>
+        </div>
+        {% for Row in entries %}
+        <div class="row" >
+
+        <a name="trips"></a>
+            <div class="card-deck">
+            {% for card in Row %}
+                 <div class="col">
+            <div  class="card">
+                <div class="card-block">
+                    <div class="card-body">
+                          <h4 class="card-title"><a href={{ url_for('main.tripPage', TripKey = card.id)}}>{{ card.Trip_Name}}</a></h4>
+                          <p class="card-text"> Details: {{ card.Details_Short  }}</p>
+                          <p class="card-text">Departure Date: {{  card.Return_Date }}</p>
+                          <p class="card-text"><small class="text-muted">Number of spaces left: {{  card.Participant_Cap - card.Participant_Num }}</small></p>
+                        </div>
+                    </div>
+            </div>
+          </div>
+            {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}
+

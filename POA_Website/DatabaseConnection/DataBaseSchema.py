@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy, inspect
-
+import json
 from DatabaseConnection.DatabaseQuery import Master_db_query, Participant_manipulation_query, Account_manipulation_query
 from DatabaseConnection.DatabaseSubmissionConstructors import MasterConstructor, TripConstructor
 
@@ -13,6 +13,7 @@ class Master(db.Model):
     __tablename__ = "Master"
     query_class = Master_db_query
     id = db.Column(db.Integer, primary_key=True, nullable=False, unique=True)
+    Frozen = db.Column(db.Boolean)
     Trip_Name = db.Column(db.String(100))
     Departure_Date = db.Column(db.Date)
     Return_Date = db.Column(db.Date)
@@ -22,12 +23,15 @@ class Master(db.Model):
     Participant_Cap = db.Column(db.Integer)
     Car_Num = db.Column(db.Integer)
     Car_Cap = db.Column(db.Integer)
+    timeTillUnfreeze = db.Column(db.Integer)
     Trip_Location = db.Column(db.String(100))
     Trip_Participants = db.relationship('Participants', backref = "Master", lazy='dynamic', cascade="all,delete")
     Trip_Trip = db.relationship('Trips', backref="Master", lazy='dynamic', cascade="all,delete")
 
     def __init__(self, form):
         MasterDict = MasterConstructor(form).master
+        self.Frozen = False
+        self.timeTillUnfreeze = 900
         self.Trip_Name = MasterDict['Trip_Name']
         self.Departure_Date = MasterDict['Departure_Date']
         self.Return_Date = MasterDict['Return_Date']
@@ -42,6 +46,29 @@ class Master(db.Model):
 
     def __repr__(self):
         return '<Trip %r> ' + str(self.Trip_Name) + str(self.Details_Short)
+
+    def accessData(self):
+        dataDict = {
+            "Frozen" : self.Frozen,
+            "Trip_Name" : self.Trip_Name,
+            "Departure_Date" : self.Departure_Date,
+            "Return_Date" : self.Return_Date,
+            "Details_Short" : self.Details_Short,
+            "Post_Time" : self.Post_Time,
+            "Participant_Num" : self.Participant_Num,
+            "Participant_Cap" : self.Participant_Cap,
+            "Trip_Location" : self.Trip_Location,
+            "Car_Num" : self.Car_Num,
+            "Car_Cap" : self.Car_Cap
+        }
+        return dataDict
+
+    @property
+    def serializeTrip(self):
+        out = self.accessData()
+        out['trip'] = "<span class='itemName'" + " id=" + str(self.id) + "><a  href='#'>" + self.Trip_Name + "</a></span>"#create tag for later use as jquery identifyer
+        out["id"] = self.id
+        return out
 
 
 class Trips(db.Model):
@@ -60,9 +87,10 @@ class Trips(db.Model):
     #Coordinator_Phone = db.Column(db.String(80))
     Gear_List = db.Column(db.String(3000))
     Trip_Meeting_Place = db.Column(db.String(120))
-    Additional_Costs = db.Column(db.Integer)
-    Total_Cost = db.Column(db.Integer)
-    Cost_BreakDown = db.Column(db.String(3000))
+    # Additional_Costs = db.Column(db.Integer)
+    # Total_Cost = db.Column(db.Integer)
+    # Cost_BreakDown = db.Column(db.String(3000))
+    Costs = db.Column(db.String(3000))
     Substance_Free = db.Column(db.Integer)
     Weather_Forecast = db.Column(db.String(30000)) # Definitely not an optimal way of doing this.
 
@@ -75,9 +103,10 @@ class Trips(db.Model):
         #self.Coordinator_Phone = tempData["phoneNumber"]
         self.Gear_List = TripDict['GearList']
         self.Trip_Meeting_Place = TripDict['Trip_Meeting_Place']
-        self.Additional_Costs = TripDict['Additional_Cost']#Name changes
-        self.Total_Cost = TripDict["Total_Cost"]
-        self.Cost_BreakDown = TripDict['Cost_Breakdown']#name Changes
+        # self.Additional_Costs = TripDict['Additional_Cost']#Name changes
+        # self.Total_Cost = TripDict["Total_Cost"]
+        # self.Cost_BreakDown = TripDict['Cost_Breakdown']#name Changes
+        self.Costs = json.dumps(TripDict["Costs"])
         self.Substance_Free = TripDict["Substance_Free"]
         self.Weather_Forecast = TripDict["Weather_Forcast"]#name change
         self.Master_Key = TripDict['Master_Key']
@@ -129,6 +158,13 @@ class Participants(db.Model):
         self.Driver = isDriver
         self.Car_Capacity = carSeats
         self.OpenLeader = openCoordinator
+        master = Master.query.filter_by(id=self.Master_Key).first()
+        driverList = Participants.query.filter_by(Master_Key=self.Master_Key, Driver=True).all()
+        master.Car_Num = len(driverList)
+        sumCapacity = 0
+        for people in driverList:
+            sumCapacity += people.Car_Capacity
+        master.Participant_Cap = sumCapacity
 
 class TripModel():
     """
@@ -167,6 +203,8 @@ class Account(db.Model):
     # Maybe look up a way to record how many objects are in your database?
     id = db.Column(db.Integer, primary_key=True)
     googleNum = db.Column(db.String(80), unique=True)
+    # admin=0 is not an admin, admin=1 is an admin, admin=2 is a master admin.
+    admin = db.Column(db.Integer)
     picture = db.Column(db.String(200))
     #newVar = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80)) #, unique=True)
@@ -190,6 +228,9 @@ class Account(db.Model):
     # In total, there are 11 variables so far per account.
 
     def __init__(self, formData, session):
+        self.admin = 0
+        if (Account.query.first() == None):
+            self.admin = 1
         self.googleNum = str(session['Googledata']['id'][:]) # Given
         self.picture = str(session['Googledata']['picture'][:])
         self.username = str(formData['FirstName_Box'][:] + ' ' + formData['LastName_Box'][:]) #username
@@ -240,6 +281,7 @@ class Account(db.Model):
     def accessData(self):
         dataDict = {
             'googleNum' : str(self.googleNum)[:],
+            'admin' : str(self.admin)[:],
             'picture' : str(self.picture)[:],
             'username' : str(self.username)[:],
             'email' : str(self.email)[:],
@@ -255,5 +297,9 @@ class Account(db.Model):
             'locale': str(self.locale)[:]
         }
         return dataDict
-
-
+    @property
+    def serializeUser(self):
+        out = self.accessData()
+        out['username'] = "<span class='itemName' " + "id=" + str(self.id) + "><a  data-toggle='modal' >" + self.username + "</a></span>"#create tag for later use as jquery identifyer
+        out["id"] = self.id
+        return out

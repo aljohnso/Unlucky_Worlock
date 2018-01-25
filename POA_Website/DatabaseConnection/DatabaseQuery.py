@@ -1,4 +1,4 @@
-import datetime
+import datetime, re
 
 from flask_sqlalchemy import BaseQuery
 
@@ -17,8 +17,30 @@ class Master_db_query(BaseQuery):
             for trip in expiredTrips:
                 Schema.db.session.delete(trip)#delete every trip and there childeren
             Schema.db.session.commit()#commit changes
-
             return Schema.Master.query.all()
+    def updateUser(self, update, isAdminNow):
+        # ourTrip = Schema.Master.query.filter_by(id=update["tripID"]).first()
+        print(update)
+        ourAccount = Schema.Account.query.filter_by(id=int(update["userID"])).first()
+        ourParticipant = Schema.Participants.query.filter_by(Master_Key=update["tripID"], accountID=ourAccount.googleNum).first()
+        if bool(update["add"]):
+            if ourParticipant is None:
+                Schema.Participants.query.addParticipant(tempUser=ourAccount, isDriver=(int(update["carCapacity"]) > 0), carSeats=int(update["carCapacity"]), masterID=update["tripID"], isLeader=False, isOpenLeader=False)
+            else:
+                if int(update["carCapacity"]) > 0:
+                    ourParticipant.Driver = True
+                    ourParticipant.Car_Capacity = int(update["carCapacity"])
+                else:
+                    ourParticipant.Driver = False
+                    ourParticipant.Car_Capacity = 0
+        else:
+            if ourParticipant is not None:
+                Schema.Participants.query.removeParticipant(personID=ourAccount.googleNum, tripID=update["tripID"])
+        if isAdminNow:
+            ourAccount.admin = 1
+        else:
+            ourAccount.admin = 0
+        Schema.db.session.commit()
 
 class Participant_manipulation_query(BaseQuery):
     def addParticipant(self, tempUser, isDriver, carSeats, masterID, isLeader, isOpenLeader):
@@ -28,6 +50,8 @@ class Participant_manipulation_query(BaseQuery):
         # TODO: THE BELOW TODO IS REALLY IMPORTANT, because you have so many stupid arguments in this function that
         # TODO: cont. ... COULD BE BETTER ADDRESSED IN CONTROLLERS' addParticipant!!!
         # TODO: Write a function to do all this stuff in the else case that uses the decorated login protector.
+        if Schema.Participants.query.filter_by(Master_Key=masterID, Leader=True).first() is None:
+            isLeader = True
         participant = Schema.Participants(tempUser, isDriver, carSeats, masterID, isLeader, isOpenLeader)
         Schema.db.session.add(participant)
         Schema.db.session.commit()
@@ -46,10 +70,20 @@ class Participant_manipulation_query(BaseQuery):
 
     def removeParticipant(self, personID, tripID):
         tempParticipant = Schema.Participants.query.filter_by(accountID=personID, Master_Key=tripID)
+        leaderGone = tempParticipant.first().Leader
         #print(tempParticipant.first().Master_Key)
         # tripKey = tempParticipant.first().Master_Key
         tempMaster = Schema.Master.query.filter_by(id=tripID).first()
         tempParticipant.delete()
+        # print("Person got deleted.")
+        otherParticipant = Schema.Participants.query.filter_by(Master_Key=tripID).first()
+        nominatedLeader = Schema.Participants.query.filter_by(Master_Key=tripID, OpenLeader=True).first()
+        if nominatedLeader is not None and leaderGone:
+            nominatedLeader.Leader = True
+            # print("Made a nominated person the leader.")
+        elif otherParticipant is not None and leaderGone:
+            otherParticipant.Leader = True
+            # print("Made a non-nominated person the leader.")
         Schema.db.session.commit()
         tempMaster.Participant_Num = len(Schema.Participants.query.filter_by(Master_Key=tripID).all())
         driverList = Schema.Participants.query.filter_by(Master_Key=tripID, Driver=True).all()
@@ -78,7 +112,27 @@ class Participant_manipulation_query(BaseQuery):
 
 
 class Account_manipulation_query(BaseQuery):
-
     def createAccount(self, formData, session):
         Schema.db.session.add(Schema.Account(formData, session))
         Schema.db.session.commit()
+
+    def updateAccount(self, update, user):
+        out = {}
+        if not update['heightinput'].isdigit():
+            out['heightinput'] = "Height must be an number in inches, no units"
+        if not update['studentIDinput'].isdigit():
+            out['studentIDinput'] = "Student ID must be a number"
+        if not update["ageinput"].isdigit():
+            out["ageinput"] = "Age must be a number"
+        if not re.match("(\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]??\d{4}|\d{3}[-\.\s]??\d{4})", update['phoneNumerinput']):
+            out['phoneNumerinput'] = "Phone number must be of form 000-000-0000"
+        if not re.match("[^@]+@[^@]+\.[^@]+", update['emailinput']):
+            out['emailinput'] = "We do not recognize this as a valid email address"
+        if not out:
+            user.height = update['heightinput']
+            user.email = update['emailinput']
+            user.studentIDNumber = update['studentIDinput']
+            user.age = update["ageinput"]
+            user.phoneNumber = update['phoneNumerinput']
+            Schema.db.session.commit()
+        return out

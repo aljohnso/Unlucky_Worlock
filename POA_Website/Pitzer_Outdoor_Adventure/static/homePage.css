@@ -1,0 +1,38 @@
+.row {
+    margin-left: -20px;
+    *zoom: 1;
+    margin-top: 50px;
+}
+.img-wrapper {
+  position: relative;
+ }
+
+.img-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 60%;
+  left: 0;
+  right: 10%;
+  text-align: left ;
+}
+
+.img-overlay:before {
+  content: ' ';
+  display: block;
+  /* adjust 'height' to position overlay content vertically */
+  height: 50%;
+}
+
+.slide-text{
+   position: relative;
+    left: 30px;
+}
+
+.slide-text > p{
+    font-size: 15px;
+    color: black;
+}
+.slide-text > h1{
+    font-size: 30px;
+    color:black;
+}

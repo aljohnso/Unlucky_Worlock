@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Pitzer Outdoor Adventures</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-{#    <style src = "POACreateTripCSS.css"></style>#}
+{% extends "Base.html" %}
+
+{% block head %}
+    <script src="/static/profileEdit.js"></script>
     <script src="/static/UserProfile.js"></script>
     <link rel="stylesheet" href="/static/UserProfile.css">
-    <script>
+        <script>
         $(document).ready(function ()
         {
             $("#tripDisplay").click(function ()
@@ -24,90 +18,159 @@
                     $("#generalizedModal").modal("show");
                 });
             });
+            $("#saveChanges").hide();
+            editAccount();
         });
     </script>
-</head>
-<body>
-<div class="modal fade message-popup" id="generalizedModal" tabindex="-1" role="dialog" aria-labelledby="user1Message">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" id="message-model-content">
-            {# code gets inserted here #}
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+{% endblock %}
+
+
+
+{% block body %}
+    <span hidden id={{ user.googleNum }} class="userID"></span>
+    <div class="fb-profile">
+        <img align="left" class="fb-image-lg" src="static/tent.jpg" alt="Profile image example"/>
+        <img align="left" class="fb-image-profile thumbnail" src={{ user.accessData()['picture'] }} alt="Profile image example"/>
+        <div class="fb-profile-text">
+            <h1>{{ user.accessData()['username'] }}</h1>
+                <a href="{{ "mailto:" + "aljohnso@students.pitzer.edu" }}" data-original-title="Send Feedback to Website Developers!" data-toggle="tooltip" role="button" class="btn btn-sm btn-primary"><i class="fa fa-envelope-open"></i></a>
+                <a id="editAccount"  data-original-title="Edit Profile" data-toggle="tooltip" role="button" class="btn btn-sm btn-warning"><i class="fa fa-pencil-square-o"></i></a>
+                <a href={{ url_for('main.logout') }} data-original-title="Logout" data-toggle="tooltip" role="button" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+            <a id="saveChanges"  data-original-title="Save changes" data-toggle="tooltip" role="button" class="btn btn-sm btn-success "><i class="fa fa-check" style="color: white"></i></a>
         </div>
     </div>
-</div>
     <div class="container">
-      <div class="row">
-      <div class="col-md-5  toppad  pull-right col-md-offset-3 ">
-           <A href={{url_for('main.mainPage')}} >Return to trips page</A>
-
-        {# <A href={{url_for('main.logout')}} >Logout</A> #}
-          {# Distance these two buttons from each other, so that "Logout" is plastered to the right! #}
-       <br>
-    {# <p class=" text-info">May 05,2014,03:00 pm </p> #}
-    <p class=" text-info">{{ time.strftime('%B') }} {{ time.day }}, {{ time.year }}, {{ time.strftime('%I') }}:{{ time.strftime('%M') }} {{ time.strftime('%p').lower() }}</p>
-          {# Make the above time real! FINISHED #}
-      </div>
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
-          <div class="panel panel-info">
-            <div class="panel-heading">
-              <h3 class="panel-title">{{ user.accessData()['username'] }}</h3>
-            </div>
-            <div class="panel-body">
-              <div class="row">
-                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src={{ user.accessData()['picture'] }} class="img-circle img-responsive"> </div>
-
-                <div class=" col-md-9 col-lg-9 ">
-                  <table class="table table-user-information">
+        <div clas="row">
+            <div class="col pull-left">
+                <table class="table table-user-information">
                     <tbody>
                       <tr>
                         <td>Student ID #</td>
-                        <td>{{ user.accessData()['studentIDNumber'] }}</td>
+                        <td data-parsley-type="integer" class="UserInfo" id="studentID">{{ user.accessData()['studentIDNumber'] }}</td>
                       </tr>
-                      {# <tr> #}
+                       <tr>
+                        <td>Email</td>
+                        <td class="UserInfo" id="email">{{ user.accessData()['email'] }}</td>
+                      </tr>
+                        <td>Phone Number</td>
+                      <td class="UserInfo" id="phoneNumer">{{ user.accessData()['phoneNumber'] }}</td>
+                      </tr>
                       <tr>
                         <td>Age</td>
-                        <td>{{ user.accessData()['age'] }}</td>
+                        <td class="UserInfo" id="age">{{ user.accessData()['age'] }}</td>
                       </tr>
                       <tr>
-                        <td>Height</td>
-                        <td>{{ user.accessData()['height'] }} inches</td>
+                        <td>Height (inches)</td>
+                        <td class="UserInfo" id="height">{{ user.accessData()['height']}}</td>
                       </tr>
+                      <tr>
+                        <td>Car Capacity</td>
+                        <td class="UserInfo" id="carCapacity">{{ user.accessData()['carCapacity'] }}</td>
+                      </tr>
+                      <tr>
                       <tr>
                         <td>Diet Restrictions</td>
                         <td>{{ user.accessData()['dietRestrictions'] }}</td>
                       </tr>
                       <tr>
                         <td>Allergies</td>
-                        <td>{{ user.accessData()['allergies'] }}</td>
-                      </tr>
-                      <tr>
-                        <td>Car Capacity</td>
-                        <td>{{ user.accessData()['carCapacity'] }}</td>
-                      </tr>
-                      <tr>
-                        <td>Email</td>
-                        <td><a href="{{ "mailto:" + user.accessData()['email'] }}">{{ user.accessData()['email'] }}</a></td>
-                      </tr>
-                        <td>Phone Number</td>
-                        <td>{{ user.accessData()['phoneNumber'] }}<br><br>{# 555-4567-890(Mobile) #}</td>
+                        <td >{{ user.accessData()['allergies'] }}</td>
                       </tr>
                     </tbody>
                   </table>
-
-                  <a id="tripDisplay" type="button" class="btn btn-primary">My Trips</a>
-                  {# <a href="#" class="btn btn-primary">Something else maybe?</a> #}
+                            <a href="admin/commandCenter">Admin Options</a>
                 </div>
-              </div>
-            </div>
-              <div class="panel-footer">
-                <a data-original-title="Send Feedback to Website Developers!" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
-                <a href={{ url_for('main.editAccount') }} data-original-title="Edit Profile" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
-                <span class="pull-right">
-                    <a href={{ url_for('main.logout') }} data-original-title="Logout" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
-                </span>
-            </div>
-          </div>
+
         </div>
-      </div>
+
     </div>
-</body>
+
+
+<!-- /container -->
+{% endblock %}
+{# <div class="container">#}
+{#        <div class="row">#}
+{#            <div class="col-md-1 toppad pull-left col-md-offset-3">#}
+{#                <a href="admin/commandCenter" type="button" class="btn btn-primary">Admin Options</a>#}
+{#            </div>#}
+{#            <div class="col-md-5 toppad pull-right col-md-offset-3 ">#}
+{#           <A href={{url_for('main.mainPage')}} >Return to trips page</A>#}
+{##}
+        {# <A href={{url_for('main.logout')}} >Logout</A> #}
+          {# Distance these two buttons from each other, so that "Logout" is plastered to the right! #}
+{#       <br>#}
+{#            </div>#}
+{#            <div class="col-md-5 pull-right col-md-offset-3 ">#}
+{##}
+    {# <p class=" text-info">May 05,2014,03:00 pm </p> #}
+{#    <p class=" text-info">{{ time.strftime('%B') }} {{ time.day }}, {{ time.year }}, {{ time.strftime('%I') }}:{{ time.strftime('%M') }} {{ time.strftime('%p').lower() }}</p>#}
+          {# Make the above time real! FINISHED #}
+{#      </div>#}
+{#        </div>#}
+{#      <div class="row">#}
+{##}
+{#        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >#}
+{#          <div class="panel panel-info">#}
+{#            <div class="panel-heading">#}
+{#              <h3 class="panel-title">{{ user.accessData()['username'] }}</h3>#}
+{#            </div>#}
+{#            <div class="panel-body">#}
+{#              <div class="row">#}
+{#                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src={{ user.accessData()['picture'] }} class="img-circle img-responsive"> </div>#}
+{##}
+{#                <div class=" col-md-9 col-lg-9 ">#}
+{#                  <table class="table table-user-information">#}
+{#                    <tbody>#}
+{#                      <tr>#}
+{#                        <td>Student ID #</td>#}
+{#                        <td>{{ user.accessData()['studentIDNumber'] }}</td>#}
+{#                      </tr>#}
+                      {# <tr> #}
+{#                      <tr>#}
+{#                        <td>Age</td>#}
+{#                        <td>{{ user.accessData()['age'] }}</td>#}
+{#                      </tr>#}
+{#                      <tr>#}
+{#                        <td>Height</td>#}
+{#                        <td>{{ user.accessData()['height'] }} inches</td>#}
+{#                      </tr>#}
+{#                      <tr>#}
+{#                        <td>Diet Restrictions</td>#}
+{#                        <td>{{ user.accessData()['dietRestrictions'] }}</td>#}
+{#                      </tr>#}
+{#                      <tr>#}
+{#                        <td>Allergies</td>#}
+{#                        <td>{{ user.accessData()['allergies'] }}</td>#}
+{#                      </tr>#}
+{#                      <tr>#}
+{#                        <td>Car Capacity</td>#}
+{#                        <td>{{ user.accessData()['carCapacity'] }}</td>#}
+{#                      </tr>#}
+{#                      <tr>#}
+{#                        <td>Email</td>#}
+{#                        <td><a href="{{ "mailto:" + user.accessData()['email'] }}">{{ user.accessData()['email'] }}</a></td>#}
+{#                      </tr>#}
+{#                        <td>Phone Number</td>#}
+{#                        <td>{{ user.accessData()['phoneNumber'] }}<br><br>{# 555-4567-890(Mobile) #}</td>#}
+{#                      </tr>#}
+{#                    </tbody>#}
+{#                  </table>#}
+{##}
+{#                  <a id="tripDisplay" type="button" class="btn btn-primary">My Trips</a>#}
+                  {# <a href="#" class="btn btn-primary">Something else maybe?</a> #}
+{#                </div>#}
+{#              </div>#}
+{#            </div>#}
+{#              <div class="panel-footer">#}
+{#                <a href="{{ "mailto:" + "" }}" data-original-title="Send Feedback to Website Developers!" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>#}
+{#                <a href={{ url_for('main.editAccount') }} data-original-title="Edit Profile" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>#}
+{#                <span class="pull-right">#}
+{#                    <a href={{ url_for('main.logout') }} data-original-title="Logout" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>#}
+{#                </span>#}
+{#            </div>#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+{#    </div> #}
