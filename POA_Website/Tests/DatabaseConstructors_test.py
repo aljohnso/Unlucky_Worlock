@@ -83,12 +83,18 @@ class DatabaseConstructorTests(unittest.TestCase):
 
     def test_FindNextWensdayMeeting(self):
         master = MasterConstructor(DatabaseConstructorTests.CorrecttestInput)
-        numberOfDays, frozen = master.FindNextWensdayMeeting(departureDate=datetime.datetime(year=2018, month=1, day=1,  hour=0), returnDate=datetime.datetime(year=2018, month=1, day=1,  hour=0))
-        print(numberOfDays, frozen)
-        numberOfDays, frozen = master.FindNextWensdayMeeting(departureDate=datetime.datetime(year=2018, month=1, day=1,  hour=0), returnDate=datetime.datetime(year=2018, month=1, day=2, hour=0))
-        print(numberOfDays, frozen)
-        numberOfDays, frozen = master.FindNextWensdayMeeting(departureDate=datetime.datetime(year=2018, month=1, day=4,  hour=0), returnDate=datetime.datetime(year=2018, month=1, day=5, hour=0))
-        print(numberOfDays, frozen)
+        dateOfUnfreeze, frozen = master.FindNextWensdayMeeting(departureDate=datetime.datetime(year=2018, month=1, day=7,  hour=0), returnDate=datetime.datetime(year=2018, month=1, day=7,  hour=0), curentDate=datetime.datetime(year=2018, month=1, day=1,  hour=0))
+        self.assertEqual(dateOfUnfreeze, datetime.datetime(year=2018, month=1, day=2,  hour=22, minute=0))
+        self.assertEqual(frozen, True)
+        print(dateOfUnfreeze, frozen)
+        dateOfUnfreeze, frozen = master.FindNextWensdayMeeting(departureDate=datetime.datetime(year=2018, month=1, day=1,  hour=0), returnDate=datetime.datetime(year=2018, month=1, day=2, hour=0), curentDate=datetime.datetime(year=2018, month=1, day=1,  hour=0))
+        self.assertEqual(dateOfUnfreeze, None)
+        self.assertEqual(frozen, False)
+        print(dateOfUnfreeze, frozen)
+        dateOfUnfreeze, frozen = master.FindNextWensdayMeeting(departureDate=datetime.datetime(year=2018, month=1, day=11,  hour=0), returnDate=datetime.datetime(year=2018, month=1, day=11, hour=0), curentDate=datetime.datetime(year=2018, month=1, day=1,  hour=0))
+        self.assertEqual(dateOfUnfreeze, datetime.datetime(year=2018, month=1, day=10,  hour=22, minute=0))
+        self.assertEqual(frozen, True)
+        print(dateOfUnfreeze, frozen)
 
         self.assertEqual(False,True)
 if __name__ == '__main__':
