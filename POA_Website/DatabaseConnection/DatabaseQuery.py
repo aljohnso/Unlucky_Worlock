@@ -41,6 +41,23 @@ class Master_db_query(BaseQuery):
         else:
             ourAccount.admin = 0
         Schema.db.session.commit()
+    def updateTrip(self, form):
+        print("All data:")
+        print(form)
+        thisTrip = Schema.Trips.query.filter_by(id=form["id"]).first();
+        thisMaster = Schema.Master.query.filter_by(id=form["id"]).first();
+        print(thisTrip)
+        print(thisMaster)
+        if form["substancefree"] == True:
+            thisTrip.Substance_Free = 1
+        else:
+            thisTrip.Substance_Free = 0
+        thisMaster.Frozen = form["frozen"]
+        thisMaster.timeTillUnfreeze = int(form["thawtime"])
+        thisMaster.Participant_Cap = int(form["maxparticipants"])
+        thisMaster.Car_Cap = int(form["maxcars"])
+
+
 
 class Participant_manipulation_query(BaseQuery):
     def addParticipant(self, tempUser, isDriver, carSeats, masterID, isLeader, isOpenLeader):

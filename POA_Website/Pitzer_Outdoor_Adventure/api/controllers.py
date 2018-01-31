@@ -364,3 +364,19 @@ def updateUser():
         Master.query.updateUser(item, response["adminOut"])
     # print(response)
     return jsonify(result="success")
+
+@api.route("/updateTrip", methods=['POST', 'GET'])
+@login_required
+@admin_required
+def updateTrip():
+    response = request.get_json(force=True)
+    print(response)
+    # print("sick memes, bro")
+    # Write a custom query to update this particular trip with these new values.
+    # Then return success.
+    Master.query.updateTrip(response)
+    #
+    # for item in response["tripsOut"]:
+        # Master.query.updateUser(item, response["adminOut"])
+    # print(response)
+    return jsonify(result="success")
