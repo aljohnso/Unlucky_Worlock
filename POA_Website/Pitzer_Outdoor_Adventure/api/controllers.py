@@ -270,8 +270,9 @@ def deleteTrip(tripID):
         # Check to see if either the user has the admin privileges to delete a trip,
         # or that they are the last person on a trip when it is deleted.
         # tempTrip.delete() destroys participants too. (90% sure)
-        tempTrip.delete()
+        db.session.delete(tempTrip)
         db.session.commit()
+        return jsonify(status="success")
     else:
         return render_template('DisplayMessageModal.html',
                                message="You are not the last person on this trip. You must have admin privileges to perform this action.",

@@ -47,10 +47,10 @@ function CreateTripTable(tableID)
     $("#" + tableID + " tbody").on('click', 'tr', function()
     {
         console.log(table.row(this).data().id);
-        getTripModal(table.row(this).data().id);
+        getTripModal(table.row(this).data().id, table);
     });
 }
-function getTripModal(id)
+function getTripModal(id, table)
 {
     //console.log(id);
     $.get('/api/adminDialogueTrip/' + id)
@@ -74,6 +74,24 @@ function getTripModal(id)
             sendTripData(id);
             $('#generalizedModal').modal('hide');
         });
+        $("#deleteBtn").on("click", function ()
+        {
+            $.ajax
+            ({
+                type: "GET",
+                url: "/api/deleteTrip/" + id,
+                data: {},
+                success: function()
+                {
+                  console.log("success");
+                },
+                dataType: "json",
+                contentType: "json/application"
+            });
+            $('#generalizedModal').modal('hide');
+            table.ajax.reload();
+        });
+
         // $('#checkIn').on('click', function ()
         // {
         //     var checkbox = $(".itemCheckBox input:checkbox");
