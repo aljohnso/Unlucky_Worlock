@@ -1,0 +1,45 @@
+<div class="modal-header">
+    <h4 class="modal-title" align="center"><i>Admin Dialogue</i></h4>
+    <h6 class="modal-title" align="center"><i>{{ master.trip_name }}</i></h6>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    {# Display whether the trip is frozen, how long its frozen for, whether the trip #}
+    {# is substance-free, the max cars, the participant cap, and an option to delete the trip. #}
+    <div class="form-check">
+        <label class="form-check-label">
+            {% if master.Frozen == True %}
+                <input id="frozen" type="checkbox" class="form-check-input tripform" checked>
+            {% else %}
+                <input id="frozen" type="checkbox" class="form-check-input tripform">
+            {% endif %}
+            Freeze Trip
+        </label>
+    </div>
+    <div class="form-group">
+        <label for="thawtime">Time till thawing</label>
+        <input id="thawtime" type="text" class="form-control tripform" value={{ master.timeTillUnfreeze }}>
+    </div>
+    <div class="form-check">
+        <label class="form-check-label">
+            {% if trip.Substance_Free == True %}
+                <input id="substancefree" type="checkbox" class="form-check-input tripform" checked>
+            {% else %}
+                <input id="substancefree" type="checkbox" class="form-check-input tripform">
+            {% endif %}
+            Substance-Free
+        </label>
+    </div>
+    <div class="form-group">
+        <label for="maxparticipants">Maximum Participants</label>
+        <input id="maxparticipants" type="text" class="form-control tripform" value={{ master.Participant_Cap }}>
+    </div>
+    <div class="form-group">
+        <label for="maxcars">Maximum Cars</label>
+        <input id="maxcars" type="text" class="form-control tripform" value={{ master.Car_Cap }}>
+    </div>
+    <button id="submitBtnTrip" align="left" type="submit" class="btn btn-primary">Submit</button>
+    <button id="deleteBtn" align="right" type="button" class="btn btn-danger">Delete Trip</button>
+</div>

@@ -8,16 +8,21 @@ from DatabaseConnection import DataBaseSchema as Schema
 class Master_db_query(BaseQuery):
 
     def checkTrip(self, server_time = datetime.datetime.now()):
-            """
-            :param server_time: the current date can be changed for testing puropuses
-            :return: a list of Master objects that contain all trips that are going out
-            in the futre while the past ones have been deleted
-            """
-            expiredTrips = Schema.Master.query.filter(Schema.Master.Departure_Date <= server_time)#get all
-            for trip in expiredTrips:
-                Schema.db.session.delete(trip)#delete every trip and there childeren
-            Schema.db.session.commit()#commit changes
-            return Schema.Master.query.all()
+        """
+        :param server_time: the current date can be changed for testing puropuses
+        :return: a list of Master objects that contain all trips that are going out
+        in the futre while the past ones have been deleted
+        """
+        # Get all expired trips.
+        expiredTrips = Schema.Master.query.filter(Schema.Master.Departure_Date <= server_time - datetime.timedelta(days=1)).all()
+        print("expiered trips")
+        print(expiredTrips)
+        for trip in expiredTrips:
+            # Delete every trip and their children.
+            Schema.db.session.delete(trip)
+        # Commit changes.
+        Schema.db.session.commit()
+        return Schema.Master.query.all()
     def updateUser(self, update, isAdminNow):
         # ourTrip = Schema.Master.query.filter_by(id=update["tripID"]).first()
         print(update)
@@ -41,6 +46,24 @@ class Master_db_query(BaseQuery):
         else:
             ourAccount.admin = 0
         Schema.db.session.commit()
+    def updateTrip(self, form):
+        print("All data:")
+        print(form)
+        thisTrip = Schema.Trips.query.filter_by(id=form["id"]).first();
+        thisMaster = Schema.Master.query.filter_by(id=form["id"]).first();
+        print(thisTrip)
+        print(thisMaster)
+        if form["substancefree"] == True:
+            thisTrip.Substance_Free = 1
+        else:
+            thisTrip.Substance_Free = 0
+        thisMaster.Frozen = form["frozen"]
+        thisMaster.timeTillUnfreeze = int(form["thawtime"])
+        thisMaster.Participant_Cap = int(form["maxparticipants"])
+        thisMaster.Car_Cap = int(form["maxcars"])
+        Schema.db.session.commit()
+
+
 
 class Participant_manipulation_query(BaseQuery):
     def addParticipant(self, tempUser, isDriver, carSeats, masterID, isLeader, isOpenLeader):

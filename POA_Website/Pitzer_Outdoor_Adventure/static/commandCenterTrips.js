@@ -5,9 +5,6 @@ $(document).ready(function ()
 {
   //table
     CreateTripTable("tripsTable");
-    // $("#AddClient").bind('click', function(){
-    //     makeClientAddPop();
-    // });
 });
 
 
@@ -50,31 +47,123 @@ function CreateTripTable(tableID)
     $("#" + tableID + " tbody").on('click', 'tr', function()
     {
         console.log(table.row(this).data().id);
-        getTripModal(table.row(this).data().id);
+        getTripModal(table.row(this).data().id, table);
     });
 }
-function getTripModal(id)
+function getTripModal(id, table)
 {
     //console.log(id);
-    $.get('/api/adminDialogue/' + id)
+    $.get('/api/adminDialogueTrip/' + id)
     .done(function(data)
     {
         $('#message-model-content').html(data);
        // setDropDown(data["data"]);
         $('#generalizedModal').modal('show');
-        console.log($(".form-check-input"));
-        $("#submitBtn").on("click", function ()
+        // console.log($(".form-check-input"));
+
+
+        $("#submitBtnTrip").on("click", function ()
         {
-            var trips = $(".form-check-input");
-            sendTripData(trips);
+            // console.log("Hi there!");
+            // var form1 = $(".form-check-input");
+            // var form2 = $(".form-control");
+            // var form = $("#tripform");
+            // var form = $(".tripform");
+            // sendTripData2(form1, form2);
+            // console.log(form);
+            sendTripData(id);
             $('#generalizedModal').modal('hide');
         });
+        $("#deleteBtn").on("click", function ()
+        {
+            $.ajax
+            ({
+                type: "GET",
+                url: "/api/deleteTrip/" + id,
+                data: {},
+                success: function()
+                {
+                  console.log("success");
+                },
+                dataType: "json",
+                contentType: "json/application"
+            });
+            $('#generalizedModal').modal('hide');
+            table.ajax.reload();
+        });
+
         // $('#checkIn').on('click', function ()
         // {
         //     var checkbox = $(".itemCheckBox input:checkbox");
         //     sendData(checkbox, data["ClientID"]);
         //     $('#user1Message').modal('toggle');
         // })
+    });
+}
+
+function parseTripForm(id)
+{
+    console.log("parse trips Form");
+    out = {};
+    // console.log($("#frozen")[0].checked);
+    // console.log($("#thawtime")[0].value);
+    // console.log($("#substancefree")[0].checked);
+    // console.log($("#maxcars")[0].value);
+    // console.log($("#maxparticipants")[0].value);
+    out["id"] = id;
+    out["frozen"] = $("#frozen")[0].checked;
+    out["thawtime"] = $("#thawtime")[0].value;
+    out["substancefree"] = $("#substancefree")[0].checked;
+    out["maxcars"] = $("#maxcars")[0].value;
+    out["maxparticipants"] = $("#maxparticipants")[0].value;
+    // Need to return something else, this is a short-stop.
+    return JSON.stringify(out);
+}
+
+function sendTripData(id)
+{
+    $.ajax
+    ({
+        type: "POST",
+        url: "/api/updateTrip",
+        data: parseTripForm(id),
+        success: function()
+        {
+          console.log("success");
+        },
+        dataType: "json",
+        contentType: "json/application"
+    });
+}
+
+// function parseTripForm2(form1, form2)
+// {
+//     console.log(form1);
+//     console.log(form2);
+//     out = {};
+//     out["frozen"] = form1["frozen"];
+//     out["thawtime"] = form2["thawtime"];
+//     out["substancefree"] = form1["substancefree"];
+//     out["maxcars"] = form2["maxcars"];
+//     out["maxparticipants"] = form2["maxparticipants"];
+//     out["thing"] = form1;
+//     // Need to return something else, this is a short-stop.
+//     return JSON.stringify(out);
+// }
+
+function sendTripData2(form1, form2)
+{
+    $.ajax
+    ({
+        type: "POST",
+        url: "/api/updateTrip",
+        data: parseTripForm2(form1, form2),
+        success: function()
+        {
+          console.log("success");
+        },
+        dataType: "json",
+        contentType: "json/application"
     });
 }
 

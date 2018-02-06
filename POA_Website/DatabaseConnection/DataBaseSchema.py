@@ -45,7 +45,7 @@ class Master(db.Model):
         assert inspect(Master).primary_key[0] is not None  # this may not do anything
 
     def __repr__(self):
-        return '<Trip %r> ' + str(self.Trip_Name) + str(self.Details_Short)
+        return '<Trip %r> ' + str(self.Trip_Name) + " "+ str(self.Details_Short)
 
     def accessData(self):
         dataDict = {

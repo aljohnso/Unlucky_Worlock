@@ -50,7 +50,7 @@ function CreateUserTable(tableID)
 function getUserModal(id)
 {
     //console.log(id);
-    $.get('/api/adminDialogue/' + id)
+    $.get('/api/adminDialogueUser/' + id)
     .done(function(data)
     {
         $('#message-model-content').html(data);
