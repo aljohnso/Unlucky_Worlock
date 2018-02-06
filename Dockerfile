@@ -1,6 +1,6 @@
 FROM tiangolo/uwsgi-nginx-flask:python3.5
 
-COPY ./POA_Website/requirements.txt /tmp/
+COPY ./requirements.txt /tmp/
 COPY ./POA_Website /app
 COPY ./POA_Website/Pitzer_Outdoor_Adventure/static /app/static
 
