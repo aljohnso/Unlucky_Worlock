@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+		<!-- Website CSS style -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        {# <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> #}
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+		<!-- Website Font style -->
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/static/ChangeProfile.css">
+
+		<!-- Google Fonts -->
+		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+
+		<title>Edit Account</title>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row main">
+                  <div class="col-md-6  toppad  pull-right col-md-offset-3 ">
+                      <a href={{ url_for('main.profile') }} class="btn btn-primary">Return without submitting</a>
+                  </div>
+				<div class="main-login main-center">
+				<h5><br>Edit Account Information</h5><h1></h1>
+                    <form action= "{{ url_for('main.editAccount') }}" method="post">
+                        {% import "bootstrap/wtf.html" as wtf %}
+                        {{ wtf.quick_form(form) }}
+                    </form>
+				</div>
+			</div>
+		</div>
+
+		 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+	</body>
+</html>

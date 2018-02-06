@@ -3,13 +3,13 @@ from DatabaseConnection.DatabaseSubmissionConstructors import ParticipantConstru
 
 class DatabaseConstructorTests(unittest.TestCase):
 
-    testParticipant_AJ = {'Participant': "alasdair Johnson",'Email': 'aljohnso@students.pitzer.edu', 'Phone': 9193975206, 'Driver': 1, 'Car_Capacity': 5}
+    testParticipant_AJ = {'Participant': "alasdair Johnson",'Email': 'aljohnso@students.pitzer.edu', 'Phone': 9193975206, 'driver': 1, 'Car_Capacity': 5}
     CorrecttestInput = {'Trip_Meeting_Place': 'Service Road', 'GearList': 'All the things', 'Coordinator_Phone': 9193975206,
-                 'Car_Capacity': 3, 'Return_Date': datetime.date(2016, 12, 12), 'Additional_Cost': '10',
+                 'Car_Capacity': 3, 'returnDate': datetime.date(2016, 12, 12), 'Additional_Cost': '10',
                  'Coordinator_Email': 'aljohnso@students.pitzer.edu', 'Cost_Breakdown': 'cash for strip club',
-                 'submit': True, 'Details': 'Turn up and climb', 'Car_Cap': 3, 'Substance_Free': False,
-                 'Trip_Location': 'National Conservation Area, Las Vegas', 'Departure_Date': datetime.date(2016, 10, 12),
-                        'Coordinator_Name': 'Alasdair Johnson', 'Trip_Name': 'Red Rocks', 'Trip_State': 'NV'}
+                 'submit': True, 'details': 'Turn up and climb', 'maxCars': 3, 'Substance_Free': False,
+                 'tripLocation': 'National Conservation Area, Las Vegas', 'departureDate': datetime.date(2016, 10, 12),
+                        'Coordinator_Name': 'Alasdair Johnson', 'tripName': 'Red Rocks', 'tripState': 'NV', 'driver':True}
     #Discribes a correct input from form
     IncorrecttestInput = {'Trip_Meeting_Place': 'Service Road', 'GearList': 'All the things', 'Coordinator_Phone': 9193975206,
                  'Car_Capacity': 3, 'Return_Date': datetime.date(2016, 12, 12), 'Additional_Cost': '10',
@@ -81,7 +81,21 @@ class DatabaseConstructorTests(unittest.TestCase):
 
     #TODO: consider when particpant raises keyerror case
 
+    def test_FindNextWensdayMeeting(self):
+        master = MasterConstructor(DatabaseConstructorTests.CorrecttestInput)
+        dateOfUnfreeze, frozen = master.FindNextWensdayMeeting(departureDate=datetime.datetime(year=2018, month=1, day=7,  hour=0), returnDate=datetime.datetime(year=2018, month=1, day=7,  hour=0), curentDate=datetime.datetime(year=2018, month=1, day=1,  hour=0))
+        self.assertEqual(dateOfUnfreeze, datetime.datetime(year=2018, month=1, day=2,  hour=22, minute=0))
+        self.assertEqual(frozen, True)
+        print(dateOfUnfreeze, frozen)
+        dateOfUnfreeze, frozen = master.FindNextWensdayMeeting(departureDate=datetime.datetime(year=2018, month=1, day=1,  hour=0), returnDate=datetime.datetime(year=2018, month=1, day=2, hour=0), curentDate=datetime.datetime(year=2018, month=1, day=1,  hour=0))
+        self.assertEqual(dateOfUnfreeze, None)
+        self.assertEqual(frozen, False)
+        print(dateOfUnfreeze, frozen)
+        dateOfUnfreeze, frozen = master.FindNextWensdayMeeting(departureDate=datetime.datetime(year=2018, month=1, day=11,  hour=0), returnDate=datetime.datetime(year=2018, month=1, day=11, hour=0), curentDate=datetime.datetime(year=2018, month=1, day=1,  hour=0))
+        self.assertEqual(dateOfUnfreeze, datetime.datetime(year=2018, month=1, day=10,  hour=22, minute=0))
+        self.assertEqual(frozen, True)
+        print(dateOfUnfreeze, frozen)
 
-
+        self.assertEqual(False,True)
 if __name__ == '__main__':
     unittest.main()

@@ -6,22 +6,22 @@
 </head>
 <body>
 <h1> {{ tripname.Trip_Name }}</h1>
-   {% for message in form.Participant.errors %}
-     <div>{{ message }}</div>
-      {% endfor %}
-      {% for message in form.Phone.errors %}
-     <div>{{ message }}</div>
-      {% endfor %}
-      {% for message in form.Driver.errors %}
-     <div>{{ message }}</div>
-      {% endfor %}
-      {% for message in form.Car_Capacity.errors %}
-     <div>{{ message }}</div>
-      {% endfor %}
+{#   {% for message in form.Participant.errors %}#}
+{#     <div>{{ message }}</div>#}
+{#      {% endfor %}#}
+{#      {% for message in form.Phone.errors %}#}
+{#     <div>{{ message }}</div>#}
+{#      {% endfor %}#}
+{#      {% for message in form.Driver.errors %}#}
+{#     <div>{{ message }}</div>#}
+{#      {% endfor %}#}
+{#      {% for message in form.Car_Capacity.errors %}#}
+{#     <div>{{ message }}</div>#}
+{#      {% endfor %}#}
 {% if tripname.Car_Num == tripname.Car_Cap %}
     <h3>Trip Full :(</h3>
-{% elif tripname.Participant_num <= tripname.Participant_cap - 1 or tripname.Participant_num == 0 %}
-    <form action= "{{ url_for('main.add_Participant', FormKey= tripname.id) }}" method="post">
+{% elif tripname.Participant_Num < tripname.Participant_Cap or tripname.Participant_Num == 0 %}
+    <form action= "{{ url_for('api.addParticipant', FormKey=tripname.id) }}" method="post">
 {#           {{ form.hidden_tag() }}<br>#}
 {#        {{ form.Participant.label }}<br>#}
 {#        {{ form.Participant}}#}
@@ -35,10 +35,10 @@
     {% import "bootstrap/wtf.html" as wtf %}
     {{ wtf.quick_form(form) }}
     </form>
-{% elif  tripname.Car_Num >= tripname.Car_Cap - 1 and tripname.Participant_num >= tripname.Participant_cap%}
+{% elif  tripname.Car_Num < tripname.Car_Cap and tripname.Participant_Num >= tripname.Participant_Cap%}
     <h3>Must be a driver to add</h3>
 
-<form action= "{{ url_for('main.add_Participant', FormKey= tripname.id) }}" method="post">
+<form action= "{{ url_for('api.addParticipant', FormKey= tripname.id) }}" method="post">
 {#           {{ form.hidden_tag() }}<br>#}
 {#        {{ form.Participant.label }}<br>#}
 {#        {{ form.Participant}}#}

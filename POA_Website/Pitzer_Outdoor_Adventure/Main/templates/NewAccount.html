@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+		<!-- Website CSS style -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        {# <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> #}
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+		<!-- Website Font style -->
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/static/ChangeProfile.css">
+
+		<!-- Google Fonts -->
+		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+
+		<title>Create Account</title>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row main">
+				<div class="main-login main-center">
+				<h5 text-align="center"><br>Create New Account</h5><h1></h1>
+                    <form action= "{{ url_for('main.makeAccount') }}" method="post">
+                        {% import "bootstrap/wtf.html" as wtf %}
+                        {{ wtf.quick_form(form) }}
+                    </form>
+				</div>
+			</div>
+		</div>
+
+		 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+	</body>
+</html>

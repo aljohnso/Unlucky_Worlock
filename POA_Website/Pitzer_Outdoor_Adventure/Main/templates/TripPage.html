@@ -1,78 +1,248 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>add varible for trip name</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+{% extends "Base.html" %}
 
-</head>
-<body>
-<h2> {{TripMeta.Trip_Name}}</h2>
-<a class="btn" href= {{ url_for('main.add_Participant', FormKey = TripMeta.id ) }} >Add to Trip</a>
-<ul>
-    <li>Departure Date</li>
-    <li>{{ TripMeta.Departure_Date }}</li>
-    <li>Return Date</li>
-    <li>{{ TripMeta.Return_Date }}</li>
-    <li>Prticpants </li>
-    <li>{{ TripMeta.Participant_num }}</li>
-    <li>Particpants cap</li>
-    <li>{{ TripMeta.Participant_cap }}</li>
-    <li>Car Cap</li>
-    <li>{{ TripMeta.Car_Cap }} </li>
-    <li> Cars</li>
-    <li>{{ TripMeta.Car_Num}} </li>
-    <li><h4>Details</h4></li>
-    <li>{{ Tripinfo.Details}} </li>
-    <li>Cordinator Name </li>
-    <li>{{ Tripinfo.Coordinator_Name}} </li>
-    <li>Cordinator Email </li>
-    <li>{{ Tripinfo.Coordinator_Email}} </li>
-    <li>Cordinator Phone </li>
-    <li>{{ Tripinfo.Coordinator_Phone}} </li>
-    <li>Gear List</li>
-    <li>{{ Tripinfo.Gear_List}} </li>
-    <li>Trip Meeting Place </li>
-    <li>{{ Tripinfo.Trip_Meeting_Place}} </li>
-    <li>Total Cost </li>
-    <li>{{ Tripinfo.Total_Cost}} </li>
-    <li>Cost Breakdown </li>
-    <li>{{ Tripinfo.Cost_BreakDown}} </li>
-    <li>Substance free </li>
-    <li>{{ Tripinfo.Substance_Free}} </li>
-{#    <li>weather</li>#}
-{#    <li>{{ Tripinfo.Weather_Forecast}} </li>#}
-</ul>
-    <h3> Particpants</h3>
-    <div class="row">
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/timecircles/1.5.3/TimeCircles.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/timecircles/1.5.3/TimeCircles.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/FormatTrip.css">
+    <script src="/static/TripScript.js"></script>
+    <style>
+        .trip-sidebar
+        {
+            /*height: 30px;*/  /* Can be anything. */
+            /*width: 120px;*/ /* Can also be anything, but will likely be overridden */
+            position: relative;
+            /* vvv From left to right. */
+            {% if TripMeta.Participant_Num <= TripMeta.Participant_Cap %}
+                background: linear-gradient(90deg, rgb(143,224,255) 100%, rgb(245,250,255) 100%);
+            {% else %}
+                background: linear-gradient(90deg, rgb(255,140,130) 100%, rgb(255,255,255) 100%);
+            {% endif %}
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+            padding: 10px 40px;
+            box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+        }
+    </style>
+{%  endblock %}
+
+{% block body %}
+<div class="container">
+<div clas="row">
+<br>
+ <h2 align="center">{{ TripMeta.Trip_Name }}</h2>
+    <div class="row align-items-start">
+
+    {# Do between 40 and 130 pixels (or something) for the bar, use some math and sigmoid functions! #}
+    <div class="col">
+    <div class="card">
+    <h3 class="card-header">Trip Overview</h3>
+      <div class="card-block">
+          <p>This trip departs on {{ TripMeta.Departure_Date.month }}-{{ TripMeta.Departure_Date.day }}-{{ TripMeta.Departure_Date.year }} and returns on {{ TripMeta.Return_Date.month }}-{{ TripMeta.Return_Date.day }}-{{ TripMeta.Return_Date.year }}.</p>
+          <p>Participants will meet at {{ Tripinfo.Trip_Meeting_Place}}.</p>
+        <ul></ul>
+        {% if Tripinfo.Substance_Free==1 %}
+            <p>This trip is substance free.</p>
+        {% else %}
+            <p> This trip is not substance free.</p>
+        {% endif %}
+        <p>POA will fund {{ TripMeta.Car_Cap }} car's for this trip</p>
+      </div>
+    </div>
+
+    </div>
+    <div class="col">
+        <div class="card">
+                    <h3 class="card-header">Coordinator Info</h3>
+      <div class="card-block">
+
+        <p class="card-text">The coordinator is the person to contact with any questions about this trip</p>
+          <table class="table table-hover">
+          <tbody>
+            <tr>
+              <th scope="row">Name:</th>
+              <td>{{ Coordinator.Participant }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Phone:</th>
+              <td>{{ Coordinator.Phone }}</td>
+
+            </tr>
+            <tr>
+              <th scope="row">Email:</th>
+              <td>{{ Coordinator.Email }}</td>
+            </tr>
+    </tbody>
+  </table>
+      </div>
+    </div>
+
+    </div>
+    <div class="col">
+    <div class="card trip-sidebar">
+      <div class="card-block">
+         <h4 align="center" class="card-title">Trip Capacity</h4>
+
+                Participants
+                <div class="meterbar people" style="{{ "width: " + "160" + "px;" }}" data-toggle="tooltip" data-original-title={{ TripMeta.Participant_Num }}/{{ TripMeta.Participant_Cap }} data-placement="left">
+                    <span style="{{ "width: " + participantRatio + "%;" }}"></span>
+                </div>
+                <br>
+                Number of Cars
+                <div class="meterbar cars" style="{{ "width: " + "160" + "px;" }}" data-toggle="tooltip" data-original-title={{ TripMeta.Car_Num }}/{{ TripMeta.Car_Cap }} data-placement="left">
+                    <span style="   {{ "width: " + carRatio + "%;" }}"></span>
+                </div>
+                <br>
+                <h3 align="center">
+{#                rewrite all code to be handled by javascript #}
+                    {% if TripMeta.Frozen %}
+                        <a data-toggle="tooltip" data-original-title="This trip is frozen so that students can view it if you wish to have priority to sign up attend POA's wednesday meeting at 10PM in the gear closet. This trip will be unfrozen and you can sign up online" data-placement="bottom">Trip is frozen</a>
+                        <div id="timer" class="example" data-timer={{ TripMeta.timeTillUnfreeze }} data-toggle="tooltip" data-original-title="This trip will be frozen until 10PM on the next wednesday" ></div>
+                    {% else %}
+                        {% if userID=='' %}
+                            Log in to join this trip
+                        {% elif onTrip %}
+                        <a id="editParticipant" data-original-title="Edit your information" data-toggle="tooltip" role="button" class="btn btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true" style="color: white"></i></a>
+                            {% if youAreCoordinator %}
+                            <a id="cannotLeave" data-original-title="Leave this trip" data-toggle="tooltip" role="button" class="btn btn btn-danger"><i class="fa fa-times" aria-hidden="true" style="color: white"></i></a>
+                                {# Make a button that displays a modal, saying that the coordinator cannot leave the trip and must first pass on his/her duties. #}
+                            {% else %}
+                                <a href={{ url_for('api.removeParticipant', personID=userID, tripID=Tripinfo.Master_Key)}} data-original-title="Leave this trip" data-toggle="tooltip" role="button" class="btn  btn-danger"><i class="fa fa-times"></i></a>
+                            {% endif %}
+                        {% else %}
+                            <a role="button" class="btn btn-primary" id="addParticipant" style="color: white">Join Trip</a>
+                        {% endif %}
+                    {% endif %}
+                </h3>
+                <br>
+      </div>
+    </div>
+    </div>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                <h3>Trip Info</h3>
+            </div>
+            <div class="card-block">
+                <h4 class="card-title">Details:</h4>
+                <p class="card-text">{{ Tripinfo.Details}}</p>
+                <h4 class="card-title">Gear List:</h4>
+                <p class="card-text">{{ Tripinfo.Gear_List }}</p>
+{#                <h4 class="card-title">Total Cost</h4>#}
+{#                <p class="card-text">{{ Tripinfo.Total_Cost}}</p>#}
+{#                <h4 class="card-title">Cost Breakdown</h4>#}
+{#                <p class="card-text">{{ Tripinfo.Cost_BreakDown}}</p>#}
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+
+         <div class="card">
+            <div class="card-header">
+                <h3>Participation Costs</h3>
+            </div>
+            <div class="card-block">
+                  <table class="table table-hover">
+                    <thead>
+                        <th>Expenditure</th>
+                        <th>Ammount</th>
+                    </thead>
+                      <tbody>
+                        {% if not costs%}
+                        <tr>
+                          <td scope="row">None</td>
+                          <td>NA</td>
+                        </tr>
+                        {% else %}
+                            {% for key, value in costs.items() %}
+                                <tr>
+                                  <td scope="row">{{ key }}</td>
+                                  <td>{{ value }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<br>
+
+    <h3>Participants</h3>
+<div class="row">
+    <div class="col">
+
         <div class="panel panel-primary filterable">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Driver</th>
-                        <th>Car Capacity</th>
-                        <th>remove from trip</th>
+                        <th width="375px">Name</th>
+                        <th width="150px">Driver</th>
+                        <th width="110px">Car Capacity</th>
+                        <th width="240px" style="padding-right: 0px; text-align: right;">
+                            {% if onTrip %}
+                            Options
+                            {% endif %}
+                        </th>
+                        <th style="padding-left: 0px; text-align: left;"></th>
                     </tr>
                 </thead>
-                {% for TableRow in ParticpantInfo %}
+                {% for TableRow in ParticipantInfo %}
                 <tr>
-                    <td> {{ TableRow.Participant }}</td>
-                    {%  if TableRow.Driver=='True' or TableRow.Driver == 1 or TableRow == '1'%}
-                    <td> Yes</td>
+                    <td height="40px"> {{ TableRow.Participant }}</td>
+                    {% if TableRow.Driver=='True' or TableRow.Driver == 1 or TableRow == '1'%}
+                    <td>Yes</td>
                     <td>{{ TableRow.Car_Capacity }}</td>
                     {% else %}
                     <td>No</td>
-                    <td>NA</td>
+                    <td>N/A</td>
                     {% endif %}
-                    <td><a class="btn btn-danger" href={{ url_for('main.remove_particpant', id= TableRow.id ) }} role="button">X</a></td>
+                    {% if onTrip %}
+{#                         https://css-tricks.com/snippets/svg/shape-morphing-icons-button-click/#}
+{#                         ^^^ Use this to make these new stretchy buttons presentable.#}
+                        <td style="padding-right: 2px;">
+                            <div style="float: right;" class="extender extender160"><a href={{ "mailto:" + TableRow.Email }} role="button" class="btn btn-sm btn-primary extender extender160"><span class="centertoleft"><i class="fa fa-envelope-o" aria-hidden="true"></i></span><span class="righttocenter">Email this trip member</span></a></div>
+                            <p style="margin-top: 34px; margin-bottom: 0px;"></p>
+                            <div style="float: right;" class="extender extender200"><a role="button" class="btn btn-sm btn-default extender extender200"><span class="centertoleft"><i class="fa fa-list" aria-hidden="true"></i></span><span class="righttocenter">View allergies and diet restrictions</span></a></div>
+                        </td>
+{#                             Only allow the following if they've consented, if you're the coordinator, and they're not you.#}
+{#                             Make this button redirect you to a modal, with an "are you sure?" that appears before you actually throw away your coordinator status.#}
+                        <td style="padding-left: 2px;">
+                            {% if youAreCoordinator and TableRow.OpenLeader and userID != TableRow.accountID %}
+{#                                 Make the tooltips go left if the button is on the left, and right if the button is on the right. Never cover up other buttons with a tooltip.#}
+                                {% if youAreCoordinator and TableRow.OpenLeader and userID != TableRow.accountID and TripMeta.Frozen == False %}
+                                    {# Make the tooltips go left if the button is on the left, and right if the button is on the right. Never cover up other buttons with a tooltip. #}
+                                    <div style="float: left;" class="extender extender180"><a href={{ url_for('api.swapCoordinators', oldLeaderID=userID, newLeaderID=TableRow.accountID, tripID=Tripinfo.Master_Key) }} role="button" class="btn btn-sm btn-success extender extender180"><span class="centertoright"><i class="glyphicon glyphicon-king"></i></span><span class="lefttocenter">Designate as new coordinator</span></a></div>
+                                {% else %}
+                                    <div style="float: left;"><a class="btn btn-sm btn-success disabled"><i class="fa fa-star-o" aria-hidden="true"></i></a></div>
+                                {% endif %}
+                                <p style="margin-top: 34px; margin-bottom: 0px;"></p>
+                                {% if userID != TableRow.accountID %}
+                                    <div style="float: left;" class="extender extender100"><a role="button" class="btn btn-sm btn-info extender extender100"><span class="centertoright"><i class="fa fa-address-book-o" aria-hidden="true"></i></span><span class="lefttocenter">Send message</span></a></div>
+                                {% else %}
+                                    <a class="btn btn-sm btn-info disabled"><i class="fa fa-address-book-o" aria-hidden="true"></i></a>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    {% else %}
+                        <td style="padding-right: 2px; float: right;"></td>
+                        <td style="padding-left: 2px; float: left;"></td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
                 </tbody>
             </table>
-</body>
-</html>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

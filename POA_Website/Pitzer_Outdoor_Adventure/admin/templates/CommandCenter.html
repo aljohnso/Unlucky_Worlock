@@ -1,0 +1,69 @@
+{% extends "Base.html" %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.16/datatables.min.js"></script>
+    <script src="/static/commandCenterTrips.js"></script>
+    <script src="/static/commandCenterUsers.js"></script>
+{% endblock %}
+
+{% block body %}
+<div class="modal fade message-popup" id="generalizedModal" tabindex="-1" role="dialog" aria-labelledby="user1Message">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="message-model-content">
+            {# code gets inserted here #}
+        </div>
+    </div>
+</div>
+
+        <table class="table table-striped table-bordered" id="userTable">
+            <thead>
+                <th>
+                    Username
+                </th>
+                <th>
+                    Student ID
+                </th>
+                <th>
+                    Phone Number
+                </th>
+                <th>
+                    Email
+                </th>
+        {#        <th>#}
+        {#            Hi there#}
+        {#        </th>#}
+            </thead>
+            <tbody>
+        {#        #}
+            </tbody>
+        </table>
+
+          <table class="table table-striped table-bordered" id="tripsTable">
+            <thead>
+                <th>
+                    Trip Name
+                </th>
+                <th>
+                    Participant Cap
+                </th>
+                <th>
+                    Current Number of Participants
+                </th>
+                <th>
+                    Car Cap
+                </th>
+                <th>
+                    Current Number of cars
+                </th>
+                <th>
+                    Departure Date
+                </th>
+            </thead>
+            <tbody>
+        {#        #}
+            </tbody>
+        </table>
+
+
+{% endblock %}

@@ -4,7 +4,7 @@ from copy import deepcopy
 from flask_testing import TestCase
 from Pitzer_Outdoor_Adventure import app
 from DatabaseConnection.DataBaseSchema import db, Master, Participants, Trips, TripModel
-from DatabaseConnection.DatabaseQuery import POA_db_query
+from DatabaseConnection.DatabaseQuery import Master_db_query
 
 Inputs = {'testParticipant_AJ':{'Participant': "alasdair Johnson",
                       'Email': 'aljohnso@students.pitzer.edu', 'Phone':9193975206, 'Driver': 1, 'Car_Capacity': 5},
@@ -19,7 +19,7 @@ Inputs = {'testParticipant_AJ':{'Participant': "alasdair Johnson",
                     'Trip_Location': 'National Conservation Area, Las Vegas',
                     'Departure_Date': datetime.date(2016, 10, 12),
                     'Coordinator_Name': 'Alasdair Johnson', 'Trip_Name': 'Red Rocks', 'Trip_State': 'NV'},
-     'IncorrecttestInpuRedRocks' : {'Trip_Meeting_Place': 'Service Road', 'GearList': 'All the things',
+     'IncorrecttestInputRedRocks' : {'Trip_Meeting_Place': 'Service Road', 'GearList': 'All the things',
                       'Coordinator_Phone': 9193975206,
                       'Car_Capacity': 3, 'Return_Date': datetime.date(2016, 12, 12), 'Additional_Cost': 10,
                       'Coordinator_Email': 'aljohnso@students.pitzer.edu', 'Cost_Breakdown': 'cash for strip club',
