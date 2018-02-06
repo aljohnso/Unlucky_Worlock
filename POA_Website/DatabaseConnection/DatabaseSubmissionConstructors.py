@@ -46,17 +46,18 @@ class MasterConstructor:
         This method makes the assumption that departureDate and returnDate are after one and other
         as well as that they are relevant ie not making a trip back in the 90's
         """
-        daysTillNextMeeting = 0  # number of days till the next wensday meeting
+        days_till_next_meeting_foward = 0  # number of days till the next wensday meeting
         dateFrozenTill = datetime.datetime(year=departureDate.year, month=departureDate.month, day=departureDate.day, hour=22)
         while dateFrozenTill.weekday() != 2: #3 = wenseday
             dateFrozenTill += datetime.timedelta(days=1)
-            daysTillNextMeeting += 1
+            days_till_next_meeting_foward += 1
+
         if dateFrozenTill >= returnDate:
             frozen = False
         else:
             frozen = True
         print(departureDate)
-        print(dateFrozenTill, frozen, daysTillNextMeeting)
+        print(dateFrozenTill, frozen, days_till_next_meeting_foward)
         return dateFrozenTill, frozen
 
 

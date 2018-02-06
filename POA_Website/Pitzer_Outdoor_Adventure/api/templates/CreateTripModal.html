@@ -12,10 +12,10 @@
     <input name="tripName" class="form-control" required="" type="text">
 
     <label for="departureDate" data-toggle="tooltip" data-original-title="What date do you depart on this trip? (format is mm/dd/yyyy)" data-placement="left">Departure Date</label>
-    <input name="departureDate" class="form-control" required="" type="date">
+    <input name="departureDate" class="form-control " id="departureDate" required="" type="date">
 
     <label for="returnDate" data-toggle="tooltip" data-original-title="What date do you return from this trip? (format is mm/dd/yyyy)" data-placement="left">Return Date</label>
-    <input name="returnDate" class="form-control" required="" type="date">
+    <input name="returnDate" class="form-control" id="returnDate" required="" type="date">
 
     <label for="tripLocation" data-toggle="tooltip" data-original-title="Where are you going on this trip?" data-placement="left">Trip Location</label>
     <input name="tripLocation" class="form-control" required="" type="text">
@@ -125,7 +125,18 @@
 
 </form>
 </div>
+
+
 <script type="text/javascript">
+
+    if ( $('#departureDate')[0].type != 'date' )
+         alert("This browser is not supported cause it was to much work for Alasdair and he got board of browser specific bugs " +
+             "You should try using a supported browser like Firefox or Chrome");
+        $('#departureDate').datepicker();
+    if ( $('#returnDate')[0].type != 'date' )
+        $('#returnDate').datepicker();
+
+
     $(function ()
     {
         $('#openForm').parsley()

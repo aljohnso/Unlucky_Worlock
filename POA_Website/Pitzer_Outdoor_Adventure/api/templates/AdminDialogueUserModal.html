@@ -39,15 +39,17 @@
                         {% endif %}
                     </td>
                     <td>
-                        <select id={{ trip["trip"].id|string + "CarCapacity" }} multiple class="form-control">
-                            {% for iterator in range(0, 9) %}
-                                {% if trip["onTheTrip"] and trip["numSeats"] == iterator %}
-                                    <option selected value="{{ iterator }}">{{ iterator }}</option>
-                                {% else %}
-                                    <option value="{{ iterator }}">{{ iterator }}</option>
-                                {% endif %}
-                            {% endfor %}
-                        </select>
+                        <div class ="form-group">
+                            <select id={{ trip["trip"].id|string + "CarCapacity" }} class="form-control">
+                                {% for iterator in range(0, 9) %}
+                                    {% if trip["onTheTrip"] and trip["numSeats"] == iterator %}
+                                        <option selected value="{{ iterator }}">{{ iterator }}</option>
+                                    {% else %}
+                                        <option value="{{ iterator }}">{{ iterator }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
                     </td>
                 </tr>
             {% endfor %}
