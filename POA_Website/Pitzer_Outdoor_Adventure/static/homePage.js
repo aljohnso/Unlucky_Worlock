@@ -10,6 +10,7 @@
                                 console.log(data);
                 $('#message-model-content').html(data);
                 $("#generalizedModal").modal("show");
+                $('[data-toggle="tooltip"]').tooltip({container: "#generalizedModal"});
             });
         });
         $("#notLoggedIn").click(function ()
@@ -21,6 +22,7 @@
                 console.log(data);
                 $('#message-model-content').html(data);
                 $("#generalizedModal").modal("show");
+
             });
         })
     });

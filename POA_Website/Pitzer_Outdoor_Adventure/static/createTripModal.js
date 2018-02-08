@@ -29,3 +29,7 @@
         $('#returnDate').datepicker();}
     });
 
+$(function () {
+    console.log("creating tool tip");
+  $('[data-toggle="tooltip"]').tooltip()
+})
