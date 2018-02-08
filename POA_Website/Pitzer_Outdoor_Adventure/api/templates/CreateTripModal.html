@@ -1,4 +1,9 @@
 <script src="static/createTripModal.js"></script>
+<style>
+.tooltip{
+  z-index: 1151 !important;
+}
+</style>
 <div class="modal-header">
     <h5 class="modal-title">Create Trip</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -8,21 +13,21 @@
 <div class="modal-body">
 
 <form id="openForm" data-parsley-validate="" data-parsley-ui-enabled="true" data-parsley-errors-messages-disabled="true">
-    <label for="tripName" data-toggle="tooltip" data-original-title="Give your trip a name." data-placement="left">Trip Name</label>
-    <input name="tripName" class="form-control" required="" type="text">
+    <label for="tripName" >Trip Name</label>
+    <input name="tripName" class="form-control" required="" type="text" data-toggle="tooltip" title="Give your trip a name." data-placement="left">
 
-    <label for="departureDate" data-toggle="tooltip" data-original-title="What date do you depart on this trip? (format is mm/dd/yyyy)" data-placement="left">Departure Date</label>
-    <input name="departureDate" class="form-control " id="departureDate" required="" type="date">
+    <label for="departureDate" >Departure Date</label>
+    <input name="departureDate" class="form-control " id="departureDate" required="" type="date" data-toggle="tooltip" data-original-title="What date do you depart on this trip? (format is mm/dd/yyyy)" data-placement="left">
 
-    <label for="returnDate" data-toggle="tooltip" data-original-title="What date do you return from this trip? (format is mm/dd/yyyy)" data-placement="left">Return Date</label>
-    <input name="returnDate" class="form-control" id="returnDate" required="" type="date">
+    <label for="returnDate" >Return Date</label>
+    <input name="returnDate" class="form-control" id="returnDate" required="" type="date" data-toggle="tooltip" data-original-title="What date do you return from this trip? (format is mm/dd/yyyy)" data-placement="left">
 
-    <label for="tripLocation" data-toggle="tooltip" data-original-title="Where are you going on this trip?" data-placement="left">Trip Location</label>
-    <input name="tripLocation" class="form-control" required="" type="text">
+    <label for="tripLocation" >Trip Location</label>
+    <input name="tripLocation" class="form-control" required="" type="text" data-toggle="tooltip" data-original-title="Where are you going on this trip?" data-placement="left">
 
     <div class="form-group">
-        <label for="tripState" data-toggle="tooltip" data-original-title="In what state is your destination?" data-placement="left">Trip State</label>
-        <select name="tripState" class="form-control" required="">
+        <label for="tripState" >Trip State</label>
+        <select name="tripState" class="form-control" required="" data-toggle="tooltip" data-original-title="In what state is your destination?" data-placement="left">
             <option value="AL">Alabama</option>
             <option value="AK">Alaska</option>
             <option value="AZ">Arizona</option>
@@ -78,19 +83,19 @@
     </div>
     <p></p>
 
-    <label for="details" data-toggle="tooltip" data-original-title="Provide a short description of what your trip is about." data-placement="left">Details</label>
-    <textarea name="details" class="form-control" required="" type="text"></textarea>
+    <label for="details" >Details</label>
+    <textarea name="details" class="form-control" required="" type="text" data-toggle="tooltip" data-original-title="Provide a short description of what your trip is about." data-placement="left"></textarea>
 
-    <label for="gearList" data-toggle="tooltip" data-original-title="What gear will you need for this trip?" data-placement="left">Gear List</label>
-    <textarea name="gearList" class="form-control" required="" type="text"></textarea>
+    <label for="gearList" >Gear List</label>
+    <textarea name="gearList" class="form-control" required="" type="text" data-toggle="tooltip" data-original-title="What gear will you need for this trip?" data-placement="left"></textarea>
 
-    <label for="meetingPlace" data-toggle="tooltip" data-original-title="Where do you and your fellow trip-goers want to meet up before departing?" data-placement="left">Trip Meeting Place</label>
-    <input name="meetingPlace" class="form-control" required="" type="text">
+    <label for="meetingPlace" >Trip Meeting Place</label>
+    <input name="meetingPlace" class="form-control" required="" type="text" data-toggle="tooltip" data-original-title="Where do you and your fellow trip-goers want to meet up before departing?" data-placement="left">
 
-    <label for="costName" data-toggle="tooltip" data-original-title="(Don't enter gas as an expense, we've computed that for you)" data-placement="left">Cost Breakdown</label>
+    <label for="costName" data-toggle="tooltip" title="(Don't enter gas as an expense, we've computed that for you)" data-placement="left">Cost Breakdown</label>
     <div id="additionalCostBreakdownDiv" class="form-inline">
-        <input id="costName1" name="costName1" class="form-control" required="" type="text" placeholder="Name of Expense">
-        <input id="costMagnitude1" name="costMagnitude1" class="form-control" required="" type="text" placeholder="Cost" data-parsley-type="number">
+{#        <input id="costName1" name="costName1" class="form-control" required="" type="text" placeholder="Name of Expense">#}
+{#        <input id="costMagnitude1" name="costMagnitude1" class="form-control" required="" type="text" placeholder="Cost" data-parsley-type="number">#}
         <p id="para1"></p>
     </div>
     <p></p>
@@ -98,8 +103,8 @@
     <a role="button" id="deleteRow" class="btn btn-sm btn-warning" data-toggle="tooltip" data-original-title="Remove one expense from the table." data-placement="right"><i class="fa fa-minus fa-fw" aria-hidden="true"></i></a>
     <p></p>
 
-    <label for="maxCars" data-toggle="tooltip" data-original-title="How many cars, in total, are allowed on this trip?" data-placement="left">Maximum Cars</label>
-    <input name="maxCars" class="form-control" required="" type="text" data-parsley-type="digits">
+    <label for="maxCars" >Maximum Cars</label>
+    <input name="maxCars" class="form-control" required="" type="text" data-parsley-type="digits" data-toggle="tooltip" data-original-title="How many cars, in total, are allowed on this trip?" data-placement="left">
     <p></p>
 
     <div class="form-check">
@@ -116,8 +121,8 @@
         </label>
     </div>
     <p></p>
-    <label for="carCapacity" data-toggle="tooltip" data-original-title="How many people, including yourself, can your car hold?" data-placement="left">Car Capacity</label>
-    <input name="carCapacity" class="form-control" required="" type="text" value="{{ yourCarCapacity }}">
+    <label for="carCapacity" >Car Capacity</label>
+    <input name="carCapacity" class="form-control" required="" type="text" value="{{ yourCarCapacity }}" data-toggle="tooltip" data-original-title="How many people, including yourself, can your car hold?" data-placement="left">
 
 
     <br>
@@ -129,12 +134,7 @@
 
 <script type="text/javascript">
 
-    if ( $('#departureDate')[0].type != 'date' )
-         alert("This browser is not supported cause it was to much work for Alasdair and he got board of browser specific bugs " +
-             "You should try using a supported browser like Firefox or Chrome");
-        $('#departureDate').datepicker();
-    if ( $('#returnDate')[0].type != 'date' )
-        $('#returnDate').datepicker();
+
 
 
     $(function ()
