@@ -8,7 +8,7 @@ $(document).ready(function ()
     $("#addParticipant").click(function ()
     {
         console.log("clicked");
-        $.get('/api/addParticipant/' + tripID
+        $.get('/api/addParticipant/' + tripID)
         .done(function(data)
         {
             $('#message-model-content').html(data);
