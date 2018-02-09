@@ -13,7 +13,7 @@ $(document).ready(function ()
         {
             $('#message-model-content').html(data);
             $("#generalizedModal").modal("show");
-        }));
+        })
     });
     $("#cannotLeave").click(function ()
     {
