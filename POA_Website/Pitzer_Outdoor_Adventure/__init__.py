@@ -29,7 +29,6 @@ app.config.update(dict(
     MAIL_USE_SSL= True,
     MAIL_USERNAME= 'pzgearcloset@gmail.com',
     MAIL_PASSWORD= 'The clearest way into the Universe is through a forest wilderness',
-    SQLALCHEMY_DATABASE_URI='sqlite:///' + os.getcwd() + '/SQLAlchameyPOA.db'
     # MAIL_PASSWORD= 'In every walk with nature one receives far more than he seeks'
 ))
 mail.init_app(app)
