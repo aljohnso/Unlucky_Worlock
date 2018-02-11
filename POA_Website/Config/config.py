@@ -14,7 +14,7 @@ class BaseConfig(object):
         data["thisIsmenttoBreak"] += "breakMe"
     except:
         print('WARNING LOCAL DB IN USE AAAAAAAAAĀ')
-        SQLALCHEMY_DATABASE_URI = 'sqlite:///' + '/var/lib/docker/volumes/POAdb/_data/SQLAlchameyPOA.db'
+        SQLALCHEMY_DATABASE_URI = 'sqlite:///' + '/database/SQLAlchameyPOA.db'
     SECRET_KEY = str(uuid.uuid4())
 
 
@@ -38,7 +38,7 @@ class TestingConfig(BaseConfig):
 config = {
     "development": "Config.config.DevelopmentConfig",
     "testing": "Config.config.TestingConfig",
-    "default": "Config.config.DevelopmentConfig"
+    "default": "Config.config.BaseConfig"
 }
 
 def configure_app(app, config_name ):
