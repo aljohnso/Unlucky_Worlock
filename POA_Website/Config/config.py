@@ -14,7 +14,7 @@ class BaseConfig(object):
         data["thisIsmenttoBreak"] += "breakMe"
     except:
         print('WARNING LOCAL DB IN USE AAAAAAAAAĀ')
-        SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.getcwd() + '/SQLAlchameyPOA.db'
+        SQLALCHEMY_DATABASE_URI = 'sqlite:///' + '/var/lib/docker/volumes/POAdb/_data/SQLAlchameyPOA.db'
     SECRET_KEY = str(uuid.uuid4())
 
 
