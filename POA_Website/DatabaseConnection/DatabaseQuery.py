@@ -38,6 +38,15 @@ class Master_db_query(BaseQuery):
                 else:
                     ourParticipant.Driver = False
                     ourParticipant.Car_Capacity = 0
+                tempMaster = Schema.Master.query.filter_by(id=update["tripID"]).first()
+                if tempMaster is None:
+                    print("AAAAAAHHH THERE IS NO SUCH TRIP!")
+                driverList = Schema.Participants.query.filter_by(Master_Key=update["tripID"], Driver=True).all()
+                tempMaster.Car_Num = len(driverList)
+                sumCapacity = 0
+                for people in driverList:
+                    sumCapacity += people.Car_Capacity
+                tempMaster.Participant_Cap = sumCapacity
         else:
             if ourParticipant is not None:
                 Schema.Participants.query.removeParticipant(personID=ourAccount.googleNum, tripID=update["tripID"])
@@ -59,6 +68,8 @@ class Master_db_query(BaseQuery):
             thisTrip.Substance_Free = 0
         thisMaster.Frozen = form["frozen"]
         thisMaster.timeTillUnfreeze = int(form["thawtime"])
+        # Here is the broken part! It updates participant cap directly!
+        # Will be overridden in the future by changes to car capacities!
         thisMaster.Participant_Cap = int(form["maxparticipants"])
         thisMaster.Car_Cap = int(form["maxcars"])
         Schema.db.session.commit()

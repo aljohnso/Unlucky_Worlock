@@ -64,7 +64,7 @@ def tripPage(TripKey):
         if those.accountID == userID:
             onTrip = True
     # Check whether the current user, if they're logged in, is a coordinator.
-    if coordinator.accountID == userID:
+    if coordinator is not None and coordinator.accountID == userID:
         youAreCoordinator = True
     else:
         youAreCoordinator = False

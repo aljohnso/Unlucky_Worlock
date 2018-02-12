@@ -9,9 +9,9 @@
     <div class="form-check">
         <label class="form-check-label">
             {% if isAdmin == 1 %}
-                <input type="checkbox" class="form-check-input" checked>
+                <input id="adminOutBox" type="checkbox" class="form-check-input" checked>
             {% else %}
-                <input type="checkbox" class="form-check-input">
+                <input id="adminOutBox" type="checkbox" class="form-check-input">
             {% endif %}
             Make this user an admin
         </label>
@@ -24,11 +24,13 @@
                 <th scope="col">Trip Name</th>
                 <th scope="col">On trip?</th>
                 <th scope="col">Car Capacity</th>
+                <th scope="col">Is Admin?</th>
                 {# Do the trip locking elsewhere. #}
             </tr>
         </thead>
         <tbody>
             {% for trip in trips %}
+                <div class="accountEditForm">
                 <tr>
                     <td>{{ trip["trip"].Trip_Name }}</td>
                     <td>
@@ -51,9 +53,17 @@
                             </select>
                         </div>
                     </td>
+                <td>
+                    {% if trip["onTheTrip"] %}
+                        <input id={{ trip["trip"].id|string + "IsCoordinator" }} type="checkbox" class="form-check-input" checked>
+                    {% else %}
+                        <input id={{ trip["trip"].id|string + "IsCoordinator" }} type="checkbox" class="form-check-input">
+                    {% endif %}
+                </td>
                 </tr>
+                </div>
             {% endfor %}
         </tbody>
     </table>
-    <button id="submitBtn"  type="button" class="btn btn-primary">Submit</button>
+    <button id="submitBtn" type="button" class="btn btn-primary">Submit</button>
 </div>

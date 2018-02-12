@@ -1,21 +1,11 @@
 /**
  * Created by matth_000 on 12/30/2017.
  */
+var tableOfTrips = {};
 $(document).ready(function ()
 {
   //table
-    CreateTripTable("tripsTable");
-});
-
-
-
-/**
- * Params tableID: the id of the table we which to create
- * returns: creates a table with modals yay
- */
-function CreateTripTable(tableID)
-{
-    var table = $("#" + tableID).DataTable({ //targets table and creates table
+    tableOfTrips = $("#tripsTable").DataTable({ //targets table and creates table
         "ajax": {
             "url": "/api/getTrips"
         },
@@ -44,15 +34,29 @@ function CreateTripTable(tableID)
             // }
         ]
     });
-    $("#" + tableID + " tbody").on('click', 'tr', function()
+    $("#tripsTable tbody").on('click', 'tr', function()
     {
-        console.log(table.row(this).data().id);
-        getTripModal(table.row(this).data().id, table);
+        console.log(tableOfTrips.row(this).data().id);
+        getTripModal(tableOfTrips.row(this).data().id);
     });
+    CreateTripTable("tripsTable");
+});
+
+
+
+/**
+ * Params tableID: the id of the table we which to create
+ * returns: creates a table with modals yay
+ */
+function CreateTripTable(tableID)
+{
+
+
 }
-function getTripModal(id, table)
+function getTripModal(id)
 {
     //console.log(id);
+    // id is the trip id (?).
     $.get('/api/adminDialogueTrip/' + id)
     .done(function(data)
     {
@@ -73,6 +77,7 @@ function getTripModal(id, table)
             // console.log(form);
             sendTripData(id);
             $('#generalizedModal').modal('hide');
+            tableOfTrips.ajax.reload();
         });
         $("#deleteBtn").on("click", function ()
         {
@@ -89,7 +94,7 @@ function getTripModal(id, table)
                 contentType: "json/application"
             });
             $('#generalizedModal').modal('hide');
-            table.ajax.reload();
+            tableOfTrips.ajax.reload();
         });
 
         // $('#checkIn').on('click', function ()

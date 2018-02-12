@@ -46,7 +46,7 @@
         {% else %}
             <p> This trip is not substance free.</p>
         {% endif %}
-        <p>POA will fund {{ TripMeta.Car_Cap }} car's for this trip</p>
+        <p>POA will fund {{ TripMeta.Car_Cap }} cars for this trip.</p>
       </div>
     </div>
 
@@ -56,24 +56,40 @@
                     <h3 class="card-header">Coordinator Info</h3>
       <div class="card-block">
 
-        <p class="card-text">The coordinator is the person to contact with any questions about this trip</p>
-          <table class="table table-hover">
-          <tbody>
-            <tr>
-              <th scope="row">Name:</th>
-              <td>{{ Coordinator.Participant }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Phone:</th>
-              <td>{{ Coordinator.Phone }}</td>
+        <p class="card-text">The coordinator is the person to contact with any questions about this trip.</p>
+            {% if Coordinator!=None %}
+                  <table class="table table-hover">
+                  <tbody>
+                    <tr>
+                      <th scope="row">Name:</th>
+                      <td>{{ Coordinator.Participant }}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Phone:</th>
+                      <td>{{ Coordinator.Phone }}</td>
 
-            </tr>
-            <tr>
-              <th scope="row">Email:</th>
-              <td>{{ Coordinator.Email }}</td>
-            </tr>
-    </tbody>
-  </table>
+                    </tr>
+                    <tr>
+                      <th scope="row">Email:</th>
+                      <td>{{ Coordinator.Email }}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+            {% else %}
+                <table class="table table-hover">
+                <tbody>
+                    <tr>
+                        <th scope="row"></th>
+                        <td>
+                            {# Format this better, please! #}
+                            NO COORDINATOR
+                            <p class="card-text">There is no coordinator currently assigned to this trip.</p>
+                        </td>
+                    </tr>
+                </tbody>
+                </table>
+{#                <h1>NO COORDINATOR</h1>#}
+            {% endif %}
       </div>
     </div>
 

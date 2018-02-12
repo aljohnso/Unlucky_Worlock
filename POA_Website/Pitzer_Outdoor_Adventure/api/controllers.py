@@ -217,6 +217,11 @@ def getTrips():
     tripList = Master.query.all()
     return jsonify(data=[i.serializeTrip for i in tripList])
 
+@api.route("/getTripIDs")
+def getTripIDs():
+    tripList = Master.query.all()
+    return jsonify(data=[i.serializeTrip for i in tripList])
+
 @api.route("/makeAdmin/<userNum>")
 @login_required
 @admin_required
@@ -359,6 +364,8 @@ def updateUserAccount():
 @login_required
 @admin_required
 def updateUser():
+    # Changes the information of a single person in all their "participants"
+    # across every trip that exists.
     response = request.get_json(force=True)
     print(response)
     for item in response["tripsOut"]:
