@@ -38,7 +38,7 @@ class TestingConfig(BaseConfig):
 config = {
     "development": "Config.config.DevelopmentConfig",
     "testing": "Config.config.TestingConfig",
-    "default": "Config.config.DevelopmentConfig"
+    "default": "Config.config.BaseConfig"
 }
 
 def configure_app(app, config_name ):
