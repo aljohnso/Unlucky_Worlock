@@ -220,7 +220,10 @@ def getTrips():
 @api.route("/getTripIDs")
 def getTripIDs():
     tripList = Master.query.all()
-    return jsonify(data=[i.serializeTrip for i in tripList])
+    listOfIDs = []
+    for trips in tripList:
+        listOfIDs.append(trips.id)
+    return jsonify(data=listOfIDs)
 
 @api.route("/makeAdmin/<userNum>")
 @login_required
