@@ -47,6 +47,11 @@ class Master_db_query(BaseQuery):
                 for people in driverList:
                     sumCapacity += people.Car_Capacity
                 tempMaster.Participant_Cap = sumCapacity
+            if update["isCoordinator"]:
+                previousCoordinator = Schema.Participants.query.filter_by(Leader=True, Master_Key=update["tripID"]).first()
+                if previousCoordinator is not None:
+                    previousCoordinator.Leader = False
+                ourParticipant.Leader = True
         else:
             if ourParticipant is not None:
                 Schema.Participants.query.removeParticipant(personID=ourAccount.googleNum, tripID=update["tripID"])
@@ -81,6 +86,7 @@ class Participant_manipulation_query(BaseQuery):
         """
         stuff
         """
+        print("You were added.")
         # TODO: THE BELOW TODO IS REALLY IMPORTANT, because you have so many stupid arguments in this function that
         # TODO: cont. ... COULD BE BETTER ADDRESSED IN CONTROLLERS' addParticipant!!!
         # TODO: Write a function to do all this stuff in the else case that uses the decorated login protector.

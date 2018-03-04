@@ -93,7 +93,9 @@ function parseTripsParseHelper(data, id) {
         var idNum = data.data[i];
         console.log(idNum);
         var update = {};
-        if ($("#" + idNum + "OnTrip").checked)
+        console.log("put me on the trip");
+        console.log($("#" + idNum + "OnTrip")[0].checked);
+        if ($("#" + idNum + "OnTrip")[0].checked)
         {
             update["add"] = true;
         }
@@ -121,6 +123,7 @@ function parseTripsParseHelper(data, id) {
             update["isCoordinator"] = false;
         }
         update["userID"] = parseInt(id);
+        update["tripID"] = idNum;
         out["tripsOut"].push(update);
     }
     console.log("Hey there, mateys.");
