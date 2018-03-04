@@ -370,7 +370,7 @@ def updateUser():
     # Changes the information of a single person in all their "participants"
     # across every trip that exists.
     response = request.get_json(force=True)
-    print(response)
+    print("Response: ", response)
     for item in response["tripsOut"]:
         Master.query.updateUser(item, response["adminOut"])
     # print(response)

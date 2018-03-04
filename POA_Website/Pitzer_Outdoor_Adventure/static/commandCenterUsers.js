@@ -44,13 +44,13 @@ function CreateUserTable(tableID)
     $("#" + tableID + " tbody").on('click', 'tr', function()
     {
         console.log($(".accountEditForm").attributes);
-        var allTrips = $(".accountEditForm").attributes;
+        // var allTrips = $(".accountEditForm").attributes;
         // console.log(table.row(this).data().id);
-        getUserModal(table.row(this).data().id, allTrips);
+        getUserModal(table.row(this).data().id);
     });
 
 }
-function getUserModal(id, allTrips)
+function getUserModal(id)
 {
     //console.log(id);
     // id is the user id (?).
@@ -64,7 +64,7 @@ function getUserModal(id, allTrips)
         {
             // var trips = $(".form-check-input");
             //var tripLength = $(".form-check-input").length;
-            sendData(id, allTrips);
+            parseTrips(id);
             $('#generalizedModal').modal('hide');
             tableOfTrips.ajax.reload();
             console.log("Made the table reload.");
@@ -72,63 +72,69 @@ function getUserModal(id, allTrips)
     });
 }
 
-function parseTrips(id, allTrips)
+function parseTrips(id)
 {
-    out = {};
-    $.get("/api/getTripIDs").done(
-    function (data)
-    {
-        console.log(data.data);
-        out["adminOut"] = $("#adminOutBox")[0].checked;
-        out["tripsOut"] = [];
-        console.log("Trips are below:");
-        for (var i = 0; i < data.data.length; i++)
-        {
-            var idNum = data.data[i];
-            console.log(idNum);
-            var update = {};
-            if ($("#" + idNum + "OnTrip").checked)
-            {
-                update["add"] = true;
-            }
-            else
-            {
-                update["add"] = false;
-            }
-            console.log("#" + idNum + "CarCapacity");
-            console.log($("#" + idNum + "CarCapacity"));
-            var carCapacity = $("#" + idNum + "CarCapacity")[0].value;
-            if (carCapacity == "")
-            {
-                update["carCapacity"] = 0;
-            }
-            else
-            {
-                update["carCapacity"] = parseInt(carCapacity);
-            }
-            if ($("#" + idNum + "IsCoordinator").checked)
-            {
-                update["isCoordinator"] = true;
-            }
-            else
-            {
-                update["isCoordinator"] = false;
-            }
-            update["userID"] = parseInt(id);
-            out["tripsOut"].push(update);
-        }
-    console.log(out);
+    parseTripsGetHelper(function (data) {
+        parseTripsParseHelper(data, id);
     });
-    return JSON.stringify(out);
+}
+function parseTripsGetHelper(callback) {
+    $.get("/api/getTripIDs", callback);
 }
 
-function sendData(id, allTrips)
+function parseTripsParseHelper(data, id) {
+    out = {};
+    console.log(data.data);
+    out["adminOut"] = $("#adminOutBox")[0].checked;
+    out["tripsOut"] = [];
+    console.log("Trips are below:");
+    for (var i = 0; i < data.data.length; i++)
+    {
+        var idNum = data.data[i];
+        console.log(idNum);
+        var update = {};
+        if ($("#" + idNum + "OnTrip").checked)
+        {
+            update["add"] = true;
+        }
+        else
+        {
+            update["add"] = false;
+        }
+        console.log("#" + idNum + "CarCapacity");
+        console.log($("#" + idNum + "CarCapacity"));
+        var carCapacity = $("#" + idNum + "CarCapacity")[0].value;
+        if (carCapacity == "")
+        {
+            update["carCapacity"] = 0;
+        }
+        else
+        {
+            update["carCapacity"] = parseInt(carCapacity);
+        }
+        if ($("#" + idNum + "IsCoordinator").checked)
+        {
+            update["isCoordinator"] = true;
+        }
+        else
+        {
+            update["isCoordinator"] = false;
+        }
+        update["userID"] = parseInt(id);
+        out["tripsOut"].push(update);
+    }
+    console.log("Hey there, mateys.");
+    console.log(out);
+    var jsonOut = JSON.stringify(out);
+    sendData(jsonOut);
+}
+function sendData(data)
 {
     $.ajax
     ({
         type: "POST",
         url: "/api/updateUser",
-        data: parseTrips(id, allTrips),
+        data: data,
         success: function()
         {
           console.log("success");
