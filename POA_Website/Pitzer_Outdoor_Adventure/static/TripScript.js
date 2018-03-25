@@ -15,17 +15,17 @@ $(document).ready(function ()
             $("#generalizedModal").modal("show");
         })
     });
-    $("#cannotLeave").click(function ()
-    {
-        console.log("clicked");
-        $.get('/api/cannotLeave')
-        .done(function(data)
+        $("#cannotLeave").click(function ()
         {
-            console.log(data);
-            $('#message-model-content').html(data);
-            $("#generalizedModal").modal("show");
+            console.log("clicked");
+            $.get('/api/cannotLeave')
+            .done(function(data)
+            {
+                console.log(data);
+                $('#message-model-content').html(data);
+                $("#generalizedModal").modal("show");
+            });
         });
-    });
     $("#editParticipant").click(function ()
     {
         console.log("clicked");
