@@ -63,7 +63,7 @@ def addTrip():
             newSeats = 0
         # change TripModel to use new syntax.
         model = TripModel(data, tempUser)
-        Participants.query.addParticipant(tempUser, data["driver"], newSeats, model.master.id, True, False)
+        Participants.query.addParticipant(tempUser, data["driver"], newSeats, model.master.id)
         model.addModel()  # add trip to db
         db.session.commit()
         flash('New entry was successfully posted')
@@ -113,7 +113,7 @@ def addParticipant(FormKey):
             if newSeats <= 0 and tripInfo.Participant_Num >= tripInfo.Participant_Cap:
                 # The person has zero newSeats and tries to join a trip with maximum/over maximum people
                 return render_template('AddToTripModal.html', form=form, tripInfo=tripInfo, errorMessage="Due to the current size of this trip, you must be a driver with at least one car capacity to join.")
-            Participants.query.addParticipant(tempUser, isDriver, newSeats, int(FormKey), False, False)
+            Participants.query.addParticipant(tempUser, isDriver, newSeats, int(FormKey))
             flash('New entry was successfully posted')
             return "Successful"
             # return redirect(url_for('main.tripPage', TripKey=str(FormKey)))
@@ -264,7 +264,7 @@ def adminAddParticipant(FormKey, userNum):
                 newSeats = 0
             if newSeats == 0:
                 isDriver = False
-            Participants.query.addParticipant(tempUser, isDriver, newSeats, int(FormKey), False, False)
+            Participants.query.addParticipant(tempUser, isDriver, newSeats, int(FormKey))
             flash('New entry was successfully posted')
             return "Successful"
 
