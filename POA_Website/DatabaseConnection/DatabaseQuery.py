@@ -11,7 +11,7 @@ class Master_db_query(BaseQuery):
         """
         :param server_time: the current date can be changed for testing purposes
         :return: a list of Master objects that contain all trips that are going out
-        in the futre while the past ones have been deleted
+        in the future while the past ones have been deleted
         """
         # Get all expired trips.
         allTrips = Schema.Master.query.all()

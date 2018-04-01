@@ -5,9 +5,9 @@
 /**
  * EditAccount
  * sets up buttons to be able to update account without
- * page relode
- * this acomplished with buttons
- * editAccount- transforms td to input feilds and shows the savechanges buttons
+ * page reloaded
+ * this accomplished with buttons
+ * editAccount- transforms td to input fields and shows the savechanges buttons
  * saveChanges- saves the changes with ajax call to server from input feilds
  */
 function editAccount(){
@@ -106,4 +106,12 @@ function parseErrors(errors){
     }
 }
 
-
+function displayTripsModal()
+{
+    $.get("/api/tripDisplay")
+    .done(function(data)
+    {
+        $('#message-model-content').html(data);
+        $('#generalizedModal').modal('show');
+    });
+}

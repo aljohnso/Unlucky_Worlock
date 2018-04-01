@@ -179,6 +179,7 @@ def tripDisplay():
     listOfTrips = []
     for those in listOfParticipants:
         listOfTrips.append(Master.query.filter_by(id=those.Master_Key).first())
+    print(listOfTrips)
     return render_template('DisplayTripsModal.html', listOfTrips=listOfTrips)
 
 @api.route('/cannotLeave')

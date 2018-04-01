@@ -2,7 +2,7 @@
 
 {% block head %}
     <script src="/static/profileEdit.js"></script>
-    <script src="/static/UserProfile.js"></script>
+{#    <script src="/static/UserProfile.js"></script>#}
     <link rel="stylesheet" href="/static/UserProfile.css">
         <script>
         $(document).ready(function ()
@@ -18,8 +18,12 @@
                     $("#generalizedModal").modal("show");
                 });
             });
+            $("#displayTrips").click(function () {
+                 displayTripsModal();
+            });
             $("#saveChanges").hide();
             editAccount();
+            $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -29,16 +33,24 @@
 
 
 {% block body %}
-    <span hidden id={{ user.googleNum }} class="userID"></span>
+<div class="modal fade message-popup" id="generalizedModal" tabindex="-1" role="dialog" aria-labelledby="user1Message">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" id="message-model-content">
+            {# code gets inserted here #}
+        </div>
+    </div>
+</div>
+<span hidden id={{ user.googleNum }} class="userID"></span>
     <div class="fb-profile">
         <img align="left" class="fb-image-lg" src="static/tent.jpg" alt="Profile image example">
         <img align="left" class="fb-image-profile thumbnail" src={{ user.accessData()['picture'] }} alt="Profile image example" height={{ user.accessData()['id'] }}>
         <div class="fb-profile-text">
             <h1>{{ user.accessData()['username'] }}</h1>
                 <a href="{{ "mailto:" + "aljohnso@students.pitzer.edu" }}" data-original-title="Send Feedback to Website Developers!" data-toggle="tooltip" role="button" class="btn btn-sm btn-primary"><i class="fa fa-envelope-open"></i></a>
-                <a id="editAccount"  data-original-title="Edit Profile" data-toggle="tooltip" role="button" class="btn btn-sm btn-warning"><i class="fa fa-pencil-square-o"></i></a>
+                <a id="displayTrips" data-original-title="Display Your Trips" data-toggle="tooltip" role="button" class="btn btn-sm btn-success"><i class="fab fa-telegram-plane" style="color: white"></i></a>
+                <a id="editAccount" data-original-title="Edit Profile" data-toggle="tooltip" role="button" class="btn btn-sm btn-warning"><i class="far fa-edit"></i></a>
                 <a href={{ url_for('main.logout') }} data-original-title="Logout" data-toggle="tooltip" role="button" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
-            <a id="saveChanges"  data-original-title="Save changes" data-toggle="tooltip" role="button" class="btn btn-sm btn-success "><i class="fa fa-check" style="color: white"></i></a>
+            <a id="saveChanges" data-original-title="Save changes" data-toggle="tooltip" role="button" class="btn btn-sm btn-success "><i class="fa fa-check" style="color: white"></i></a>
         </div>
     </div>
     <div class="container">
