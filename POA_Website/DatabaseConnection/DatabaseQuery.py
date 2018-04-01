@@ -7,15 +7,23 @@ from DatabaseConnection import DataBaseSchema as Schema
 
 class Master_db_query(BaseQuery):
 
-    def checkTrip(self, server_time = datetime.datetime.now()):
+    def checkTrip(self, server_time = datetime.date.today()):
         """
-        :param server_time: the current date can be changed for testing puropuses
+        :param server_time: the current date can be changed for testing purposes
         :return: a list of Master objects that contain all trips that are going out
         in the futre while the past ones have been deleted
         """
         # Get all expired trips.
+        allTrips = Schema.Master.query.all()
+        #server_time = datetime.datetime.now()  <-- Old code
         expiredTrips = Schema.Master.query.filter(Schema.Master.Departure_Date <= server_time - datetime.timedelta(days=1)).all()
-        print("expiered trips")
+        print("Trip Cutoff Time:")
+        print(server_time - datetime.timedelta(days=1))
+        for trip in allTrips:
+            print("Trip Info:")
+            print(trip.Departure_Date <= server_time - datetime.timedelta(days=1))
+            print(trip.Departure_Date)
+        print("Expired trips:")
         print(expiredTrips)
         for trip in expiredTrips:
             # Delete every trip and their children.
