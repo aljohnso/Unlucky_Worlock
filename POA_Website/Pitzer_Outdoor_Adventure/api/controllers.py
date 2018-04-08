@@ -333,7 +333,7 @@ def adminDialogueUser(userID):
             tempTwins["numSeats"] = 0
         coupledTrips.append(copy.deepcopy(tempTwins))
     #print(coupledTrips)
-    return render_template("AdminDialogueUserModal.html", trips=coupledTrips, userID=userID, isAdmin=ourAccount.admin)
+    return render_template("AdminDialogueUserModal.html", userName=ourAccount.username, trips=coupledTrips, userID=userID, isAdmin=ourAccount.admin)
 
 @api.route("/adminDialogueTrip/<tripID>", methods=['POST', 'GET'])
 @login_required

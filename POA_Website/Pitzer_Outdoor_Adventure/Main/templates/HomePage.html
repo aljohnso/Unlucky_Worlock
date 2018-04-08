@@ -36,33 +36,32 @@
                     students of all backgrounds and identities to gain access to the outdoors.
                 </p>
                 <p>
-                    Bellow you will see a list of the trips that are going out in the future
+                    Below you will see a list of the trips that are going out in the future
                 </p>
             </div>
         </div>
         {% for Row in entries %}
-        <div class="row" >
-
-        <a name="trips"></a>
-            <div class="card-deck">
-            {% for card in Row %}
-                 <div class="col">
-            <div  class="card">
-                <div class="card-block">
-                    <div class="card-body">
-                          <h4 class="card-title"><a href={{ url_for('main.tripPage', TripKey = card.id)}}>{{ card.Trip_Name}}</a></h4>
-                          <p class="card-text"> Details: {{ card.Details_Short  }}</p>
-                          <p class="card-text">Departure Date: {{  card.Return_Date }}</p>
-                          <p class="card-text"><small class="text-muted">Number of spaces left: {{  card.Participant_Cap - card.Participant_Num }}</small></p>
+            <div class="row" >
+                <a name="trips"></a>
+                <div class="card-deck">
+                    {% for card in Row %}
+{#                 <div class="col">#}
+                        <div class="edgeFix">
+                            <div  class="card">
+                                <div class="card-block">
+                                    <div class="card-body">
+                                        <h4 class="card-title"><a href={{ url_for('main.tripPage', TripKey = card.id)}}>{{ card.Trip_Name}}</a></h4>
+                                        <p class="card-text"> Details: {{ card.Details_Short  }}</p>
+                                        <p class="card-text">Departure Date: {{  card.Return_Date }}</p>
+                                        <p class="card-text"><small class="text-muted">Number of spaces left: {{  card.Participant_Cap - card.Participant_Num }}</small></p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    {% endfor %}
+                </div>
             </div>
-          </div>
-            {% endfor %}
-            </div>
-        </div>
         {% endfor %}
-
     </div>
 {% endblock %}
 
