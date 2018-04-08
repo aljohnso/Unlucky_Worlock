@@ -38,6 +38,7 @@
 }
 
 .edgeFix{
+    /* This implements the class "col", but it doesn't break in Edge because of the commented line. */
     -ms-flex-preferred-size: 0;
     /* flex-basis: 0px; */
     -webkit-box-flex: 1;
