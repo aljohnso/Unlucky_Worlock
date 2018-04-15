@@ -28,10 +28,10 @@
     });
 </script>
 <div class="modal-header">
-    <h5 class="modal-title">{{ tripInfo.Trip_Name }}</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
+    <h5 class="modal-title">{{ tripInfo.Trip_Name }}</h5>
 </div>
 <div class="modal-body">
     <form id="openForm" action= "{{ url_for('api.editParticipant', FormKey=tripInfo.id) }}" method="post">
