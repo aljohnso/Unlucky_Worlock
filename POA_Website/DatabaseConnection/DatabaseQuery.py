@@ -7,7 +7,7 @@ from DatabaseConnection import DataBaseSchema as Schema
 
 class Master_db_query(BaseQuery):
 
-    def checkTrip(self, server_time = datetime.date.today()):
+    def checkTrip(self, server_time = datetime.datetime.today()):
         """
         :param server_time: the current date can be changed for testing purposes
         :return: a list of Master objects that contain all trips that are going out

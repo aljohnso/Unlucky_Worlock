@@ -1,7 +1,8 @@
     $(document).ready(function ()
     {
+       console.log("loaded code for modal");
         var counter = 1;
-        $('[data-toggle="tooltip"]').tooltip();
+
         $("#addRow").click(function ()
         {
             counter++;

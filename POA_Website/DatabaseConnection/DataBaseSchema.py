@@ -15,8 +15,8 @@ class Master(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False, unique=True)
     Frozen = db.Column(db.Boolean)
     Trip_Name = db.Column(db.String(100))
-    Departure_Date = db.Column(db.Date)
-    Return_Date = db.Column(db.Date)
+    Departure_Date = db.Column(db.DateTime)
+    Return_Date = db.Column(db.DateTime)
     Details_Short = db.Column(db.String(100))
     Post_Time = db.Column(db.Date)
     Participant_Num = db.Column(db.Integer)
@@ -66,14 +66,14 @@ class Master(db.Model):
     @property
     def serializeTrip(self):
         out = self.accessData()
-        out['trip'] = "<span class='itemName'" + " id=" + str(self.id) + "><a  href='#'>" + self.Trip_Name + "</a></span>"#create tag for later use as jquery identifyer
+        out['trip'] = "<span class='itemName'" + " id=" + str(self.id) + "><a  href='#'>" + self.Trip_Name + "</a></span>"#create tag for later use as jquery identifier
         out["id"] = self.id
         return out
 
 
 class Trips(db.Model):
     """
-    Schema for the trips table contains detailed info for trips
+    Schema for the trips table, contains detailed info for trips.
     """
     __tablename__ = "Trips"
     query_class = Master_db_query

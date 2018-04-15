@@ -46,8 +46,10 @@ def addTrip():
             data["substanceFree"] = True
         else:
             data["substanceFree"] = False
-        data["departureDate"] = datetime.datetime.strptime(data["departureDate"], "%Y-%m-%d").date()
-        data["returnDate"] = datetime.datetime.strptime(data["returnDate"], "%Y-%m-%d").date()
+        print(data["departureDate"])
+        data["departureDate"] = datetime.datetime.strptime(data["departureDate"], "%Y-%m-%dT%H:%M")
+        data["returnDate"] = datetime.datetime.strptime(data["returnDate"], "%Y-%m-%dT%H:%M")
+        print(data["departureDate"])
         costDict = {}
         tempKeys = copy.deepcopy(list(data.keys()))
         for entry in tempKeys:
