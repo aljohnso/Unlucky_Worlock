@@ -37,7 +37,7 @@
             <div class="card">
                 <h3 class="card-header">Trip Overview</h3>
                 <div class="card-block">
-                    <p>This trip departs on {{ TripMeta.Departure_Date.month }}-{{ TripMeta.Departure_Date.day }}-{{ TripMeta.Departure_Date.year }} and returns on {{ TripMeta.Return_Date.month }}-{{ TripMeta.Return_Date.day }}-{{ TripMeta.Return_Date.year }}.</p>
+                    <p>This trip departs on {{ TripMeta.Departure_Date.month }}-{{ TripMeta.Departure_Date.day }}-{{ TripMeta.Departure_Date.year }} at {{ TripMeta.Departure_Date.strftime('%I:%M %p') }} and returns on {{ TripMeta.Return_Date.month }}-{{ TripMeta.Return_Date.day }}-{{ TripMeta.Return_Date.year }} at {{ TripMeta.Return_Date.strftime('%I:%M %p') }}.</p>
                     <p>Participants will meet at {{ Tripinfo.Trip_Meeting_Place}}.</p>
                     <ul></ul>
                     {% if Tripinfo.Substance_Free==1 %}

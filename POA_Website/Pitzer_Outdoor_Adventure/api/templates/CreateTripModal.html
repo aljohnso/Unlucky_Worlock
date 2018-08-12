@@ -99,7 +99,12 @@
     <p></p>
 
     <label for="maxCars" data-toggle="tooltip" data-original-title="How many cars, in total, are allowed on this trip?" data-placement="left">Maximum Cars</label>
-    <input name="maxCars" class="form-control" required="" type="text" data-parsley-type="digits">
+    <select name="maxCars" class="form-control" required="">
+        {% for i in range(1, 51) %}
+            <option value={{ i }}>{{ i }}</option>
+        {% endfor %}
+    </select>
+{#    <input name="maxCars" class="form-control" required="" type="text" data-parsley-type="digits">#}
     <p></p>
 
     <div class="form-check">
@@ -117,7 +122,16 @@
     </div>
     <p></p>
     <label for="carCapacity" data-toggle="tooltip" data-original-title="How many people, including yourself, can your car hold?" data-placement="left">Car Capacity</label>
-    <input name="carCapacity" class="form-control" required="" type="text" value="{{ yourCarCapacity }}">
+    <select name="carCapacity" class="form-control" required="" value="{{ yourCarCapacity }}">
+        {% for i in range(1, 9) %}
+            {% if i == yourCarCapacity %}
+                <option selected="selected" value={{ i }}>{{ i }}</option>
+            {% else %}
+                <option value={{ i }}>{{ i }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+{#    <input name="carCapacity" class="form-control" required="" type="text" value="{{ yourCarCapacity }}">#}
 
 
     <br>

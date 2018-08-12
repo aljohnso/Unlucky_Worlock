@@ -214,22 +214,23 @@ class Account_manipulation_query(BaseQuery):
         :return: 
         """
         out = {}
-        if not update['heightinput'].isdigit():
-            out['heightinput'] = "Height must be an number in inches, no units"
-        if not update['studentIDinput'].isdigit():
-            out['studentIDinput'] = "Student ID must be a number"
-        if not update["ageinput"].isdigit():
-            out["ageinput"] = "Age must be a number"
-        if not re.match("(\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]??\d{4}|\d{3}[-\.\s]??\d{4})", update['phoneNumerinput']):
-            out['phoneNumerinput'] = "Phone number must be of form 000-000-0000"
-        if not re.match("[^@]+@[^@]+\.[^@]+", update['emailinput']):
-            out['emailinput'] = "We do not recognize this as a valid email address"
+        if not update['heightInput'].isdigit():
+            out['heightInput'] = "Height must be an number in inches, no units"
+        if not update['studentIDInput'].isdigit():
+            out['studentIDInput'] = "Student ID must be a number"
+        if not update["ageInput"].isdigit():
+            out["ageInput"] = "Age must be a number"
+        if not re.match("(\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]??\d{4}|\d{3}[-\.\s]??\d{4})", update['phoneNumberInput']):
+            out['phoneNumberInput'] = "Phone number must be of form 000-000-0000"
+        if not re.match("[^@]+@[^@]+\.[^@]+", update['emailInput']):
+            out['emailInput'] = "We do not recognize this as a valid email address"
         if not out:
-            #If the dictionary is still empty ie it has no errors then build the response object.
-            user.height = update['heightinput']
-            user.email = update['emailinput']
-            user.studentIDNumber = update['studentIDinput']
-            user.age = update["ageinput"]
-            user.phoneNumber = update['phoneNumerinput']
+            #If the dictionary is still empty (i.e. it has no errors) then build the response object.
+            user.height = update['heightInput']
+            user.email = update['emailInput']
+            user.studentIDNumber = update['studentIDInput']
+            user.age = update["ageInput"]
+            user.phoneNumber = update['phoneNumberInput']
+            user.carCapacity = update['carCapacityInput']
             Schema.db.session.commit()
         return out

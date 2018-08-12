@@ -43,7 +43,8 @@
 <span hidden id={{ user.googleNum }} class="userID"></span>
 <div class="fb-profile">
     <img align="left" class="fb-image-lg" src="static/tent.jpg" alt="Profile image example">
-    <img align="left" class="fb-image-profile thumbnail" src={{ user.accessData()['picture'] }} alt="Profile image example" height={{ user.accessData()['id'] }}>
+    <img align="left" class="fb-image-profile thumbnail" src={{ user.accessData()['picture'] }} alt="Profile image example">
+    height={{ user.accessData()['id'] }}
     <div class="fb-profile-text">
         <h1>{{ user.accessData()['username'] }}</h1>
         <a href="{{ "mailto:" + "aljohnso@students.pitzer.edu" }}" data-original-title="Send Feedback to Website Developers!" data-toggle="tooltip" role="button" class="btn btn-sm btn-primary"><i class="fa fa-envelope-open"></i></a>
@@ -66,8 +67,9 @@
                         <td>Email</td>
                         <td class="UserInfo" id="email">{{ user.accessData()['email'] }}</td>
                     </tr>
+                    <tr>
                         <td>Phone Number</td>
-                        <td class="UserInfo" id="phoneNumer">{{ user.accessData()['phoneNumber'] }}</td>
+                        <td class="UserInfo" id="phoneNumber">{{ user.accessData()['phoneNumber'] }}</td>
                     </tr>
                     <tr>
                         <td>Age</td>

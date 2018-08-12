@@ -359,6 +359,7 @@ def updateUserAccount():
     print(response)
     user = Account.query.filter_by(googleNum=response["googleNum"]).first()
     error = Account.query.updateAccount(response, user) # updates account and checks for type errors
+    print(error)
     db.session.commit()
     if error:
         return jsonify(status="error", user=Account.query.filter_by(googleNum=response["googleNum"]).first().accessData(), errors=error)
