@@ -3,13 +3,19 @@
     <head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-		<!-- Website CSS style -->
-		<link href="css/bootstrap.min.css" rel="stylesheet">
 
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        {# <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> #}
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet" media="all">
+      <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+{#    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>#}
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+        <script src="/static/createAccount.js"></script>
+
 
 		<!-- Website Font style -->
 	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
@@ -26,9 +32,68 @@
 			<div class="row main">
 				<div class="main-login main-center">
 				<h5 text-align="center"><br>Create New Account</h5><h1></h1>
-                    <form action= "{{ url_for('main.makeAccount') }}" method="post">
-                        {% import "bootstrap/wtf.html" as wtf %}
-                        {{ wtf.quick_form(form) }}
+{#                    <form action= "{{ url_for('main.makeAccount') }}" method="post">#}
+{#                        {% import "bootstrap/wtf.html" as wtf %}#}
+{#                        {{ wtf.quick_form(form) }}#}
+{#                    </form>#}
+                    <form id="createAccountForm" data-parsley-validate="" data-parsley-ui-enabled="true" data-parsley-errors-messages-disabled="true">
+                        <label for="FirstName_Box" data-toggle="tooltip" data-original-title="Enter your first name." data-placement="left">First Name</label>
+                        <input name="FirstName_Box" class="form-control" id="FirstName_Box" required="" type="text">
+
+                        <label for="LastName_Box" data-toggle="tooltip" data-original-title="Enter your last name." data-placement="left">Last Name</label>
+                        <input name="LastName_Box" class="form-control" id="LastName_Box" required="" type="text">
+
+                        <label for="Email_Box" data-toggle="tooltip" data-original-title="Enter your email." data-placement="left">Email</label>
+                        <input name="Email_Box" class="form-control" id="Email_Box" required="" type="text">
+
+                        <label for="Age_Box" data-toggle="tooltip" data-original-title="Enter your age (years)." data-placement="left">Age</label>
+                        <input name="Age_Box" class="form-control" id="Age_Box" required="" type="number">
+
+                        <label for="Height_Box" data-toggle="tooltip" data-original-title="Enter your height (inches)." data-placement="left">Height</label>
+                        <input name="Height_Box" class="form-control" id="Height_Box" required="" type="number">
+
+                        <label for="Allergies_Box" data-toggle="tooltip" data-original-title="What are your allergies?" data-placement="left">Allergies</label>
+                        <select name="Allergies_Box" class="form-control" id="Allergies_Box" required="">
+                            <option value="None">None</option>
+                            <option value="Peanuts">Peanuts</option>
+                            <option value="Mangoes">Mangoes</option>
+                            <option value="Other">Other</option>
+                        </select>
+
+{#                    Maybe remove this second label?#}
+                        <label for="Other_Allergies_Box" data-toggle="tooltip" data-original-title="Enter your allergies here." data-placement="left">Allergies</label>
+                        <input name="Other_Allergies_Box" class="form-control" id="Other_Allergies_Box" required="" type="text">
+
+                        <label for="Diet_Restrictions_Box" data-toggle="tooltip" data-original-title="What, if any, are your diet restrictions?" data-placement="left">Dietary Restrictions</label>
+                        <select name="Diet_Restrictions_Box" class="form-control" id="Diet_Restrictions_Box" required="">
+                            <option value="None">None</option>
+                            <option value="Beef-free">Beef-free</option>
+                            <option value="Pork-free">Pork-free</option>
+                            <option value="Vegetarian">Vegetarian</option>
+                            <option value="Vegan">Vegan</option>
+                            <option value="Pescatarian">Pescatarian</option>
+                            <option value="Other">Other</option>
+                        </select>
+
+                        <label for="Other_Diet_Restrictions_Box" data-toggle="tooltip" data-original-title="Enter your dietary restrictions here." data-placement="left">Dietary Restrictions</label>
+                        <input name="Other_Diet_Restrictions_Box" class="form-control" id="Other_Diet_Restrictions_Box" required="" type="text">
+
+                        <label for="StudentIDNumber_Box" data-toggle="tooltip" data-original-title="Enter your student ID number." data-placement="left">Student ID #</label>
+                        <input name="StudentIDNumber_Box" class="form-control" id="StudentIDNumber_Box" required="" type="number">
+
+                        <label for="PhoneNumber_Box" data-toggle="tooltip" data-original-title="Enter your phone number." data-placement="left">Phone Number</label>
+                        <input name="PhoneNumber_Box" class="form-control" id="PhoneNumber_Box" required="" type="text">
+
+                        <label for="CarCapacity_Box" data-toggle="tooltip" data-original-title="How many people, including yourself, can your car hold?" data-placement="left">Car Capacity</label>
+                        <select name="CarCapacity_Box" class="form-control" id="CarCapacity_Box" required="">
+                            {% for i in range(1, 9) %}
+                                <option value={{ i }}>{{ i }}</option>
+                            {% endfor %}
+                        </select>
+
+                        <br>
+                        <button type="submit" class="btn btn-primary" value="Create Account">Create Account</button>
+
                     </form>
 				</div>
 			</div>

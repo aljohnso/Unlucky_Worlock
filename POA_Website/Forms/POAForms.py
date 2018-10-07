@@ -117,6 +117,10 @@ class CreateAccountForm(FlaskForm):
     Email_Box = StringField("Email", [validators.DataRequired("Email Required")])
     Age_Box = IntegerField("Age", [validators.DataRequired("Age Required")])
     Height_Box = IntegerField("Height (inches)", [validators.DataRequired("Height Required")])
+    Allergies_Box = StringField("Allergies")
+    Diet_Restrictions_Box = SelectField("Dietary Restrictions", choices = [("None", "None"), ("Beef-free", "Beef-free"), ("Pork-free", "Pork-free"), ("Vegetarian", "Vegetarian"), ("Vegan", "Vegan"), ("Pescatarian", "Pescatarian")])
+    Other_Diet_Restrictions_Box = StringField("Other Dietary Restrictions")
+    # Beef-free, pork--free, vegetarian, vegan, pescatarian.
     StudentIDNumber_Box = IntegerField("Student ID #", [validators.DataRequired("Student ID Number Required")])
     PhoneNumber_Box = StringField("Phone Number", [validators.DataRequired("Phone Number Required"), CheckPhoneNumber()])
     CarCapacity_Box = StringField("Car Capacity", [validators.DataRequired("Car Capacity Required"), CheckDigit()])
