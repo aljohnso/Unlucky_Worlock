@@ -53,16 +53,32 @@
                         <input name="Height_Box" class="form-control" id="Height_Box" required="" type="number">
 
                         <label for="Allergies_Box" data-toggle="tooltip" data-original-title="What are your allergies?" data-placement="left">Allergies</label>
-                        <select name="Allergies_Box" class="form-control" id="Allergies_Box" required="">
-                            <option value="None">None</option>
-                            <option value="Peanuts">Peanuts</option>
-                            <option value="Mangoes">Mangoes</option>
-                            <option value="Other">Other</option>
-                        </select>
+{#                        <select name="Allergies_Box" class="form-control" id="Allergies_Box" required="">#}
+{#                            <option value="None">None</option>#}
+{#                            <option value="Peanuts">Peanuts</option>#}
+{#                            <option value="Mangoes">Mangoes</option>#}
+{#                            <option value="Other">Other</option>#}
+{#                        </select>#}
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="Allergy_Peanuts">
+                            <label class="form-check-label" for="Allergy_Peanuts">
+                                Peanuts
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="otherAllergies">
+                            <label class="form-check-label" for="otherAllergies">
+                                Others
+                            </label>
+                        </div>
 
 {#                    Maybe remove this second label?#}
-                        <label for="Other_Allergies_Box" data-toggle="tooltip" data-original-title="Enter your allergies here." data-placement="left">Allergies</label>
-                        <input name="Other_Allergies_Box" class="form-control" id="Other_Allergies_Box" required="" type="text">
+
+                        <div id="otherAllergiesDiv" class="form-inline">
+                        </div>
+{#                        <label for="Other_Allergies_Box" data-toggle="tooltip" data-original-title="Enter your allergies here." data-placement="left">Allergies</label>#}
+{#                        <input name="Other_Allergies_Box" class="form-control" id="Other_Allergies_Box" required="" type="text">#}
 
                         <label for="Diet_Restrictions_Box" data-toggle="tooltip" data-original-title="What, if any, are your diet restrictions?" data-placement="left">Dietary Restrictions</label>
                         <select name="Diet_Restrictions_Box" class="form-control" id="Diet_Restrictions_Box" required="">
@@ -72,11 +88,14 @@
                             <option value="Vegetarian">Vegetarian</option>
                             <option value="Vegan">Vegan</option>
                             <option value="Pescatarian">Pescatarian</option>
-                            <option value="Other">Other</option>
+                            <option id="Other" value="Other">Other</option>
                         </select>
 
-                        <label for="Other_Diet_Restrictions_Box" data-toggle="tooltip" data-original-title="Enter your dietary restrictions here." data-placement="left">Dietary Restrictions</label>
-                        <input name="Other_Diet_Restrictions_Box" class="form-control" id="Other_Diet_Restrictions_Box" required="" type="text">
+{#                        <label for="Other_Diet_Restrictions_Box" data-toggle="tooltip" data-original-title="Enter your dietary restrictions here." data-placement="left">Dietary Restrictions</label>#}
+{#                        <input name="Other_Diet_Restrictions_Box" class="form-control" id="Other_Diet_Restrictions_Box" required="" type="text">#}
+
+                        <div id="otherRestrictionsDiv" class="form-inline">
+                        </div>
 
                         <label for="StudentIDNumber_Box" data-toggle="tooltip" data-original-title="Enter your student ID number." data-placement="left">Student ID #</label>
                         <input name="StudentIDNumber_Box" class="form-control" id="StudentIDNumber_Box" required="" type="number">
