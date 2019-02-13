@@ -16,6 +16,19 @@ mail = Mail()
 #using decorators with flask_restful
 #http://flask.pocoo.org/snippets/129/
 
+# rewriting to crud
+# all forms need to post to a crud path this could pose some issues for forms that use
+# wtf forms but this tech is something I think we should move away from anyway
+# Create
+# Update
+# Delete
+# another problem is the ability to be able to make sure that users are authenticated
+# also then if the user has a admin credential
+# we could do some cool security stuff with salt and stuff and store the api keys
+# I think I should purchs wifi lets see how much it is yeah that's to expensive
+# Like wtf south west is so cheap comparatively
+
+
 api_bp = Blueprint(name='api', import_name=__name__)
 api = Api(api_bp)
 
@@ -60,7 +73,7 @@ class ApiTrip(Resource):
         """
         trip_table_info = Trips.query.filter_by(id=tripID).first().serialize
         master_table_info = Master.query.filter_by(id=tripID).first().serialize
-        info = {"Master" : master_table_info. "Trips" : trip_table_info}
+        info = {"Master" : master_table_info, "Trips" : trip_table_info}
         return jsonify(status=200, body=info, recordName="Trip")
 
     def post(self):
